@@ -1,0 +1,374 @@
+------Start of DE processing------ = [10/3/13 8:35:29:193 GMT] , key = javax.servlet.ServletException com.ibm.ws.webcontainer.servlet.ServletInstance.service 276
+Exception = javax.servlet.ServletException
+Source = com.ibm.ws.webcontainer.servlet.ServletInstance.service
+probeid = 276
+Stack Dump = javax.servlet.ServletException: Failed to obtain specified collection
+	at com.ibm.ws.webcontainer.jsp.servlet.JspServlet$JspServletWrapper.service(JspServlet.java:457)
+	at com.ibm.ws.webcontainer.jsp.servlet.JspServlet.serviceJspFile(JspServlet.java:739)
+	at com.ibm.ws.webcontainer.jsp.servlet.JspServlet.service(JspServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:853)
+	at com.ibm.ws.webcontainer.servlet.StrictServletInstance.doService(StrictServletInstance.java:110)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet._service(StrictLifecycleServlet.java:174)
+	at com.ibm.ws.webcontainer.servlet.IdleServletState.service(StrictLifecycleServlet.java:313)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet.service(StrictLifecycleServlet.java:116)
+	at com.ibm.ws.webcontainer.servlet.ServletInstance.service(ServletInstance.java:283)
+	at com.ibm.ws.webcontainer.servlet.ValidServletReferenceState.dispatch(ValidServletReferenceState.java:42)
+	at com.ibm.ws.webcontainer.servlet.ServletInstanceReference.dispatch(ServletInstanceReference.java:40)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.handleWebAppDispatch(WebAppRequestDispatcher.java:1166)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.dispatch(WebAppRequestDispatcher.java:676)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.forward(WebAppRequestDispatcher.java:203)
+	at org.apache.struts.action.RequestProcessor.doForward(RequestProcessor.java:1069)
+	at org.apache.struts.action.RequestProcessor.processForwardConfig(RequestProcessor.java:455)
+	at org.apache.struts.action.RequestProcessor.process(RequestProcessor.java:279)
+	at org.apache.struts.action.ActionServlet.process(ActionServlet.java:1482)
+	at org.apache.struts.action.ActionServlet.doGet(ActionServlet.java:507)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:740)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:853)
+	at com.ibm.ws.webcontainer.servlet.StrictServletInstance.doService(StrictServletInstance.java:110)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet._service(StrictLifecycleServlet.java:174)
+	at com.ibm.ws.webcontainer.servlet.IdleServletState.service(StrictLifecycleServlet.java:313)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet.service(StrictLifecycleServlet.java:116)
+	at com.ibm.ws.webcontainer.servlet.ServletInstance.service(ServletInstance.java:283)
+	at com.ibm.ws.webcontainer.servlet.ValidServletReferenceState.dispatch(ValidServletReferenceState.java:42)
+	at com.ibm.ws.webcontainer.servlet.ServletInstanceReference.dispatch(ServletInstanceReference.java:40)
+	at com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(WebAppFilterChain.java:76)
+	at cmc.com.ktnb.util.AuthenticationFilter.doFilter(AuthenticationFilter.java:98)
+	at com.ibm.ws.webcontainer.filter.FilterInstanceWrapper.doFilter(FilterInstanceWrapper.java:132)
+	at com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(WebAppFilterChain.java:71)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.handleWebAppDispatch(WebAppRequestDispatcher.java:1162)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.dispatch(WebAppRequestDispatcher.java:676)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.forward(WebAppRequestDispatcher.java:203)
+	at com.ibm.ws.webcontainer.srt.WebAppInvoker.doForward(WebAppInvoker.java:125)
+	at com.ibm.ws.webcontainer.srt.WebAppInvoker.handleInvocationHook(WebAppInvoker.java:300)
+	at com.ibm.ws.webcontainer.cache.invocation.CachedInvocation.handleInvocation(CachedInvocation.java:71)
+	at com.ibm.ws.webcontainer.cache.invocation.CacheableInvocationContext.invoke(CacheableInvocationContext.java:120)
+	at com.ibm.ws.webcontainer.srp.ServletRequestProcessor.dispatchByURI(ServletRequestProcessor.java:250)
+	at com.ibm.ws.webcontainer.oselistener.OSEListenerDispatcher.service(OSEListener.java:334)
+	at com.ibm.ws.webcontainer.http.HttpConnection.handleRequest(HttpConnection.java:56)
+	at com.ibm.ws.http.HttpConnection.readAndHandleRequest(HttpConnection.java:652)
+	at com.ibm.ws.http.HttpConnection.run(HttpConnection.java:448)
+	at com.ibm.ws.util.ThreadPool$Worker.run(ThreadPool.java:936)
+
+Dump of callerThis = 
+Object type = com.ibm.ws.webcontainer.servlet.ServletInstance
+com.ibm.ws.webcontainer.servlet.ServletInstance@71117111
+
+Exception = javax.servlet.ServletException
+Source = com.ibm.ws.webcontainer.servlet.ServletInstance.service
+probeid = 276
+Dump of callerThis = 
+Object type = com.ibm.ws.webcontainer.servlet.ServletInstance
+  _servletInstance = 
+    _servlet = 
+      METHOD_DELETE = DELETE
+      METHOD_HEAD = HEAD
+      METHOD_GET = GET
+      METHOD_OPTIONS = OPTIONS
+      METHOD_POST = POST
+      METHOD_PUT = PUT
+      METHOD_TRACE = TRACE
+      HEADER_IFMODSINCE = If-Modified-Since
+      HEADER_LASTMOD = Last-Modified
+      LSTRING_FILE = javax.servlet.http.LocalStrings
+      lStrings = java.util.PropertyResourceBundle@50375037
+      config = this.config
+    _servletName = JSP 1.2 Processor
+    _servletClassname = com.ibm.ws.webcontainer.jsp.servlet.JspServlet
+    _servicingCount = 0
+    tc = 
+      ivDumpEnabled = false
+      ivResourceBundleName = com.ibm.ejs.resources.seriousMessages
+      ivLogger = null
+      defaultMessageFile = com.ibm.ejs.resources.seriousMessages
+      ivName = com.ibm.ws.webcontainer.servlet.StrictServletInstance
+      ivDebugEnabled = false
+      ivEventEnabled = false
+      ivEntryEnabled = false
+    class$com$ibm$ws$webcontainer$servlet$StrictServletInstance = 
+      serialVersionUID = 3206093459760846163
+      AllPermissionsPD = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.AllPermissionsPD
+      UNINITIALIZED = 0
+      INITIALIZED = 1
+      FAILED = 2
+      UNVERIFIED = 3
+      classNameMap = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.classNameMap
+      j9Version = 33620526
+      j9Config = 8314596479310233600
+      EmptyParameters = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.EmptyParameters
+      class$java$lang$reflect$Method = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.class$java$lang$reflect$Method
+      class$java$lang$Runnable = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.class$java$lang$Runnable
+    _state = 
+      _instance = this._servletInstance._state
+    _servicingState = 
+      _instance = this._servletInstance._servicingState
+    _unavailableUntil = -1
+    _config = this.config
+    _implementsSTM = false
+    servicingCount = 0
+    syncObject = java.lang.Object@71457145
+    PRE_INITIALIZED_STATE = 
+      _instance = this._servletInstance.PRE_INITIALIZED_STATE
+    INITIALIZING_STATE = 
+      _instance = this._servletInstance.PRE_INITIALIZED_STATE
+    IDLE_STATE = this._servletInstance._state
+    SERVICING_STATE = 
+      _instance = this._servletInstance.SERVICING_STATE
+    STM_SERVICING_STATE = 
+      _instance = this._servletInstance.STM_SERVICING_STATE
+    DESTROYING_STATE = 
+      _instance = this._servletInstance.DESTROYING_STATE
+    DESTROYED_STATE = 
+      _instance = this._servletInstance.DESTROYED_STATE
+    ERROR_STATE = 
+      _instance = this._servletInstance.ERROR_STATE
+    AVAILABLE_FOR_SERVICE_STATE = this._servletInstance._servicingState
+    UNAVAILABLE_FOR_SERVICE_STATE = 
+      _instance = this._servletInstance.UNAVAILABLE_FOR_SERVICE_STATE
+    PERMANENTLY_UNAVAILABLE_FOR_SERVICE_STATE = 
+      _instance = this._servletInstance.PERMANENTLY_UNAVAILABLE_FOR_SERVICE_STATE
+  _servletName = JSP 1.2 Processor
+  _servletClassname = com.ibm.ws.webcontainer.jsp.servlet.JspServlet
+  _jspFile = null
+  _compMetaData = 
+    _name = JSP 1.2 Processor
+    _implementationClass = com.ibm.ws.webcontainer.jsp.servlet.JspServlet
+    _javaColonContext = 
+      myProps = java.util.Properties@2fb72fb7
+      defaultInitCtx = com.ibm.ws.naming.java.javaURLContextRoot@6b836b83
+      gotDefault = true
+    _mmd = 
+      _name = ktnb_web.war
+      _amd = com.ibm.ws.runtime.metadata.ApplicationMetaDataImpl@7fa07fa0
+      _cmd = [Lcom.ibm.ws.webcontainer.metadata.WebComponentMetaDataImpl;@48ea48ea
+      _context = this._compMetaData._javaColonContext
+      _resRefList = this._compMetaData._resRefList
+      _j2eeName = com.ibm.ejs.csi.J2EENameImpl@489c489c
+      _localTran = null
+      _isServlet23OrHigher = true
+      _webModuleBnd = com.ibm.ejs.models.base.bindings.webappbnd.impl.WebAppBindingImpl@348a348a
+      _webModuleExt = com.ibm.ejs.models.base.extensions.webappext.impl.WebAppExtensionImpl@2fb32fb3
+      _webModuleDD = com.ibm.etools.webapplication.impl.WebAppImpl@4a854a85
+      _groupIndex = default_host/ktnb
+      _jns = null
+      slots = [Ljava.lang.Object;@48de48de
+    _j2eeName = 
+      application = ktnb_svr
+      module = ktnb_web.war
+      component = JSP 1.2 Processor
+      j2eeName = ktnb_svr#ktnb_web.war#JSP 1.2 Processor
+      nameHashValue = 1955025389
+      j2eeNameBytes[39] = {107,116,110,98,95,115,118,114,35,107,116,110,98,95,119,101,98,46,119,97,114,35,74,83,80,32,49,46,50,32,80,114,111,99,101,115,115,111,114}
+      activeListIndex = 36
+      serialVersionUID = 7488184044073147667
+      SEPARATOR = #
+      activeJ2EEName = java.util.ArrayList@3dc23dc2
+    _webComponentType = 1
+    _webComponentVersion = Servlet 2.3
+    _resRefList = 
+      _resRefVector = java.util.Vector@48714871
+      lookupString = null
+      WebSphereCMPConnectionFactory = comp/PM/WebSphereCMPConnectionFactory
+      tc = com.ibm.ejs.ras.TraceComponent@28f128f1
+      class$com$ibm$ejs$csi$ResRefListImpl = java.lang.Class@59db59db
+    _localTran = null
+    _jns = null
+    _webComponentDescription = null
+    _webComponentInitParameters = null
+    _pageList = null
+    _state = 0
+    tc = 
+      ivDumpEnabled = false
+      ivResourceBundleName = com.ibm.ejs.resources.seriousMessages
+      ivLogger = null
+      defaultMessageFile = com.ibm.ejs.resources.seriousMessages
+      ivName = com.ibm.ws.webcontainer.metadata.WebComponentMetaDataImpl
+      ivDebugEnabled = false
+      ivEventEnabled = false
+      ivEntryEnabled = false
+    VALID = 0
+    DESTROYED = 1
+    class$com$ibm$ws$webcontainer$metadata$WebComponentMetaDataImpl = 
+      serialVersionUID = 3206093459760846163
+      AllPermissionsPD = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.AllPermissionsPD
+      UNINITIALIZED = 0
+      INITIALIZED = 1
+      FAILED = 2
+      UNVERIFIED = 3
+      classNameMap = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.classNameMap
+      j9Version = 33620526
+      j9Config = 8314596479310233600
+      EmptyParameters = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.EmptyParameters
+      class$java$lang$reflect$Method = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.class$java$lang$reflect$Method
+      class$java$lang$Runnable = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.class$java$lang$Runnable
+    slots = 
+      [0] = null
+      [1] = null
+  _outstandingReferences = 
+    elementCount = 0
+    elementData = 
+      [0] = null
+      [1] = null
+      [2] = null
+      [3] = null
+      [4] = null
+      [5] = null
+      [6] = null
+      [7] = null
+      [8] = null
+      [9] = null
+    capacityIncrement = 0
+    serialVersionUID = -2767605614048989439
+    DEFAULT_SIZE = 10
+    modCount = 0
+  _evtSource = 
+    _invocationListeners = 
+      listeners = [Ljava.util.EventListener;@6e696e69
+      EMPTY_LISTENERS = {}
+    _servletListeners = 
+      listeners = [Ljava.util.EventListener;@6e6e6e6e
+      EMPTY_LISTENERS = this._evtSource._invocationListeners.EMPTY_LISTENERS
+    _errorListeners = 
+      listeners = [Ljava.util.EventListener;@6e736e73
+      EMPTY_LISTENERS = this._evtSource._invocationListeners.EMPTY_LISTENERS
+    _applicationListeners = 
+      listeners = this._evtSource._invocationListeners.EMPTY_LISTENERS
+      EMPTY_LISTENERS = this._evtSource._invocationListeners.EMPTY_LISTENERS
+  _event = 
+    _servletName = JSP 1.2 Processor
+    _servletClassName = com.ibm.ws.webcontainer.jsp.servlet.JspServlet
+    _context = com.ibm.ws.webcontainer.webapp.WebApp@3efc3efc
+    _servletNames = 
+      _instance = this._event._servletNames
+    source = this
+  _unavailableUntil = -1
+  _unavailableMessage = null
+  _permanentlyUnavailable = false
+  tc = 
+    ivDumpEnabled = false
+    ivResourceBundleName = com.ibm.ejs.resources.seriousMessages
+    ivLogger = null
+    defaultMessageFile = com.ibm.ejs.resources.seriousMessages
+    ivName = com.ibm.ws.webcontainer.servlet.ServletInstance
+    ivDebugEnabled = false
+    ivEventEnabled = false
+    ivEntryEnabled = false
+  nls = 
+    bundleName = com.ibm.servlet.resources.ServletEngineNLS
+    bundle = 
+      resources = [[Ljava.lang.Object;@5bae5bae
+      lookup = java.util.HashMap@217e217e
+      parent = com.ibm.servlet.resources.ServletEngineNLS@3aba3aba
+      locale = java.util.Locale@671a671a
+      cacheKey = java.util.ResourceBundle$ResourceCacheKey@3a2f3a2f
+      INITIAL_CACHE_SIZE = 25
+      CACHE_LOAD_FACTOR = 1.0
+      MAX_BUNDLES_SEARCHED = 3
+      underConstruction = java.util.Hashtable@3a363a36
+      DEFAULT_NOT_FOUND = -1
+      cacheList = sun.misc.SoftCache@3a4b3a4b
+      class$java$util$ResourceBundle = java.lang.Class@130013
+    tc = 
+      ivDumpEnabled = false
+      ivResourceBundleName = com.ibm.ejs.resources.seriousMessages
+      ivLogger = null
+      defaultMessageFile = com.ibm.ejs.resources.seriousMessages
+      ivName = com.ibm.ejs.sm.client.ui.NLS
+      ivDebugEnabled = false
+      ivEventEnabled = false
+      ivEntryEnabled = false
+    messages = 
+      bundleName = messages
+      bundle = com.ibm.ejs.resources.messages_en@502d502d
+      tc = this.nls.tc
+      messages = this.nls.messages
+      baseClassPackage = com.ibm.ejs.resources
+      class$com$ibm$ejs$sm$client$ui$NLS = this.nls.class$com$ibm$ejs$sm$client$ui$NLS
+    baseClassPackage = com.ibm.ejs.resources
+    class$com$ibm$ejs$sm$client$ui$NLS = 
+      serialVersionUID = 3206093459760846163
+      AllPermissionsPD = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.AllPermissionsPD
+      UNINITIALIZED = 0
+      INITIALIZED = 1
+      FAILED = 2
+      UNVERIFIED = 3
+      classNameMap = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.classNameMap
+      j9Version = 33620526
+      j9Config = 8314596479310233600
+      EmptyParameters = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.EmptyParameters
+      class$java$lang$reflect$Method = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.class$java$lang$reflect$Method
+      class$java$lang$Runnable = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.class$java$lang$Runnable
+  disableServletAuditLogging = -1
+  class$com$ibm$ws$webcontainer$servlet$ServletInstance = 
+    serialVersionUID = 3206093459760846163
+    AllPermissionsPD = 
+      codesource = null
+      classloader = null
+      principals = {}
+      permissions = java.security.Permissions@247e247e
+      staticPermissions = true
+      loopingToString = false
+    UNINITIALIZED = 0
+    INITIALIZED = 1
+    FAILED = 2
+    UNVERIFIED = 3
+    classNameMap = 
+      m = java.util.WeakHashMap@761b761b
+      mutex = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.classNameMap
+      keySet = null
+      entrySet = null
+      values = null
+      serialVersionUID = 1978198479659022715
+    j9Version = 33620526
+    j9Config = 8314596479310233600
+    EmptyParameters = {}
+    class$java$lang$reflect$Method = 
+      serialVersionUID = 3206093459760846163
+      AllPermissionsPD = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.AllPermissionsPD
+      UNINITIALIZED = 0
+      INITIALIZED = 1
+      FAILED = 2
+      UNVERIFIED = 3
+      classNameMap = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.classNameMap
+      j9Version = 33620526
+      j9Config = 8314596479310233600
+      EmptyParameters = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.EmptyParameters
+      class$java$lang$reflect$Method = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.class$java$lang$reflect$Method
+      class$java$lang$Runnable = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.class$java$lang$Runnable
+    class$java$lang$Runnable = 
+      serialVersionUID = 3206093459760846163
+      AllPermissionsPD = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.AllPermissionsPD
+      UNINITIALIZED = 0
+      INITIALIZED = 1
+      FAILED = 2
+      UNVERIFIED = 3
+      classNameMap = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.classNameMap
+      j9Version = 33620526
+      j9Config = 8314596479310233600
+      EmptyParameters = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.EmptyParameters
+      class$java$lang$reflect$Method = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.class$java$lang$reflect$Method
+      class$java$lang$Runnable = this.class$com$ibm$ws$webcontainer$servlet$ServletInstance.class$java$lang$Runnable
+  config = 
+    _servletContext = this._event._context
+    _initParams = 
+      defaults = null
+      serialVersionUID = 4112578634029874840
+      keyValueSeparators = =: 	
+
+      strictKeyValueSeparators = =:
+      specialSaveChars = =: 	
+#!
+      whiteSpaceChars =  	
+
+      hexDigit[16] = {0123456789ABCDEF}
+      elementCount = 0
+      elementData = [Ljava.util.Hashtable$HashtableEntry;@6e576e57
+      loadFactor = 0.75
+      threshold = 8
+      firstSlot = 11
+      lastSlot = -1
+      modCount = 0
+      emptyEnumerator = java.util.Hashtable$HashEnumerator@1810181
+      isInitialized = true
+      useHashCache = true
+    _servletName = JSP 1.2 Processor
+

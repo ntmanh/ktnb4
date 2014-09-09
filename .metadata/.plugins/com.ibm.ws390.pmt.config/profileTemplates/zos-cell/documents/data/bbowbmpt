@@ -1,0 +1,395 @@
+)CM Change Defaults
+)DEFAULT )@?!^]
+)CM
+/* REXX */
+ 
+/********************************************************************/
+/* PROPRIETARY-STATEMENT:                                           */
+/* Licensed Material - Property of IBM                              */
+/*                                                                  */
+/* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */
+/* (C) Copyright IBM Corp. 1999, 2006                               */
+/* All Rights Reserved                                              */
+/* US Government Users Restricted Rights - Use, duplication or      */
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/
+/*                                                                  */
+/* ________________________________________________________________ */
+/*                                                                  */
+/* This REXX exec will create the necessary directories and other   */
+/* files for product WebSphere for z/OS.                            */
+/* ________________________________________________________________ */
+/*  Change Activity:                                                */
+/*  LIDB3773-25	H28W610	110405	DB: Initial creation                */
+/*    334618      H28W601 122205 PDML: change some saym to say.     */
+/*    333384      H28W610 011206   DB: add zfs support              */
+/*    348320      H28W610 061406   DB: AUTOUID/AUTOGID support      */
+/*    243587.1    H28W610 011707   DB: add more text for mount      */
+/*                                     failure scenario and fix     */
+/*                                     error condition checking     */
+/*    425357      H28W610 040907   DB: use aggrgrow option for ZFS  */
+/*                                                                  */
+/********************************************************************/
+ 
+dirs= ''
+ 
+parse arg $mntpt $hfsdsn $user  $group $type .
+ 
+$root = "/"                         /* Add a trailing slash    */
+ 
+len_mntpt = length($mntpt)
+$mntptx = $mntpt ||"/"
+loc_slash_1 = 1
+dirbase =''
+do while loc_slash_1 < len_mntpt
+ loc_slash_2 = pos('/',$mntptx,loc_slash_1 + 1)
+ dir1    =           substr($mntptx,loc_slash_1,loc_slash_2-loc_slash_1)
+ dirbase = dirbase ||dir1
+ dirs = dirs || dirbase || ' 775 '
+ loc_slash_1 = loc_slash_2
+end
+ 
+/****************************************************************/
+/*     Beginning of main procedure:                             */
+/****************************************************************/
+ 
+firstchar = Substr($root,1,1)
+If firstchar \= "/" then
+ Do
+  say 'Directory name does NOT begin with a "/".'
+  say 'Please correct and resubmit.'
+  Exit 12
+ End
+ 
+if syscalls(on)>4 then
+ Do
+  say 'Initialization failure. Please correct and resubmit.'
+  Exit 12
+ End
+ 
+$rc= 0
+ 
+SINDEX.=0
+ 
+flag1="OFF"
+flag2="OFF"
+flag3="OFF"
+flag4="OFF"
+flag5="OFF"
+flag6="OFF"
+flag7="OFF"
+ 
+ say 'The EXEC to create the directories has begun.'
+ say 'It will run for a couple of minutes.'
+ 
+/*************************************************************/
+/* The migration file system jobs pass in a uid/gid of 0,    */
+/* instead of the user and group names.  We don't want to    */
+/* use the logic for determining the uid/gid from the names  */
+/* if this is being called for the migration jobs            */
+/*************************************************************/
+If ($user=0 & $group=0) then
+ Do
+  $uid=$user
+  $gid=$group
+ End
+Else
+ Do
+ address syscall 'getpwnam' $user  'uinfo.'
+ If (retval>0) then
+  Do
+   $uid = uinfo.pw_uid
+   say 'Owning userid is:' $user
+   say 'Owning uid    is:' $uid
+   End
+ Else
+  Do
+   say 'Unable to determine UID for user:' $user
+   say 'Make sure the user ID exists and has been assigned a UID.'
+   exit 12
+  End
+ address syscall 'getgrnam' $group 'ginfo.'
+ If (retval>0) then
+  Do
+   $gid = ginfo.gr_gid
+   say 'Owning group  is:' $group
+   say 'Owning gid    is:' $gid
+   say
+   End
+ Else
+  Do
+   say 'Unable to determine GID for group:' $group
+   say 'Make sure the group exists and has been assigned a GID.'
+   exit 12
+  End
+End
+ 
+call saym 1, 'The EXEC ran at ' TIME() ' on ' DATE()
+call saym 1, '                   '
+ 
+address syscall 'getuid'
+myuid=retval
+address syscall 'geteuid'
+myeuid=retval
+privflag=0                         /* Change the Effective UID to  */
+If myeuid \= 0 then                /* be 0 since invoker should    */
+  Do                               /* be part of the BPX.SUPERUSER */
+   address syscall 'seteuid 0'     /* facility class               */
+   privflag=1
+  End
+ 
+address syscall 'access' $root F_OK
+ 
+If (rc=0 & retval\=0) | rc\= 0 then
+ Do
+  If errno = 6F then           /* EACCESS */
+  Do
+  call saym 1, 'Do not have appropriate permission to' $root
+  call saym 1, '                                 '
+  call saym 1, 'Please get appropriate permission to this directory',
+               'and resubmit.'
+  call saym 1, '                                 '
+  End
+Else
+ Do
+  call saym 1, 'Directory' $root 'does not exist.'
+  call saym 1, '                                 '
+  call saym 1, 'Please create this directory and resubmit.'
+  call saym 1, '                                 '
+ End
+$rc=12
+End
+Else /* access ok */
+ Do
+  flag1="ON"
+  call saym 2, 'Created the following directories:'
+  call saym 2, '=================================='
+ 
+  call saym 3, 'Following directories already exist:'
+  call saym 3, '===================================='
+ 
+  call saym 4, 'Problems creating the following directories:'
+  call saym 4, '============================================'
+ 
+  call saym 5, '  '
+ 
+  call saym 6, '  '
+ 
+  do while dirs<>''
+     parse var dirs dir perm dirs
+     call syscall0 mkdir strip(dir) strip(perm)
+     if (call0_rc <= 4) then do
+        call syscall4 chmod strip(dir) strip(perm)
+        call syscall4 chown strip(dir) $uid $gid
+     end
+  end
+ 
+ if $hfsdsn <> '' then
+  do
+  
+    /* 425357  Mount using aggrgrow parm if ZFS */
+    if $type = 'ZFS' then
+    do
+      address syscall mount $mntpt  $hfsdsn $type mtm_rdwr aggrgrow
+    end
+    else do
+      address syscall mount $mntpt  $hfsdsn $type mtm_rdwr
+    end
+    
+    mrc=rc                                                    /* @PK05811A */
+    mretval=retval                                            /* @PK05811A */
+ 
+    if (rc=0 & retval\=0) | rc\= 0 then                       /* @PK05811C */
+     do
+      if right(errnojr,4) = '005C' then
+      do
+        say 'There is a file system already mounted at' $mntpt '  Please unmount, delete' $hfsdsn 'and rerun this job.'
+      end
+ 
+  if right(errnojr,4) = '005B' then
+  do
+        say 'File system' $hfsdsn 'is already mounted'
+      end
+
+      say '     '
+      say "Unable to mount filesystem '"$hfsdsn"' on '"$mntpt       "'"
+      say 'Return values from SYSCALL environment: RC='rc', RETVAL='retval
+      say '      '
+      say 'Error number (errno) was' errno'x('x2d(errno)')'
+      say 'Reason code (errnojr) was ' right(errnojr,8,0)
+      say 'No directories created under mountpoint'
+      $rc=12
+      flag4="ON"
+     end
+  end
+ else call saym 7,,
+    'No file system mount done at' $mntpt
+ if (mrc=0 & mretval=0) then                                 /* @PK05811A */
+   do                                                         /* @PK05811A */
+    call saym 1,"Mounted filesystem '"$hfsdsn"' on '"$mntpt
+    call saym 1,"                    "
+    call syscall4 chmod $mntpt  775
+    call syscall4 chown $mntpt  $uid $gid
+   end                                                        /* @PK05811A */
+  /************************************************************/
+  /*    End of where you put other commands you may need      */
+  /************************************************************/
+ 
+End
+ 
+If privflag=1 then
+ Do                                                              /* @PK05811A */
+   address syscall 'seteuid' myuid
+ say 'The EXEC has completed with Return Code' $rc
+   If (rc=0 & retval\=0) | rc\= 0 then                           /* @PK05811A */
+    Do                                                           /* @PK05811A */
+      say 'Unable to set UID.'                                   /* @PK05811A */
+      say '      '
+      say 'Return values from SYSCALL environment: RC='rc', RETVAL='retval
+      say '      '
+      say 'Error number (errno) was' errno'x('x2d(errno)')'
+      say 'Reason code (errnojr) was ' right(errnojr,8,0)
+      $rc=12
+    End                                                          /* @PK05811A */
+   Else                                                          /* @PK05811A */
+    Do                                                           /* @PK05811A */
+      say 'The EXEC has completed with Return Code' $rc
+      say 'Check the SYSOUT held OUTPUT for further details.'
+    End                                                          /* @PK05811A */
+ End                                                             /* @PK05811A */
+ 
+'ALLOC FI(BPXOUT) SYSOUT HOLD REUSE'
+ 
+ call saym 1, 'This EXEC completed with Return Code' $rc
+ call saym 1, '                 '
+ 
+ If flag2 = 'OFF' then
+  Do
+   call saym 2, 'None. No directories were created.'
+   call saym 2, '                                  '
+  End
+ Else
+   call saym 2, '                                  '
+ 
+ If flag3 = 'OFF' then
+  Do
+   call saym 3, 'None. No existing directories.'
+   call saym 3, '                  '
+  End
+ Else
+   call saym 3, '                                  '
+ 
+ If flag4 = 'OFF' then
+  Do
+   call saym 4, 'No problems while creating the directories.'
+   call saym 4, '                                 '
+  End
+ Else
+   call saym 4, '                                  '
+ 
+ If flag7 = 'OFF' then
+   call saym 7, 'End of EXEC.'
+ Else
+  Do
+   call saym 7, '                                  '
+   call saym 7, 'Please refer to the OS/390 UNIX Messages and Codes',
+                'book to interpret'
+   call saym 7, 'the Return and Reason Codes.'
+   call saym 7, 'Please correct and resubmit.'
+  End
+ 
+If flag1 = 'OFF' then
+  'EXECIO' SINDEX.1 'DISKW BPXOUT (STEM STEM.1. FINIS'
+Else
+ Do
+  'EXECIO' SINDEX.1 'DISKW BPXOUT (STEM STEM.1.'
+  'EXECIO' SINDEX.2 'DISKW BPXOUT (STEM STEM.2.'
+  'EXECIO' SINDEX.3 'DISKW BPXOUT (STEM STEM.3.'
+  'EXECIO' SINDEX.4 'DISKW BPXOUT (STEM STEM.4.'
+  'EXECIO' SINDEX.5 'DISKW BPXOUT (STEM STEM.5.'
+  'EXECIO' SINDEX.6 'DISKW BPXOUT (STEM STEM.6.'
+  'EXECIO' SINDEX.7 'DISKW BPXOUT (STEM STEM.7. FINIS'
+ End
+'FREE FI(BPXOUT)'
+ 
+Exit $rc
+ 
+ 
+  /********************************/
+  /*  Subroutine for mkdir calls  */
+  /********************************/
+ 
+syscall0:
+ parse arg cmd
+ parse arg . path permbits
+ 
+ call0_rc = 0
+ address syscall cmd
+ If (rc=0 & retval\=0) | rc\= 0 then
+  Do
+   If errno = 75 then           /* EEXIST */
+    Do
+      flag3 = 'ON'
+      call saym 3, path
+      call0_rc = 8
+    End
+   Else
+    If errno \= 75 then
+     Do
+      flag4 = 'ON'
+      flag7 = 'ON'
+      call saym 4, path
+      call saym 4,'  Not created. RC='errno '   RSN='errnojr
+      $rc = 12
+      call0_rc = 12
+     End
+  End
+ Else /* CMD completed ok */
+  Do
+   flag2 = 'ON'
+   call saym 2, path
+  End
+Return
+ 
+  /*****************************************************/
+  /*  Subroutine for other calls - for example 'chown' */
+  /*****************************************************/
+ 
+syscall4:
+ parse arg cmd
+ address syscall cmd                      /* execute other calls */
+ 
+ If (rc=0 & retval\=0) | rc\= 0 then
+  Do
+    If errno \= 75 then
+      Do
+       call saym 4, 'Command:' cmd 'failed'
+       call saym 4, '  RC='errno '   RSN='errnojr
+       flag4="ON"
+       $rc = 12
+      End
+    Else         /* EEXIST */
+      Do
+       call saym 4, 'Following command result already exists'
+       call saym 4, ' ' cmd
+       call saym 4, ' '
+       flag4="ON"
+      End
+  End
+ Else
+  Do
+       call saym 1, 'Following command was successful'
+       call saym 1, ' ' cmd
+       call saym 1, ' '
+  End
+Return
+ 
+  /*****************************************/
+  /*  Subroutine to add messages to STEMS  */
+  /*****************************************/
+ 
+saym:
+ parse arg s,msg
+ SINDEX.s=SINDEX.s+1
+ ix=SINDEX.s
+ STEM.s.ix=msg
+Return

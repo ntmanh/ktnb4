@@ -1,0 +1,540 @@
+------Start of DE processing------ = [10/11/13 8:30:12:321 GMT] , key = java.sql.SQLException com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl.destroy 1024
+Exception = java.sql.SQLException
+Source = com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl.destroy
+probeid = 1024
+Stack Dump = java.sql.SQLException: Io exception: Socket read timed out
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:124)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:161)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:273)
+	at oracle.jdbc.driver.T4CConnection.logoff(T4CConnection.java:395)
+	at oracle.jdbc.driver.PhysicalConnection.close(PhysicalConnection.java:1046)
+	at oracle.jdbc.pool.OraclePooledConnection.close(OraclePooledConnection.java:219)
+	at com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl.destroy(WSRdbManagedConnectionImpl.java:2151)
+	at com.ibm.ejs.j2c.MCWrapper.destroy(MCWrapper.java:1391)
+	at com.ibm.ejs.j2c.poolmanager.FreePool.cleanupAndDestroyMCWrapper(FreePool.java:506)
+	at com.ibm.ejs.j2c.poolmanager.PoolManager.reclaimConnections(PoolManager.java:3030)
+	at com.ibm.ejs.j2c.poolmanager.PoolManager.executeTask(PoolManager.java:2954)
+	at com.ibm.ejs.j2c.poolmanager.TaskTimer.executeTask(TaskTimer.java:81)
+	at com.ibm.ejs.j2c.poolmanager.TaskTimer.run(TaskTimer.java:113)
+
+Dump of callerThis = 
+Object type = com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl@736f736f
+  _______________________________________________________________________
+  
+  ONE PHASE ENABLED
+
+  Database Type:
+    null
+
+  Transaction State:
+    NO_TRANSACTION_ACTIVE
+
+  Statement Cache Size (maximum):
+    10
+
+  Key:
+    [B@7d077d07
+
+  Performance Monitoring Instrumentation:
+    null
+
+  Log Writer:
+    null
+
+  Default AutoCommit:
+    true
+
+  Current AutoCommit:
+    true
+
+  Current Isolation:
+    READ COMMITTED
+
+  Support isolation level switching: 
+    false
+
+  Thread ID:
+    null
+
+  Already Processed Interaction Pending Event?
+    false
+
+  Underlying Connection Object: oracle.jdbc.driver.LogicalConnection@735c735c
+    oracle.jdbc.driver.LogicalConnection@735c735c
+
+  Underlying PooledConnection Object: oracle.jdbc.pool.OraclePooledConnection@73217321
+    oracle.jdbc.pool.OraclePooledConnection@73217321
+
+  SQLJ Default Context: null
+    null
+
+  Connection Event Listeners:
+
+  
+  Maximum Handle List Size: 15
+
+  Handle Count: 0
+
+  Handles:
+
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+  
+  State Manager:
+    com.ibm.ws.rsadapter.spi.WSStateManager@e390e39
+
+  XA Resource:
+    null
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSRdbSpiLocalTransactionImpl@4e104e10
+  _______________________________________________________________________
+  
+  Connection:
+    oracle.jdbc.driver.LogicalConnection@735c735c
+
+  ManagedConnection:
+    com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl@736f736f
+
+  Detection of multithreaded access is:
+    DISABLED
+
+  ManagedConnectionMetaData:
+    null
+
+  Statement Cache:
+    
+com.ibm.ws.rsadapter.spi.CacheMap@cdc0cdc
+Number of entries:   0
+Maximum entries:     10
+Number of buckets:   13
+Maximum bucket size: 5
+Number of discards:  0
+
+BUCKET SIZE PREV NEXT
+  000  000  013  013
+  001  000  013  013
+  002  000  013  013
+  003  000  013  013
+  004  000  013  013
+  005  000  013  013
+  006  000  013  013
+  007  000  013  013
+  008  000  013  013
+  009  000  013  013
+  010  000  013  013
+  011  000  013  013
+  012  000  013  013
+  013  LRU       013
+  014  MRU  013
+
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSConnectionRequestInfoImpl@2
+  _______________________________________________________________________
+  
+  User Name:
+    null
+
+  Password:
+    null
+
+  Isolation Level:
+    READ COMMITTED
+
+  Catalog:
+    null
+
+  Is Read Only?
+    null
+
+  Type Map:
+    null
+
+  Hash Code:
+    2
+
+  Support isolation switching on connection:
+    false
+
+  Handle type:
+    java.sql.Connection
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSManagedConnectionFactoryImpl@7600760
+  _______________________________________________________________________
+  
+  Detection of multithreaded access is
+    DISABLED
+
+  DataSource properties:
+    {statementCacheSize=10, password=******, dataSourceName=, networkProtocol=, oraclelogModuleMask=1, portNumber=1521, preTestSQLString=SELECT 1 FROM DUAL, URL=jdbc:oracle:thin:@10.64.9.4:1522:KTNB, dataSourceClass=oracle.jdbc.pool.OracleConnectionPoolDataSource, serverName=, loginTimeout=, connRetriesDuringDBFailover=100, dataStoreHelperClass=com.ibm.websphere.rsadapter.OracleDataStoreHelper, enableMultithreadedAccessDetection=false, driverType=, dbFailOverEnabled=false, description=, TNSEntryName=, connRetryIntervalDuringDBFailover=3000, oraclelogPrintMask=62, oraclelogCategoryMask=47, databaseName=, user=ktnb_owner}
+
+  Database Type:
+    null
+
+  DataStoreHelper:
+    com.ibm.websphere.rsadapter.OracleDataStoreHelper@1f321f32
+
+  Description:
+    null
+
+  InternalDataStoreHelper:
+    com.ibm.ws.rsadapter.spi.InternalOracleDataStoreHelper@37d737d7
+
+  Login Timeout:
+    0
+
+  Log Writer:
+    null
+
+  Performance Monitoring Instrumentation:
+    null
+
+  Statement Cache Size (maximum):
+    10
+
+  Transaction Resource Registration:
+    dynamic
+
+  Transaction Branches are set to be Loosely Coupled: 
+    false
+
+  Backend id checking is: 
+    true
+
+  dbFailOverEnabled: 
+    false
+
+  connectionRetriesDuringDBFailover: 
+    100
+
+  connRetryDurationDuringDBFailover: 
+    3000
+
+  Connection Factory Type:
+    com.ibm.ws.rsadapter.jdbc.WSJdbcDataSource
+
+  Implicit Handle Reactivation is
+    ENABLED
+
+  Listing CCI ConnectionFactories:
+
+  
+  Listing JDBC ConnectionFactories (DataSources):
+
+    com.ibm.ejs.j2c.ConnectionManager@3eaa3eaa --> com.ibm.ws.rsadapter.jdbc.WSJdbcDataSource@76bb76bb
+  
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSRdbDataSource@14571457
+  _______________________________________________________________________
+  
+  DataSource Implementation Class Name:
+    oracle.jdbc.pool.OracleConnectionPoolDataSource
+
+  DataSource Name:
+    null
+
+  DataStoreHelper:
+    com.ibm.websphere.rsadapter.OracleDataStoreHelper@1f321f32
+
+  DataSource properties:
+    {statementCacheSize=10, password=******, dataSourceName=, networkProtocol=, oraclelogModuleMask=1, portNumber=1521, preTestSQLString=SELECT 1 FROM DUAL, URL=jdbc:oracle:thin:@10.64.9.4:1522:KTNB, dataSourceClass=oracle.jdbc.pool.OracleConnectionPoolDataSource, serverName=, loginTimeout=, connRetriesDuringDBFailover=100, dataStoreHelperClass=com.ibm.websphere.rsadapter.OracleDataStoreHelper, enableMultithreadedAccessDetection=false, driverType=, dbFailOverEnabled=false, description=, TNSEntryName=, connRetryIntervalDuringDBFailover=3000, oraclelogPrintMask=62, oraclelogCategoryMask=47, databaseName=, user=ktnb_owner}
+
+  ONE PHASE ENABLED
+
+  Underlying DataSource Object: oracle.jdbc.pool.OracleConnectionPoolDataSource@44a144a1
+    oracle.jdbc.pool.OracleConnectionPoolDataSource@44a144a1
+
+
+==> Performing default dump from com.ibm.ws.rsadapter.DiagnosticModuleForAdapter  = Fri Oct 11 08:30:12 GMT 2013
+This is a FFDC log generated for the Default Resource Adapter from source = com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl.destroy
+The exception caught = java.sql.SQLException: Io exception: Socket read timed out
+Operating System = Windows XP 6.1 build 7601 Service Pack 1 x86
+Classpath = C:/Program Files/IBM/SDP70/runtimes/express_v51/properties;C:/Program Files/IBM/SDP70/runtimes/express_v51/properties;C:/Program Files/IBM/SDP70/runtimes/express_v51/lib/bootstrap.jar;C:/Program Files/IBM/SDP70/runtimes/express_v51/lib/j2ee.jar;C:/Program Files/IBM/SDP70/runtimes/express_v51/lib/lmproxy.jar;C:/Program Files/IBM/SDP70/runtimes/express_v51/lib/urlprotocols.jar;C:/Program Files/IBM/SDP70Shared/plugins/com.ibm.etools.websphere.tools.v51_6.1.9.v200906140004/wteServers.jar;C:/Program Files/IBM/SDP70Shared/plugins/com.ibm.ws.ast.st.core_6.1.11.v201006060004/stcore.jar;file:C:/Program Files/IBM/SDP70Shared/plugins/com.ibm.ws.ast.st.core.util_6.1.1.v200701171835.jar!/stcoreUtil.jar
+Ext dirs = C:\Program Files\IBM\SDP70\runtimes\express_v51\java\jre\lib\ext
+Other related data. If null, nothing was passed in = 
+null
+
+The Objects' instance variables are printed below recursively 2 levels deep = 
+Object type = com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl@736f736f
+  _______________________________________________________________________
+  
+  ONE PHASE ENABLED
+
+  Database Type:
+    null
+
+  Transaction State:
+    NO_TRANSACTION_ACTIVE
+
+  Statement Cache Size (maximum):
+    10
+
+  Key:
+    [B@7d077d07
+
+  Performance Monitoring Instrumentation:
+    null
+
+  Log Writer:
+    null
+
+  Default AutoCommit:
+    true
+
+  Current AutoCommit:
+    true
+
+  Current Isolation:
+    READ COMMITTED
+
+  Support isolation level switching: 
+    false
+
+  Thread ID:
+    null
+
+  Already Processed Interaction Pending Event?
+    false
+
+  Underlying Connection Object: oracle.jdbc.driver.LogicalConnection@735c735c
+    oracle.jdbc.driver.LogicalConnection@735c735c
+
+  Underlying PooledConnection Object: oracle.jdbc.pool.OraclePooledConnection@73217321
+    oracle.jdbc.pool.OraclePooledConnection@73217321
+
+  SQLJ Default Context: null
+    null
+
+  Connection Event Listeners:
+
+  
+  Maximum Handle List Size: 15
+
+  Handle Count: 0
+
+  Handles:
+
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+  
+  State Manager:
+    com.ibm.ws.rsadapter.spi.WSStateManager@e390e39
+
+  XA Resource:
+    null
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSRdbSpiLocalTransactionImpl@4e104e10
+  _______________________________________________________________________
+  
+  Connection:
+    oracle.jdbc.driver.LogicalConnection@735c735c
+
+  ManagedConnection:
+    com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl@736f736f
+
+  Detection of multithreaded access is:
+    DISABLED
+
+  ManagedConnectionMetaData:
+    null
+
+  Statement Cache:
+    
+com.ibm.ws.rsadapter.spi.CacheMap@cdc0cdc
+Number of entries:   0
+Maximum entries:     10
+Number of buckets:   13
+Maximum bucket size: 5
+Number of discards:  0
+
+BUCKET SIZE PREV NEXT
+  000  000  013  013
+  001  000  013  013
+  002  000  013  013
+  003  000  013  013
+  004  000  013  013
+  005  000  013  013
+  006  000  013  013
+  007  000  013  013
+  008  000  013  013
+  009  000  013  013
+  010  000  013  013
+  011  000  013  013
+  012  000  013  013
+  013  LRU       013
+  014  MRU  013
+
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSConnectionRequestInfoImpl@2
+  _______________________________________________________________________
+  
+  User Name:
+    null
+
+  Password:
+    null
+
+  Isolation Level:
+    READ COMMITTED
+
+  Catalog:
+    null
+
+  Is Read Only?
+    null
+
+  Type Map:
+    null
+
+  Hash Code:
+    2
+
+  Support isolation switching on connection:
+    false
+
+  Handle type:
+    java.sql.Connection
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSManagedConnectionFactoryImpl@7600760
+  _______________________________________________________________________
+  
+  Detection of multithreaded access is
+    DISABLED
+
+  DataSource properties:
+    {statementCacheSize=10, password=******, dataSourceName=, networkProtocol=, oraclelogModuleMask=1, portNumber=1521, preTestSQLString=SELECT 1 FROM DUAL, URL=jdbc:oracle:thin:@10.64.9.4:1522:KTNB, dataSourceClass=oracle.jdbc.pool.OracleConnectionPoolDataSource, serverName=, loginTimeout=, connRetriesDuringDBFailover=100, dataStoreHelperClass=com.ibm.websphere.rsadapter.OracleDataStoreHelper, enableMultithreadedAccessDetection=false, driverType=, dbFailOverEnabled=false, description=, TNSEntryName=, connRetryIntervalDuringDBFailover=3000, oraclelogPrintMask=62, oraclelogCategoryMask=47, databaseName=, user=ktnb_owner}
+
+  Database Type:
+    null
+
+  DataStoreHelper:
+    com.ibm.websphere.rsadapter.OracleDataStoreHelper@1f321f32
+
+  Description:
+    null
+
+  InternalDataStoreHelper:
+    com.ibm.ws.rsadapter.spi.InternalOracleDataStoreHelper@37d737d7
+
+  Login Timeout:
+    0
+
+  Log Writer:
+    null
+
+  Performance Monitoring Instrumentation:
+    null
+
+  Statement Cache Size (maximum):
+    10
+
+  Transaction Resource Registration:
+    dynamic
+
+  Transaction Branches are set to be Loosely Coupled: 
+    false
+
+  Backend id checking is: 
+    true
+
+  dbFailOverEnabled: 
+    false
+
+  connectionRetriesDuringDBFailover: 
+    100
+
+  connRetryDurationDuringDBFailover: 
+    3000
+
+  Connection Factory Type:
+    com.ibm.ws.rsadapter.jdbc.WSJdbcDataSource
+
+  Implicit Handle Reactivation is
+    ENABLED
+
+  Listing CCI ConnectionFactories:
+
+  
+  Listing JDBC ConnectionFactories (DataSources):
+
+    com.ibm.ejs.j2c.ConnectionManager@3eaa3eaa --> com.ibm.ws.rsadapter.jdbc.WSJdbcDataSource@76bb76bb
+  
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSRdbDataSource@14571457
+  _______________________________________________________________________
+  
+  DataSource Implementation Class Name:
+    oracle.jdbc.pool.OracleConnectionPoolDataSource
+
+  DataSource Name:
+    null
+
+  DataStoreHelper:
+    com.ibm.websphere.rsadapter.OracleDataStoreHelper@1f321f32
+
+  DataSource properties:
+    {statementCacheSize=10, password=******, dataSourceName=, networkProtocol=, oraclelogModuleMask=1, portNumber=1521, preTestSQLString=SELECT 1 FROM DUAL, URL=jdbc:oracle:thin:@10.64.9.4:1522:KTNB, dataSourceClass=oracle.jdbc.pool.OracleConnectionPoolDataSource, serverName=, loginTimeout=, connRetriesDuringDBFailover=100, dataStoreHelperClass=com.ibm.websphere.rsadapter.OracleDataStoreHelper, enableMultithreadedAccessDetection=false, driverType=, dbFailOverEnabled=false, description=, TNSEntryName=, connRetryIntervalDuringDBFailover=3000, oraclelogPrintMask=62, oraclelogCategoryMask=47, databaseName=, user=ktnb_owner}
+
+  ONE PHASE ENABLED
+
+  Underlying DataSource Object: oracle.jdbc.pool.OracleConnectionPoolDataSource@44a144a1
+    oracle.jdbc.pool.OracleConnectionPoolDataSource@44a144a1
+
+
++Data for directive [defaultadapter] obtained. = 
+==> Dump complete for com.ibm.ws.rsadapter.DiagnosticModuleForAdapter  = Fri Oct 11 08:30:12 GMT 2013

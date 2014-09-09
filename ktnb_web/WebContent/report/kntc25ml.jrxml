@@ -1,0 +1,195 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="kntc25ml" pageWidth="595" pageHeight="842" columnWidth="454" leftMargin="85" rightMargin="56" topMargin="70" bottomMargin="70" whenResourceMissingType="Key">
+	<property name="ireport.zoom" value="1.3310000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<property name="ireport.callouts" value="##Thu May 05 15:46:18 ICT 2011"/>
+	<style name="Crosstab Data Text" isDefault="false" hAlign="Center"/>
+	<parameter name="ngay_giao_nhan_ho_so" class="java.lang.String"/>
+	<field name="stt" class="java.lang.String"/>
+	<field name="ten_tai_lieu" class="java.lang.String"/>
+	<field name="so_trang" class="java.lang.String"/>
+	<field name="tinh_trang_tai_lieu" class="java.lang.String"/>
+	<group name="FG">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="46">
+				<staticText>
+					<reportElement x="279" y="0" width="174" height="46"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times" size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Tình trạng tài liệu, bằng chứng]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="-37" y="0" width="57" height="46"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times" size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[STT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="20" y="0" width="121" height="46"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times" size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Tên tài liệu, bằng chứng]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="141" y="0" width="138" height="46"/>
+					<box>
+						<pen lineWidth="1.0"/>
+						<topPen lineWidth="1.0"/>
+						<leftPen lineWidth="1.0"/>
+						<bottomPen lineWidth="1.0"/>
+						<rightPen lineWidth="1.0"/>
+					</box>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="14" isBold="false"/>
+					</textElement>
+					<text><![CDATA[Số trang tài liệu,
+số lượng vật chứng]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="304">
+				<elementGroup/>
+				<staticText>
+					<reportElement x="222" y="29" width="231" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="12" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[(Ký, ghi rõ họ tên)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="222" y="9" width="231" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ĐẠI DIỆN BÊN GIAO]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="29" width="223" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="12" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[(Ký, ghi rõ họ tên)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="9" width="223" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[ĐẠI DIỆN BÊN NHẬN
+]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="1">
+		<groupFooter>
+			<band height="40"/>
+		</groupFooter>
+	</group>
+	<group name="2"/>
+	<title>
+		<band height="63">
+			<staticText>
+				<reportElement x="0" y="0" width="454" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[MỤC LỤC HỒ SƠ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="1" y="20" width="453" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times" size="14"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["(Kèm theo biên bản giao, nhận hồ sơ ngày "+$P{ngay_giao_nhan_ho_so}+")"]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<detail>
+		<band height="71">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="-37" y="0" width="57" height="71" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times" size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{stt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="20" y="0" width="121" height="71" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times" size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{ten_tai_lieu}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="141" y="0" width="138" height="71" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times" size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{so_trang}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="279" y="0" width="174" height="71" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times" size="14" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{tinh_trang_tai_lieu}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

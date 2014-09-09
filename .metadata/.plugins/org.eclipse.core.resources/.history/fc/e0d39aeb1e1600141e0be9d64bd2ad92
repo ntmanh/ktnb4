@@ -1,0 +1,356 @@
+<%@page pageEncoding="UTF-8" %>
+<%@taglib uri="/WEB-INF/struts-html.tld" prefix="html"%>
+<%@taglib uri="/WEB-INF/struts-logic.tld" prefix="logic"%>
+<%@taglib uri="/WEB-INF/struts-bean.tld" prefix="bean"%>
+<html:form action="chuan_bi_tien_hanh.do?method=save&type=tvd" method="POST">
+	<TABLE width="100%">
+		<tr>
+			<td width="19%" align="right">Nơi lập tờ trình <font color="red">*</font></td>
+			<td style="width: 1%; min-width: 5px"></td>
+			<td width="30%"><html:text styleClass="text" name="ChuanBiTienHanhForm" property="noiLapDsTvd">
+			</html:text></td>
+			<td width="19%" align="right">Ngày lập tờ trình <font color="red">*</font></td>
+			<td style="width: 1%; min-width: 5px"></td>
+			<td><html:text onkeypress="return formatDate(event, this)" onblur="isDate(this)" styleClass="text" name="ChuanBiTienHanhForm" property="ngayLapDsTvd">
+			</html:text></td>
+		</tr>
+		<tr>
+			<td align="right">Nơi phê duyệt</td>
+			<td style="width: 1%; min-width: 5px"></td>
+			<td align="left"><html:text styleClass="text" name="ChuanBiTienHanhForm" property="noiPheDuyetDsTvd"></html:text></td>
+			<td align="right">Ngày phê duyệt</td>
+			<td style="width: 1%; min-width: 5px"></td>
+			<td align="left"><html:text onkeypress="return formatDate(event, this)" onblur="isDate(this)" styleClass="text" name="ChuanBiTienHanhForm" property="ngayPheDuyetDsTvd"></html:text></td>
+		</tr>
+		<tr>
+			<td align="right">Ý kiến phê duyệt</td>
+			<td style="width: 1%; min-width: 5px"></td>
+			<td colspan="4" width="100%" align="left"><html:textarea property="ykienPheDuyetDsTvd" onkeypress="imposeMaxLength(this);" styleClass="textareaTitle">
+			</html:textarea></td>
+		</tr>
+		<tr>
+			<td align="right" width="19%">Văn bản quy định chức năng nhiệm vụ<font color=red>*</font></td>
+			<td style="width: 1%; min-width: 5px"></td>
+			<td colspan="4"><html:select property="vanBanQuyDinhCnangNvuQdTvd" style="width: 100%" styleClass="combobox">
+				<html:option value=""></html:option>
+				<html:options collection="dmtly" property="value" labelProperty="label" />
+			</html:select></td>
+		</tr>
+	</TABLE>
+	<br>
+	<fieldset style="margin: 0"><legend>Danh sách thành viên đoàn</legend>
+	<DIV id="divDsTvd">
+	<TABLE id="tblDsTvd" style="width: 100%">
+		<THEAD id="headerDsTvd">
+			<tr class="TdHeaderList">
+				<td align="center">STT</td>
+				<td>Tên thành viên <font color="red">*</font></td>
+				<td>Đơn vị công tác <font color="red">*</font></td>
+				<td>Chức vụ công tác</td>
+				<td>Chức vụ trong đoàn</td>
+				<td align="center"><INPUT type="checkbox" class="checkbox" onclick="selectAllThanhVienDoan(this)"></td>
+			</tr>
+		</THEAD>
+		<TBODY id="bodyDsTvd">
+			<logic:present property="chiTietDsTvd" name="ChuanBiTienHanhForm">
+				<logic:iterate name="ChuanBiTienHanhForm" property="chiTietDsTvd" id="thanhVienDoan" indexId="index">
+					<%if (index.intValue() == 0) {%>
+					<tr class="row1">
+						<!--So thu tu-->
+						<td align="center"><%=index.intValue() + 1%></td>
+						<!--Ten thanh vien-->
+						<td><html:hidden name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].idCanBo"%>' /> <html:text styleClass="text" name="ChuanBiTienHanhForm" style="width:77%" property='<%="chiTietDsTvd[" + index + "].tenCanBo"%>' readonly="true">
+						</html:text> <Input type="button" value="..." class="lovButton" onclick="chonThanhVienDoanFromLov(<%=index%>)" disabled="disabled"></td>
+						<!--Don vi cong tac-->
+						<td><html:hidden name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].idPhong"%>' /> <html:text styleClass="text1" style="border-bottom:none; width:100%" name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].tenPhong"%>' readonly="true">
+						</html:text></td>
+						<!--Chuc vu cong tac-->
+						<td><html:text styleClass="text1" style="border-bottom:none; width:100%" name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].chucVu"%>' readonly="true">
+						</html:text></td>
+						<!--Chuc vu trong doan-->
+						<td><html:select name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].chucVuTrongDoan"%>' disabled="true">
+							<html:option value="Truong doan">Trưởng đoàn</html:option>
+							<html:option value="Pho doan">Phó đoàn</html:option>
+							<html:option value="Thanh vien doan">Thành viên đoàn</html:option>
+						</html:select></td>
+						<td align="center"><INPUT type="checkbox" value="selectThanhVienDoan(this)" disabled="disabled"></td>
+					</tr>
+					<%} else if (index.intValue() % 2 == 0) {%>
+					<tr class="row1">
+						<!--So thu tu-->
+						<td align="center"><%=index.intValue() + 1%></td>
+						<!--Ten thanh vien-->
+						<td><html:hidden name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].idCanBo"%>' /> <html:text styleClass="text" name="ChuanBiTienHanhForm" style="width:77%" property='<%="chiTietDsTvd[" + index + "].tenCanBo"%>'>
+						</html:text> 
+						<% if(chiTietDsTvd.get[index].getIdPhong()!="999999999"){ %>
+						<Input type="button" value="..." class="lovButton" onclick="chonThanhVienDoanFromLov(<%=index%>)">
+						<% } %>
+						</td>
+						<!--Don vi cong tac-->
+						<td><html:hidden name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].idPhong"%>' /> <html:text styleClass="text1" style="border-bottom:none; width:100%" name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].tenPhong"%>'>
+						</html:text></td>
+						<!--Chuc vu cong tac-->
+						<td><html:text styleClass="text1" style="border-bottom:none; width:100%" name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].chucVu"%>'>
+						</html:text></td>
+						<!--Chuc vu trong doan-->
+						<td><html:select name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].chucVuTrongDoan"%>' styleClass="combobox">
+							<html:option value="Pho doan">Phó đoàn</html:option>
+							<html:option value="Thanh vien doan">Thành viên đoàn</html:option>
+						</html:select></td>
+						<td align="center"><INPUT type="checkbox" class="checkbox" value="selectThanhVienDoan(this)"></td>
+					</tr>
+					<%}else{%>
+					<tr class="row2">
+						<!--So thu tu-->
+						<td align="center"><%=index.intValue() + 1%></td>
+						<!--Ten thanh vien-->
+						<td><html:hidden name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].idCanBo"%>' /> <html:text styleClass="text" name="ChuanBiTienHanhForm" style="width:77%" property='<%="chiTietDsTvd[" + index + "].tenCanBo"%>'%>'>
+						</html:text> 
+						<Input type="button" value="..." class="lovButton" onclick="chonThanhVienDoanFromLov(<%=index%>)">
+						</td>
+						<!--Don vi cong tac-->
+						<td><html:hidden name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].idPhong"%>' /> <html:text styleClass="text1" style="border-bottom:none; width:100%" name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].tenPhong"%>'>
+						</html:text></td>
+						<!--Chuc vu cong tac-->
+						<td><html:text styleClass="text1" style="border-bottom:none;width:100%" name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].chucVu"%>'>
+						</html:text></td>
+						<!--Chuc vu trong doan-->
+						<td><html:select name="ChuanBiTienHanhForm" property='<%="chiTietDsTvd[" + index + "].chucVuTrongDoan"%>' styleClass="combobox">
+							<html:option value="Pho doan">Phó đoàn</html:option>
+							<html:option value="Thanh vien doan">Thành viên đoàn</html:option>
+						</html:select></td>
+						<td align="center"><INPUT type="checkbox" class="checkbox" value="selectThanhVienDoan(this)"></td>
+					</tr>
+					<%}%>
+				</logic:iterate>
+			</logic:present>
+		</TBODY>
+	</TABLE>
+	</DIV>
+	<TABLE width="100%" align="right">
+		<tr>
+			<td colspan="6" align="right">
+			<INPUT type="button" class="button" onclick="themThanhVienDoanNgoai()" value="Thêm thành viên ngoài">
+			<INPUT type="button" class="button" onclick="themThanhVienDoan()" value="Thêm"> 
+			<INPUT type="button" onclick="xoaThanhVienDoan()" value="Xóa" id="xoaTblThanhVienDoan" class="button">
+			</td>
+		</tr>
+	</TABLE>
+	</fieldset>
+	<TABLE align="right" width="100%">
+		<tr>
+			<td align="right"><INPUT type="button" onclick="IntoTrinh()" class="button1" style="MARGIN: 0px;" value="In tờ trình"></td>
+		</tr>
+	</TABLE>
+	<html:hidden property="isChangeTvd" />
+	<html:hidden property="idDsTvd" />
+</html:form>
+<script language="javascript">
+function IntoTrinh(){   
+	if(!validateThanhVienDoan())     
+			return;
+	//window.open('report.do?rp=ttnb04'); 
+	var printfForm = findForm('/' + contextRoot + '/chuan_bi_tien_hanh.do?method=save&type=tvd');	
+	printfForm.action = 'chuan_bi_tien_hanh.do?method=in&type=tvd&idCuocTtkt=' + document.getElementsByName('idCuocTtkt')[0].value;
+	printfForm.submit();
+	printfForm.action = '/' + contextRoot + '/chuan_bi_tien_hanh.do?method=save&type=tvd'; 
+}
+function onloadChiDinhThanhVienDoan(){
+	if(document.getElementsByName('chiTietDsTvd[0].chucVu')[0].value == 'null')
+		document.getElementsByName('chiTietDsTvd[0].chucVu')[0].value = ''; 
+}
+var idCanBoConTrol;
+var	tenCanBoConTrol;
+var	donViCongTacControl;
+var	chucVuConTrol;
+
+function chonThanhVienDoanFromLov(index){	
+	lovType = 'tvd';
+	// Id
+	idCanBoConTrol = document.getElementsByName('chiTietDsTvd[' + index + '].idCanBo')[0];   
+	// Ten
+	tenCanBoConTrol = document.getElementsByName('chiTietDsTvd[' + index + '].tenCanBo')[0];
+	// Don vi cong tac (Phong)
+	donViCongTacControl = document.getElementsByName('chiTietDsTvd[' + index + '].tenPhong')[0];
+	// Chuc vu
+	chucVuConTrol = document.getElementsByName('chiTietDsTvd[' + index + '].chucVu')[0]; 
+	showLovNhanVienWithCQTrucThuoc(maCqt, tenCanBoConTrol); 
+	
+}
+function exist(maCanBo){
+	var allRowDsThanhVien = document.getElementById('bodyDsTvd').childNodes;
+	for(var i = 0; i< allRowDsThanhVien.length; i++){
+		var rowThanhVien = allRowDsThanhVien[i];
+		var colTenThanhVien = rowThanhVien.cells[1];
+		if(maCanBo == colTenThanhVien.childNodes[0].value){
+			window.focus();  
+			alert('Cán bộ này đã tồn tại!');
+			return true;
+		}	 
+	}
+	return false; 
+}
+
+
+
+function xoaThanhVienDoan(){
+	bangDanhSachThanhVienDoan.deleteSelectedRow();
+	
+}
+function selectAllThanhVienDoan(control){
+	tableDsTvd = document.getElementById('tblDsTvd');
+	allRows = tableDsTvd.rows;
+	numOfColumn = allRows[0].cells.length;
+	for(i = 2; i< allRows.length; i++)
+		allRows[i].cells[numOfColumn - 1].childNodes[0].checked = control.checked;
+	if(control.checked)
+		tblDanhSachTVD.numOfCheckedRow = allRows.length - 2;
+	else
+		tblDanhSachTVD.numOfCheckedRow = 0;
+	
+}
+var thanhVienDoanIds = "";
+function selectThanhVienDoan(checkBox){
+	
+}
+var controlIdCanBo;
+var controlTenCanBo; 
+var controlIdPhong;
+var controlTenPhong;
+var controlChucVu;
+
+function setThongTinTVD(idCanBo, tenCanBo, chucVu, idPhong, tenPhong){
+	controlIdCanBo.value = idCanBo;
+	controlTenCanBo.value = tenCanBo;
+	controlChucVu.value = chucVu;
+	controlIdPhong.value = idPhong;
+	controlTenPhong.value = tenPhong;
+	
+}
+function validateDate(){
+	return true;
+}
+function chonDonVi(control, index){
+	
+}
+
+var classStyleOfCurrentRow = "row1";
+var numOfTvd = 1;
+var bangDanhSachThanhVienDoan = new TableObject('tblDsTvd', true, 'xoaTblThanhVienDoan');
+function themThanhVienDoan(){
+	bangDanhSachThanhVienDoan.addRow(createNewThanhVienDoanRow());
+}
+function createNewThanhVienDoanRow(){      
+	arrDanhSachThanhVienDoan = new Array(); 
+	index = bangDanhSachThanhVienDoan.numOfRow - 1;
+	arrDanhSachThanhVienDoan[0] = '<input type="hidden" name="chiTietDsTvd[' + index + '].idCanBo">'
+	arrDanhSachThanhVienDoan[0] += '<input type="text" name="chiTietDsTvd[' + index + '].tenCanBo" style="width:77%" class="text" onchange = "chonThanhVienDoanFromLov(' + index + ')">'				
+	arrDanhSachThanhVienDoan[0] += '<Input type="button" value="..." class="lovButton" onclick="chonThanhVienDoanFromLov(' + index + ')">'
+	
+	arrDanhSachThanhVienDoan[1] = '<input type="text" name="chiTietDsTvd[' + index + '].tenPhong" class="text1" style="border-bottom:none; width:100%">'				
+	arrDanhSachThanhVienDoan[1] += '<input type="hidden" name="chiTietDsTvd[' + index + '].idPhong" value="">'				
+	
+	arrDanhSachThanhVienDoan[2] = '<input type="text" name="chiTietDsTvd[' + index + '].chucVu" class="text1" style="border-bottom:none; width:100%">'				
+	
+	arrDanhSachThanhVienDoan[3] = '<select name="chiTietDsTvd['+ index + '].chucVuTrongDoan" styleClass="combobox">'
+	arrDanhSachThanhVienDoan[3] += '<option value="Pho doan">Phó đoàn'
+	arrDanhSachThanhVienDoan[3] += '</option>'
+	arrDanhSachThanhVienDoan[3] += '<option value="Thanh vien doan">Thành viên đoàn'
+	arrDanhSachThanhVienDoan[3] += '</option>'
+	arrDanhSachThanhVienDoan[3] += '</select>'   
+	arrDanhSachThanhVienDoan[4] = '<INPUT type="checkbox" class="checkbox" name="selectThanhVienDoan">' 
+	return arrDanhSachThanhVienDoan;
+	
+}
+function themThanhVienDoanNgoai(){
+	bangDanhSachThanhVienDoan.addRow(createNewThanhVienDoanNgoaiRow());
+}
+function createNewThanhVienDoanNgoaiRow(){      
+	arrDanhSachThanhVienDoan = new Array(); 
+	index = bangDanhSachThanhVienDoan.numOfRow - 1;
+	arrDanhSachThanhVienDoan[0] = '<input type="hidden" name="chiTietDsTvd[' + index + '].idCanBo" value="'+Math.uuid(10, 10)+'">'
+	arrDanhSachThanhVienDoan[0] += '<input type="text" name="chiTietDsTvd[' + index + '].tenCanBo" style="width:77%" class="text">'				
+		
+	arrDanhSachThanhVienDoan[1] = '<input type="text" name="chiTietDsTvd[' + index + '].tenPhong" style="border-bottom:none; width:100%">'				
+	arrDanhSachThanhVienDoan[1] += '<input type="hidden" name="chiTietDsTvd[' + index + '].idPhong" value="999999999">'				
+	
+	arrDanhSachThanhVienDoan[2] = '<input type="text" name="chiTietDsTvd[' + index + '].chucVu" style="border-bottom:none; width:100%">'				
+	
+	arrDanhSachThanhVienDoan[3] = '<select name="chiTietDsTvd['+ index + '].chucVuTrongDoan" styleClass="combobox">'
+	arrDanhSachThanhVienDoan[3] += '<option value="Pho doan">Phó đoàn'
+	arrDanhSachThanhVienDoan[3] += '</option>'
+	arrDanhSachThanhVienDoan[3] += '<option value="Thanh vien doan">Thành viên đoàn'
+	arrDanhSachThanhVienDoan[3] += '</option>'
+	arrDanhSachThanhVienDoan[3] += '</select>'   
+	arrDanhSachThanhVienDoan[4] = '<INPUT type="checkbox" class="checkbox" name="selectThanhVienDoan">' 
+	return arrDanhSachThanhVienDoan;
+	
+}
+function validateThanhVienDoan(){
+	if(!isRequired(document.getElementsByName('noiLapDsTvd')[0]))
+		return false;
+	if(!isRequired(document.getElementsByName('ngayLapDsTvd')[0]))
+		return false; 
+	if(!isEmpty(document.getElementsByName('noiPheDuyetDsTvd')[0].value)){
+		if(isEmpty(document.getElementsByName('ngayPheDuyetDsTvd')[0].value)){
+			alert('Bạn phải nhập nơi phê duyệt cùng với ngày phê duyệt!');
+			document.getElementsByName('ngayPheDuyetDsTvd')[0].focus();
+			return false;
+		}
+			
+	}
+	if(!isEmpty(document.getElementsByName('ngayPheDuyetDsTvd')[0].value)){
+	if(isEmpty(document.getElementsByName('noiPheDuyetDsTvd')[0].value)){
+		alert('Bạn phải nhập nơi phê duyệt cùng với ngày phê duyệt!');
+		document.getElementsByName('noiPheDuyetDsTvd')[0].focus();
+		return false;
+	}
+			
+	}
+	//if(!isRequired(document.getElementsByName('noiPheDuyetDsTvd')[0]))
+		//return false;
+	//if(!isRequired(document.getElementsByName('ngayPheDuyetDsTvd')[0]))
+		//return false;
+	if(!compareDate(document.getElementsByName('ngayLapDsTvd')[0], document.getElementsByName('ngayPheDuyetDsTvd')[0], 'Ngày phê duyệt phải bằng hoặc sau ngày lập!')){
+		document.getElementsByName('ngayPheDuyetDsTvd')[0].focus();
+		return false;
+	}
+	if(!isRequired(document.getElementsByName('vanBanQuyDinhCnangNvuQdTvd')[0]))
+		return false;
+	if(!validateDsThanhVien()) 
+		return false; 
+	return true;
+}
+function checkRequired(){
+if($('[name="noiPheDuyetDsTvd"]')[0].value==""){
+	alert("Phải nhập nơi phê duyệt ");
+	$('[name="noiPheDuyetDsTvd"]')[0].focus();
+	return true;
+}else
+	if($('[name="ngayPheDuyetDsTvd"]')[0].value=="")
+	{
+		alert("Phải nhập ngày phê duyệt ");
+		$('[name="ngayPheDuyetDsTvd"]')[0].focus();
+		return true;
+	}
+	else return false;
+}
+function validateDsThanhVien(){
+	tblDanhSachTVD = document.getElementById('tblDsTvd');
+	for(var i = 2; i < tblDanhSachTVD.rows.length; i++){
+		if(!isRequired(document.getElementsByName('chiTietDsTvd[' + eval(i-1) + '].tenCanBo')[0]))
+			return false;
+		if(!isRequired(document.getElementsByName('chiTietDsTvd[' + eval(i-1) + '].tenPhong')[0]))
+			return false;
+	}
+	return true;
+}
+function saveThanhVienDoan(){
+	for(i = 0; i< document.forms.length; i++){
+		if(document.forms[i].action == 'chuan_bi_tien_hanh.do?method=save&type=tvd')
+			document.forms[i].submit();
+	}
+}
+	
+	
+</script>

@@ -1,0 +1,333 @@
+)CM Change Defaults
+)DEFAULT )@?!^]
+/* REXX */
+ 
+/********************************************************************/
+/* Licensed Material - Property of IBM                              */
+/*                                                                  */
+/* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */
+/* (C) Copyright IBM Corp. 1999, 2006                               */
+/* All Rights Reserved                                              */
+/* US Government Users Restricted Rights - Use, duplication or      */
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/
+/* Status = H28W600                                                 */
+/* ________________________________________________________________ */
+/*                                                                  */
+/* This REXX exec will create the necessary directories for         */
+/* userhomes and updates the owner and permission for these dirs.   */
+/********************************************************************/
+ 
+parse arg $uhome $cg $ags $agd $cu .
+ 
+$uhome=strip($uhome,'T','/')
+$root = "/"
+ 
+/****************************************************************/
+/*     Beginning of main procedure:                             */
+/****************************************************************/
+ 
+firstchar = Substr($uhome,1,1)
+If firstchar <> "/" then
+ Do
+  say 'Directory name does NOT begin with a "/".'
+  say 'Please correct and resubmit.'
+  Exit 12
+ End
+ 
+if syscalls(on)>4 then
+ Do
+  say 'Initialization failure. Please correct and resubmit.'
+  Exit 12
+ End
+ 
+$rc= '0'
+ 
+SINDEX.=0
+ 
+flag1="OFF"
+flag2="OFF"
+flag3="OFF"
+flag4="OFF"
+flag5="OFF"
+flag6="OFF"
+flag7="OFF"
+ 
+ say 'The EXEC to create the directories has begun.'
+address syscall 'getpwnam' $cu 'uinfo.'
+If (rc=0) then
+ Do
+  $theuid = uinfo.pw_uid
+  say 'Owning userid is:' $cu
+  say 'Owning uid    is:' $theuid
+ End
+ Else
+  Do
+   say 'Unable to determine UID for user:' $cu
+   say 'Make sure the user ID exists and has been assigned a UID'
+   exit 12
+  END
+address syscall 'getgrnam' $cg 'ginfo.'
+If (rc=0) then
+ Do
+  $config_gid = ginfo.gr_gid
+  say 'Owning group is:' $cg
+  say 'Owning gid   is:' $config_gid
+  End
+ Else
+  Do
+   say 'Unable to determine GID for group:' $cg
+   say 'Make sure the group exists and has been assigned a GID.'
+   exit 12
+  End
+address syscall 'getgrnam' $ags 'ginfo.'
+If (rc=0) then
+ Do
+  $ags_gid = ginfo.gr_gid
+  say 'Owning group is:' $ags
+  say 'Owning gid   is:' $ags_gid
+  End
+ Else
+  Do
+   say 'Unable to determine GID for group:' $ags
+   say 'Make sure the group exists and has been assigned a GID.'
+   exit 12
+  End
+address syscall 'getgrnam' $agd 'ginfo.'
+If (rc=0) then
+ Do
+  $agd_gid = ginfo.gr_gid
+  say 'Owning group is:' $agd
+  say 'Owning gid   is:' $agd_gid
+  End
+ Else
+  Do
+   say 'Unable to determine GID for group:' $agd
+   say 'Make sure the group exists and has been assigned a GID.'
+   exit 12
+  End
+ 
+ 
+call saym 1, 'The EXEC ran at ' TIME() ' on ' DATE()
+call saym 1, '                   '
+ 
+address syscall 'getuid'
+myuid=retval
+address syscall 'geteuid'
+myeuid=retval
+privflag=0                         /* Change the Effective UID to  */
+If myeuid <> 0 then                /* be 0 since invoker should    */
+  Do                               /* be part of the BPX.SUPERUSER */
+   address syscall 'seteuid 0'     /* facility class               */
+   privflag=1
+  End
+ 
+address syscall 'access' $root F_OK
+ 
+If (rc=0 & retval<>0) | rc<> 0 then
+ Do
+  If errno = 6F then           /* EACCESS */
+  Do
+  call saym 1, 'Do not have appropriate permission to' $root
+  call saym 1, '                                 '
+  call saym 1, 'Please get appropriate permission to this directory',
+               'and resubmit.'
+  call saym 1, '                                 '
+  End
+Else
+ Do
+  call saym 1, 'Directory' $root 'does not exist.'
+  call saym 1, '                                 '
+  call saym 1, 'Please create this directory and resubmit.'
+  call saym 1, '                                 '
+ End
+$rc=12
+End
+Else   /* access ok */
+ Do
+  flag1="ON"
+  call saym 2, 'Created the following directories:'
+  call saym 2, '=================================='
+ 
+  call saym 3, 'Following directories already exist:'
+  call saym 3, '===================================='
+ 
+  call saym 4, 'Problems creating the following directories:'
+  call saym 4, '============================================'
+ 
+  call saym 5, '  '
+ 
+  call saym 6, '  '
+ 
+  /****************************************************************/
+  /* Make sure the permission bits are used from commands below   */
+  /* and do not get masked.                                       */
+  /****************************************************************/
+  address syscall 'umask 000'
+ 
+  /* create the high-level dir if necessary */
+  /* Note that earlier we stripped out any trailing slashes in uhome, if any */
+  /* since the first char is always a slash, start at position 2 */
+  tpos =2
+  DO FOREVER
+    tpos=POS("/",$uhome,tpos)
+    IF tpos=0 THEN leave
+    tdir=SUBSTR($uhome,1,tpos)
+    call syscall0 mkdir tdir 755
+    tpos=tpos+1          /* tpos is the slash, start search again at the next char */
+  END
+ 
+  call syscall0 mkdir $uhome || "/"  755
+ 
+  call syscall0 mkdir $uhome || "/" || $cg || "/"  770
+  call syscall1 chown $uhome || "/" || $cg || "/"  $theuid $config_gid
+ 
+  call syscall0 mkdir $uhome || "/" || $ags || "/" 770
+  call syscall1 chown $uhome || "/" || $ags || "/" $theuid $ags_gid
+ 
+  call syscall0 mkdir $uhome || "/" || $agd || "/" 770
+  call syscall1 chown $uhome || "/" || $agd || "/" $theuid $agd_gid
+ 
+  /************************************************************/
+  /*    End of where you put other commands you may need      */
+  /************************************************************/
+ 
+End
+ 
+If privflag=1 then
+  address syscall 'seteuid' myuid
+ 
+ say 'The EXEC has completed with Return Code' $rc
+ say 'Check the SYSOUT held OUTPUT for further details.'
+ 
+ 
+'ALLOC FI(BPXOUT) SYSOUT HOLD REUSE'
+ 
+ call saym 1, 'This EXEC completed with Return Code' $rc
+ call saym 1, '                 '
+ 
+ If flag2 = 'OFF' then
+  Do
+   call saym 2, 'None. No directories were created.'
+   call saym 2, '                                  '
+  End
+ Else
+   call saym 2, '                                  '
+ 
+ If flag3 = 'OFF' then
+  Do
+   call saym 3, 'None. No existing directories.'
+   call saym 3, '                  '
+  End
+ Else
+   call saym 3, '                                  '
+ 
+ If flag4 = 'OFF' then
+  Do
+   call saym 4, 'No problems while creating the directories.'
+   call saym 4, '                                 '
+  End
+ Else
+   call saym 4, '                                  '
+ 
+ If flag7 = 'OFF' then
+   call saym 7, 'End of EXEC.'
+ Else
+  Do
+   call saym 7, '                                  '
+   call saym 7, 'Please refer to the z/OS UNIX Messages and Codes',
+                'book to interpret'
+   call saym 7, 'the Return and Reason Codes.'
+   call saym 7, 'Please correct and resubmit.'
+  End
+ 
+If flag1 = 'OFF' then
+  'EXECIO' SINDEX.1 'DISKW BPXOUT (STEM STEM.1. FINIS'
+Else
+ Do
+  'EXECIO' SINDEX.1 'DISKW BPXOUT (STEM STEM.1.'
+  'EXECIO' SINDEX.2 'DISKW BPXOUT (STEM STEM.2.'
+  'EXECIO' SINDEX.3 'DISKW BPXOUT (STEM STEM.3.'
+  'EXECIO' SINDEX.4 'DISKW BPXOUT (STEM STEM.4.'
+  'EXECIO' SINDEX.5 'DISKW BPXOUT (STEM STEM.5.'
+  'EXECIO' SINDEX.6 'DISKW BPXOUT (STEM STEM.6.'
+  'EXECIO' SINDEX.7 'DISKW BPXOUT (STEM STEM.7. FINIS'
+ End
+'FREE FI(BPXOUT)'
+ 
+Exit $rc
+ 
+  /********************************/
+  /*  Subroutine for mkdir calls  */
+  /********************************/
+ 
+syscall0:
+ parse arg cmd
+ address syscall cmd
+ parse arg . path permbits
+ 
+ If (rc=0 & retval<>0) | rc<> 0 then
+  Do
+   If errno = 75 then           /* EEXIST */
+    Do
+     flag3 = 'ON'
+     call saym 3, path
+     address syscall 'chmod' path permbits
+    End
+   Else
+    If errno <> 75 then
+     Do
+      flag4 = 'ON'
+      flag7 = 'ON'
+      call saym 4, path
+      call saym 4,'  Not created. RC='errno '   RSN='errnojr
+      $rc = '12'
+     End
+  End
+ Else
+  Do
+   flag2 = 'ON'
+   call saym 2, path
+  End
+Return
+ 
+  /*****************************************************/
+  /*  Subroutine for system calls.                     */
+  /*****************************************************/
+ 
+syscall1:
+ parse arg cmd
+ address syscall cmd                      /* execute call */
+ 
+ If (rc=0 & retval<>0) | rc<> 0 then
+  Do
+    If errno <> 75 then
+      Do
+       call saym 1, 'Command:' cmd 'failed'
+       call saym 1, '  RC='errno '   RSN='errnojr
+       $rc = '4'
+      End
+    Else         /* EEXIST */
+      Do
+       call saym 1, 'Following command result already exists'
+       call saym 1, ' ' cmd
+       call saym 1, ' '
+      End
+  End
+ Else
+  Do
+       call saym 1, 'Following command was successful'
+       call saym 1, ' ' cmd
+       call saym 1, ' '
+  End
+Return
+ 
+  /*****************************************/
+  /*  Subroutine to add messages to STEMS  */
+  /*****************************************/
+ 
+saym:
+ parse arg s,msg
+ SINDEX.s=SINDEX.s+1
+ ix=SINDEX.s
+ STEM.s.ix=msg
+Return

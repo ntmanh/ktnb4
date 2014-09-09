@@ -1,0 +1,1680 @@
+<HTML>
+<HEAD>    
+<TITLE>Instructions for customizing WebSphere Application Server for z/OS Deployment Manager node and a federated application server node.    
+</TITLE>      
+</HEAD>
+<BODY>    
+<!--                                                                  -->           
+<!-- ================================================================ -->         
+<!-- PROPRIETARY-STATEMENT:                                           -->         
+<!-- Licensed Material - Property of IBM                              -->         
+<!--                                                                  -->         
+<!-- 5724-I63, 5724-H88, 5655-N01, 5733-W61                           -->         
+<!-- (C) Copyright IBM Corp. 1999, 2006                               -->         
+<!-- All Rights Reserved                                              -->         
+<!-- US Government Users Restricted Rights - Use, duplication or      -->         
+<!-- disclosure restricted by GSA ADP Schedule Contract with IBM Corp.-->         
+<!-- ================================================================ -->         
+<!--                                                                  -->         
+<!-- Change Activity:                                                 -->         
+<!--                                                                  -->         
+<!--   378205  V6.1    092506    FH: Initial version                  -->  
+<!--                   092906    FH                                   -->
+<!--   398594  V6.1    101706  PDOP: Corrected ${WasServerDir} tag    -->
+<!--   400022  V6.1    102306    FH: NOAUTOMOVE and 64-bit updates    -->
+<!--   402402  V6.1    110106   DMB: Reword NOAUTOMOVE TEXT           -->
+<!--   412596  V6.1    010306    DB: Add SBBGLOAD references          -->
+<!--   396079.1 V6.1   011307  PDOP: App server data sets for cell    -->
+<!--   417077  V6.1    012607    JG: Provide same look/feel           -->
+<!--   421106   V6.1   021807     DB: Remove SGSKLOAD                 -->
+<!--   425357  V6.1    040907     DB: use aggrgrow option for ZFS     -->
+<!-- PK67056  V6.1   060308    DB: updates for password phrase      -->
+<!-- ================================================================ -->         
+<!--  -->
+<h2>                                     
+Instructions for customizing WebSphere Application Server for z/OS Deployment Manager node and a federated application server node.                                                  
+</h2>                                                                                                                                                                 
+<p>                                                                               
+The Profile Management Tool has created jobs based on the information you          
+provided. These instructions tell you how to modify the operating               
+system and run the jobs to customize WebSphere Application Server for z/OS.  
+When you upload the customization jobs to the target system, a text version of
+these instructions will be written to:
+<samp><xmp> 
+    ${zTargetHLQ}.CNTL(BBODMINS)
+</xmp></samp>                      
+</p>                                                                                
+<h3>Guidelines</h3>                                                                              
+<UL>
+<li>
+Upload the customization jobs to the following data sets on the target
+system:
+<samp><xmp>
+    ${zTargetHLQ}.CNTL
+    ${zTargetHLQ}.DATA
+</xmp></samp> 
+</li>
+<li>You need to use these instructions on your target system.
+</li>
+</UL>                          
+<HR ALIGN=center NOSHADE SIZE=5 WIDTH=90%>                                                        
+<h4>Manual configuration updates</h4>                                               
+<p>
+The Profile Management Tool does not attempt to
+update configuration data for your base operating system or existing
+subsystems. You need to perform the following manual steps prior to running
+the WebSphere for z/OS configuration jobs.
+</p>            
+<br><br>                                                                     
+<ol>    
+<li>                                                                               
+<b>Update BLSCUSER.</b> To use the IPCS support provided by the product, 
+append the contents of the
+<a href="./cntl/bboipcsp" type="text/plain">cntl/bboipcsp</a> 
+file within this customization definition to the BLSCUSER member in your 
+IPCSPARM or system PARMLIB dataset.
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>                                                                         
+<BR>                                                                               
+</li> 
+<li>    
+<b>Update SCHEDxx.</b><br> Refer to the                                                                             
+<a href="./cntl/bbosched" type="text/plain">cntl/bbosched</a> 
+file within this customization definition. 
+<BR>    
+<br>                                                                               
+    In order to set the correct program properties for the WebSphere                
+    for z/OS run-time executables, append the contents of this member               
+    to the SCHEDxx member in your system PARMLIB concatenation.                     
+<BR><br>                                                                               
+   <b> Note:  </b> When you are finished, issue the command SET SCH=xx                  
+    to activate SCHEDxx and load a new program properties table.                    
+                                                                                    
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>                                                                               
+<BR>                                                                               
+</li>  
+<li>
+<b>Check that the following data sets are APF-authorized:</b>
+<samp><xmp> 
+    ${zBbolpaName}
+    ${zBboloadName}
+    ${zBbgloadName}
+    ${zBbolod2Name}
+</xmp>
+<!-- if (${zSameDataSetNames}==false) -->  
+<xmp>
+    ${zAppServerBbolpaName}
+    ${zAppServerBboloadName}
+    ${zAppServerBbgloadName}
+    ${zAppServerBbolod2Name}
+</xmp>           
+<!-- endif -->
+</samp>                                                                                    
+<p> 
+    Add these datasets to your <samp>PROGxx</samp> or <samp>IEAAPFxx</samp> parmlib members, as
+    appropriate, ensuring you specify the correct volsers.<br>
+    <b>Note:</b> You must add the actual data set names to your parmlib members and not any aliases you may have specified.
+</p>
+<BR>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table>
+<br><br>                                                                                   
+</li>                                                                                    
+<li>                                                                               
+<b>Update SMFPRMxx.</b> To collect the SMF120 records created by the run-time servers, 
+   update SMFPRMxx to include record type 120, as in the following example:
+<br>
+<br><pre>
+       SUBSYS(STC,EXITS(IEFU29,IEFACTRT),INTERVAL(SMF,SYNC),TYPE(0,30,70:79,88,89,<strong><em>120</em></strong>,245))
+</pre>                                                
+<BR>     
+<br>                                                                              
+    For details on the SMF records, see related topics in the                       
+<samp><a href="http://www14.software.ibm.com/webapp/wsbroker/redirect?version=pix&product=was-nd-zos&topic=rprf_tunezopsys" target="_blank">WebSphere for z/OS Information Center</a>.    
+</samp>
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>                                                                              
+</li>                   
+<li> 
+<b>Update your active BPXPRMxx member to have the following WebSphere Application Server
+    for z/OS configuration file system:</b>
+<br>
+<samp><xmp> 
+    ${zConfigHfsName}
+</xmp></samp>
+<xmp>    and 
+</xmp>                                                                      
+<samp><xmp>
+    ${zAppServerConfigHfsName}
+</xmp></samp>    
+    mounted at:
+<samp><xmp> 
+    ${zConfigMountPoint}
+</xmp></samp>
+<xmp>    and
+</xmp>    
+<samp><xmp>         
+    ${zAppServerConfigMountPoint}
+</xmp></samp>       
+    in read/write mode.
+<br><br>
+<b>Example:</b>
+<br>
+<samp><xmp>
+<!-- if (${zFilesystemType}==ZFS) -->
+    MOUNT FILESYSTEM('${zConfigHfsName}') MOUNTPOINT('${zConfigMountPoint}') TYPE(${zFilesystemType}) MODE(RDWR) PARM('AGGRGROW')
+<!-- endif -->
+<!-- if (${zFilesystemType}==HFS) -->
+    MOUNT FILESYSTEM('${zConfigHfsName}') MOUNTPOINT('${zConfigMountPoint}') TYPE(${zFilesystemType}) MODE(RDWR)
+<!-- endif -->
+
+<!-- if (${zAppServerFilesystemType}==ZFS) -->
+    MOUNT FILESYSTEM('${zAppServerConfigHfsName}') MOUNTPOINT('${zAppServerConfigMountPoint}') TYPE(${zAppServerFilesystemType}) MODE(RDWR) PARM('AGGRGROW')
+<!-- endif -->
+<!-- if (${zAppServerFilesystemType}==HFS) -->
+    MOUNT FILESYSTEM('${zAppServerConfigHfsName}') MOUNTPOINT('${zAppServerConfigMountPoint}') TYPE(${zAppServerFilesystemType}) MODE(RDWR)
+<!-- endif -->
+</xmp></samp>
+If you are configuring in a sysplex environment, you may wish to use the NOAUTOMOVE parameter as follows:
+<br>
+<samp><xmp>
+<!-- if (${zFilesystemType}==ZFS) -->
+    MOUNT FILESYSTEM('${zConfigHfsName}') MOUNTPOINT('${zConfigMountPoint}') TYPE(${zFilesystemType}) MODE(RDWR) PARM('AGGRGROW') SYSNAME(${zSystemName}) NOAUTOMOVE
+<!-- endif -->
+<!-- if (${zFilesystemType}==HFS) -->
+    MOUNT FILESYSTEM('${zConfigHfsName}') MOUNTPOINT('${zConfigMountPoint}') TYPE(${zFilesystemType}) MODE(RDWR) SYSNAME(${zSystemName}) NOAUTOMOVE
+<!-- endif -->
+
+<!-- if (${zAppServerFilesystemType}==ZFS) -->
+    MOUNT FILESYSTEM('${zAppServerConfigHfsName}') MOUNTPOINT('${zAppServerConfigMountPoint}') TYPE(${zAppServerFilesystemType}) MODE(RDWR) PARM('AGGRGROW') SYSNAME(${zSystemName}) NOAUTOMOVE
+<!-- endif -->
+<!-- if (${zAppServerFilesystemType}==HFS) -->
+    MOUNT FILESYSTEM('${zAppServerConfigHfsName}') MOUNTPOINT('${zAppServerConfigMountPoint}') TYPE(${zAppServerFilesystemType}) MODE(RDWR) SYSNAME(${zSystemName}) NOAUTOMOVE
+<!-- endif -->
+</xmp></samp>
+<b>Note:</b> The NOAUTOMOVE parameter prevents the configuration file system from being mounted on a different z/OS 
+system in a shared file system configuration, which could cause performance problems.
+<br><br>
+<!-- if (${zFilesystemType}==ZFS) -->
+If you have specified <i>aggrgrow=on</i> in your IOEFSPRM parmlib member, you can omit the AGGRGROW parm shown in the above examples
+<!-- endif -->
+<!-- if (${zFilesystemType}==HFS) -->
+<!-- if (${zAppServerFilesystemType}==ZFS) -->
+If you have specified <i>aggrgrow=on</i> in your IOEFSPRM parmlib member, you can omit the AGGRGROW parm shown in the above examples
+<!-- endif -->
+<!-- endif -->
+<br><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>                                                                                               
+</li>                                                                               
+<li><b>Update TCP/IP by reserving the following ports for WebSphere Application Server for z/OS:</b>                                                                           
+<br>                                                                                    
+<BR><b>Deployment Manager Ports  </b>   
+<BR>      
+<table border=2 cellspacing=0 cellpadding=3>
+<tr>
+<th>Type</th>
+<th>Number</th>
+</tr>
+<tr>
+<td>SOAP JMX Connector port</td>
+<td align=right><tt>${zSoapPort}</tt></td>
+</tr>
+<tr>
+<td>Cell Discovery Address port</td>
+<td align=right><tt>${zCellDiscoveryPort}</tt></td>
+</tr>
+<tr>
+<td>ORB port</td>
+<td align=right><tt>${zOrbListenerPort}</tt></td>
+</tr>
+<!-- if (${zOrbListenerSslPort} ^= 0) -->      
+ <tr>
+<td>ORB SSL port </td>
+<td align=right><tt>${zOrbListenerSslPort}</tt></td>
+</tr>                                                    
+<!-- endif -->
+<tr>
+<td>Administrative console port</td>
+<td align=right><tt>${zAdminConsolePort}</tt></td>
+</tr>
+<tr>
+<td>Administrative console secure port</td>
+<td align=right><tt>${zAdminConsoleSecurePort}</tt></td>
+</tr>
+<tr>
+<td>High Availability Manager Communications port</td>
+<td align=right><tt>${zHighAvailManagerPort}</tt></td>
+</tr>
+</table>
+<BR> <b>     
+       Node agent ports</b>
+<table border=2 cellspacing=0 cellpadding=3>
+<tr>
+<th>Type</th>
+<th>Number</th>
+</tr>
+<tr>
+<td>SOAP JMX Connector port</td>
+<td align=right><tt>${zNodeAgentJmxSoapConnectorPort}</tt></td>
+</tr>
+<tr>
+<td>Node Discovery port</td>
+<td align=right><tt>${zNodeAgentNodeDiscoveryPort}</tt></td>
+</tr>
+<tr>
+<td>Node Multicast Discovery Port</td>
+<td align=right><tt>${zNodeAgentNodeMulticastDiscoveryPort}</tt></td>
+</tr>
+<tr>
+<td>Node IPv6 multicast discovery port</td>
+<td align=right><tt>${zNodeAgentNodeIPv6MulticastDiscoveryPort}</tt></td>
+</tr>
+<tr>
+<td>ORB port  </td>
+<td align=right><tt>${zNodeAgentOrbPortName}</tt></td>
+</tr>
+<tr>
+<td>High Availability Manager Communication port</td>
+<td align=right><tt>${zNodeAgentHamCommPort}</tt></td>
+</tr>
+<!-- if (${zNodeAgentOrbSslPortName}!=0) --> 
+<tr>
+<td> ORB SSL port  </td>
+<td align=right><tt>${zNodeAgentOrbSslPortName}</tt></td>
+</tr>
+<!-- endif -->
+</table>
+<br><br>
+<b>Application server ports</b>
+<br>
+<table border=2 cellspacing=0 cellpadding=3>
+<tr>
+<th>Type</th>
+<th>Number</th>
+</tr>
+<tr>
+<td>SOAP JMX Connector port</td>
+<td align=right><tt>${zAppServerSoapPort}</tt></td>
+</tr>
+<tr>
+<td>ORB port  </td>
+<td align=right><tt>${zAppServerOrbListenerPort}</tt></td>
+</tr>
+<!-- if (${zAppServerOrbListenerSslPort}!=0) -->
+<tr>
+<td>ORB SSL port</td>
+<td align=right><tt>${zAppServerOrbListenerSslPort}</tt></td>
+</tr>
+<!-- endif -->
+<tr>
+<td>High availability manager communication port</td>
+<td align=right><tt>${zAppServerOrbListenerSslPort}</tt></td>
+</tr>
+<tr>
+<td>Service Integration port</td>
+<td align=right><tt>${zAppServerServiceIntegrationPort}</tt></td>
+</tr>
+<tr>
+<td>Service Integration Secure port</td>
+<td align=right><tt>${zAppServerServiceIntegrationSecurePort}</tt></td>
+</tr>
+<tr>
+<td>Service Integration MQ Interoperability port</td>
+<td align=right><tt>${zAppServerServiceIntegrationMqPort}</tt></td>
+</tr>
+<tr>
+<td>Service Integration MQ Interoperability Secure port</td>
+<td align=right><tt>${zAppServerServiceIntegrationSecureMqPort}</tt></td>
+</tr>
+<tr>
+<td>Session Initiation Protocol (SIP) port</td>
+<td align=right><tt>${zAppServerSessionInitiationPort}</tt></td>
+</tr>
+<tr>
+<td>Session Initiation Protocol (SIP) secure port</td>
+<td align=right><tt>${zAppServerSessionInitiationSecurePort}</tt></td>
+</tr>
+</table>
+<br><br>
+<b>Daemon ports</b>
+<br>
+<table border=2 cellspacing=0 cellpadding=3>
+<tr>
+<th>Type</th>
+<th>Number</th>
+</tr>
+<tr>
+<td>Daemon IP port </td>
+<td align=right><tt>${zDaemonPort}</tt></td>
+</tr>
+<tr>
+<td>Daemon SSL port</td>
+<td align=right><tt>${zDaemonSslPort}</tt></td>
+</tr>
+</table>                                                                      
+<BR>          
+<p>                                                                         
+Add the contents of the
+<a href="./cntl/bbotcpic" type="text/plain">cntl/bbotcpim</a> 
+file within this customization definition to the PORT section of the file             
+referenced by the DD statement for the TCP/IP profile in the                
+TCP/IP start procedure. Copy and paste from this file into the             
+data set used by your installation.                                         
+</p>
+<p>
+<b>Attention:</b> If another application has already reserved any of these
+   ports for its own use, you must resolve the resulting conflict
+   before you continue. If you use the Profile Management Tool to update the
+   port specifications, be sure to upload the updated customization jobs.
+</p> 
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>                                                                                    
+<BR>             
+</li>                                                                      
+<!-- if (${zRunWasFromSteplib}==false) -->                                                           
+<li><b>The WebSphere product libraries will be placed in the system link
+    pack area (LPA) and system link list.</b>
+<p> 
+    Check that no other copies of WebSphere Application server, from any
+    release, reside in the link pack area or the system link list.  Also, 
+    check that the target MVS system has at least 40MB of free storage in the
+    extended CSA if SBBOLOAD is placed in the link pack area, or 8MB
+    of free storage in extended CSA for the daemon and for each node
+    (deployment manager node or application server node), if SBBOLOAD
+    is placed in the link list.
+</p> 
+<br> 
+<b>SBBOLOAD</b><br>
+<br>You can either load the SBBOLOAD modules into the dynamic link pack
+    area, which we recommend, or place SBBLOAD in the system link list.
+<ul> 
+<li><b>To load the SBBOLOAD modules into the dynamic link pack area,
+       enter the following MVS console command:</b>
+<samp><xmp> 
+    SETPROG LPA,ADD,MASK=*,DSNAME=${zBboloadName}
+</xmp></samp>
+<p> 
+Alternatively, you can place the following statement in a parmlib
+PROGxx member which is activated with the SET PROG=xx 
+command after system IPL is complete:
+</p>
+<samp><xmp> 
+    LPA ADD MASK(*) DSNAME(${zBboloadName})
+</xmp></samp>
+<p> 
+    Check that sure that the SBBOLOAD modules are loaded into LPA after each
+    system IPL.
+</p>
+</li>
+<li><b>To put the SBBOLOAD data set into the system link list.</b>
+<br>Determine whether your system uses static (LNKLSTxx) or dynamic
+(PROGxx) link list definition, and add the following data set name to the
+appropriate LNKLSTxx or PROGxx member. (An IPL will normally be required.)
+<br><br>
+<samp><xmp>        
+    ${zBboloadName}
+</xmp></samp>
+</li>
+</ul>
+<BR>
+<br><br>
+<b>SBBGLOAD</b>
+<br><br>
+If your servers will be running in 64-bit mode, the SBBGLOAD data
+set must be added to the system link list or link pack area      
+following the same procedure as for the SBBOLOAD data set.     
+<br><br> 
+<b>SBBOLD2</b>
+<br><br> 
+    Place the SBBOLD2 data set into the system link list.  This data
+    set must NOT be placed in the system link pack area;  separate
+    copies of the SBBOLD2 modules need to be loaded into each WebSphere
+    Application Server address space.
+<br>
+<ul>
+<li><b>To put the SBBOLD2 data set into the system link list</b>
+<br>Determine whether your system uses static (LNKLSTxx) or dynamic (PROGxx)
+link list definition, and add the following data set name to the 
+appropriate <samp>LNKLSTxx</samp> or <samp>PROGxx</samp> member.  (An IPL will normally be required.)
+<br><br><samp><xmp> 
+    ${zBbolod2Name}
+</xmp></samp>
+</li>
+</ul>
+<BR>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+<!-- endif -->
+<!-- if (${zRunWasFromSteplib}==true) -->                                                           
+<li><b>The WebSphere product libraries are placed in STEPLIB as
+    needed, rather than in the system link pack area and system link
+    list.</b><br>Make sure that the target MVS system has at least 8MB
+    of free storage in extended CSA for the daemon and for EACH
+    node (deployment manager node or application server node).
+<br><br> 
+<b>SBBOLOAD, SBBGLOAD and SBBOLD2</b>
+<br><br> 
+<!-- if (${zSameDataSetNames}==true) -->  
+    The following data sets will be placed in the STEPLIB concatenation
+    for the location service daemon, controller and servant regions,
+    and in the <samp>setupCmdLine.sh</samp> script in the WebSphere Configuration
+    file system. You must not remove these STEPLIB statements.
+<br>
+<samp><xmp> 
+    ${zBboloadName}
+    ${zBbgloadName}
+    ${zBbolod2Name}
+</xmp></samp>
+<BR> 
+<!-- endif -->
+<!-- if (${zSameDataSetNames}==false) --> 
+    The following data sets will be placed in the STEPLIB concatenation             
+    for the location service daemon, deployment manager controller and servant 
+    regions, and in the setupCmdLine.sh script in the WebSphere Configuration                
+    file system for the deployment manager. You must not remove these STEPLIB 
+    statements.                       
+<BR>
+<pre>                                                                               
+    ${zBboloadName}
+    ${zBbgloadName}                                                                       
+    ${zBbolod2Name}
+</pre>                                                                       
+    The following data sets will be placed in the STEPLIB concatenation             
+    for the application server controller, controller adjunct and servant 
+    regions, and in the setupCmdLine.sh script in the WebSphere Configuration                
+    file system for the application server. You must not remove these STEPLIB 
+    statements.                       
+<BR>
+<pre>                                                                               
+    ${zAppServerBboloadName}
+    ${zAppServerBbgloadName}                                                                       
+    ${zAppServerBbolod2Name}
+</pre>                                                                       
+<!-- endif -->
+<!-- endif -->
+<!-- if (${zRunWasFromSteplib}==true) --> 
+<p><b>BBORTS61</b>
+</p>
+<p> 
+    The BBORTS61 module is used by WebSphere Application Server for
+    component trace support. A copy of this module (any maintenance
+    level) must be in the system link pack area in order for CTRACE
+    to work correctly.
+</p>
+<p> 
+    If a copy of BBORTS61 is currently loaded into LPA, no further action is required.
+</p><p> 
+    Otherwise, issue the following MVS console command to load BBORTS61 into dynamic LPA:
+</p>
+<samp><xmp> 
+    SETPROG LPA,ADD,MODNAME=BBORTS61,DSNAME=${zBbolpaName}
+</xmp></samp>
+<p> 
+    Alternatively, you can place the following statement in a parmlib
+    PROGxx member, which is activated with the SET PROG=xx command after
+    system IPL is complete:
+</p>
+<samp><xmp> 
+    LPA ADD MODNAME(BBORTS61) DSNAME(${zBbolpaName})
+</xmp></samp> 
+<p>
+    Check that the BBORTS61 module is loaded into LPA after each system IPL.
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<!-- endif --> 
+<li>
+<b>WebSphere Application Server for z/OS customization assumes that the following system data sets are in the system link list:</b>
+<samp><xmp> 
+       Language Environment     SCEERUN
+                                SCEERUN2
+ 
+       System SSL               SIEALNKE (z/OS 1.6 and above)
+</xmp></samp>
+<p> 
+    See the Language Environment Customization manual and the System
+    SSL Programming manual for your z/OS release for advice on placing
+    members from the libraries into the system link pack area.
+</p>
+<p> 
+    Placing these data sets in the link list insulates your WebSphere Application Server
+    for z/OS configuration from changes in data set names (for example,
+    when migrating to z/OS 1.6).
+</p>
+<p> 
+    If the Language Environment or System SSL load module libraries are
+    not in your system link list, you need to perform the following steps
+    before starting any WebSphere Application Server for z/OS servers:
+</p> 
+<ul>
+<li>Check that the data sets are APF-authorized
+</li>
+<li>Complete the optional step below to add the data sets to STEPLIB in the server JCL and <samp>setupCmdLine.sh</samp> script(s).
+</li>
+</ul>
+<br> 
+    If you regenerate server cataloged procedures at any point, make
+    sure the data sets are added to the new cataloged procedures.
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li> 
+<li>
+<b>If the error logstream</b> <samp>${zErrorLogstreamName}</samp> <b>does not already exist on your target system, 
+make a copy of the appropriate job in the SBBOJCL data set, customize it according to the comments in the job, and run:</b>
+<samp><xmp> 
+    BBOERRLC    Create an error logstream in a coupling facility
+    BBOERRLD    Create a DASD-only error logstream
+</xmp></samp> 
+<BR>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>WebSphere Application Server for z/OS regions open a large number of files</b> (more than 1024). Make sure your BPXPRMxx 
+parmlib member(s) specify a value of MAXFILEPROC that is greater than or equal to 2000. Use the following MVS console command to see 
+your current MAXFILEPROC setting:
+<samp><xmp> 
+    D OMVS,OPTIONS
+</xmp></samp>
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+</ol>
+<br><br>
+<HR ALIGN=center NOSHADE SIZE=5 WIDTH=90%>
+<br><br>
+<h3> 
+Running the customized jobs
+</h3>
+<br>
+<p> 
+The Profile Management Tool built a number of batch jobs with the
+variables you supplied. You need to run the jobs in the order listed
+below, using user IDs with the appropriate authority.
+</p> <br>
+<b>Note:</b> Whenever "file system update authority" is indicated, the user
+      ID used to run the configuration job must have
+      EITHER <samp>uid = 0</samp>
+          OR the following UNIXPRIV class profile privileges:
+<samp><xmp>        
+    CONTROL access to SUPERUSER.FILESYS
+    UPDATE  access to SUPERUSER.FILESYS.MOUNT
+    READ    access to SUPERUSER.FILESYS.CHOWN
+    READ    access to SUPERUSER.FILESYS.CHANGEPERMS
+    READ    access to SUPERUSER.FILESYS.PFSCTL
+</xmp></samp>
+<p> 
+      If the <samp>UNIXPRIV profile CHOWN.UNRESTRICTED</samp> is defined, then
+      the <samp>SUPERUSER.FILESYS.CHOWN</samp> is not required.  For information
+      about the UNIXPRIV class, see the z/OS Unix System Services
+      Planning book.
+</p> 
+<b>Before you begin: </B> Complete the section above entitled "Manual configuration updates".
+<BR><br> 
+Follow the steps below, which lists in order the jobs you must submit               
+and the commands you must enter. Special handling notes are included                
+in the steps. All jobs are members of:    
+<BR> 
+<samp><xmp>
+    ${zTargetHLQ}.CNTL
+</xmp></samp>
+<BR><br> 
+<B>Attention: </B> After submitting each job, carefully check the output.
+Errors may exist even when all return codes are zero.
+<BR><br>           
+The next three jobs (BBOSBRAJ, BBOSBRAK, BBOSBRAM) do not need to be run if the indicated groups, user IDs  
+and directories already exist with the correct gid, uid and ownership permission values, as given below.    
+<br><br>
+In order for RACF to automatically select an unused UID or GID value for WebSphere Application Server user IDs
+and groups:
+<br><br>
+- The RACF profile SHARED.IDS must be defined.<br>
+- The RACF profile BPX.NEXT.USER must be define and use to indicate the ranges from which UID and GID values are to be selected.
+<br><br>
+See the article "Preparing the Security Server (RACF)" in the WebSphere Application Server for z/OS InfoCenter.
+For more information, consult Chapter 20, "RACF and z/OS Unix", in the z/OS Security Server RACF Security Administrator's Guide (SA22-7683).   
+<br><br>
+<ol>
+<li><b>Run job BBOSBRAJ</b>
+<ul> 
+<li><b>User ID requirement:</b> Authority to update data set        
+<br><br>
+<samp>
+    ${zTargetHLQ}.DATA
+</samp>                                         
+<br><br>
+</li>                                                     
+<li>This job builds (but does not execute) the RACF commands 
+to create common WebSphere Application Server for z/OS groups and user IDs: 
+<br><br>
+<table border=2 cellspacing=0 cellpadding=3>
+<tr>
+<th>Type</th>
+<th>Group/userid</th>
+<th>GID/UID</th>
+</tr>
+<tr>
+<td>Configuration group</td>
+<td align=left><tt>${zConfigurationGroup}</tt></td>
+<td align=right><tt>${zConfigurationGroupGID}</tt></td>
+</tr>
+<tr>
+<td>Servant group</td>
+<td align=left><tt>${zServantGroup}</tt></td>
+<td align=right><tt>${zServantGroupGID}</tt></td>
+</tr>
+<tr>
+<td>Local user group</td>
+<td align=left><tt>${zLocalUserGroup}</tt></td>
+<td align=right><tt>${zLocalUserGroupGID}</tt></td>
+</tr>
+<tr>
+<td>File system owner user ID</td>
+<td align=left><tt>${zHFSOwnerUserID}</tt></td>
+<td align=right><tt>${zHFSOwnerUID}</tt></td>
+</tr>
+</table>
+"*" denotes that the system will assign a GID/UID.
+<p>                                                                     
+Carefully review these definitions with your security administrator.</p>
+</ul>
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Run job BBOSBRAK</b>
+<br><br>
+<b> User ID requirement:</b> RACF special authority.
+<p>             
+This job executes the RACF commands created by the previous job.  If the group and user IDs named above
+have already been created during a previous WebSphere Application Server for z/OS configuration and are 
+in all target system RACF databases, you do not need to rerun this job.          
+</p>
+<p>                                                                     
+            <b>Result:</b> You may receive errors, such as INVALID USER     
+            messages, from this job because a user ID, group  or     
+            profile is already defined.  Make sure the existing      
+            user ID, group, or profile has the same characteristics   
+            as the user ID, group, or profile being created by        
+            BBOSBRAK.  If not, then change the values in the         
+            Profile Management Tool, which are causing the conflict.  Then     
+            upload the updated customization jobs and restart the       
+            process.                                                 
+</p>
+<p>                                                                     
+            When this step is complete, all groups and user IDs      
+            listed above for job BBOSBRAJ should be defined in the   
+            RACF database on each target system for the cell.  
+<br> <br>     
+            <b>Note:</b> The WebSphere Application Server owner user ID 
+<samp>${zHFSOwnerUserID}</samp> must have the WebSphere Application Server   
+            configuration group <samp>${zConfigurationGroup}</samp> as its 
+default OMVS group.  
+</p>
+<BR>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Run job BBOSBRAM</b>
+<ul>
+<li><p><b>User ID requirement: File system update authority </b>(see above).
+</p>
+<p>                                                                     
+This job creates home directories for WebSphere Application Server for z/OS user IDS. These home directories will be 
+subdirectories of 
+<samp>
+    ${zUserIDHomeDirectory}
+</samp>                                            
+</p>
+This job will create the following directories:                                           
+<BR>                                                                    
+<pre> 
+    ${zUserIDHomeDirectory} 
+                                               
+         ownership:       (any)                                         
+         permission bits: 755                                     
+                                                                    
+    ${zUserIDHomeDirectory}/${zConfigurationGroup} 
+                                     
+         ownership:       ${zHFSOwnerUserID}:${zConfigurationGroup}                             
+         permission bits: 770                                     
+                                                                 
+    ${zUserIDHomeDirectory}/${zServantGroup}
+                                      
+         ownership:       ${zHFSOwnerUserID}:${zServantGroup}                                    
+         permission bits: 770                                     
+                                                                     
+    ${zUserIDHomeDirectory}/${zLocalUserGroup} 
+            
+         ownership:       ${zHFSOwnerUserID}:${zLocalUserGroup}                             
+         permission bits: 770
+</pre>                                              
+            
+<p>                                                                     
+            This job should be run on each z/OS system that will     
+            host WebSphere Application Server nodes using these      
+            WebSphere Application Server for z/OS common groups and owner user ID.      
+            After execution, verify that the directories have been   
+            created with the correct permissions on each system.     
+</p>
+<p>                                                                     
+            If these directories already exist with the specified    
+            ownership and permission on a target system, then this   
+            job does not need to be run on that system.              
+</p>
+                                                                  
+<p>          <b>Attention:</B>
+      If the directory <samp>${zUserIDHomeDirectory}</samp>                                               
+            is used by applications other than WebSphere Application 
+            Server, make sure that the permissions set by            
+       <samp>BBOSBRAM</samp> (755) are appropriate, or change them manually. 
+            This directory must be world-readable for Websphere      
+            Application Server to run correctly.                     
+</p>
+</ul>
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<br><br>
+<li>
+<b> Run job BBOMSGC</b>
+<ul>
+<b> User ID requirement:</b> Update authority for data set                   
+ SYS1.MSGENU and/or SYS1.MSGJPN.                                      
+ <br><br>           
+       <b>     Attention:</b> This is optional unless you require message               
+            translation.                                                         
+ <br><br>            
+            This job sets up MMS to translate messages for WebSphere 
+            Application Server for z/OS.          
+ <br><br>                                                                                
+            There are two steps to update SYS1.MSGENU and                        
+            SYS1.MSGJPN. Remove the unneeded step and change the                 
+            target libraries, if necessary.                                      
+</ul>
+
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+<li>
+<b>Run job BBODBRAJ</b> 
+<ul>
+<b>User ID requirement:</b> Authority to update data set                    
+<br><br>  
+<samp> 
+    ${zTargetHLQ}.DATA  </samp>               
+<br><br>            
+            This job builds (but does not execute) the RACF commands             
+            for the WebSphere Application Server for z/OS run-time clusters and places              
+            them into member BBODBRAK of data set                               
+ <br><br>                                                                                
+<samp>
+    ${zTargetHLQ}.DATA </samp>                                                       
+ <br><br>                                                                       
+            Carefully review these definitions with your security                
+            administrator.                                                      
+</ul>
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Run job BBOCBRAJ</b> 
+<ul>
+<b>User ID requirement:</b> Authority to update data set                    
+<br><br>            
+<samp>   ${zTargetHLQ}.DATA </samp>                                                       
+<br><br>                                                                                 
+            This job builds (but does not execute) the RACF commands             
+            for the WebSphere Application Sever for z/OS run-time clusters and places              
+            them into member BBOWBRAK of data set                                
+<br><br>                                                                                 
+  <samp>   ${zTargetHLQ}.DATA   </samp>                                                     
+<br><br>                                                                                 
+            Carefully review these definitions with your security                
+            administrator.                                                       
+<br>
+</ul>
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Run job BBODBRAK</b> 
+<ul>
+<b>User ID requirement:</b> RACF special authority.                         
+<br><br>           
+       This job executes the RACF commands set up in the BBODBRAJ job.                                                        
+<br><br>                                                                                 
+<!-- if (${zAdminSecurityType}==websphereForZos) -->                                                           
+This job creates the WebSphere administrator ID <samp>${zAdminUserid}</samp> without a password (or password phrase).
+You must assign this user ID a password (or password phrase) that complies with your institution standards.
+This is also the password (or password phrase) that is used when logging on to the WebSphere Application Server
+administrative console.
+<br><br>
+Enter the following RACF command to assign a password:   
+<br><br>
+<samp><xmp>
+    ALTUSER ${zAdminUserid} PASSWORD(password) NOEXPIRED         
+</xmp></samp><br>
+<br><br>
+Enter the following RACF command to assign a password phrase: 
+<br><br>
+<samp><xmp>
+    ALTUSER ${zAdminUserid} PHRASE('password phrase') NOEXPIRED         
+</xmp></samp><br>
+To use RACF password phrase support, your target system must be at z/OS Version 1.9 and WebSphere Application Server
+Fix Pack 6.1.0.15 or later.
+<br><br>
+If you are using a different security system, make sure  
+that the ${zAdminUserid} user ID has a password or password phrase.
+<br><br>                                                                          
+<!-- endif -->
+        <b> Result:</b> You may receive errors, such as INVALID USER                 
+            messages, from this job because a user ID, group  or                 
+            profile is already defined.  Make sure the existing                  
+            user ID, group or profile has the same characteristics               
+            as the user ID, group or profile being created by                    
+            BBODBRAK.  If not, then change the values in the                     
+            Profile Management Tool which are causing the conflict,                 
+            upload the updated customization jobs, and restart the                   
+            process.                                                             
+<br>                                                                                        
+</ul>
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Run job BBOCBRAK</b>
+<ul>
+<b>User ID requirement:</b> RACF special authority.           
+<br><br>           
+      This job executes the RACF commands set up in the                    
+            BBOCBRAJ job.                                                        
+<br><br>                                                                                 
+<!-- if (${zAdminSecurityType}==websphereForZos) -->
+            This job creates the WebSphere administrator ID ${zAdminUserid}            
+            without a password (or password phrase).  You must assign this user ID a                  
+            password (or password phrase) that complies with your institution standards;              
+            this is also the password (or password phrase) that will be used when logging             
+            on to the WebSphere Application Server administrative                
+            console.                                                             
+<br><br>
+Enter the following RACF command to assign a password:   
+<br><br>
+<samp><xmp>
+    ALTUSER ${zAdminUserid} PASSWORD(password) NOEXPIRED         
+</xmp></samp><br>
+<br><br>
+Enter the following RACF command to assign a password phrase: 
+<br><br>
+<samp><xmp>
+    ALTUSER ${zAdminUserid} PHRASE('password phrase') NOEXPIRED         
+</xmp></samp><br>
+To use RACF password phrase support, your target system must be at z/OS Version 1.9 and WebSphere Application Server
+Fix Pack 6.1.0.15 or later.
+<br><br>
+If you are using a different security system, make sure  
+that the ${zAdminUserid} user ID has a password or password phrase.
+<br><br>                                                                                 
+<!-- endif -->
+       <b>  Result:</b> You may receive errors, such as INVALID USER                 
+            messages, from this job because a user ID, group  or                 
+            profile is already defined.  Make sure the existing                  
+            user ID, group or profile has the same characteristics               
+            as the user ID, group or profile being created by                    
+            BBOCBRAK.  If not, then change the values in the                     
+            Profile Management Tool which are causing the conflict,                 
+            upload the updated customization jobs, and restart the                   
+           process.                                                             
+<br>
+</ul>            
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Check user ID authorization</b> 
+<ul>
+ <p>Make sure the ${zConfigurationGroup} group has read access to all                 
+            WebSphere product data sets, as well as to any other                 
+            data sets which will be placed in WebSphere Application Server for z/OS                 
+            cataloged procedure STEPLIB concatenations.                          
+ </p>                                                  
+<p>                              
+            Make sure the following user IDs have read access to                 
+         the resolver configuration file in use on your system.               
+            Depending on your IP setup, this file may be                         
+            /etc/resolv.conf, SYS1.TCPPARMS(TCPDATA), or another                 
+            data set.                                                            
+<samp><xmp>                                                                                 
+    ${zControlUserid}                                                             
+    ${zServantUserid}                                                     
+    ${zAppServerControlUserid}                                                             
+    ${zAppServerServantUserid}
+</xmp></samp>                                                              
+</p>        
+<p>                                                                         
+            See the z/OS eNetwork Communication Server IP                        
+            Configuration manual for the resolver search order.                  
+</p>
+<p>                                                                                 
+            Ensure the following user ID has read access to the data             
+            sets in your system parmlib concatenation:                           
+<br><br>                                                                                 
+<samp><xmp>
+    ${zDaemonUserid}                                                            
+</xmp></samp>
+</p>                        
+<p>                                                         
+<b>            Attention:</b>                                                           
+             If operator commands are protected by the z/OS security             
+             server at your installation, you must ensure that                   
+             sufficient authority is given to WebSphere tasks to                 
+             control operations.                                                 
+</p>
+<p>                                                                                 
+             The Deployment Manager and Application Server               
+             controller user IDs (${zControlUserid} and ${zAppServerControlUserid}) need the                  
+             ability to perform operations on started tasks                      
+             belonging to WebSphere Application Server for z/OS.                         
+</p>                                                                
+<p>         
+             The asynchronous administrator user ID, and any user                
+             ID used to run the federation job when the node agent               
+             is started automatically, need the authority to issue               
+             the MVS START command.                                              
+</p>
+<p>                                                                                 
+             If you are currently controlling MVS console command                
+             authority with SAF OPERCMDS profiles, grant the                     
+             following authorities as indicated, substituting your               
+             own profile names:                                                  
+<samp><xmp>                                                                                 
+    PERMIT  START_profile_name  CLASS(OPERCMDS) ID (${zControlUserid} ASUSRC  ${zAdminAsynchTaskUserid})  ACCESS(UPDATE)               
+                                                                                 
+    PERMIT  STOP_profile_name  CLASS(OPERCMDS) ID (${zControlUserid} ${zAppServerControlUserid})  ACCESS(UPDATE)                        
+                                                                                 
+    PERMIT  MODIFY_profile_name  CLASS(OPERCMDS) ID (${zControlUserid} ${zAppServerControlUserid} )  ACCESS(UPDATE)                       
+                                                                                 
+    PERMIT  CANCEL_profile_name  CLASS(OPERCMDS) ID (${zControlUserid} ${zAppServerControlUserid} )  ACCESS(UPDATE)                       
+                                                                                 
+    PERMIT  FORCE_profile_name  CLASS(OPERCMDS)  ID (${zControlUserid} ${zAppServerControlUserid})  ACCESS(UPDATE)                        
+</xmp></samp>
+</p>
+<p>                                                                                 
+             You need to also grant the appropriate console command                 
+             authority to any user ID that executes the                          
+             startServer.sh or stopServer.sh script.                             
+</p>
+</ul>           
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Run job BBOCCFS</b> 
+<ul>
+<b> User ID requirement: </b>    
+File system update authority (see above), and the        
+                authority to allocate                                    
+<samp><xmp>
+    ${zConfigHfsName}                                                  
+    ${zAppServerConfigHfsName}                                                          
+</xmp></samp>
+<br><br>                                                                                 
+           <b> Attention:</b> Skip this step if the mount points are            
+            already created.                                             
+<br>                                                                                 
+         This job:                                                            
+<ul>
+<p>                                                                                 
+       Creates the following mount point directories                    
+<samp> <xmp>                                                                                
+    ${zConfigMountPoint}                                               
+    ${zAppServerConfigMountPoint}                                                       
+ </xmp> </samp>                                                                        
+</p>
+<!-- if (${zFilesystemType}==HFS) -->                                                           
+<p>            
+      Allocates the following configuration file system(s)             
+                using the Hierarchical File System (HFS)                         
+<pre>                                                                                 
+                ${zConfigHfsName}                                                
+<!-- if (${zAppServerFilesystemType}==HFS) -->                                                           
+                ${zAppServerConfigHfsName}                                                
+<!-- endif -->
+<!-- endif -->
+</pre>
+</p>
+<!-- if (${zFilesystemType}==ZFS) -->                                                           
+<p>                                                                         
+    Allocates the following configuration file system(s)             
+                using the z/OS Distributed File Service zSeries File             
+                System (zFS)                                                     
+<pre>                                                                                 
+                ${zConfigHfsName}                                                
+<!-- if (${zAppServerFilesystemType}==ZFS) -->                                                           
+                ${zAppServerConfigHfsName}                                                
+<!-- endif -->
+</pre>
+</p>
+<!-- if (${zAppServerFilesystemType}==HFS) -->                                                           
+<p>                                                                         
+     Allocates the following configuration file system(s)             
+                using the Hierarchical File System (HFS)                         
+                                                                                 
+                ${zAppServerConfigHfsName}                                                
+</p>
+<!-- endif -->
+<!-- endif -->
+<!-- if (${zFilesystemType}==HFS) -->                                                           
+<!-- if (${zAppServerFilesystemType}==ZFS) -->                                                           
+<p>                                                                         
+    Allocates the following configuration file system(s)             
+                using the z/OS Distributed File Service zSeries File             
+                System (zFS)                                                     
+<samp>                                                                                 
+    ${zAppServerConfigHfsName}                                                
+</samp>
+<br>                                                                                 
+                and mounts them at the above mount points.                       
+</p>
+<!-- endif -->
+<!-- endif -->
+</ul>                                                                         
+          <b>Do not run this job if:</b>
+<ol> 
+<li>                                             
+    The configuration file systems already exist and                
+                 are mounted at the desired mountpoints, or if                   
+</li>    
+<li>
+                                       
+    The mount point directories are controlled by                   
+                 automount.  Either disable the automount rule for               
+                 the configuration mount points while running this               
+                 job, or perform the following steps manually:                   
+ <ul>                                                                                
+ <li>Allocate the configuration file system data sets.            
+</li>
+<li>Issue the following shell commands, which will               
+                    also cause automount to mount the file systems               
+<samp><xmp>                                                                                 
+    chmod 775 ${zConfigMountPoint}                                    
+    chmod 775 ${zAppServerConfigMountPoint}                                     
+                                                                                        
+    chown ${zHFSOwnerUserID}:${zConfigurationGroup} ${zConfigMountPoint}                                                   
+    chown ${zHFSOwnerUserID}:${zConfigurationGroup} ${zAppServerConfigMountPoint}                                                   
+</xmp></samp>
+</li>
+</ul>
+</li>
+</ol>                                                                         
+                                                                                         
+         <b>   Before you begin:</b> The BBOCCFS job assumes your root                  
+            file systems are mounted in read/write mode.  If the                 
+            root file systems are not mounted in read/write mode,         
+            manually create the directories                                      
+ <br><br>
+<samp><xmp>                                                                                
+    ${zConfigMountPoint}                                                   
+    ${zAppServerConfigMountPoint}                                                           
+</xmp></samp>
+<br>                                                                                 
+            and any needed higher directories. Set file permissions              
+            to 775 and set the owning user ID and group to ${zHFSOwnerUserID}              
+            and ${zConfigurationGroup} before running BBOCCFS                                  
+<br><br>                                                                                 
+           <b> Example:</b> If you plan to use /WebSphere/V6R1 as your                  
+            directory, issue the following commands from within the              
+            OMVS shell:                                                          
+<samp><xmp>                                                                                 
+    mkdir -p -m 775 /WebSphere/V6R1                                    
+    chown -R ${zHFSOwnerUserID}:${zConfigurationGroup} /WebSphere                              
+</xmp></samp>
+</ul>                                                                                                                                      
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Run job BBOCHFSA</b> 
+<ul>
+<b> User ID requirement:</b>
+File system update authority (see above).                
+ <br><br>           
+      This job populates the previously-created filesystems.        
+ <br><br>                                                                        
+        <b> Note:</b> If the SCEERUN data set is not in the system link              
+            list, add that data set to STEPLIB for the CHECKV step               
+            in BBOCHFSA.                                                  
+ <br><br>                                                                                
+            When this completes, examine the job output. Success is                  
+         indicated with a <samp>RC=0</samp> in the job output.                             
+</ul>            
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Run job BBOCCPY1</b> 
+<ul>
+<b> User ID requirement:  </b>   
+File system update authority (see above), and the        
+          authority to update the cataloged procedure library      
+
+<br> 
+<samp>               ${zProclibName} </samp>                                           
+<br><br>           
+            This job copies the tailored start procedures,                       
+            parameters, and EXECs to the run-time product libraries.             
+<br><br>                                                                                 
+         <b>Attention:</b> Be aware that you may overlay existing                    
+            members in the above data set.                                       
+</ul>            
+
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Run job BBOWWPFC</b> 
+<ul>
+<b> User ID requirement:</b>    
+File system update authority (see above).                
+<br><br>    
+      This job sets up the runtime file system.                   
+ <br><br>                                                                                
+         <b>   Note:</b> If the SCEERUN2 data set is not in the system link             
+            list, add that data set to STEPLIB for the LIBVSCRP,            
+            CELPROFD and CELPROFN steps in BBOWWPFC                      
+<br><br>                                                                               
+                                                                                 
+         Upon completion, examine the job output. Success is                  
+            indicated by <samp>rc=0</samp>.                                                   
+ <br><br>                                                                                
+            <b>Note: </b> If the BBOWWPFC (profile creation) job fails, you must
+            perform the following steps to clean up the partially-built profiles
+            for both the deployment manager and application server:
+<pre>            
+         cd ${zConfigMountPoint}/${zWasServerDir}
+         ./bin/bbowprof.sh -deleteAll
+         rm profileRegistry.xml
+         rm -R profiles
+         
+         cd ${zAppServerConfigMountPoint}/${zAppServerWasServerDir}
+         ./bin/bbowprof.sh -deleteAll
+         rm profileRegistry.xml
+         rm -R profiles
+</pre>
+           Then correct the problem that caused BBOWWPFC to fail and re-run the job.
+<br>                            
+</ul>            
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Run job BBOCHFSB</b>
+<ul>
+<b>User ID requirement:   </b>  
+File system update authority (see above).                
+ <br><br>                                                                        
+  This job will complete the file system initialization.               
+ <br><br>                                                                                
+            Upon completion, examine the job output. Success is                  
+         indicated with a <samp>RC=0</samp> in the job output.                             
+<br><br>
+</ul>            
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li><b>All WebSphere Application Server processes require                   
+ access to the Language Environment and System SSL load               
+ modules.</b>  
+           
+<ul>
+
+                                                           
+<br><Br> 
+                                                                                 
+            If the SCEERUN, SCEERUN2 and System SSL load module                  
+            libraries are not in the system link list, add them to               
+            the STEPLIB DD concatenation in each of the following                
+            cataloged procedures in                                          
+            ${zProclibName}:                                                         
+<samp><xmp>                                                                                 
+    ${zControlProcName}Z                                                        
+    ${zServantProcName}Z                                                        
+    ${zAppServerControlProcName}Z                                                        
+    ${zAppServerServantProcName}Z                                           
+    ${zAppServerAdjunctProcName}Z                                                                     
+    ${zDaemonProcName}Z                                                      
+</xmp>
+</samp>
+<br>                                                                                 
+            Also, add the full data set names, separated by                   
+            colons (:), to the STEPLIB variable in the following shell scripts:
+<br>
+<pre>                                                                                 
+                ${zConfigMountPoint}/${zWasServerDir}/profiles/default/bin/setupCmdLine.sh          
+                
+                ${zAppServerConfigMountPoint}/${zAppServerWasServerDir}/profiles/default/bin/setupCmdLine.sh   
+</pre>     
+            When modifying the setupCmdLine.sh script, do not                    
+            remove lines or comment them out, as this may cause                  
+            problems with automated updates to the script.                       
+<br><br>                                                                                 
+            Add only those data sets which are NOT in the link list.             
+<br>
+</ul>                   
+
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+            
+<b>Resource Recovery Services (RRS)</b>
+<ul>
+Make sure Resource Recovery Services (RRS) is active.            
+<br><br> (See the InfoCenter for setup instructions if necessary.)            
+       Look for the following console message to verify that                
+            RRS was successfully started:                                        
+                                                                                 
+<br><br>           
+<samp><xmp>
+    ASA2011I RRS INITIALIZATION COMPLETE. COMPONENT ID=SCRRS                                                         
+</xmp></samp>
+</ul>            
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Start the Deployment Manager</b>
+<ul>
+<br><br>Issue the MVS command 
+<samp><xmp>           
+    START ${zControlProcName},JOBNAME=${zServerShortName},ENV=${zCellShortName}.${zNodeShortName}.${zServerShortName}                               
+</xmp></samp>                                                                    
+         This command starts the Deployment Manager and also                  
+            starts the location service daemon. Wait until the                   
+            server is finished initializing before proceeding.       
+<br><br> 
+
+<p>  If you later convert the Deployment Manager to 64-bit
+mode, you need to add <samp>AMODE=64</samp> to the <samp>START</samp> command:
+<br>
+<samp><xmp>
+    START ${zControlProcName},JOBNAME=${zServerShortName},ENV=${zCellShortName}.${zNodeShortName}.${zServerShortName},AMODE=64      
+</xmp></samp>                                                                    
+</p>         
+<br>                                                                                 
+        <b>    Result:</b> The following message appears on the console and             
+            in the job log of ${zServerShortName}                                           
+<samp><xmp>                                                                                 
+    BBOO0019I INITIALIZATION COMPLETE FOR WEBSPHERE FOR z/OS CONTROL PROCESS ${zServerShortName}                                    
+</xmp></samp>
+</ul>            
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b> Start the Node agent server.</b>    
+<ul>
+<br>            
+      Issue the MVS command:                                                
+<br><br>
+<samp><xmp>                                                                                 
+    START ${zAppServerControlProcName},JOBNAME=${zNodeAgentServerShortName},ENV=${zCellShortName}.${zAppServerNodeShortName}.${zNodeAgentServerShortName}                               
+</xmp></samp>
+<br>                                                                                 
+          This command starts the node agent server.  
+<br><br>
+<p>If you later convert the node agent to 64-bit mode, you need to add 
+AMODE=64 to the START command:
+<samp><xmp>                                                                                 
+    START ${zAppServerControlProcName},JOBNAME=${zNodeAgentServerShortName},ENV=${zCellShortName}.${zAppServerNodeShortName}.${zNodeAgentServerShortName},AMODE=64                               
+</xmp></samp>
+</p>
+<br><br>                                                                                 
+        <b>    Result:</b> The following message appears on the console and             
+            in the job log of ${zNodeAgentServerShortName}.                                          
+<br>
+<samp><xmp>                                                                                 
+    BBOO0019I INITIALIZATION COMPLETE FOR WEBSPHERE FOR z/OS CONTROL PROCESS ${zNodeAgentServerShortName}.                                     
+</xmp></samp>
+</ul>            
+<BR><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+           
+<b>Start the Application Server</b> 
+<br><br>
+<ul> 
+         
+          
+<b>Note:</b> You need to start the node agent before you start the             
+            Application Server, if the node agent has not already                
+            been started.                                                        
+ <br><br>                                                                                
+         Issue the MVS command                                        
+<samp><xmp>                                                                                 
+    START ${zAppServerControlProcName},JOBNAME=${zAppServerServerShortName},ENV=${zCellShortName}.${zAppServerNodeShortName}.${zAppServerServerShortName}                              
+</xmp></samp>  
+<br><br>                                                                               
+            This command starts the Application Server.   
+<br><br>
+<p>If you later convert the Application Server to 64-bit
+mode, you need to add AMODE=64 to the START command:
+
+<samp><xmp>                                                                                 
+    START ${zAppServerControlProcName},JOBNAME=${zAppServerServerShortName},ENV=${zCellShortName}.${zAppServerNodeShortName}.${zAppServerServerShortName},AMODE=64                              
+</xmp></samp>  
+</p>
+                       
+ <br><br>                                                                                
+          <b>  Result:</b> The following message appears on the console and             
+            in the job log of <samp>${zAppServerServerShortName}</samp>                                           
+<samp><xmp>                                                                                 
+    BBOO0019I INITIALIZATION COMPLETE FOR WEBSPHERE FOR z/OS CONTROL PROCESS ${zAppServerServerShortName}                                       
+</xmp></samp>                                                                                 
+</ul>                                                                                           
+</li>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+</ol>                                                                                    
+<p><BR>                                                                               
+<BR>                                                                               
+<BR>                                                                               
+<BR></p>                                                                               
+</body>   
+</html>                                                                            

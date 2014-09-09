@@ -1,0 +1,29 @@
+<%@ page pageEncoding="UTF-8"%>
+<fieldset style=""><legend>Xử lý phụ</legend>
+	<table width="100%">
+		<tr>
+			<td width="50%"><a href="#" onclick="openBm('kntc_tim_kiem.do?method=show&action=phancongHS');">Thay cán bộ xử lý</a></td>
+			<td><a href="#" onclick="openBm('kntc_tim_kiem.do?method=show&action=tachDon');">Tách nội dung đơn khiếu tố</a></td>
+		</tr>
+		<tr>
+			<td><a href="#" onclick="openBmCheckId();">Sửa hồ sơ văn thư</a></td>
+			<td></td>
+		</tr>
+	</table>
+</fieldset>
+<script language="javascript">
+	function openBm(link){
+		openWindow(link,screen.width,screen.height,false);
+	}
+	function openBmCheckId(){
+		var id = '<%=request.getParameter("id")%>';
+		if(id!=null || id.length == 0){
+			//Đang thao tác => edit luôn
+			var link = 'kntc_tiep_dan_van_thu.do?method=edit&action=suaHSVT&id='+id;
+			window.location = link;
+		}else{
+			//Chưa có thì phải tìm
+			openBm('kntc_tim_kiem.do?method=show&action=suaHSVT');
+		}
+	}
+</script>

@@ -1,0 +1,41 @@
+//&ASPRCS  PROC ENV=,Z=&ASPRCS.Z,AMODE=                                         
+//  SET ROOT='&CBCONFIG.'                                                       
+//STEP1   EXEC PGM=BBOOMTST,PARM='&&AMODE.'                                     
+//  INCLUDE MEMBER=&&Z                                                          
+//TEST1    IF (STEP1.RC = 0) THEN                                               
+//BBOSR   EXEC PGM=BBOSR,REGION=0M,TIME=NOLIMIT,                                
+// PARM='TRAP(ON,NOSPIE),ENVAR("_EDC_UMASK_DFLT=007") /'                        
+//BBOENV DD PATH='&&ROOT/&&ENV/was.env'                                         
+//  INCLUDE MEMBER=&&Z                                                          
+//         ELSE                                                                 
+//BBGSR   EXEC PGM=BBGSR,REGION=0M,TIME=NOLIMIT,MEMLIMIT=NOLIMIT,               
+// PARM='TRAP(ON,NOSPIE),ENVAR("_EDC_UMASK_DFLT=007") /'                        
+//BBOENV DD PATH='&&ROOT/&&ENV/was.env'                                         
+//  INCLUDE MEMBER=&&Z                                                          
+//         ENDIF                                                                
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   WS14568 H28W500 021118  PDML: Initial release.                 */         
+)CM   MD15360 H28W500 030106  PDML: fixed INCLUDE typo.              */         
+)CM   MD15853 H28W500 030106  PDML: remove blank before Z=xxxx       */         
+)CM   MD15863 H28W500 030215  PDG1: Link to dir and not was.env      */         
+)CM   MD15893 H28W500 030215  PDML: add umask to PARM.               */         
+)CM   MD16203 H28W500 030312  PDML: add TTIME=NOLIMIT.               */         
+)CM    252514 H28W601 013105    DB: Set ENV as only ENV=,            */         
+)CM    367038 H28W610 050405    DB: 64 bit check for BBGSR           */         
+)CM   403541  H28W610 111306   DMB: 64 bit updates                   */         
+)CM                                                                  */         

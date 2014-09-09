@@ -1,0 +1,206 @@
+)CM This job copies the response file (MANAGED) to the HFS (/tmp)               
+)CM Then it invokes the bbowprof.sh                                             
+)CM In the end, it deletes the response file from the HFS.                      
+)CM --------------------------------------------------------                    
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4                                                                        
+//********************************************************************/         
+//*  copy library verification script to the HFS                     */         
+//********************************************************************/         
+//COPYLIBV EXEC  PGM=IKJEFT1A                                                   
+//* Copy customized members to the HFS files                                    
+//SYSEXEC   DD DISP=SHR,DSN=&TRGHLQ..DATA                                       
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+%BBOMCPYL                                                                       
+/*                                                                              
+//********************************************************************/         
+//*  invoke script                                                   */         
+//********************************************************************/         
+/*                                                                              
+//LIBVSCRP EXEC PGM=IKJEFT01,REGION=0M                                          
+)SEL &LSPROD = Y                                                                
+//STEPLIB  DD DISP=SHR,DSN=&BBOLOAD                                             
+//         DD DISP=SHR,DSN=&BBGLOAD                                             
+)ENDSEL                                                                         
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+  &MNCONFIG.+                                                                   
+  /&MNDIRN.+                                                                    
+  /bin/bbowlibv_&TIMESTMP..sh +                                                 
+  1>> /tmp/bbowwpfm_&TIMESTMP..out +                                            
+  2>> /tmp/bbowwpfm_&TIMESTMP..err                                              
+/*                                                                              
+//********************************************************************/         
+//*  copy response file to the HFS (/tmp)                            */         
+//********************************************************************/         
+//COPYUSS EXEC  PGM=IKJEFT1A                                                    
+//SYSEXEC   DD DISP=SHR,DSN=&TRGHLQ..DATA                                       
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+   BBOWBOWN &TRGHLQ..DATA(BBOWRESM) +                                           
+            /tmp/bbowresm_&TIMESTMP &WASHFSU &CNFGGRP                           
+/*                                                                              
+)SEL &LSPROD = Y                                                                
+//********************************************************************/         
+//* create SED script                                                */         
+//********************************************************************/         
+//MKSCRPT EXEC PGM=IKJEFT01,REGION=0M,                                          
+//  COND=(0,LT)                                                                 
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+  BPXBATCH SH +                                                                 
+   echo "3i\\" 1>> /tmp/&TIMESTMP..zSED; +                                      
+   echo "export STEPLIB=\$STEPLIB:"+                                            
+   &BBOLOAD+                                                                    
+   ":"+                                                                         
+   &BBGLOAD +                                                                   
+   1>>>> /tmp/&TIMESTMP..zSED                                                   
+/*                                                                              
+//********************************************************************/         
+//* create a temp bbowprof.sh with STEPLIB exported                  */         
+//********************************************************************/         
+//TMPSCRP EXEC PGM=IKJEFT01,REGION=0M,                                          
+//  COND=(0,LT)                                                                 
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDENV DD *                                                                   
+_MNCONFIG=&MNCONFIG                                                             
+_MNDIR=&MNDIRN                                                                  
+/*                                                                              
+//SYSTSIN DD *                                                                  
+  BPXBATCH SH +                                                                 
+   sed -f /tmp/&TIMESTMP..zSED +                                                
+   $_MNCONFIG+                                                                  
+   /$_MNDIR+                                                                    
+   /bin/bbowprof.sh >>>> +                                                      
+   $_MNCONFIG+                                                                  
+   /$_MNDIR+                                                                    
+   /bin/_&TIMESTMP._bbowprof.sh; +                                              
+   chmod 770 +                                                                  
+   $_MNCONFIG+                                                                  
+   /$_MNDIR+                                                                    
+   /bin/_&TIMESTMP._bbowprof.sh;                                                
+/*                                                                              
+)ENDSEL                                                                         
+//********************************************************************/         
+//*  invoke bbowprof.sh                                              */         
+//********************************************************************/         
+//WPROFILE EXEC PGM=IKJEFT01,REGION=0M,                                         
+//  COND=(0,LT)                                                                 
+)SEL &LSPROD = Y                                                                
+//STEPLIB  DD DISP=SHR,DSN=&BBOLOAD                                             
+//         DD DISP=SHR,DSN=&BBGLOAD                                             
+)ENDSEL                                                                         
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+)SEL &LSPROD = Y                                                                
+ &MNCONFIG.+                                                                    
+ /&MNDIRN.+                                                                     
+ /bin/_&TIMESTMP._bbowprof.sh +                                                 
+)ENDSEL                                                                         
+)SEL &LSPROD = N                                                                
+    &MNCONFIG.+                                                                 
+    /&MNDIRN.+                                                                  
+    /bin/bbowprof.sh +                                                          
+)ENDSEL                                                                         
+    -response '/tmp/bbowresm_&TIMESTMP' +                                       
+     1>>>> /tmp/bbowwpfm_&TIMESTMP..out +                                       
+     2>>>> /tmp/bbowwpfm_&TIMESTMP..err                                         
+/*                                                                              
+//********************************************************************/         
+//*  Copy response file to joblog                                    */         
+//********************************************************************/         
+//COPYRSP  EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSEXEC  DD  DISP=SHR,DSN=&BBOEXEC                                            
+//SYSTSIN  DD *                                                                 
+   BBOHFSWR '/tmp/bbowresm_&TIMESTMP'                                           
+//SYSTSPRT DD SYSOUT=*                                                          
+//********************************************************************/         
+//*  delete response file from the HFS.                              */         
+//********************************************************************/         
+//DELETER1 EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+    rm /tmp/bbowresm_&TIMESTMP  +                                               
+     1>>>> /tmp/bbowwpfm_&TIMESTMP..out +                                       
+     2>>>> /tmp/bbowwpfm_&TIMESTMP..err                                         
+/*                                                                              
+)SEL &LSPROD = Y                                                                
+//********************************************************************/         
+//*  delete temp scripts from the HFS.                               */         
+//********************************************************************/         
+//DELETER2 EXEC PGM=IKJEFT01,REGION=0M,                                         
+//  COND=(0,LT,TMPSCRP)                                                         
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+ rm &MNCONFIG.+                                                                 
+ /&MNDIRN.+                                                                     
+ /bin/_&TIMESTMP._bbowprof.sh; +                                                
+    rm /tmp/&TIMESTMP..zSED +                                                   
+     1>>>> /tmp/bbowwpfm_&TIMESTMP..out +                                       
+     2>>>> /tmp/bbowwpfm_&TIMESTMP..err                                         
+/*                                                                              
+)ENDSEL                                                                         
+//********************************************************************/         
+//*  delete script file from the HFS.                                */         
+//********************************************************************/         
+//DELETER3 EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+ rm &MNCONFIG.+                                                                 
+ /&MNDIRN.+                                                                     
+ /bin/bbowlibv_&TIMESTMP..sh +                                                  
+     1>>>> /tmp/bbowwpfm_&TIMESTMP..out +                                       
+     2>>>> /tmp/bbowwpfm_&TIMESTMP..err                                         
+/*                                                                              
+//********************************************************************/         
+//*  Copy script output back to joblog                               */         
+//********************************************************************/         
+//COPYOUT EXEC PGM=IKJEFT01,REGION=0M                                           
+//SYSEXEC  DD  DISP=SHR,DSN=&BBOEXEC                                            
+//SYSTSIN  DD *                                                                 
+   BBOHFSWR '/tmp/bbowwpfm_&TIMESTMP..out'                                      
+   BBOHFSWR '/tmp/bbowwpfm_&TIMESTMP..err'                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   240619  H28W600 111504  PDML: initial release.                 */         
+)CM    250492 H28W601 022405    DB: add customization "info" file    */         
+)CM    245693 H28W601 030805    DB: copy response file to joblog     */         
+)CM   264283  H28W602 051005    DB: use date instead of TIMESTMP     */         
+)CM   261779  H28W602 051005    DB: export STEPLIB in a temp copy of */         
+)CM                                 bbowprof.sh, if LSPROD = Y       */         
+)CM    287210 H28W602 082505    DB: remove excess slash in path      */         
+)CM    307776 H28W610 092305    DB: Change WASUID to WASHUID         */         
+)CM   PK02973 H28W610 102205    DB: verify libraries that bbowprof   */         
+)CM                                 needs before invoking it         */         
+)CM    322806 H28W602 111105    DB: some steps were using >> instead */         
+)CM                                 of >>>>                          */         
+)CM    334832 H28W610 010405    DB: First write of log should use >> */         
+)CM    338132 H28W610 020606  PDML: add SBBGLOAD.                    */         
+)CM    362742 H28W610 041406    DB: remove customization log step    */         
+)CM    369117 H28W610 052306    DB: fix sed script                   */         
+)CM    373356 H28W610 071206    DB: user ids instead of uid/gid      */         
+)CM                                                                  */         
+)CM ================================================================ */         

@@ -1,0 +1,397 @@
+)CM
+)DEFAULT )&?![^]
+)CM
+/* REXX ----------------------------------------------------------- */
+/* ================================================================ */
+/*                                                                  */
+/* COPYRIGHT =                                                      */
+/* Licensed Material - Property of IBM                              */
+/*                                                                  */
+/* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */
+/* (C) Copyright IBM Corp. 1999, 2006                               */
+/* All Rights Reserved                                              */
+/* US Government Users Restricted Rights - Use, duplication or      */
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/
+/*                                                                  */
+/*                                                                  */
+/* FUNCTION:                                                        */
+/*   WebSphere for z/OS Sample RACF group definitions needed        */
+/*   to create a Security Domain                                    */
+/* ================================================================ */
+/* This is a sample exec which customers may modify to include      */
+/* installation specific RACF requirements.  This exec defines      */
+/* the global definitions that must be run once per security        */
+/* domain.                                                          */
+/* The order of security definitions that are expected are as       */
+/* follows:                                                         */
+/*   use this exec to generate a security domain                    */
+/*   generate a definition for a stand-alone security server        */
+/*   if ND, select the same domain to create deployment manager     */
+/*==================================================================*/
+/* This EXEC either:                                                */
+/*    - generates a set of RACF commands in the form of a REXX exec */
+/*      which is written to the RACFCMDS DD statement. Any error or */
+/*      warnings for Exec processing will be written to SYSTSPRT DD */
+/*         or                                                       */
+/*    - creates and executes the RACF commands generated here.      */
+/*      in this case, all output is directed to SYSTSPRT DD         */
+/*                                                                  */
+/* THE SETTING OF THE *switch* VARIABLE CONTROLS THIS.              */
+/*==================================================================*/
+/*                                                                  */
+/* NOTE: This sample is biased toward getting WebSphere installed   */
+/* and running quickly on a test system.  You should reexamine the  */
+/* the values (especially the UACC values) when moving to           */
+/* production.                                                      */
+/* ---------------------------------------------------------------- */
+/* Basic Assumptions -                                              */
+/*                                                                  */
+/* RACF access will be at the group level rather than the userid    */
+/* to minimize the number of RACF definitions.                      */
+/*                                                                  */
+/* Each controller region could have its own unique userid.  The    */
+/* WebSphere controller regions are:                                */
+/*     Daemon                                                       */
+/*     AppServer                                                    */
+/*     Deployment Manager                                           */
+/*                                                                  */
+/* All of the above controller regions' userids will be in the same */
+/* RACF group.                                                      */
+/*                                                                  */
+/* Customization is designed for controller regions to be expected  */
+/* to be the same, for all controllers within a domain that are     */
+/* used by Application Server.                                      */
+/* Each servant region will have its own unique userid, and         */
+/* they will all be in the same group.                              */
+/*                                                                  */
+/* STEPS TO USING THIS EXEC                                         */
+/*                                                                  */
+/* 1. Indicate if you want to generate a dataset with RACF          */
+/*    commands or issue them directly from this exec.               */
+/* 2. You must supply a logstream dataset name                      */
+/* 3. Review the supplied values for all the needed userids and     */
+/*    RACF groups.  You can use the values provided or change them. */
+/* 4. Determine which optional security mechanisms you wish to      */
+/*    enable, and modify values as needed for these.  See the       */
+/*    comment 'Optional Security Mechanisms'                        */
+/* 5. Modify and run the job BBOSBRAJ in the your CNTL PDS ...      */
+/*      &TRGHLQ..CNTL.                                              */
+/*    The results of the job can be seen in the SYSPRINT output.    */
+/*    If you generate command output, that will be in RACFCMDS DD.  */
+/*                                                                  */
+/* Usage notes:                                                     */
+/*                                                                  */
+/*                                                                  */
+/* -If you are using this EXEC to migrate your installation from    */
+/*  WebSphere V5 to WebSphere V6, it is recommended that you route  */
+/*  RACF command output to a dataset rather than executing the      */
+/*  commands directly.                                              */
+/*                                                                  */
+/* - If you output RACF commands into a dataset, the output will    */
+/*  be formatted as a simple rexx EXEC. Code this output dataset    */
+/*  in the SYSEXEC DD statement of the JCL invoking the IKJEFT01    */
+/*  program.(BBOSBRAJ in your CNTL PDS also invokes IKJEFT01.)      */
+/*                                                                  */
+/* -If multiple WebSphere systems are running in the same security  */
+/*  environment, all controller region and servant regions can have */
+/*  unique identities merely by incrementing the number at the      */
+/*  the end of the name prefix.                                     */
+/*                                                                  */
+/* -default_WS_CFG_group is used as the group id of the WebSphere   */
+/*  configuration files in the hfs, all users which are connected   */
+/*  to this group will have read access to the configuration files. */
+/*  Therefore, this group doesn't need any explicit permits.        */
+/*                                                                  */
+/* ---------------------------------------------------------------- */
+/*  Change History:                                                 */
+/*                                                                  */
+/*   WS15621 H28W502 061303  PDOC: Add MultiCell Support            */
+/*   MD17453 H28W502 091203  PDRZ: Create Asynch Admin userid       */
+/*   MD18289 H28W502 101503  PDRZ: Change &CREJBR to &UEJBR         */
+/*    245680 H28W600 120804    DB: Remove references to mapping     */
+/*                                 class and passticket variables,  */
+/*                                 and no longer set application_id */
+/*                                 based on ptktdata_name           */
+/*    245682 H28W600 120804    DB: Remove the command               */
+/*                                 SETROPTS CLASSACT(APPL)          */
+/*    250035 H28W601 011705    DB: Text updates for V6              */
+/*                                 Remove references to keymask     */
+/*    251673 H28W601 012605    DB: Change v5/v6 to V5/V6            */
+/*    253275 H28W602 041505    DB: Remove references to CTRACE      */
+/*    279429 H28W602 052705  PDML: update HOME value.               */
+/*    281074 H28W602 060305  PDML: update HOME value.               */
+/*    283304 H28W602 061305  PDML: remove USERHOME.                 */
+/*   PK07374 H28W602 062105  PDML: update HOME value.               */
+/*  LIDB2634 H28W610 082405  PDML: security out of the box update.  */
+/*    362158 H28W610 041205    DB: use NOPASSWORD/NOOIDCARD for     */
+/*                                 HFS owner id                     */
+/*    360439 H28W610 041306  kvijai: explain generated cmds         */
+/*    348320 H28W610 060506    DB: auto UID/GID support             */
+/*----------------------------------------------------------------- */
+)BLANK
+issue_cmds_switch = ''
+parse upper arg parms
+)BLANK
+/*------------------------------------------------------------------*/
+/* Specify whether to execute commands immediately or write them    */
+/* to a file.                                                       */
+/*------------------------------------------------------------------*/
+)BLANK
+parse upper var parms . "ISSUECMDS(" issue_cmds_switch ")" .
+issue_cmds_switch =strip(issue_cmds_switch)
+if issue_cmds_switch = "Y" then switch = "issuecmds"
+else switch = "generatecmds"
+)BLANK
+/*-----------------------------------------------------------------*/
+/* Define a group to own the files in the WAS configuration HFS.   */
+/* Controller regions (which run authorized code) also need to     */
+/* have this as their default group, since they update the HFS.    */
+/* Add anyone to this group that needs access to HFS config        */
+/*    files and administrator access                 @MD16594.1C   */
+/*-----------------------------------------------------------------*/
+default_WS_CFG_group                    = "&CNFGGRP"
+default_WS_CFG_GID                      = "&CNFGGID"
+)BLANK
+/*-----------------------------------------------------------------*/
+/* Define a group for WebSphere servant region user IDs.           */
+/* These regions run application code but need some common         */
+/* permissions, which are granted to this group.                   */
+/*-----------------------------------------------------------------*/
+default_WS_SR_group                     = "&ALLGRPS"
+default_WS_SR_GID                       = "&ALLGIDS"
+)BLANK
+/*------------------------------------------------------------------*/
+/* Define a group for local clients and unauthorized user IDs -     */
+/* i.e. any local user IDs that need some minimal access to the     */
+/* cell.                                                            */
+/*------------------------------------------------------------------*/
+default_WS_unauth_group                 = "&ALLGRPD"
+default_WS_unauth_GID                   = "&ALLGIDD"
+)BLANK
+/*------------------------------------------------------------------*/
+/* Define a user ID to own the files in the WAS configurations HFS. */
+/* It must have the config group as its default group.              */
+/*------------------------------------------------------------------*/
+default_WS_HFS_owner_userid                 = "&WASHFSU"
+default_WS_HFS_owner_UID                    = "&WASHUID"
+)BLANK
+/*-------------------------------------------------------*/
+/*             Start of Standard setup                   */
+/*-------------------------------------------------------*/
+maxrc = 0
+)BLANK
+/* Verify that required data fields are set up */
+call VerifyRequiredData
+if maxrc > 4 then
+   exit maxrc
+)BLANK
+)BLANK
+ if switch = 'issuecmds'  then do;
+    call PutComment('WebSphere Application Server RACF Setup')
+    call PutComment('-- Common Groups and users')
+    call PutComment('Generated on ' || DATE() || ' at ' || TIME() )
+   end;
+)BLANK
+  else do;
+    call PutLine('/* REXX */')
+    call PutComment('WebSphere Application Server RACF Setup')
+    call PutComment('-- Common Groups and users')
+    call PutComment('Generated on ' || DATE() || ' at ' || TIME() )
+    call PutLine('trace commands')
+   end;
+)BLANK
+/*-------------------------------------------------------*/
+/*        Create WAS groups and users                    */
+/*-------------------------------------------------------*/
+call CreateGroups
+call CreateUsers
+)BLANK
+/*---------------------------------------------------------*/
+/*           Exit with highest return code                 */
+/*---------------------------------------------------------*/
+call PutComment('End of generated commands.')
+if switch = "generatecmds" then do
+   "EXECIO 0 DISKW RACFCMDS ( FINIS "
+   end
+exit maxrc
+)BLANK
+/*------------------------------------------------------------------*/
+/*  Start of Subroutine Section                                     */
+/*------------------------------------------------------------------*/
+VerifyRequiredData:
+/* ---------------------------------------------------------------- */
+/* Do prechecks of values that have no reasonable defaults and need */
+/* to be set before using this exec.                                */
+/* ---------------------------------------------------------------- */
+)BLANK
+/* No checks at this time */
+RETURN
+)BLANK
+)BLANK
+CreateGroups:
+/* ---------------------------------------------------------------- */
+/* Determine whether to use AUTOGID or the user specified GID for   */
+/* each of the groups                                               */
+/* ---------------------------------------------------------------- */
+)BLANK
+/* SR group --------------------------------------------------------*/
+if default_WS_SR_GID = "*"
+ then do
+    SR_gid_string = "AUTOGID"
+ end
+ else do
+    SR_gid_string = "GID(&ALLGIDS)"
+ end
+/* config group ----------------------------------------------------*/
+if default_WS_CFG_GID = "*"
+ then do
+    CFG_gid_string = "AUTOGID"
+ end
+ else do
+    CFG_gid_string = "GID(&CNFGGID)"
+ end
+/* unauth group ----------------------------------------------------*/
+if default_WS_unauth_GID = "*"
+ then do
+    unauth_gid_string = "AUTOGID"
+ end
+ else do
+    unauth_gid_string = "GID(&ALLGIDD)"
+ end
+/* ---------------------------------------------------------------- */
+/* Create RACF groups for the different WAS controller and servant  */
+/* regions, the WAS HOME owner and unauthenticated userid.          */
+/* ---------------------------------------------------------------- */
+ call PutComment('Create WAS servant region group. ')
+ CMD = "ADDGROUP " || default_WS_SR_group || ,
+   " OMVS(" || SR_gid_string || ")"
+ call ProcessCmd CMD
+)BLANK
+ call PutComment('Create WAS configuration group. ')
+ CMD = "ADDGROUP " || default_WS_CFG_group || ,
+   " OMVS(" || CFG_gid_string || ")"
+ call ProcessCmd CMD
+)BLANK
+ call PutComment('Creating group for WAS unauthenticated userid. ')
+ CMD = "ADDGROUP " || default_WS_unauth_group || ,
+   " OMVS(" || unauth_gid_string || ")"
+ call ProcessCmd CMD
+RETURN
+)BLANK
+)BLANK
+CreateUsers:
+)BLANK
+/* ---------------------------------------------------------------- */
+/* Determine whether to use AUTOUID or the user specified UID for   */
+/* each of the user ids                                             */
+/* ---------------------------------------------------------------- */
+)BLANK
+/* HFS owner user id -----------------------------------------------*/
+if default_WS_HFS_owner_UID = "*"
+ then do
+    HFS_owner_uid_string = "AUTOUID"
+ end
+ else do
+    HFS_owner_uid_string = "UID(&WASHUID)"
+ end
+/* ---------------------------------------------------------------- */
+/* Define a user ID to own the files in the configuration HFS.      */
+/*                                                                  */
+/* ---------------------------------------------------------------- */
+)BLANK
+call PutComment('Adding WAS HFS owner userid. ')
+)BLANK
+CMD = "ADDUSER " || default_WS_HFS_owner_userid || ,
+   " DFLTGRP(" || default_WS_CFG_group || ,
+   ") OMVS("|| HFS_owner_uid_string || ,
+   " HOME(&USERHOME/&CNFGGRP) PROGRAM(/bin/sh)) NAME('WAS HFS OWNER') "  || ,
+   " NOPASSWORD NOOIDCARD"
+call ProcessCmd CMD
+)BLANK
+RETURN
+)BLANK
+/*                                                     end @MD17453A*/
+)BLANK
+)BLANK
+/* ---------------------------------------------------------------- */
+/*                   cv2lower function                              */
+/* ---------------------------------------------------------------- */
+/* converts upper case to lower case letters                        */
+/* ---------------------------------------------------------------- */
+)BLANK
+ cv2lower: procedure expose kerbId
+    upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    lower = 'abcdefghijklmnopqrstuvwxyz'
+    parse ARG racfId
+)BLANK
+    kerbId = TRANSLATE(racfId, lower, upper)
+    return
+)BLANK
+/* ---------------------------------------------------------------- */
+/*                   ProcessCmd Routine                             */
+/* ---------------------------------------------------------------- */
+/* ProcessCmd either executes the command, or writes it out into   */
+/*        a file that is 80 characters in width.                   */
+/* ---------------------------------------------------------------- */
+ProcessCmd: procedure expose maxrc switch
+  parse arg command
+  linelen = 68                                         /* @MD16362A*/
+  if switch = 'issuecmds' then do
+     ADDRESS TSO command
+     rrc =rc
+     if rrc > maxrc  then
+        maxrc  = rrc
+     end
+   else do
+      start=1
+      do while (start <= LENGTH(command))
+      if  LENGTH(SUBSTR(command,start)) <= linelen then  /* @MD16362C*/
+         QUEUE '"' || Substr(command,start) || '"'       /* @MD16362C*/
+      else
+         QUEUE '"' || Substr(command,start,linelen) || '" || ,' /* @MD16362C*/
+      EXECIO 1 DISKW RACFCMDS
+      start = start + linelen                            /* @MD16362C*/
+      end
+     QUEUE 'say'        /* blank line after each cmd */  /* @MD17166A*/
+      EXECIO 1 DISKW RACFCMDS                            /* @MD17166A*/
+     QUEUE ' '          /* blank line after each cmd */  /* @MD17166A*/
+      EXECIO 1 DISKW RACFCMDS                            /* @MD17166A*/
+    end
+  return
+/* ---------------------------------------------------------------- */
+/*                   PutComment Routine                             */
+/* ---------------------------------------------------------------- */
+/* PutComment displays a comment.  If executing the command it      */
+/*        is out in SYSTSPRT, otherwise it is dispersed into the    */
+/*        command file.                                             */
+/* ---------------------------------------------------------------- */
+PutComment: procedure expose switch
+  parse arg comment
+  linelen = 68                                         /* @MD16362A*/
+  if switch = 'issuecmds' then do;
+     say comment
+     end;
+  else do;
+     start=1
+     do while (start <= LENGTH(comment))
+       QUEUE  "say '"  || Substr(comment,start,linelen) || "'"
+       EXECIO 1 DISKW RACFCMDS
+       start =start+linelen                            /* @MD16362C*/
+     end;
+  end;
+  return
+/* ---------------------------------------------------------------- */
+/*                   PutLine Routine                                */
+/* ---------------------------------------------------------------- */
+/* PutLine writes a single line to SYSTSPRT or to the command file  */
+/* ---------------------------------------------------------------- */
+PutLine: procedure expose switch
+  parse arg comment
+  if switch = 'issuecmds' then do;
+     say comment
+     end;
+  else do;
+       QUEUE  comment
+       EXECIO 1 DISKW RACFCMDS
+  end;
+return

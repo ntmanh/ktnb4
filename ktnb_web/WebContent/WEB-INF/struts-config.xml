@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC           "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"           "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="UploadForm" type="cmc.com.ktnb.web.UploadForm"></form-bean>
+		<form-bean name="canboForm" type="cmc.com.ktnb.web.catalog.CanboForm"></form-bean>
+		<form-bean name="congBoKetLuanForm" type="cmc.com.ktnb.web.ttkt.ket_thuc_ttkt.form.CongBoKetLuanForm"></form-bean>
+		<form-bean name="exeQuerryBean" type="cmc.com.ktnb.web.login.ExeQuerryBean"></form-bean>
+		<form-bean name="logForm" type="cmc.com.ktnb.web.dung_chung.LogForm"></form-bean>
+		<form-bean name="Bc2aForm" type="cmc.com.ktnb.tccp.Bc2aForm"></form-bean>
+		<form-bean name="Bc2bForm" type="cmc.com.ktnb.tccp.Bc2bForm"></form-bean>
+		<form-bean name="Bc2cForm" type="cmc.com.ktnb.tccp.Bc2cForm"></form-bean>
+		<form-bean name="Bc2dForm" type="cmc.com.ktnb.tccp.Bc2dForm"></form-bean>
+		<form-bean name="Bc2ddForm" type="cmc.com.ktnb.tccp.Bc2ddForm"></form-bean>
+		<form-bean name="Bc1aForm" type="cmc.com.ktnb.tccp.Bc1aForm"></form-bean>
+		<form-bean name="Bc1bForm" type="cmc.com.ktnb.tccp.Bc1bForm"></form-bean>
+	</form-beans>
+	<global-exceptions>
+		<exception type="java.lang.Exception" handler="cmc.com.ktnb.exception.KtnbExceptionHandler" key="exception" scope="request" />
+	</global-exceptions>
+	<global-forwards>
+		<forward name="error" path="/error/error.jsp" />
+	</global-forwards>
+	<action-mappings>
+		<action name="Bc2aForm" path="/bc2a" type="cmc.com.ktnb.tccp.Bc2aAction" parameter="method" scope="request">
+			<forward name="success" path="/ttcp/2a.jsp" />
+		</action>
+		<action name="Bc2bForm" path="/bc2b" type="cmc.com.ktnb.tccp.Bc2bAction" parameter="method" scope="request">
+			<forward name="success" path="/ttcp/2b.jsp" />
+		</action>
+		<action name="Bc2cForm" path="/bc2c" type="cmc.com.ktnb.tccp.Bc2cAction" parameter="method" scope="request">
+			<forward name="success" path="/ttcp/2c.jsp" />
+		</action>
+		<action name="Bc2dForm" path="/bc2d" type="cmc.com.ktnb.tccp.Bc2dAction" parameter="method" scope="request">
+			<forward name="success" path="/ttcp/2d.jsp" />
+		</action>
+		<action name="Bc2ddForm" path="/bc2dd" type="cmc.com.ktnb.tccp.Bc2ddAction" parameter="method" scope="request">
+			<forward name="success" path="/ttcp/2dd.jsp" />
+		</action>
+		<action name="Bc1aForm" path="/bc1a" type="cmc.com.ktnb.tccp.Bc1aAction" parameter="method" scope="request">
+			<forward name="success" path="/ttcp/1a.jsp" />
+		</action>
+		<action name="Bc1bForm" path="/bc1b" type="cmc.com.ktnb.tccp.Bc1bAction" parameter="method" scope="request">
+			<forward name="success" path="/ttcp/1b.jsp" />
+		</action>
+		<action name ="logForm" path="/viewlog" type="cmc.com.ktnb.web.dung_chung.LogAction" parameter="method" scope="request">
+			<forward name="success" path="/system/viewlog.jsp"></forward>
+		</action>
+		<action path="/login" forward="/system/login.jsp" />
+		<action path="/home" forward="/home.jsp" />
+		<action path="/report" type="cmc.com.ktnb.web.ReportAction" />
+		<action path="/kntcreport" type="cmc.com.ktnb.web.KntcReportAction" />
+		<action path="/jsonstore" type="cmc.com.ktnb.web.JsonStoreAction" />
+		<action path="/ajax" type="cmc.com.ktnb.web.AjaxAction" />
+		<action path="/pass" type="cmc.com.ktnb.web.login.PassAction">
+			<forward name="success" path="/system/pass.jsp"></forward>
+		</action>
+		<action path="/loginAction" type="cmc.com.ktnb.web.login.LoginAction" />
+		<action path="/right" forward="/system/right.jsp" />
+		<action path="/error" forward="/system/error.jsp" />
+		<action path="/tree" forward="/system/tree.jsp" />
+		<action path="/lov" forward="/system/lov.jsp" />
+		<action name="exeQuerryBean" path="/viewquery" type="cmc.com.ktnb.web.login.ExeQuerry" parameter="method" scope="request">
+			<forward name="success" path="/system/ExeQuerry.jsp" />
+		</action>
+		<!-- Switch 2 trang chu kntc -->
+		<action path="/index_kntc" forward="/index_kntc2.jsp" />
+		<action path="/index_ttcp" forward="/index_ttcp.jsp" />
+		<action path="/index_kntc2" forward="/index_kntc.jsp" />
+		<action path="/index_report" forward="/index_report.jsp" />
+		<action path="/index_system" forward="/index_system.jsp" />
+		<action path="/ttkt_index" forward="/index_ttkt.jsp" />
+		<action path="/danh_muc_chung" forward="/system/danh_muc_chung.jsp"/>
+		<action path="/danh_muc_can_bo" forward="/system/danh_muc_can_bo.jsp"/>
+		<action path="/danh_muc_phong_ban" forward="/system/danh_muc_phong_ban.jsp"/>
+		<action path="/danh_muc_thoi_han" forward="/system/danh_muc_thoi_han.jsp"/>
+		<action path="/danh_muc_cqt" forward="/system/danh_muc_cqt.jsp"/>
+		<action path="/danh_muc_ngay_nghi" forward="/system/danh_muc_ngay_nghi.jsp"/>
+		<action path="/dong_bo_so_lieu" forward="/system/dong_bo_so_lieu.jsp"/>
+		<action path="/dong_bo_so_lieu1" forward="/system/dong_bo_so_lieu1.jsp"/>
+		<action path="/thoat" type="cmc.com.ktnb.web.login.LogoutAction">
+			<forward name="success" path="/login.do" />
+		</action>
+		<action path="/index" type="cmc.com.ktnb.web.login.IndexAction">
+			<forward name="success" path="/index.jsp" />
+		</action>
+		<action path="/multiUpload" type="cmc.com.ktnb.web.login.MultiUploadAction">
+			<forward name="success" path="/system/multiUpload.jsp" />
+		</action>
+		<action name="UploadForm" path="/UploadAction" parameter="method" scope="request" type="cmc.com.ktnb.web.UploadAction">
+			<forward name="upload" path="/system/upload.jsp" />
+		</action>
+		<action name="canboForm" path="/danhmuc_canbo" scope="request" parameter="method" type="cmc.com.ktnb.web.catalog.CanboAction">
+			<forward name="success" path="/dung_chung/lov_canbo.jsp" />
+			<forward name="lovCqt" path="/dung_chung/lov_cqt.jsp" />
+		</action>
+		<action path="/congBoKetLuan" type="cmc.com.ktnb.web.ttkt.ket_thuc_ttkt.action.CongBoKetLuanAction">
+		</action>
+	</action-mappings>
+	<message-resources parameter="cmc.com.ktnb.resources.ApplicationResources" />
+	<message-resources parameter="cmc.com.ktnb.resources.Error_ApplicationResources" key="error" />
+	<plug-in className="cmc.com.ktnb.util.HibernateSessionFactory">
+		<set-property property="storedInServletContext" value="true" />
+	</plug-in>
+</struts-config>

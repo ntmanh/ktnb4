@@ -1,0 +1,51 @@
+<!-- Licensed Materials - Property of IBM                                                 -->
+<!-- 5724-I63, 5724-H88, 5655-N01, 5733-W61 (C) Copyright IBM Corp. 1997, 2007            -->
+<!-- All Rights Reserved                                                                  -->
+<!-- US Government Users Restricted Rights - Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with  the IBM Corp.                                        -->
+
+<actions>
+   <action path="actions/zpmt.ant" priority="01" isFatal="true"> 
+        <argument key="profileName" values="1" required="true" >
+        </argument>
+        <argument key="profilePath" values="1" required="true" >
+            <defaulter path="defaulters/profileLocationDefaulter.ijc"/>
+            <validator path="validators/directoryValidator.ijc"/>
+        </argument>
+        <argument key="zTargetHLQ" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zTargetHLQLengthValidator.ijc"/>
+            <validator path="validators/zDataSetValidator.ijc"/> 
+        </argument>
+        <argument key="zWasHome" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zUnixStylePathValidator.ijc"/>
+        </argument>
+        <argument key="zEjb3SmpePath" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zSMPEPathLengthValidator.ijc"/>
+            <validator path="validators/zUnixStylePathValidator.ijc"/>
+        </argument>
+        <argument key="zSmpePath" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zSMPEPathLengthValidator.ijc"/>
+            <validator path="validators/zUnixStylePathValidator.ijc"/>
+        </argument>
+        <argument key="zJobStatement1" values="1" required="true" >
+            <validator path="validators/zJobStatementLineOneLengthValidator.ijc"/>
+            <validator path="validators/zJobStatementFormatValidator.ijc"/>
+        </argument>
+        <argument key="zJobStatement2" values="1" required="true" >
+            <validator path="validators/zJobStatementLengthValidator.ijc"/>
+            <validator path="validators/zJobStatementFormatValidator.ijc"/>
+        </argument>
+        <argument key="zJobStatement3" values="1" required="true" >
+            <validator path="validators/zJobStatementLengthValidator.ijc"/>
+            <validator path="validators/zJobStatementFormatValidator.ijc"/>
+        </argument>
+        <argument key="zJobStatement4" values="1" required="true" >
+            <validator path="validators/zJobStatementLengthValidator.ijc"/>
+            <validator path="validators/zJobStatementFormatValidator.ijc"/>
+        </argument> 
+    </action>
+</actions>

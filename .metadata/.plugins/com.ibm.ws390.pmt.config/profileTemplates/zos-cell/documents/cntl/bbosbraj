@@ -1,0 +1,43 @@
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4                                                                        
+//BBOCBRAJ EXEC PGM=IKJEFT01,DYNAMNBR=20                                        
+//SYSEXEC  DD DISP=SHR,DSN=&TRGHLQ..DATA                                        
+//RACFCMDS DD DISP=SHR,                                                         
+//         DSN=&TRGHLQ..DATA(BBOSBRAK)                                          
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+ BBOSBRAC  'issuecmds(n) '                                                      
+/*                                                                              
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+//* From source skeleton: &skin                                                 
+//* ================================================================ */         
+//* Usage note:                                                      */         
+//* - The "issuecmds" option is used to indicate if you wish to      */         
+//*  issue the commands directly or save the commands first:         */         
+//*     N - Indicates that you wish to generate a data set with      */         
+//*         RACF commands.                                           */         
+//*     Y - Indicates that you wish to issue the commands directly   */         
+//*         from this exec.                                          */         
+//* ================================================================ */         
+)CM                                                                             
+)CM ================================================================ */         
+)CM  Change Activity:                                                */         
+)CM                                                                  */         
+)CM  LIDB3773-25	H28W610	110405	DB: Initial creation             */             
+)CM                                                                  */         
+)CM ================================================================ */         

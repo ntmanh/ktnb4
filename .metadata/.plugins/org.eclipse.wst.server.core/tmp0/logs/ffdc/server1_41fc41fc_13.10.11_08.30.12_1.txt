@@ -1,0 +1,76 @@
+------Start of DE processing------ = [10/11/13 8:30:12:545 GMT] , key = com.ibm.ws.rsadapter.exceptions.DataStoreAdapterException com.ibm.ejs.j2c.MCWrapper.destroy 791
+Exception = com.ibm.ws.rsadapter.exceptions.DataStoreAdapterException
+Source = com.ibm.ejs.j2c.MCWrapper.destroy
+probeid = 791
+Stack Dump = com.ibm.ws.exception.WsException: DSRA0080E: An exception was received by the Data Store Adapter. See original exception message: Io exception: Socket read timed out. with SQL State : null SQL Code : 17002
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:124)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:161)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:273)
+	at oracle.jdbc.driver.T4CConnection.logoff(T4CConnection.java:395)
+	at oracle.jdbc.driver.PhysicalConnection.close(PhysicalConnection.java:1046)
+	at oracle.jdbc.pool.OraclePooledConnection.close(OraclePooledConnection.java:219)
+	at com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl.destroy(WSRdbManagedConnectionImpl.java:2151)
+	at com.ibm.ejs.j2c.MCWrapper.destroy(MCWrapper.java:1391)
+	at com.ibm.ejs.j2c.poolmanager.FreePool.cleanupAndDestroyMCWrapper(FreePool.java:506)
+	at com.ibm.ejs.j2c.poolmanager.PoolManager.reclaimConnections(PoolManager.java:3030)
+	at com.ibm.ejs.j2c.poolmanager.PoolManager.executeTask(PoolManager.java:2954)
+	at com.ibm.ejs.j2c.poolmanager.TaskTimer.executeTask(TaskTimer.java:81)
+	at com.ibm.ejs.j2c.poolmanager.TaskTimer.run(TaskTimer.java:113)
+Caused by: java.sql.SQLException: Io exception: Socket read timed outDSRA0010E: SQL State = null, Error Code = 17,002
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:124)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:161)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:273)
+	at oracle.jdbc.driver.T4CConnection.logoff(T4CConnection.java:395)
+	at oracle.jdbc.driver.PhysicalConnection.close(PhysicalConnection.java:1046)
+	at oracle.jdbc.pool.OraclePooledConnection.close(OraclePooledConnection.java:219)
+	at com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl.destroy(WSRdbManagedConnectionImpl.java:2151)
+	at com.ibm.ejs.j2c.MCWrapper.destroy(MCWrapper.java:1391)
+	at com.ibm.ejs.j2c.poolmanager.FreePool.cleanupAndDestroyMCWrapper(FreePool.java:506)
+	at com.ibm.ejs.j2c.poolmanager.PoolManager.reclaimConnections(PoolManager.java:3030)
+	at com.ibm.ejs.j2c.poolmanager.PoolManager.executeTask(PoolManager.java:2954)
+	at com.ibm.ejs.j2c.poolmanager.TaskTimer.executeTask(TaskTimer.java:81)
+	at com.ibm.ejs.j2c.poolmanager.TaskTimer.run(TaskTimer.java:113)
+---- Begin backtrace for nested exception
+java.sql.SQLException: Io exception: Socket read timed outDSRA0010E: SQL State = null, Error Code = 17,002
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:124)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:161)
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:273)
+	at oracle.jdbc.driver.T4CConnection.logoff(T4CConnection.java:395)
+	at oracle.jdbc.driver.PhysicalConnection.close(PhysicalConnection.java:1046)
+	at oracle.jdbc.pool.OraclePooledConnection.close(OraclePooledConnection.java:219)
+	at com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl.destroy(WSRdbManagedConnectionImpl.java:2151)
+	at com.ibm.ejs.j2c.MCWrapper.destroy(MCWrapper.java:1391)
+	at com.ibm.ejs.j2c.poolmanager.FreePool.cleanupAndDestroyMCWrapper(FreePool.java:506)
+	at com.ibm.ejs.j2c.poolmanager.PoolManager.reclaimConnections(PoolManager.java:3030)
+	at com.ibm.ejs.j2c.poolmanager.PoolManager.executeTask(PoolManager.java:2954)
+	at com.ibm.ejs.j2c.poolmanager.TaskTimer.executeTask(TaskTimer.java:81)
+	at com.ibm.ejs.j2c.poolmanager.TaskTimer.run(TaskTimer.java:113)
+
+Dump of callerThis = 
+Object type = com.ibm.ejs.j2c.MCWrapper
+com.ibm.ejs.j2c.MCWrapper@e3d0e3d
+
+==> Performing default dump from com.ibm.ejs.j2c.DiagnosticModuleForJ2C  = Fri Oct 11 08:30:12 GMT 2013
+sourceId  = com.ibm.ejs.j2c.MCWrapper.destroy
+This = 
+Object type = com.ibm.ejs.j2c.MCWrapper
+com.ibm.ejs.j2c.MCWrapper@e3d0e3d
+
+Pool Information: = PoolManager name:jdbc/ktnbDS
+PoolManager object:403511309
+Total number of connections: 3 (max/min 10/1)
+Pool Bucket configuration
+  Shared Buckets: 200
+  UnShared Buckets: 10
+Shared Connection information
+  No shared connections
+
+Free Connection information
+  (1)(0)MCWrapper id 30a630a6  Managed connection com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl@d260d26  State:STATE_ACTIVE_FREE
+
+  Total number of connection in free pool: 1
+UnShared Connection information
+  No unshared connections
+
++Data for directive [defaultj2c] obtained. = 
+==> Dump complete for com.ibm.ejs.j2c.DiagnosticModuleForJ2C  = Fri Oct 11 08:30:12 GMT 2013

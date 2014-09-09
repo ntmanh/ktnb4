@@ -1,0 +1,318 @@
+------Start of DE processing------ = [9/15/13 21:59:24:228 GMT] , key = java.io.EOFException com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier.generateNewClassFile 574
+Exception = java.io.EOFException
+Source = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier.generateNewClassFile
+probeid = 574
+Stack Dump = java.io.EOFException
+	at java.io.DataInputStream.readByte(DataInputStream.java:360)
+	at com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier.generateNewClassFile(ClassLineModifier.java:626)
+	at com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier.prepareClassFileForDebug(ClassLineModifier.java:111)
+	at com.ibm.ws.webcontainer.jsp.compiler.IBMDebugJavaCompiler.compile(IBMDebugJavaCompiler.java:150)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:294)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:130)
+	at com.ibm.ws.webcontainer.jsp.servlet.JspServlet.loadJSP(JspServlet.java:1015)
+	at com.ibm.ws.webcontainer.jsp.servlet.JspServlet$JspServletWrapper.loadIfNecessary(JspServlet.java:325)
+	at com.ibm.ws.webcontainer.jsp.servlet.JspServlet$JspServletWrapper.service(JspServlet.java:357)
+	at com.ibm.ws.webcontainer.jsp.servlet.JspServlet.serviceJspFile(JspServlet.java:739)
+	at com.ibm.ws.webcontainer.jsp.servlet.JspServlet.service(JspServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:853)
+	at com.ibm.ws.webcontainer.servlet.StrictServletInstance.doService(StrictServletInstance.java:110)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet._service(StrictLifecycleServlet.java:174)
+	at com.ibm.ws.webcontainer.servlet.IdleServletState.service(StrictLifecycleServlet.java:313)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet.service(StrictLifecycleServlet.java:116)
+	at com.ibm.ws.webcontainer.servlet.ServletInstance.service(ServletInstance.java:283)
+	at com.ibm.ws.webcontainer.servlet.ValidServletReferenceState.dispatch(ValidServletReferenceState.java:42)
+	at com.ibm.ws.webcontainer.servlet.ServletInstanceReference.dispatch(ServletInstanceReference.java:40)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.handleWebAppDispatch(WebAppRequestDispatcher.java:1166)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.dispatch(WebAppRequestDispatcher.java:676)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.forward(WebAppRequestDispatcher.java:203)
+	at org.apache.struts.action.RequestProcessor.doForward(RequestProcessor.java:1069)
+	at org.apache.struts.action.RequestProcessor.internalModuleRelativeForward(RequestProcessor.java:1012)
+	at org.apache.struts.action.RequestProcessor.processForward(RequestProcessor.java:582)
+	at org.apache.struts.action.RequestProcessor.process(RequestProcessor.java:260)
+	at org.apache.struts.action.ActionServlet.process(ActionServlet.java:1482)
+	at org.apache.struts.action.ActionServlet.doGet(ActionServlet.java:507)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:740)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:853)
+	at com.ibm.ws.webcontainer.servlet.StrictServletInstance.doService(StrictServletInstance.java:110)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet._service(StrictLifecycleServlet.java:174)
+	at com.ibm.ws.webcontainer.servlet.IdleServletState.service(StrictLifecycleServlet.java:313)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet.service(StrictLifecycleServlet.java:116)
+	at com.ibm.ws.webcontainer.servlet.ServletInstance.service(ServletInstance.java:283)
+	at com.ibm.ws.webcontainer.servlet.ValidServletReferenceState.dispatch(ValidServletReferenceState.java:42)
+	at com.ibm.ws.webcontainer.servlet.ServletInstanceReference.dispatch(ServletInstanceReference.java:40)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.handleWebAppDispatch(WebAppRequestDispatcher.java:1166)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.dispatch(WebAppRequestDispatcher.java:676)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.forward(WebAppRequestDispatcher.java:203)
+	at cmc.com.ktnb.util.AuthenticationFilter.doFilter(AuthenticationFilter.java:64)
+	at com.ibm.ws.webcontainer.filter.FilterInstanceWrapper.doFilter(FilterInstanceWrapper.java:132)
+	at com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(WebAppFilterChain.java:71)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.handleWebAppDispatch(WebAppRequestDispatcher.java:1162)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.dispatch(WebAppRequestDispatcher.java:676)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.forward(WebAppRequestDispatcher.java:203)
+	at com.ibm.ws.webcontainer.srt.WebAppInvoker.doForward(WebAppInvoker.java:125)
+	at com.ibm.ws.webcontainer.srt.WebAppInvoker.handleInvocationHook(WebAppInvoker.java:300)
+	at com.ibm.ws.webcontainer.cache.invocation.CachedInvocation.handleInvocation(CachedInvocation.java:71)
+	at com.ibm.ws.webcontainer.cache.invocation.CacheableInvocationContext.invoke(CacheableInvocationContext.java:120)
+	at com.ibm.ws.webcontainer.srp.ServletRequestProcessor.dispatchByURI(ServletRequestProcessor.java:250)
+	at com.ibm.ws.webcontainer.oselistener.OSEListenerDispatcher.service(OSEListener.java:334)
+	at com.ibm.ws.webcontainer.http.HttpConnection.handleRequest(HttpConnection.java:56)
+	at com.ibm.ws.http.HttpConnection.readAndHandleRequest(HttpConnection.java:652)
+	at com.ibm.ws.http.HttpConnection.run(HttpConnection.java:448)
+	at com.ibm.ws.util.ThreadPool$Worker.run(ThreadPool.java:936)
+
+Dump of callerThis = 
+Object type = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier
+com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier@168e168e
+
+Exception = java.io.EOFException
+Source = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier.generateNewClassFile
+probeid = 574
+Dump of callerThis = 
+Object type = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier
+  generatedFileName = D:\Project\CMC\KTNB2\Source\ktnb_v2\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\cache\DefaultNode\server1\ktnb_svr\ktnb_web.war\system\_right.java
+  jspFileName = right.jsp
+  classFileName = D:\Project\CMC\KTNB2\Source\ktnb_v2\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\cache\DefaultNode\server1\ktnb_svr\ktnb_web.war\system\_right.class
+  newClassFileName = D:\Project\CMC\KTNB2\Source\ktnb_v2\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\cache\DefaultNode\server1\ktnb_svr\ktnb_web.war\system\_right.classWASNew
+  classFileInput = 
+    pstr = null
+    pbytearr[590] = {40,76,106,97,118,97,120,47,115,101,114,118,108,101,116,47,106,115,112,47,80,97,103,101,67,111,110,116,101,120,116,59,41,86,118,108,101,116,47,83,101,114,118,108,101,116,82,101,113,117,101,115,116,59,76,106,97,118,97,120,47,115,101,114,118,108,101,116,47,83,101,114,118,108,101,116,82,101,115,112,111,110,115,101,59,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,90,73,90,41,76,106,97,118,97,120,47,115,101,114,118,108,101,116,47,106,115,112,47,80,97,103,101,67,111,110,116,101,120,116,59,48,69,65,110,32,104,92,117,49,69,67,55,32,113,117,92,117,49,69,65,51,110,32,116,114,92,117,49,69,67,66,32,104,92,117,49,69,67,55,32,116,104,92,117,49,69,68,49,110,103,33,39,41,59,32,13,10,32,47,47,119,105,110,100,111,119,46,108,111,99,97,116,105,111,110,61,39,104,111,109,101,46,100,111,39,59,13,10,32,104,105,115,116,111,114,121,46,98,97,99,107,40,41,59,13,10,32,47,47,104,105,115,116,111,114,121,46,103,111,40,45,49,41,59,13,10,60,47,115,99,114,105,112,116,62,13,10,60,47,98,111,100,121,62,13,10,60,47,104,116,109,108,62,13,10,13,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0}
+    readBuffer[8] = {0,0,0,18,0,0,0,0}
+    lineBuffer = null
+    in = 
+      buf[2048] = {0,-118,40,76,106,97,118,97,120,47,115,101,114,118,108,101,116,47,83,101,114,118,108,101,116,59,76,106,97,118,97,120,47,115,101,114,118,108,101,116,47,83,101,114,118,108,101,116,82,101,113,117,101,115,116,59,76,106,97,118,97,120,47,115,101,114,118,108,101,116,47,83,101,114,118,108,101,116,82,101,115,112,111,110,115,101,59,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,90,73,90,41,76,106,97,118,97,120,47,115,101,114,118,108,101,116,47,106,115,112,47,80,97,103,101,67,111,110,116,101,120,116,59,1,0,29,106,97,118,97,120,47,115,101,114,118,108,101,116,47,106,115,112,47,80,97,103,101,67,111,110,116,101,120,116,1,0,17,103,101,116,83,101,114,118,108,101,116,67,111,110,116,101,120,116,1,0,32,40,41,76,106,97,118,97,120,47,115,101,114,118,108,101,116,47,83,101,114,118,108,101,116,67,111,110,116,101,120,116,59,1,0,16,103,101,116,83,101,114,118,108,101,116,67,111,110,102,105,103,1,0,31,40,41,76,106,97,118,97,120,47,115,101,114,118,108,101,116,47,83,101,114,118,108,101,116,67,111,110,102,105,103,59,1,0,10,103,101,116,83,101,115,115,105,111,110,1,0,34,40,41,76,106,97,118,97,120,47,115,101,114,118,108,101,116,47,104,116,116,112,47,72,116,116,112,83,101,115,115,105,111,110,59,1,0,6,103,101,116,79,117,116,1,0,31,40,41,76,106,97,118,97,120,47,115,101,114,118,108,101,116,47,106,115,112,47,74,115,112,87,114,105,116,101,114,59,1,0,27,106,97,118,97,120,47,115,101,114,118,108,101,116,47,106,115,112,47,74,115,112,87,114,105,116,101,114,1,0,5,119,114,105,116,101,1,0,13,103,101,116,66,117,102,102,101,114,83,105,122,101,1,0,3,40,41,73,1,0,11,99,108,101,97,114,66,117,102,102,101,114,1,0,19,104,97,110,100,108,101,80,97,103,101,69,120,99,101,112,116,105,111,110,1,0,24,40,76,106,97,118,97,47,108,97,110,103,47,84,104,114,111,119,97,98,108,101,59,41,86,1,0,5,101,109,112,116,121,1,0,3,40,41,90,1,0,3,112,111,112,1,0,20,40,41,76,106,97,118,97,47,108,97,110,103,47,79,98,106,101,99,116,59,1,0,7,114,101,108,101,97,115,101,1,0,18,114,101,108,101,97,115,101,80,97,103,101,67,111,110,116,101,120,116,1,0,34,40,76,106,97,118,97,120,47,115,101,114,118,108,101,116,47,106,115,112,47,80,97,103,101,67,111,110,116,101,120,116,59,41,86,0,33,0,34,0,35,0,0,0,4,0,10,0,36,0,37,0,0,0,10,0,38,0,39,0,0,0,9,0,40,0,41,0,0,0,9,0,42,0,41,0,0,0,4,0,1,0,43,0,44,0,1,0,45,0,0,0,51,0,1,0,1,0,0,0,5,42,-73,0,1,-79,0,0,0,2,0,46,0,0,0,10,0,2,0,0,0,18,0,4,0,19,0,47,0,0,0,12,0,1,0,0,0,5,0,48,0,49,0,0,0,17,0,50,0,44,0,2,0,45,0,0,0,43,0,0,0,1,0,0,0,1,-79,0,0,0,2,0,46,0,0,0,6,0,1,0,0,0,27,0,47,0,0,0,12,0,1,0,0,0,1,0,48,0,49,0,0,0,51,0,0,0,4,0,1,0,52,0,1,0,53,0,54,0,2,0,45,0,0,2,59,0,8,0,16,0,0,0,-31,1,78,1,58,4,1,58,5,1,58,6,1,58,7,1,58,8,42,58,9,1,58,10,-69,0,2,89,-73,0,3,58,11,-78,0,4,-102,0,36,42,89,58,12,-62,-78,0,4,-102,0,11,42,-74,0,5,4,-77,0,4,25,12,-61,-89,0,11,58,13,25,12,-61,25,13,-65,-72,0,6,78,44,18,7,-71,0,8,2,0,45,42,43,44,18,9,4,17,32,0,4,-74,0,10,58,4,25,4,-74,0,11,58,6,25,4,-74,0,12,58,7,25,4,-74,0,13,58,5,25,4,-74,0,14,58,8,25,8,18,15,-74,0,16,-88,0,52,-89,0,87,58,12,25,8,-58,0,16,25,8,-74,0,18,-103,0,8,25,8,-74,0,19,25,4,-58,0,10,25,4,25,12,-74,0,20,-88,0,14,-89,0,49,58,14,-88,0,6,25,14,-65,58,15,25,11,-74,0,21,-102,0,19,25,11,-74,0,22,-64,0,23,-71,0,24,1,0,-89,-1,-21,45,-58,0,9,45,25,4,...}
+      count = 1512
+      pos = 1512
+      markpos = 571
+      marklimit = 154
+      defaultBufferSize = 2048
+      in = java.io.FileInputStream@462b462b
+      SKIP_BUFFER_SIZE = 2048
+      skipBuffer = null
+    SKIP_BUFFER_SIZE = 2048
+    skipBuffer = null
+  classFileOutput = 
+    fd = 
+      fd = 174
+      fd2 = -1
+      boundfd = -1
+      fdinuse = -1
+      in = java.io.FileDescriptor@b7d0b7d
+      out = java.io.FileDescriptor@b840b84
+      err = java.io.FileDescriptor@b8b0b8b
+    channel = null
+    rw = true
+    O_RDONLY = 1
+    O_RDWR = 2
+    O_SYNC = 4
+    O_DSYNC = 8
+  encoding = UTF8
+  srcToByteLines = 
+    elementCount = 0
+    elementData = 
+      [0] = null
+      [1] = null
+      [2] = null
+      [3] = null
+      [4] = null
+      [5] = null
+      [6] = null
+      [7] = null
+      [8] = null
+      [9] = null
+    capacityIncrement = 0
+    serialVersionUID = -2767605614048989439
+    DEFAULT_SIZE = 10
+    modCount = 0
+  srcToSrcLines = 
+    elementCount = 0
+    elementData = 
+      [0] = null
+      [1] = null
+      [2] = null
+      [3] = null
+      [4] = null
+      [5] = null
+      [6] = null
+      [7] = null
+      [8] = null
+      [9] = null
+    capacityIncrement = 0
+    serialVersionUID = -2767605614048989439
+    DEFAULT_SIZE = 10
+    modCount = 0
+  classFileIndex = 3505
+  srcFileIndex = 82
+  constantPoolStrings = 
+    [0] = null
+    [1] = null
+    [2] = null
+    [3] = null
+    [4] = null
+    [5] = null
+    [6] = null
+    [7] = null
+    [8] = null
+    [9] = null
+    [10] = null
+    [11] = null
+    [12] = null
+    [13] = null
+    [14] = null
+    [15] = null
+    [16] = null
+    [17] = null
+    [18] = null
+    [19] = null
+    [20] = null
+    [21] = null
+    [22] = null
+    [23] = null
+    [24] = null
+    [25] = null
+    [26] = null
+    [27] = null
+    [28] = null
+    [29] = null
+    [30] = null
+    [31] = null
+    [32] = null
+    [33] = null
+    [34] = null
+    [35] = null
+    [36] = _jspx_inited
+    [37] = Z
+    [38] = _jspx_debug_jspSourceLocation
+    [39] = Ljava/lang/String;
+    [40] = _jspx_debug_FileMapping
+    [41] = [[Ljava/lang/String;
+    [42] = _jspx_debug_LineMapping
+    [43] = <init>
+    [44] = ()V
+    [45] = Code
+    [46] = LineNumberTable
+    [47] = LocalVariableTable
+    [48] = this
+    [49] = Lorg/apache/jsp/_right;
+    [50] = _jspx_init
+    [51] = Exceptions
+    [52] = null
+    [53] = _jspService
+    [54] = (Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V
+    [55] = t
+    [56] = Ljava/lang/Throwable;
+    [57] = request
+    [58] = Ljavax/servlet/http/HttpServletRequest;
+    [59] = response
+    [60] = Ljavax/servlet/http/HttpServletResponse;
+    [61] = _jspxFactory
+    [62] = Ljavax/servlet/jsp/JspFactory;
+    [63] = pageContext
+    [64] = Ljavax/servlet/jsp/PageContext;
+    [65] = session
+    [66] = Ljavax/servlet/http/HttpSession;
+    [67] = application
+    [68] = Ljavax/servlet/ServletContext;
+    [69] = config
+    [70] = Ljavax/servlet/ServletConfig;
+    [71] = out
+    [72] = Ljavax/servlet/jsp/JspWriter;
+    [73] = page
+    [74] = Ljava/lang/Object;
+    [75] = _value
+    [76] = _jspxTagObjects
+    [77] = Ljava/util/Stack;
+    [78] = null
+    [79] = null
+    [80] = <clinit>
+    [81] = SourceFile
+    [82] = _right.java
+    [83] = null
+    [84] = java/util/Stack
+    [85] = null
+    [86] = null
+    [87] = null
+    [88] = null
+    [89] = text/html;charset=ISO-8859-1
+    [90] = null
+    [91] = null
+    [92] = 
+    [93] = null
+    [94] = null
+    [95] = null
+    [96] = null
+    [97] = null
+    [98] = null
+    [99] = 
+<html>
+<body>
+<script>
+ alert('B\u1EA1n kh\u00F4ng c\u00F3 quy\u1EC1n truy c\u1EADp ch\u1EE9c n\u0103ng n\u00E0y! Vui l\u00F2ng li\u00EAn h\u1EC7 qu\u1EA3n tr\u1ECB h\u1EC7 th\u1ED1ng!'); 
+ //window.location='home.do';
+ history.back();
+ //history.go(-1);
+</script>
+</body>
+</html>
+
+
+    [100] = null
+    [101] = null
+    [102] = java/lang/Throwable
+    [103] = null
+    [104] = null
+    [105] = null
+    [106] = null
+    [107] = null
+    [108] = javax/servlet/jsp/tagext/Tag
+    [109] = null
+    [110] = null
+    [111] = /system/right.jsp
+    [112] = null
+    [113] = [Ljava/lang/String;
+    [114] = java/lang/String
+    [115] = 0
+    [116] = null
+    [117] = 1
+    [118] = null
+    [119] = org/apache/jsp/_right
+    [120] = com/ibm/ws/webcontainer/jsp/runtime/HttpJspBase
+    [121] = org/apache/jasper/runtime/JspException
+    [122] = java/io/IOException
+    [123] = javax/servlet/ServletException
+    [124] = javax/servlet/jsp/JspFactory
+    [125] = getDefaultFactory
+    [126] = ()Ljavax/servlet/jsp/JspFactory;
+    [127] = javax/servlet/http/HttpServletResponse
+    [128] = setContentType
+    [129] = (Ljava/lang/String;)V
+    [130] = getPageContext
+    [131] = (Ljavax/servlet/Servlet;Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljava/lang/String;ZIZ)Ljavax/servlet/jsp/PageContext;
+    [132] = javax/servlet/jsp/PageContext
+    [133] = getServletContext
+    [134] = ()Ljavax/servlet/ServletContext;
+    [135] = getServletConfig
+    [136] = ()Ljavax/servlet/ServletConfig;
+    [137] = getSession
+    [138] = ()Ljavax/servlet/http/HttpSession;
+    [139] = getOut
+    [140] = ()Ljavax/servlet/jsp/JspWriter;
+    [141] = javax/servlet/jsp/JspWriter
+    [142] = write
+    [143] = getBufferSize
+    [144] = ()I
+    [145] = clearBuffer
+    [146] = handlePageException
+    [147] = (Ljava/lang/Throwable;)V
+    [148] = empty
+    [149] = ()Z
+    [150] = pop
+    [151] = ()Ljava/lang/Object;
+    [152] = release
+    [153] = releasePageContext
+    [154] = (Ljavax/servlet/jsp/PageContext;)V
+  constantPoolFileOffsets[155] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,160,175,179,211,232,258,281,307,316,322,329,347,368,375,401,414,0,430,444,529,533,557,567,609,620,663,678,711,725,759,769,804,818,851,860,892,898,930,937,958,967,985,0,0,1011,1022,1035,0,1054,0,0,0,0,1090,0,0,1129,0,0,0,0,0,0,1160,0,0,1466,0,0,0,0,0,1513,0,0,1554,0,1579,1601,1620,0,1629,0,1638,1662,1712,1753,1775,1808,1839,1859,1894,1935,1952,1976,1993,2134,2166,2186,2221,2240,2274,2287,2324,2333,2367,2397,2405,2421,2427,2441,2463,2490,2498,2504,2510,2533,2543,2564}
+  typeOffsets[13] = {0,0,0,4,4,8,8,2,2,4,4,4,4}
+  CONSTANT_Utf8 = 1
+  CONSTANT_Long = 5
+  CONSTANT_Double = 6
+

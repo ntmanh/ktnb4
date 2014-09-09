@@ -1,0 +1,54 @@
+<%@ page pageEncoding="UTF-8"%>
+<%@ include file="/top_bar.jsp"%> 
+<html:form action="/kntc_kq_xm.do">
+	<h3 class="Header">Báo cáo/Kết quả giải quyết hồ sơ khiếu nại</h3>
+	<html:hidden property="maHidden" />
+	<html:hidden property="isGiaiQuyetNgay" />
+	<div style="text-align: center; width: 100%"><font style="font-size: 14px; color: red">Số hồ sơ</font> <html:text property="maHoSo" styleClass="text" style="width:250px" readonly="true" /></div>
+	<div id="super-tabs">
+	<ul>
+		<li><a href="#super-tab0" onclick="redirect('phieu_dxxl_kn.do?method=show&action=phanloaiHSKN&id=');"><span>PHÂN LOẠI ĐỀ XUẤT XỬ LÝ KN</span></a></li>
+		<li><a href="#super-tab1" onclick="redirect('kntc_xac_minh.do?method=xacMinh&action=xacMinhKhieuNai&id=');"><span>TIẾN HÀNH XÁC MINH</span></a></li>
+		<li><a href="#super-tab2" onclick="redirect('kntc_kq_xm.do?method=ketThuc&action=ketThucKhieuNai&id=');"><span>KẾT THÚC GIẢI QUYẾT</span></a></li>
+	</ul>
+		<div id="super-tab0"></div>	
+		<div id="super-tab1"></div>
+		<div id="super-tab2">	
+	<div id="tab_xac_minh" style="background-color: transparent; float: left;">
+	<ul>
+		<li><a href="#tab_bcxm" class="tabTitle">Báo cáo kết quả giải quyết KN - Mẫu 18/KNTC</a></li>
+		<li><a href="#tab_qdgq" class="tabTitle">Quyết định giải quyết KN - Mẫu 19/KNTC</a></li>
+		<li><a href="#tab_bckq" class="tabTitle">Báo cáo kết quả thực hiện khiếu nại</a></li>
+	</ul>
+	<div id="tab_bcxm"><jsp:include page="bao_cao_kq_gqkn.jsp"></jsp:include></div>
+	<div id="tab_qdgq"><jsp:include page="quyet_dinh_gq_kn.jsp"></jsp:include></div>
+	<div id="tab_bckq"><jsp:include page="bao_cao_ket_qua_thuc_hien_khieu_nai.jsp"></jsp:include></div>
+	</div>	
+	<jsp:include page="/kntc2/other_action/mau_phu_gqn_kn.jsp"></jsp:include>
+	</div>
+	<jsp:include page="/kntc2/other_action/khieu_nai.jsp"></jsp:include>
+	</div>	
+</html:form>
+<script type="text/javascript" charset="utf-8"> 
+var super_tab;
+$(function(){	
+  super_tab=$("#super-tabs");
+  super_tab.tabs();
+  super_tab.tabs("select" , 2);
+  var tab_select=jQuery.fn.readCookie("TABII");
+  var tabOpts={selected:tab_select,select:function(event,tab){jQuery.fn.createCookie("TABII",tab.index);}}; 
+  $("#tab_xac_minh").tabs(tabOpts);
+  $("#tab_xac_minh").removeClass("ui-corner-all");
+  $("#tab_xac_minh").children().removeClass("ui-corner-all"); 
+  
+  //Disable tab giai quyet ngay, neu ho so khong phai xac minh
+  if(document.forms[0].isGiaiQuyetNgay.value == "true"){
+  	$("#super-tabs").tabs("option", "disabled", [1])	
+  } 
+});
+function openBm(link){
+	link = link + '<%=request.getParameter("id")%>';
+	openWindow(link,800,600,false);
+}
+</script>
+<%@ include file="/bottom.jsp"%>

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Mau_12 Bien ban lam viec" pageWidth="595" pageHeight="842" columnWidth="454" leftMargin="85" rightMargin="56" topMargin="56" bottomMargin="70">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="82"/>
+	<property name="ireport.y" value="96"/>
+	<parameter name="Dai_dien" class="java.lang.String"/>
+	<parameter name="Noi_dung_lam_viec" class="java.lang.String"/>
+	<parameter name="So_ban_in_ra" class="java.lang.String"/>
+	<parameter name="Gio_hop" class="java.lang.String"/>
+	<parameter name="Dia_diem_hop" class="java.lang.String"/>
+	<group name="H1_">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band height="118">
+				<staticText>
+					<reportElement x="0" y="1" width="453" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="21" width="453" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="14" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Độc lập – Tự do - Hạnh phúc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="66" width="453" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[BIÊN BẢN LÀM VIỆC]]></text>
+				</staticText>
+			</band>
+			<band height="20">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="453" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Hôm nay, vào lúc "+ $P{Gio_hop}+", tại " +$P{Dia_diem_hop}+"."]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="20">
+				<staticText>
+					<reportElement x="0" y="0" width="453" height="20"/>
+					<textElement>
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<text><![CDATA[Chúng tôi gồm có:	]]></text>
+				</staticText>
+			</band>
+			<band height="20">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="41" y="0" width="412" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement markup="html">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{Dai_dien}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="H2_">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="453" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Justified" markup="html">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Đã tiến hành làm việc về nội dung: "+$P{Noi_dung_lam_viec}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="F1_">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupFooter>
+			<band height="187">
+				<staticText>
+					<reportElement x="0" y="64" width="214" height="22"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Đại diện]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="214" y="64" width="239" height="22"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Đại diện]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="0" y="0" width="453" height="51" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Biên bản đã được đọc lại cho những người có tên nêu trên nghe, ký xác nhận. Biên bản được lập thành "+ $P{So_ban_in_ra}+ " bản, mỗi bên giữ 01 bản/."]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+</jasperReport>

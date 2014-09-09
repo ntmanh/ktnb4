@@ -1,0 +1,72 @@
+;                                                                               
+; The following needs to be added following the PORT statement                  
+;                                                                               
+;                                                                               
+ &ASSPORT TCP &ASSSNS.     ; SOAP JMX Connector port                            
+;                                                                               
+ &ASOLAP TCP &ASSSNS.      ; ORB port                                           
+;                                                                               
+)SEL &ASOSSLAP ^= 0                                                             
+ &ASOSSLAP TCP &ASSSNS. NODELAYACKS   ; ORB SSL port                            
+;                                                                               
+)ENDSEL                                                                         
+ &ASVHHA1P TCP &ASSSNS.    ; HTTP port                                          
+;                                                                               
+ &ASVHHA2P TCP &ASSSNS. NODELAYACKS   ; HTTPS port                              
+;                                                                               
+ &ASACPRT  TCP &ASSSNS.    ; Admin Console Port                                 
+;                                                                               
+ &ASACSPRT TCP &ASSSNS.  NODELAYACKS  ; Admin Console Secure Port               
+;                                                                               
+ &DMNIPPRT TCP &DMNJNAME.  ; Daemon port                                        
+;                                                                               
+ &DMNSLPRT TCP &DMNJNAME. NODELAYACKS ; Daemon SSL port                         
+;                                                                               
+ &ASIPPORT TCP &ASSSNS.    ; Session Initiation Protocol                        
+;                              (SIP) Port                                       
+;                                                                               
+ &ASIPSEC  TCP &ASSSNS. NODELAYACKS ; Session Initiation Protocol               
+;                              (SIP) Secure Port                                
+;                                                                               
+ &ASDCSPRT TCP &ASSSNS.    ; High Availability Manager                          
+;                              Communications Port                              
+;                                                                               
+ &ASSIPRT  TCP &ASSSNS.A   ; Service Integration port                           
+;                                                                               
+ &ASSISEC  TCP &ASSSNS.A NODELAYACKS ;Service Integration secure port           
+;                                                                               
+ &ASSIMQ   TCP &ASSSNS.A   ; Service Integration MQ                             
+;                              Interoperability port                            
+;                                                                               
+ &ASSIMQS  TCP &ASSSNS.A NODELAYACKS ; Service Integration MQ                   
+;                              Interoperability secure port                     
+)BLANK                                                                          
+;/*********************************************************************/        
+;/* Licensed Material - Property of IBM                               */        
+;/*                                                                   */        
+;/* 5724-I63, 5724-H88, 5655-N01, 5733-W61                            */        
+;/* (C) Copyright IBM Corp. 1999, 2006                                */        
+;/* All Rights Reserved                                               */        
+;/* US Government Users Restricted Rights - Use, duplication or       */        
+;/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. */        
+;/*                                                                   */        
+;/* File Tailored on &ZDATE at &ZTIMEL by &ZUSER   */                           
+;/* From source skeleton: &skin    */                                           
+;/*********************************************************************/        
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   $L0=MD10262 H28W400 032001 PDG1: Initial Release               */         
+)CM   $L1=WS14568 H28W500 093002 PDML: Update for v5.                */         
+)CM       MD15331 H28W500 010703 PDML: remove unused ports           */         
+)CM       MD15xxx H28W500 020503 PDML: add BBOPATH                   */         
+)CM       MD16289 H28W500 032503 PDML: splitted the file: AS vs DM.  */         
+)CM   PQ75181 H28W500 030709  PDML: correct TCP/IP port infomation.  */         
+)CM   244860  H28W600 120204    DB: add SI and HA Manager ports      */         
+)CM   251176  H28W600 012105    DB: assign SIB ports to CRA          */         
+)CM LIDB2356-34 H28W610 060905 PDML: add SIP port.                   */         
+)CM   306014  H28W610 091805    DB: add admin console and SIP secure */         
+)CM   338960  H28W610 043006    DB: add NODELAYACKS for ssl ports    */         
+)CM                                                                  */         
+)CM ================================================================ */         

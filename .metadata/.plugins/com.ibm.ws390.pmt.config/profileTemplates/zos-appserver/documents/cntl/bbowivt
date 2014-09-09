@@ -1,0 +1,55 @@
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4                                                                        
+//********************************************************************/         
+//*  STEP 1 - Run the IVT App.                                       */         
+//********************************************************************/         
+//IVT EXEC PGM=IKJEFT01,REGION=0M                                               
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+   &CBCONFIG.+                                                                  
+   /&ASDIRN.+                                                                   
+   /bin/ivt.sh &ASSSNL. +
+   default +                                               
+)SEL &ASNOHOST ^= *                                                             
+     -host &ASNOHOST. +                                                         
+)ENDSEL                                                                         
+     -p &ASVHHA1P. +                                                            
+     1>> /tmp/ivt_&TIMESTMP..out +                                              
+     2>> /tmp/ivt_&TIMESTMP..err                                                
+/*                                                                              
+//********************************************************************/         
+//*  STEP Copy - Copy script output back to joblog                   */         
+//********************************************************************/         
+//IVTC EXEC PGM=IKJEFT01,REGION=0M                                              
+//SYSEXEC  DD  DISP=SHR,DSN=&BBOEXEC                                            
+//SYSTSIN  DD *                                                                 
+   BBOHFSWR '/tmp/ivt_&TIMESTMP..out'                                           
+   BBOHFSWR '/tmp/ivt_&TIMESTMP..err'                                           
+//SYSTSPRT DD SYSOUT=*                                                          
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+)CM                                                                    */       
+)CM Change Activity:                                                   */       
+)CM    WS14568,   H28W500, 20021118, PDML: inital support              */       
+)CM    MD16448    H28W500, 20030324, PDML: add -p port                 */       
+)CM    MD16461    H28W500, 20030325, PDML: remove servername           */       
+)CM    MD15371 H28W500 030529 PDML: fix MAX length: replace ASWASH     */       
+)CM                                 with CBCONFIG and ASDIRN.          */       
+)CM    PQ75203    H28W500, 20030613, PDML: add -host.                  */       
+)CM    MD18078    H28W502, 20030929, PDML: add time stamp.             */       
+)CM                                                                    */       
+)CM ================================================================== */       
+)CM                                                                             

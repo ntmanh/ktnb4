@@ -1,0 +1,92 @@
+)CM This job copies customized members to parmlib/proclib.                      
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4                                                                        
+//COPY1 EXEC  PGM=IEBCOPY                                                       
+//* Copy customized members to the installation proclib                         
+//SYSPRINT  DD SYSOUT=*                                                         
+//INPUT     DD DISP=SHR,DSN=&TRGHLQ..CNTL                                       
+//OUTPUT    DD DISP=SHR,DSN=&PROCLIB                                            
+//SYSIN     DD *                                                                
+ C INDD=INPUT,OUTDD=OUTPUT                                                      
+ S M=((BBOPDMN2,&DMNPRCC2,R))                                                   
+ S M=((BBOPASR,&ASPRCS,R))                                                     
+ S M=((BBOPACR,&ASPRCC,R))                                                     
+ S M=((BBOPCRA,&AJPRCS,R))                                                     
+)CM -----------------------                                                     
+)SEL &DMNPRCC2 = BBOPDMN                                                        
+ S M=((BBOPDMNZ,,R))                                                            
+)ENDSEL                                                                         
+)SEL &DMNPRCC2 ^= BBOPDMN                                                       
+ S M=((BBOPDMNZ,&DMNPRCC2.Z,R))                                                 
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)SEL &DMPRCC = BBOPDCR                                                          
+ S M=((BBOPDCR,,R))                                                             
+ S M=((BBOPDCRZ,,R))                                                            
+)ENDSEL                                                                         
+)SEL &DMPRCC ^= BBOPDCR                                                         
+ S M=((BBOPDCR,&DMPRCC,R))                                                      
+ S M=((BBOPDCRZ,&DMPRCC.Z,R))                                                   
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)SEL &DMPRCS = BBOPDSR                                                          
+ S M=((BBOPDSR,,R))                                                             
+ S M=((BBOPDSRZ,,R))                                                            
+)ENDSEL                                                                         
+)SEL &DMPRCS ^= BBOPDSR                                                         
+ S M=((BBOPDSR,&DMPRCS,R))                                                      
+ S M=((BBOPDSRZ,&DMPRCS.Z,R))                                                   
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)SEL &AAOPROC = BBOWPSH                                                         
+ S M=((BBOWPSH,,R))                                                             
+)ENDSEL                                                                         
+)SEL &AAOPROC ^= BBOWPSH                                                        
+ S M=((BBOWPSH,&AAOPROC,R))                                                     
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)SEL &ASPRCC = BBOPACR                                                          
+ S M=((BBOPACRZ,,R))                                                            
+)ENDSEL                                                                         
+)SEL &ASPRCC ^= BBOPACR                                                         
+ S M=((BBOPACRZ,&ASPRCC.Z,R))                                                   
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)SEL &ASPRCS = BBOPASR                                                          
+ S M=((BBOPASRZ,,R))                                                            
+)ENDSEL                                                                         
+)SEL &ASPRCS ^= BBOPASR                                                         
+ S M=((BBOPASRZ,&ASPRCS.Z,R))                                                   
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)SEL &AJPRCS = BBOPCRA                                                          
+ S M=((BBOPCRAZ,,R))                                                            
+)ENDSEL                                                                         
+)SEL &AJPRCS ^= BBOPCRA                                                         
+ S M=((BBOPCRAZ,&AJPRCS.Z,R))                                                   
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+/*                                                                                                                                                                                                 
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM  LIDB3773-25	H28W610	110405	DB: Initial creation         */
+)CM       324527    H28W610 111605  DB: fix length of some steps     */
+)CM                                     and some var names           */
+)CM       362742    H28W610 041406  DB: remove customization info    */   
+)CM                                                                  */         
+)CM ================================================================ */         

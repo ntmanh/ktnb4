@@ -1,0 +1,989 @@
+)CM                                                                             
+)DEFAULT )&?![^]                                                                
+)CM                                                                             
+)CM ================================================================ */         
+)CM PROPRIETARY-STATEMENT:                                           */         
+)CM Licensed Material - Property of IBM                              */         
+)CM                                                                  */         
+)CM 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+)CM (C) Copyright IBM Corp. 1999, 2006                               */         
+)CM All Rights Reserved                                              */         
+)CM US Government Users Restricted Rights - Use, duplication or      */         
+)CM disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   240619  H28W600 111504  PDML: Initial release.                 */         
+)CM   246983  H28W600 121604    DB: Updates based on new product     */         
+)CM                                 dataset panels                   */         
+)CM   246865  H28W601 011005    DB: Updates for managed nodes        */         
+)CM   249091  H28W601 011005    DB: Updates based on review comments */         
+)CM   247922  H28W601 011905    DB: Fix some typos                   */         
+)CM   251673  H28W601 012605    DB: More review updates              */         
+)CM   252044  H28W601 012705    DB: Some usability changes           */         
+)CM   253951  H28W601 021705    DB: Add BBOMCFGW to instructions     */         
+)CM   257033  H28W601 022205    DB: Add BBOMBRAJ and BBOMBRAK        */         
+)CM   257024  H28W601 022305    DB: fix max length problem           */         
+)CM   241041  H28W601 032205  PDSS: Added instructions for when      */         
+)CM                                 BBOWWPFM fails on second try     */         
+)CM   259928  H28W602 041405    DB: Only  generate BBORTSS5 section  */         
+)CM                                 if answer for in STEPLIB is Y    */         
+)CM   265249  H28W602 041805    DB: BBOWMNAN needs admin id not UID=0*/         
+)CM   271696  H28W602 042805    DB: remove BBOMCFGW                  */         
+)CM   262809  H28W602 042805    DB: remove WLM static instructions   */         
+)CM   279429  H28W602 052705  PDML: add directory verifications step.*/         
+)CM   281074  H28W602 060305  PDML: display the dir verfication step */         
+)CM                                 only if USERHOME is not tmp.     */         
+)CM   283304  H28W602 061305  PDML: remove the dir verfication step. */         
+)CM  PK07374  H28W602 062105  PDML: add directory verifications step.*/         
+)CM  PK07293  H28W602 062205    DB: fix START command for nodeagent  */         
+)CM   290470  H28W602 071805  PDML: remove BBOSGSK and SYSEXEC.      */         
+)CM LIDB2634  H28W610 083005  PDML: security out of box update.      */         
+)CM   307522  H28W610 092205    DB: Make START instructions more     */         
+)CM                                 generic                          */         
+)CM   311865  H28W610 100805    DB: Remove references to SCEERUN     */         
+)CM   313366  H28W610 101405  PDML: move text around ERRLOG.         */         
+)CM   317828  H28W610 111205  PDML: add OMVS WLM setup instructions. */         
+)CM   323701  H28W610 112105    DB: move RRS instructions prior to   */         
+)CM                                 federation                       */         
+)CM   325782  H28W610 112105    DB: change BBORTSS5 to BBORTS61      */         
+)CM   330776  H28W610 121405    DB: update instructions based on     */         
+)CM                                 change to SBBOLPA/SBBOLOAD       */         
+)CM   337853  H28W610 011206    DB: fix some typos                   */         
+)CM   333384  H28W610 011306    DB: add zfs support                  */         
+)CM  333384.1 H28W610 011906    DB: filesystem should be two words   */         
+)CM  337515   H28W610 012306    DB: updates for STEPLIB changes      */         
+)CM  330804   H28W610 012406    DB: add automount warning            */         
+)CM  342400   H28W610 013006    DB: change FILEZFS to FSTYPE         */         
+)CM  338949   H28W610 013006    DB: update SMF instructions          */         
+)CM  342461   H28W610 013106    DB: update OPERCMDs instructions     */         
+)CM  338132   H28W610 020606  PDML: add SBBGLOAD.                    */         
+)CM  354688   H28W610 031406    DB: LE/SSL datasets don't go in LPA  */         
+)CM  356728   H28W610 032406    DB: use ASFSTYPE                     */         
+)CM 357672.2  H28W610 032706    DB: add IPv6 node multicast port     */         
+)CM PK20049   H28W610 042206    DB: instructions for LE in STEPLIB   */         
+)CM  364931   H28W610 042406    DB: updates for non root install     */         
+)CM  348320   H28W610 102506    DB: updates for asterisk id          */         
+)CM  400982   H28W610 102606    DB: Add text for AUTOMOVE            */         
+)CM  402402   H28W610 110106    DB: Reword AUTOMOVE text             */         
+)CM  411108   H28W610 121206    DB: Fix possible length error        */         
+)CM  412596   H28W610 010307    DB: Add SBBGLOAD references          */         
+)CM  412597   H28W610 010807    DB: fix minor text issues            */
+)CM  425357   H28W610 040907    DB: use aggrgrow option for ZFS      */         
+)CM  467454.1 H28W610 050108  PDOP: Update retrieveSigners.sh sample */            
+)CM ================================================================ */         
+                                                                                
+)BLANK                                                                          
+                                                                                
+-----------------------------------------------                                 
+Instructions for customizing WebSphere for z/OS                                 
+for a Managed node.                                                             
+                                                                                
+)BLANK                                                                          
+                                                                                
+The customization dialog has created jobs based on the information you          
+provided. These instructions tell you how to modify the operating               
+system and run the jobs to customize WebSphere for z/OS.                        
+                                                                                
+)BLANK                                                                          
+                                                                                
+RULES:                                                                          
+                                                                                
+)BLANK                                                                          
+                                                                                
+1.  If you created the target data sets (*.CNTL and *.DATA) on another          
+    (driving) system, you must copy them to the target system and give          
+    them the same data set names.                                               
+                                                                                
+)BLANK                                                                          
+                                                                                
+2.  You must perform these instructions on your target system.                  
+                                                                                
+)BLANK                                                                          
+                                                                                
+Doing manual configuration updates                                              
+                                                                                
+----------------------------------                                              
+                                                                                
+)BLANK                                                                          
+                                                                                
+The customization dialog for WebSphere for z/OS does not attempt to             
+update configuration data for your base operating system or existing            
+subsystems. You must do the following manual steps prior to running             
+the WebSphere for z/OS configuration jobs.                                      
+                                                                                
+)BLANK                                                                          
+                                                                                
+Perform these steps to do manual configuration updates:                         
+                                                                                
+)BLANK                                                                          
+1.  Update BLSCUSER. Refer to member BBOIPCSP in                                
+)BLANK                                                                          
+    &TRGCNTL.                                                                   
+)BLANK                                                                          
+    In order to use the IPCS support provided by the product, append            
+    the contents of this member to the BLSCUSER member in your IPCSPARM         
+    or system PARMLIB datasets.                                                 
+                                                                                
+)BLANK                                                                          
+                                                                                
+    -------------------------------------------------------------------         
+                                                                                
+)BLANK                                                                          
+2.  Update SCHEDxx. Refer to member BBOSCHED in                                 
+)BLANK                                                                          
+    &TRGCNTL.                                                                   
+)BLANK                                                                          
+    In order to set the correct program properties for the WebSphere            
+    for z/OS run-time executables, append the contents of this member           
+    to the SCHEDxx member in your system PARMLIB concatenation.                 
+)BLANK                                                                          
+    Note: When you are finished, issue the command SET SCH=xx                   
+    to activate SCHEDxx and load a new program properties table.                
+                                                                                
+)BLANK                                                                          
+    -------------------------------------------------------------------         
+                                                                                
+)BLANK                                                                          
+                                                                                
+3.  Make sure the following data sets are APF-authorized:                       
+                                                                                
+)BLANK                                                                          
+                                                                                
+        &BBOLPA                                                                 
+                                                                                
+        &BBOLOAD                                                                
+                                                                                
+        &BBGLOAD                                                                
+                                                                                
+        &BBOLOD2                                                                
+                                                                                
+)BLANK                                                                          
+    Add these datasets to your PROGxx or IEAAPFxx parmlib members, as           
+    appropriate, ensuring you specify the correct volsers.                      
+)BLANK                                                                          
+                                                                                
+    -------------------------------------------------------------------         
+                                                                                
+)BLANK                                                                          
+4.  If you want to collect the SMF120 records created by the run-time           
+    servers, update SMFPRMxx via the following:                                 
+                                                                                
+)BLANK                                                                          
+                                                                                
+    EXAMPLE:                                                                    
+                                                                                
+)BLANK                                                                          
+                                                                                
+       SUBSYS(STC,EXITS(IEFU29,IEFACTRT),INTERVAL(SMF,SYNC),                    
+                          TYPE(0,30,70:79,88,89,120,245))                       
+                                                ---                             
+)BLANK                                                                          
+    For details on the SMF records, see related topics in the                   
+    WebSphere for z/OS Information Center at                                    
+    http://www.ibm.com/software/webservers/appserv/zos_os390/library/           
+)BLANK                                                                          
+                                                                                
+    -------------------------------------------------------------------         
+                                                                                
+)BLANK                                                                          
+5.  Update your active BPXPRMxx member to have the following WebSphere          
+    for z/OS configuration file system:                                         
+)BLANK                                                                          
+    &MNCFGHFS.                                                                  
+)BLANK                                                                          
+    mounted at:                                                                 
+)BLANK                                                                          
+    &MNCONFIG.                                                                  
+)BLANK                                                                          
+    in read/write mode.                                                         
+                                                                                
+)BLANK                                                                          
+                                                                                
+    EXAMPLE:                                                                    
+                                                                                
+)BLANK                                                                          
+)SEL &ASFSTYPE = ZFS                                                                              
+       MOUNT FILESYSTEM('&MNCFGHFS.')                                           
+         MOUNTPOINT('&MNCONFIG')                                                
+          TYPE(&ASFSTYPE.)                                                      
+          MODE(RDWR) PARM('AGGRGROW')
+)ENDSEL
+)SEL &ASFSTYPE = HFS                                                                              
+       MOUNT FILESYSTEM('&MNCFGHFS.')                                           
+         MOUNTPOINT('&MNCONFIG')                                                
+          TYPE(&ASFSTYPE.)                                                      
+          MODE(RDWR)
+)ENDSEL                                                            
+)BLANK                                                                          
+    If you are configuring in a sysplex environment, you may wish to            
+    add the NOAUTOMOVE parameter as follows:                                    
+)BLANK
+)SEL &ASFSTYPE = ZFS                                                                            
+        MOUNT FILESYSTEM('&MNCFGHFS.')                                          
+         MOUNTPOINT('&MNCONFIG')                                                
+          TYPE(&ASFSTYPE.)                                                      
+          MODE(RDWR) PARM('AGGRGROW') SYSNAME(&SYSNAME.) NOAUTOMOVE                              
+)ENDSEL
+)SEL &ASFSTYPE = HFS                                                                            
+        MOUNT FILESYSTEM('&MNCFGHFS.')                                          
+         MOUNTPOINT('&MNCONFIG')                                                
+          TYPE(&ASFSTYPE.)                                                      
+          MODE(RDWR) SYSNAME(&SYSNAME.) NOAUTOMOVE                              
+)ENDSEL
+)BLANK                                                                          
+    The NOAUTOMOVE parameter in the example above prevents the                  
+    configuration file system from being mounted on a different z/OS            
+    system in a shared file system configuration, which could cause             
+    performance problems.
+)BLANK                                                       
+)SEL &ASFSTYPE = ZFS
+    If you have specified "aggrgrow=on" in your IOEFSPRM parmlib member,
+    you can omit the AGGRGROW parm shown in the above examples
+)ENDSEL                                                                                
+)BLANK                                                                          
+                                                                                
+    -------------------------------------------------------------------         
+)BLANK                                                                          
+6.  Update TCP/IP by reserving the following ports for WebSphere for            
+    z/OS.  These will be used during the federation process of your             
+    managed node.                                                               
+                                                                                
+)BLANK                                                                          
+                                                                                
+       SOAP JMX Connector port                      - &ANPORT.                  
+       Node Discovery port                          - &ANNDPORT.                
+       Node Multicast Discovery Port                - &ANNMCDPT.                
+       Node IPv6 multicast discovery port           - &ANIPV6MC.                
+       Node Agent's ORB port                        - &ANOLAP.                  
+       High Availability Manager Communication port - &ANDCSPRT.                
+)SEL &ANOSSLAP ^= 0                                                             
+       Node Agent's ORB SSL port                    - &ANOSSLAP.                
+)ENDSEL                                                                         
+)BLANK                                                                          
+    View member BBOTCPIM in                                                     
+)BLANK                                                                          
+    &TRGCNTL.                                                                   
+)BLANK                                                                          
+    Add the contents of this member to the PORT section of the file             
+    referenced by the DD statement for the TCP/IP profile in the                
+    TCP/IP start procedure. Cut and paste from this member into the             
+    data set used by your installation.                                         
+                                                                                
+)BLANK                                                                          
+    ATTENTION: If another application has already reserved any of these         
+    ports for its own use, you must resolve the resulting conflict              
+    before you continue. If you update the WebSphere for z/OS                   
+    customization dialog with new port specifications, be sure to               
+    regenerate the customization jobs, data, and instructions.                  
+)BLANK                                                                          
+)BLANK                                                                          
+Note: The addNode process introduces a special utility server to                
+      the node.  This utility server is called a nodeagent and                  
+      exists to support administrative functions on the node. By                
+      default the nodeagent takes over ORB port 2809.   Note on                 
+      WebSphere z/OS the ORB port doubles as the INS CosNaming                  
+      bootstrap port.  By default, this port (2809) was assigned                
+      to the Application Server.  Normally you want the nodeagent               
+      to be the INS CosNaming bootstrap point for the entire node,              
+      so that RMI/IIOP clients that do not override the INS                     
+      CosNaming bootstrap defaults can locate within the namespace,             
+      EJBs installed on any server on that node.  In order for the              
+      nodeagent to take over port 2809,  the Application Server must            
+      be assigned a new ORB port.  The default new ORB port for the             
+      Application Server is 9810.  The nodeagent will take over a               
+      Application Server's ORB port if and only if the nodeagent's ORB          
+      port is equal to an Application Server's ORB port.  You can               
+      specify the nodeagent's ORB port in the 'ORB port' field.                 
+      You can specify the new ORB port for the Application Server in            
+      the 'Appplication Server's ORB Port' field.                               
+)BLANK                                                                          
+    ATTENTION: Skip this step if the ports are already defined in the           
+    TCP/IP profile.                                                             
+)BLANK                                                                          
+                                                                                
+    -------------------------------------------------------------------         
+)BLANK                                                                          
+)SEL &LSPROD = N                                                                
+7.  The WebSphere product libraries will be placed in the system link           
+    pack area (LPA) and system link list.                                       
+)BLANK                                                                          
+    Make sure no other copies of WebSphere Application server (any              
+    release) reside in the link pack area or the system link list, and          
+    that the target MVS system has at least 40MB of free storage in the         
+    extended CSA if SBBOLOAD is placed in the link pack area, or 8MB            
+    of free storage in extended CSA for the daemon and for EACH node            
+    (deployment manager node or application server node) if SBBOLOAD            
+    is placed in the link list.                                                 
+)BLANK                                                                          
+)BLANK                                                                          
+    SBBOLOAD:                                                                   
+    =========                                                                   
+    You can either load the SBBOLOAD modules into the dynamic link pack         
+    area (recommended) or place SBBLOAD in the system link list.                
+)BLANK                                                                          
+    a) To load the SBBOLOAD modules into the dynamic link pack area,            
+       enter the following MVS console command:                                 
+)BLANK                                                                          
+    SETPROG LPA,ADD,MASK=*,                                                     
+            DSNAME=&BBOLOAD.                                                    
+)BLANK                                                                          
+    Alternatively, you can place the following statement in a parmlib           
+    PROGxx member which is activated with the SET PROG= command after           
+    system IPL is complete:                                                     
+)BLANK                                                                          
+    LPA ADD MASK(*)                                                             
+        DSNAME(&BBOLOAD.)                                                       
+)BLANK                                                                          
+    Make sure that the SBBOLOAD modules are loaded into LPA after each          
+    system IPL.                                                                 
+)BLANK                                                                          
+    b) To put the SBBOLOAD data set into the system link list,                  
+        determine whether your system uses static (LNKLSTxx) or dynamic         
+        (PROGxx) link list definition, and add the following data set           
+        name to the appropriate LNKLSTxx or PROGxx member.  (An IPL will        
+        normally be required.)                                                  
+)BLANK                                                                          
+    &BBOLOAD.                                                                   
+)BLANK                                                                          
+)BLANK                                                                          
+    SBBGLOAD:                                                                   
+    =========                                                                   
+    If your servers will be running in 64-bit mode, the SBBGLOAD data           
+    set must be added to the system link list or link pack area                 
+    following the same procedure as for the SBBOLOAD data set.                  
+)BLANK                                                                          
+)BLANK                                                                          
+    SBBOLD2:                                                                    
+    ========                                                                    
+    Place the SBBOLD2 data set into the system link list.  This data            
+    set must NOT be placed in the system link pack area;  separate              
+    copies of the SBBOLD2 modules must be loaded into each WebSphere            
+    Application Server address space.                                           
+)BLANK                                                                          
+    To put the SBBOLD2 data set into the system link list, determine            
+    whether your system uses static (LNKLSTxx) or dynamic (PROGxx)              
+    link list definition, and add the following data set name to the            
+    appropriate LNKLSTxx or PROGxx member.  (An IPL will normally be            
+    required.)                                                                  
+)BLANK                                                                          
+    &BBOLOD2.                                                                   
+)ENDSEL                                                                         
+)SEL &LSPROD = Y                                                                
+7.  The WebSphere product libraries will be placed in STEPLIB as                
+    needed, rather than in the system link pack area and system link            
+    list. Make sure that the target MVS system has at least 8MB                 
+    of free storage in extended CSA for the daemon and for EACH                 
+    node (deployment manager node or application server node).                  
+)BLANK                                                                          
+    SBBOLOAD, SBBGLOAD and SBBOLD2:                                             
+    ===============================                                             
+    The following data sets will be placed in the STEPLIB concatenation         
+    for the location service daemon, controller and servant regions,            
+    and in the setupCmdLine.sh script in the WebSphere Configuration            
+    file system. You must not remove these STEPLIB statements.                  
+)BLANK                                                                          
+    &BBOLOAD.                                                                   
+    &BBGLOAD.                                                                   
+    &BBOLOD2.                                                                   
+)ENDSEL                                                                         
+)BLANK                                                                          
+)SEL &LSPROD = Y                                                                
+)BLANK                                                                          
+    BBORTS61:                                                                   
+    =========                                                                   
+)BLANK                                                                          
+    The BBORTS61 module is used by WebSphere Application Server for             
+    component trace support. A copy of this module (any maintenance             
+    level) must be in the system link pack area in order for CTRACE             
+    to work correctly.                                                          
+)BLANK                                                                          
+    If a copy of BBORTS61 is currently loaded into LPA, you need take           
+    no further action.                                                          
+)BLANK                                                                          
+    Otherwise, issue the following MVS console command to load BBORTS61         
+    into dynamic LPA:                                                           
+)BLANK                                                                          
+      SETPROG LPA,ADD,MODNAME=BBORTS61,                                         
+              DSNAME=&BBOLPA.                                                   
+)BLANK                                                                          
+    Alternatively, you can place the following statement in a parmlib           
+    PROGxx member which is activated with the SET PROG= command after           
+    system IPL is complete:                                                     
+)BLANK                                                                          
+    LPA ADD MODNAME(BBORTS61)                                                   
+      DSNAME(&BBOLPA.)                                                          
+)BLANK                                                                          
+    Make sure that the BBORTS61 module is loaded into LPA after each            
+    system IPL.                                                                 
+)ENDSEL                                                                         
+)BLANK                                                                          
+    -------------------------------------------------------------------         
+)BLANK                                                                          
+8.  WebSphere for z/OS customization assumes that the following system          
+    data sets are in the system link list:                                      
+)BLANK                                                                          
+    Language Environment     SCEERUN                                            
+                             SCEERUN2                                           
+)BLANK                                                                          
+    System SSL               SIEALNKE (z/OS 1.6 and above)                      
+)BLANK                                                                          
+    See the Language Environment Customization manual and the System            
+    SSL Programming manual for your z/OS release for advice on placing          
+    members from the libraries into the system link pack area.                  
+)BLANK                                                                          
+    Placing these data sets in the link list insulates your WebSphere           
+    for z/OS configuration from changes in data set names (for example,         
+    when migrating to z/OS 1.6).                                                
+)BLANK                                                                          
+    If the Language Environment or System SSL load module libraries are         
+    not in your system link list, you must perform the following steps          
+    before starting any WebSphere Application Server for z/OS servers:          
+)BLANK                                                                          
+    - Make sure the data sets are APF-authorized                                
+    - Complete the optional step below to add the data sets to STEPLIB          
+      in the server JCL and setupCmdLine.sh script(s).                          
+)BLANK                                                                          
+    If you regenerate server cataloged procedures at any point, make            
+    sure the data sets are added to the new cataloged procedures.               
+)BLANK                                                                          
+    -------------------------------------------------------------------         
+)BLANK                                                                          
+9.  If the error logstream                                                      
+    &ERRLOG.                                                                    
+    does not already exist on your target system, make a copy of the            
+    appropriate job in the SBBOJCL data set, customize it according             
+    to the comments in the job, and run it:                                     
+)BLANK                                                                          
+       BBOERRLC    Create an error logstream in a coupling facility             
+       BBOERRLD    Create a DASD-only error logstream                           
+)BLANK                                                                          
+    -------------------------------------------------------------------         
+                                                                                
+)BLANK                                                                          
+                                                                                
+10. WebSphere for z/OS regions open a large number of files (more than          
+    1024). Make sure your BPXPRMxx parmlib member(s) specify a value of         
+    MAXFILEPROC that is greater than or equal to 2000. Use the                  
+    following MVS console command to see your current MAXFILEPROC               
+    setting:                                                                    
+                                                                                
+)BLANK                                                                          
+                                                                                
+      D OMVS,OPTIONS                                                            
+                                                                                
+)BLANK                                                                          
+                                                                                
+                                                                                
+Running the customized jobs                                                     
+                                                                                
+---------------------------                                                     
+                                                                                
+)BLANK                                                                          
+                                                                                
+The customization dialog built a number of batch jobs with the                  
+variables you supplied. You must run the jobs in the order listed               
+below using user IDs with the appropriate authority.                            
+)BLANK                                                                          
+NOTE: Whenever "file system update authority" is indicated, the user            
+      ID used to run the configuration job must have                            
+      EITHER uid = 0                                                            
+          OR the following UNIXPRIV class profile privileges:                   
+             CONTROL access to SUPERUSER.FILESYS                                
+             UPDATE  access to SUPERUSER.FILESYS.MOUNT                          
+             READ    access to SUPERUSER.FILESYS.CHOWN                          
+             READ    access to SUPERUSER.FILESYS.CHANGEPERMS                    
+             READ    access to SUPERUSER.FILESYS.PFSCTL                         
+)BLANK                                                                          
+      If the UNIXPRIV profile CHOWN.UNRESTRICTED is defined, then               
+      the SUPERUSER.FILESYS.CHOWN is not required.  For information             
+      about the UNIXPRIV class, see the z/OS Unix System Services               
+      Planning book.                                                            
+)BLANK                                                                          
+                                                                                
+BEFORE YOU BEGIN: Complete the section above entitled "Doing manual             
+configuration updates."                                                         
+                                                                                
+)BLANK                                                                          
+                                                                                
+Follow the table below, which lists in order the jobs you must submit           
+and the commands you must enter. Special handling notes are included            
+in the table. All jobs are members of                                           
+                                                                                
+)BLANK                                                                          
+                                                                                
+&TRGHLQ..CNTL                                                                   
+                                                                                
+)BLANK                                                                          
+                                                                                
+Attention: After submitting each job, carefully check the output.               
+Errors may exist even when all return codes are zero.                           
+                                                                                
+)BLANK                                                                          
+                                                                                
++-----------+----------------------------------------------------------+        
+| BBOMSGC   | User ID requirement: Update authority for data set       |        
++-----------+ SYS1.MSGENU and/or SYS1.MSGJPN.                          |        
+| Done:     |                                                          |        
+|           | ATTENTION: This is optional unless you require message   |        
+|           | translation.                                             |        
+| By:       |                                                          |        
+|           | This job sets up MMS to translate messages for WebSphere |        
+|           | for z/OS.                                                |        
+|           |                                                          |        
+|           | There are two steps to update SYS1.MSGENU and            |        
+|           | SYS1.MSGJPN. Remove the unneeded step and change the     |        
+|           | target libraries, if necessary.                          |        
++-----------+----------------------------------------------------------+        
+|           | Check WebSphere Application Server home directories.     |        
++-----------+                                                          |        
+| Done:     | Verify that the following directories exist on your      |        
+|           | target z/OS system and that the ownership and permission |        
+|           | bits are correct:                                        |        
+| By:       |                                                          |        
+|           | &USERHOME.                                               |        
+|           | ownership: (any)                                         |        
+|           | permission bits: 755                                     |        
+|           |                                                          |        
+|           | &USERHOME./&CNFGGRP                                      |        
+|           | ownership: &WASHFSU:&CNFGGRP                             |        
+|           | permission bits: 770                                     |        
+|           |                                                          |        
+|           |                                                          |        
+|           | &USERHOME./&ALLGRPS                                      |        
+|           | ownership: &WASHFSU:&ALLGRPS                             |        
+|           | permission bits: 770                                     |        
+|           |                                                          |        
+|           |                                                          |        
+|           | &USERHOME./&ALLGRPD                                      |        
+|           | ownership: &WASHFSU:&ALLGRPD                             |        
+|           | permission bits: 770                                     |        
+|           |                                                          |        
+|           | If the these directories do not exist, create them with  |        
+|           | the above ownership and permission bits.                 |        
+|           |                                                          |        
+|           | The security domain configuration job BBOSBRAM can be    |        
+|           | used to create these directories if necessary.           |        
+|           |                                                          |        
++-----------+----------------------------------------------------------+        
+| BBOMBRAJ  | User ID requirement: Authority to update data set        |        
++-----------+                                                          |        
+| Done:     | &TRGHLQ..DATA                                            |        
+|           |                                                          |        
+|           | This job builds (but does not execute) the RACF commands |        
+| By:       | for the WebSphere for z/OS run-time clusters and places  |        
+|           | them into member BBOMBRAK of data set                    |        
+|           |                                                          |        
+|           | &TRGHLQ..DATA                                            |        
+|           |                                                          |        
+|           | Carefully review these definitions with your security    |        
+|           | administrator.                                           |        
++-----------+----------------------------------------------------------+        
+| BBOMBRAK  | User ID requirement: RACF special authority.             |        
++-----------+                                                          |        
+| Done:     | This job executes the RACF commands set up in the        |        
+|           | previous job.                                            |        
+|           |                                                          |        
+|           | RESULT: You may receive errors, such as INVALID USER     |        
+| By:       | messages, from this job because a user ID, group  or     |        
+|           | profile is already defined.  Make sure the existing      |        
+|           | user ID, group or profile has the same characteristics   |        
+|           | as the user ID, group or profile being created by        |        
+|           | BBOMBRAK.  If not, then change the values in the         |        
+|           | customization dialog which are causing the conflict,     |        
+|           | regenerate the customization jobs, and restart the       |        
+|           | process.                                                 |        
+|           |                                                          |        
++-----------+----------------------------------------------------------+        
+| --------  | Check user ID authorizations.                            |        
++-----------+                                                          |        
+| Done:     | Make sure the &CNFGGRP. group has read access to all     |        
+|           | WebSphere product data sets, as well as to any other     |        
+|           | data sets which will be placed in WebSphere for z/OS     |        
+|           | cataloged procedure STEPLIB concatenations.              |        
+|           |                                                          |        
+| By:       | the resolver configuration file in use on your system.   |        
+|           | Depending on your IP setup, this file may be             |        
+|           | /etc/resolv.conf, SYS1.TCPPARMS(TCPDATA), or another     |        
+|           | data set.                                                |        
+|           |                                                          |        
+|           | &ASMSRC.                                                 |        
+|           | &ASMSRS.                                                 |        
+|           |                                                          |        
+|           | See the z/OS eNetwork Communication Server IP            |        
+|           | Configuration manual for the resolver search order.      |        
+|           |                                                          |        
+|           | Ensure the following user ID has read access to the data |        
+|           | sets in your system parmlib concatenation:               |        
+|           |                                                          |        
+|           | &MNDUSRC.                                                |        
+|           |                                                          |        
+|           | ATTENTION:                                               |        
+|           |                                                          |        
+|           |  If operator commands are protected by the z/OS security |        
+|           |  server at your installation, you must ensure that       |        
+|           |  sufficient authority is given to WebSphere tasks to     |        
+|           |  control operations.                                     |        
+|           |                                                          |        
+|           |  The Application Server Controller user ID (&ASMSRC)     |        
+|           |  needs the ability to perform operations on started      |        
+|           |  tasks belonging to WebSphere Application Server for     |        
+|           |  z/OS.                                                   |        
+|           |                                                          |        
+|           |  The asynchronous administrator user ID, and any user    |        
+|           |  ID used to run the federation job when the node agent   |        
+|           |  is started automatically, need the authority to issue   |        
+|           |  the MVS START command.                                  |        
+|           |                                                          |        
+|           |  If you are currently controlling MVS console command    |        
+|           |  authority with SAF OPERCMDS profiles, grant the         |        
+|           |  following authorities as indicated, substituting your   |        
+|           |  own profile names:                                      |        
+|           |                                                          |        
+|           |  PERMIT  START_profile_name  CLASS(OPERCMDS)             |        
+|           |          ID (&ASMSRC  &AAOPUSR)  ACCESS(UPDATE)          |        
+|           |                                                          |        
+|           |  PERMIT  STOP_profile_name  CLASS(OPERCMDS)              |        
+|           |          ID (&ASMSRC )  ACCESS(UPDATE)                   |        
+|           |                                                          |        
+|           |  PERMIT  MODIFY_profile_name  CLASS(OPERCMDS)            |        
+|           |          ID (&ASMSRC )  ACCESS(UPDATE)                   |        
+|           |                                                          |        
+|           |  PERMIT  CANCEL_profile_name  CLASS(OPERCMDS)            |        
+|           |          ID (&ASMSRC )  ACCESS(UPDATE)                   |        
+|           |                                                          |        
+|           |  PERMIT  FORCE_profile_name  CLASS(OPERCMDS)             |        
+|           |          ID (&ASMSRC )  ACCESS(UPDATE)                   |        
+|           |                                                          |        
+|           |  You must also grant the appropriate console command     |        
+|           |  authority to any user ID that executes the              |        
+|           |  startServer.sh or stopServer.sh script.                 |        
+|           |                                                          |        
+)SEL &ASFSTYPE = HFS                                                            
++-----------+----------------------------------------------------------+        
+| BBOMCHFS  | User ID requirement:                                     |        
++-----------+     File system update authority (see above), and the    |        
+|           |     authority to allocate                                |        
+|           |        &MNCFGHFS.                                        |        
+| Done:     |                                                          |        
+|           | Before running this job:                                 |        
+|           |                                                          |        
+| By:       | Verify that the DD statement which defines the data set  |        
+|           | is valid for the storage rules defined on the target     |        
+|           | system.                                                  |        
+|           |                                                          |        
+|           |                                                          |        
+|           | This job:                                                |        
+|           |                                                          |        
+|           | o   Creates a mount point directory                      |        
+|           |                                                          |        
+|           |     &MNCONFIG.                                           |        
+|           |                                                          |        
+|           | o   Allocates the configuration file system using        |        
+|           |     the Hierarchical File System (HFS)                   |        
+|           |                                                          |        
+|           |     &MNCFGHFS.                                           |        
+|           |                                                          |        
+|           |     and mounts it at the above mount point.              |        
+|           |                                                          |        
+|           | DO NOT RUN THIS JOB IF:                                  |        
+|           |   1. The configuration file system already exists and is |        
+|           |      mounted at the desired mountpoint, or if            |        
+|           |                                                          |        
+|           |   2. The mount point directory is controlled by          |        
+|           |      automount.  Either disable the automount rule for   |        
+|           |      the configuration mount point while running this    |        
+|           |      job, or perform the following steps manually:       |        
+|           |                                                          |        
+|           |      a. Allocate the configuration file system data set. |        
+|           |      b. Issue the following shell commands, which will   |        
+|           |         also cause automount to mount the file system    |        
+|           |                                                          |        
+|           |      chmod 775 &MNCONFIG.                                |        
+|           |                                                          |        
+|           |      chown &WASHFSU:&CNFGGRP                             |        
+|           |        &MNCONFIG.                                        |        
+|           |                                                          |        
+|           | BEFORE YOU BEGIN: The BBOMCHFS job assumes your root     |        
+|           | file system is mounted in read/write mode.  If the root  |        
+|           | file system is not mounted in read/write mode, manually  |        
+|           | create the directory                                     |        
+|           |                                                          |        
+|           | &MNCONFIG.                                               |        
+|           |                                                          |        
+|           | and any needed higher directories, set file permissions  |        
+|           | to 775, and set the owning user ID and group to &WASHFSU.|        
+|           | and &CNFGGRP. before running BBOMCHFS.                   |        
+|           |                                                          |        
+|           | EXAMPLE: If you plan to use /WebSphere/V6R0M0 as your    |        
+|           | directory, issue the following commands from within the  |        
+|           | OMVS shell:                                              |        
+|           |                                                          |        
+|           |   mkdir -p -m 775 /WebSphere/V6R0M0                      |        
+|           |   chown -R &WASHFSU:&CNFGGRP /WebSphere                  |        
+|           |                                                          |        
+)ENDSEL                                                                         
+)SEL &ASFSTYPE = ZFS                                                            
++-----------+----------------------------------------------------------+        
+| BBOMCZFS  | User ID requirement:                                     |        
++-----------+     File system update authority (see above), and the    |        
+|           |     authority to allocate                                |        
+|           |        &MNCFGHFS.                                        |        
+| Done:     |                                                          |        
+|           | Before running this job:                                 |        
+|           |                                                          |        
+| By:       | Verify that the DD statement which defines the data set  |        
+|           | is valid for the storage rules defined on the target     |        
+|           | system.                                                  |        
+|           |                                                          |        
+|           |                                                          |        
+|           | This job:                                                |        
+|           |                                                          |        
+|           | o   Creates a mount point directory                      |        
+|           |                                                          |        
+|           |     &MNCONFIG.                                           |        
+|           |                                                          |        
+|           | o   Allocates the configuration file system using the    |        
+|           |     z/OS Distributed File Service zSeries File System    |        
+|           |     (zFS)                                                |        
+|           |                                                          |        
+|           |     &MNCFGHFS.                                           |        
+|           |                                                          |        
+|           |     and mounts it at the above mount point.              |        
+|           |                                                          |        
+|           | DO NOT RUN THIS JOB IF:                                  |        
+|           |   1. The configuration file system already exists and is |        
+|           |      mounted at the desired mountpoint, or if            |        
+|           |                                                          |        
+|           |   2. The mount point directory is controlled by          |        
+|           |      automount.  Either disable the automount rule for   |        
+|           |      the configuration mount point while running this    |        
+|           |      job, or perform the following steps manually:       |        
+|           |                                                          |        
+|           |      a. Allocate the configuration file system data set. |        
+|           |      b. Issue the following shell commands, which will   |        
+|           |         also cause automount to mount the file system    |        
+|           |                                                          |        
+|           |      chmod 775 &MNCONFIG.                                |        
+|           |                                                          |        
+|           |      chown &WASHFSU:&CNFGGRP                             |        
+|           |       &MNCONFIG.                                         |        
+|           |                                                          |        
+|           |                                                          |        
+|           | BEFORE YOU BEGIN: The BBOMCZFS job assumes your root     |        
+|           | file system is mounted in read/write mode.  If the root  |        
+|           | file system is not mounted in read/write mode, manually  |        
+|           | create the directory                                     |        
+|           |                                                          |        
+|           | &MNCONFIG.                                               |        
+|           |                                                          |        
+|           | and any needed higher directories, set file permissions  |        
+|           | to 775, and set the owning user ID and group to &WASHFSU.|        
+|           | and &CNFGGRP. before running BBOMCZFS.                   |        
+|           |                                                          |        
+|           | EXAMPLE: If you plan to use /WebSphere/V6R0 as your      |        
+|           | directory, issue the following commands from within the  |        
+|           | OMVS shell:                                              |        
+|           |                                                          |        
+|           |   mkdir -p -m 775 /WebSphere/V6R0                        |        
+|           |   chown -R &WASHFSU:&CNFGGRP /WebSphere                  |        
+|           |                                                          |        
+)ENDSEL                                                                         
++-----------+----------------------------------------------------------+        
+| BBOMHFSA  | User ID requirement:                                     |        
++-----------+     File system update authority (see above).            |        
+|           |                                                          |        
+| Done:     | This job populates the previously-created file system.   |        
+|           |                                                          |        
+|           | Note: If the SCEERUN data set is not in the system link  |        
+|           | list, add that data set to STEPLIB for the CHECKV step   |        
+|           | in BBOMHFSA.                                             |        
+|           |                                                          |        
+|           | Upon completion, examine the job output. Success is      |        
+| By:       | indicated with a RC=0 in the job output.                 |        
+|           |                                                          |        
++-----------+----------------------------------------------------------+        
+| BBOWCPYM  | User ID requirement:                                     |        
++-----------+     File system update authority (see above), and the    |        
+| Done:     |     authority to update the cataloged procedure library  |        
+|           |     &PROCLIB.                                            |        
+| By:       |                                                          |        
+|           |                                                          |        
+|           |                                                          |        
+|           | This job copies the tailored start procedures,           |        
+|           | parameters, and EXECs to the run-time libraries.         |        
+|           |                                                          |        
+|           | ATTENTION: Be aware that you may overlay existing        |        
+|           | members in the above data sets.                          |        
+|           |                                                          |        
++-----------+----------------------------------------------------------+        
+| BBOWWPFM  | User ID requirement:                                     |        
++-----------+     File system update authority (see above).            |        
+|           |                                                          |        
+| Done:     | This job sets up the runtime file system.                |        
+|           |                                                          |        
+|           | Note: If the SCEERUN2 data set is not in the system link |        
+|           | list, add that data set to STEPLIB for the LIBVSCRP step |        
+|           | in BBOWWPFM.                                             |        
+|           |                                                          |        
+| By:       | Upon completion, examine the job output. Success is      |        
+|           | indicated by rc=0.                                       |        
+|           |                                                          |        
+|           | Note: If the BBOWWPFM (profile creation job) fails, you  |        
+|           | must perform the following steps to remove the partially |        
+|           | built profile:                                           |        
+|           |                                                          |        
+|           |   cd &MNCONFIG./                                         |        
+|           |    &MNDIRN.                                              |        
+|           |                                                          |        
+|           |   ./bin/bbowprof.sh -deleteAll                           |        
+|           |   rm profileRegistry.xml                                 |        
+|           |   rm -R profiles                                         |        
+|           |                                                          |        
+|           | Then, correct the problem that caused BBOWWPFM to fail   |        
+|           | and re-run the job                                       |        
+|           |                                                          |        
++-----------+----------------------------------------------------------+        
+| BBOMHFSB  | User ID requirement:                                     |        
++-----------+     File system update authority (see above).            |        
+|           |                                                          |        
+| Done:     | This job will complete the file system initialization.   |        
+|           |                                                          |        
+|           | Upon completion, examine the job output. Success is      |        
+| By:       | indicated with a RC=0 in the job output.                 |        
+|           |                                                          |        
++-----------+----------------------------------------------------------+        
+| --------  | All WebSphere Application Server processes require       |        
++-----------+ access to the Language Environment and System SSL load   |        
+| Done:     | modules.                                                 |        
+|           |                                                          |        
+|           | If the SCEERUN, SCEERUN2 and System SSL load module      |        
+|           | libraries are not in the system link list, add them to   |        
+|           | the STEPLIB DD concatenation in each of the following    |        
+|           | cataloged procedures in                                  |        
+|           | &PROCLIB.:                                               |        
+|           |                                                          |        
+|           |     &ASMRCC.Z                                            |        
+|           |     &ASMRCS.Z                                            |        
+|           |     &AJMRCS.Z                                            |        
+|           |     &MNDPRCC.Z                                           |        
+|           |                                                          |        
+|           | and also add the full data set names, separated by       |        
+|           | colons (:), to the STEPLIB variable in the shell script  |        
+|           |                                                          |        
+|           |     &MNCONFIG./                                          |        
+|           |      &MNDIRN./                                           |        
+|           |       profiles/default/bin/setupCmdLine.sh               |        
+| By:       |                                                          |        
+|           | When modifying the setupCmdLine.sh script, do not        |        
+|           | remove lines or comment them out, as this may cause      |        
+|           | problems with automated updates to the script.           |        
+|           |                                                          |        
+|           | Add only those data sets which are NOT in the link list. |        
+|           |                                                          |        
++-----------+----------------------------------------------------------+        
+| --------  | Make sure Resource Recovery Services (RRS) is active.    |        
++-----------+ (See the InfoCenter for setup instructions if necessary.)|        
+| Done:     | Look for the following console message to verify that    |        
+|           | RRS was successfully started:                            |        
+|           |                                                          |        
+| By:       |                                                          |        
+|           |   ASA2011I RRS INITIALIZATION COMPLETE. COMPONENT        |        
+|           |     ID=SCRRS                                             |        
+|           |                                                          |        
+)SEL &ANDMS = Y
+)SEL &BBOWST = FS                                                                 
++-----------+----------------------------------------------------------+        
+| --------- | If both your target Network Deployment cell and the cell |        
++-----------+ containing the node you are federating use WebSphere-    |        
+|           | managed security, and both cells are using file-based    |        
+| Done:     | keystores, run the retrieveSigners.sh script from the    |        
+|           | home directory of the node being federated:              |        
+|           |                                                          |        
+|           | &MNCONFIG.                                               |        
+| By:       |  /&MNDIRN.                                               |        
+|           |  /bin/retrieveSigners.sh CellDefaultTrustStore           |        
+|           |  ClientDefaultTrustStore -port &DMSPORT.                 |        
+|           |  -conntype &DMPORTT.                                     |        
+|           |  -user &FEDADMN.                                         |        
+|           |  -password &FEDPASS.                                     |        
+|           |  -autoAcceptBootstrapSigner                              |
+)ENDSEL        
+)ENDSEL                                                                         
+)SEL &ANDMS = N                                                                 
++-----------+----------------------------------------------------------+        
+| ----------|                                                          |        
++-----------+ Verify that your target Network Deployment cell is       |        
+| Done:     | running without administrative security.  You should     |        
+|           | enable administrative security after federation to       |        
+| By:       | prevent unauthorized access to the Network Deployment    |        
+|           | cell.                                                    |        
+|           |                                                          |        
+)ENDSEL        
++-----------+----------------------------------------------------------+        
+| BBOWMNAN  | User ID requirement:                                     |        
++-----------+  1. File system update authority (see above).            |        
+|           |  2. If the Network Deployment cell uses a z/OS LocalOS   |        
+| Done:     |     (SAF) registry, then the user ID used to run this    |        
+|           |     job must be connected to the Network Deployment      |        
+|           |     cell's configuration group.                          |        
+| By:       |  3. If SSL certificates are stored in SAF keyrings,      |        
+|           |     then the user ID used to run this job must have a    |        
+|           |     SAF keyring named                                    |              
+|           |       &MNKEYR                                            |              
+|           |     and this keyring must contain the Network Deployment |        
+|           |     cell's CA certificate.                               |
+|           |                                                          |       
+|           | If you choose the start the node agent automatically,    |        
+|           | the user ID used to run BBOWMNAN will also need the      |        
+|           | authority to issue the MVS START command.                |        
+|           |                                                          |        
+|           | This job will federate your node into the specified      |        
+|           | Deployment Manager cell.  Ensure that your Deployment    |        
+|           | Manager is running before submitting this job            |        
+|           |                                                          |        
+|           | Upon completion, examine the job output. Success is      |        
+|           | indicated with a RC=0 in the job output.                 |        
+|           |                                                          |        
++-----------+----------------------------------------------------------+        
+| --------  | If your system is busy, you may want to include a rule   |        
++-----------+ in your WLM policy that OMVS work for job &MNANSSNS.     |        
+| Done:     | (such as the postinstaller step) is to run in a service  |        
+|           | class with a high service objective.                     |        
+| By:       |                                                          |        
++----------------------------------------------------------------------+        
+| --------  | Start the node agent server                              |        
++-----------+                                                          |        
+| Done:     | Note: The node agent may have been started during the    |        
+|           | federation process.  This step is information, for       |        
+|           | starting the node agent at other times.                  |        
+| By:       |                                                          |        
+|           | Issue the following MVS command to start your node agent |        
+|           | server, replacing <dmgr_cell_short_name> with the cell   |        
+|           | short name of the target Deployment Manager cell         |        
+|           |                                                          |        
+|           |   START &ASMRCC,JOBNAME=&MNANSSNS.,                      |        
+|           |         ENV=<dmgr_cell_short_name>.&MNNONS..&MNANSSNS.   |        
+|           |                                                          |        
+|           | If you later convert the node agent to 64-bit mode, you  |        
+|           | must add AMODE=64 to the START command:                  |        
+|           |                                                          |        
+|           |   START &ASMRCC,JOBNAME=&MNANSSNS.,                      |        
+|           |    ENV=<dmgr_cell_short_name>.&MNNONS..&MNANSSNS.,       |        
+|           |    AMODE=64                                              |        
+|           |                                                          |        
+|           | RESULT: The following message appears on the console and |        
+|           | in the job log of &MNANSSNS..                            |        
+|           |                                                          |        
+|           |   BBOO0019I INITIALIZATION COMPLETE FOR WEBSPHERE FOR    |        
+|           |   z/OS CONTROL PROCESS &MNANSSNS.                        |        
+|           |                                                          |        
++-----------+----------------------------------------------------------+        
+| The product is now configured.  You may create and manage            |        
+| application servers in the node using the administrative console or  |        
+| scripting.                                                                    
+|                                                                      |        
++----------------------------------------------------------------------+        
+                                                                                
+)BLANK                                                                          

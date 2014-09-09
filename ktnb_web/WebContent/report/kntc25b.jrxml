@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Mau_25B_bien_ban_ban_giao_hs_vu_viec" pageWidth="595" pageHeight="842" columnWidth="440" leftMargin="99" rightMargin="56" topMargin="70" bottomMargin="70">
+	<property name="ireport.zoom" value="1.3310000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="55"/>
+	<parameter name="co_quan_cap_tren_truc_tiep" class="java.lang.String"/>
+	<parameter name="don_vi_ban_giao_ho_so_vu_viec" class="java.lang.String"/>
+	<parameter name="thoi_gian_ban_giao" class="java.lang.String"/>
+	<parameter name="dia_diem_ban_giao" class="java.lang.String"/>
+	<parameter name="dai_dien_don_vi_ban_giao" class="java.lang.String"/>
+	<parameter name="chuc_vu_dai_dien_don_vi_ban_giao" class="java.lang.String"/>
+	<parameter name="co_quan_dieu_tra" class="java.lang.String"/>
+	<parameter name="dai_dien_co_quan_dieu_tra" class="java.lang.String"/>
+	<parameter name="chuc_vu_dai_dien_co_quan_dieu_tra" class="java.lang.String"/>
+	<parameter name="so_trang" class="java.lang.String"/>
+	<parameter name="so_bang_chung" class="java.lang.String"/>
+	<parameter name="viec_giao_nhan_hoan_thanh_vao_luc" class="java.lang.String"/>
+	<parameter name="ngay_giao_nhan_ho_so" class="java.lang.String"/>
+	<parameter name="Dai_dien" class="java.lang.String"/>
+	<parameter name="Noi_dung_lam_viec" class="java.lang.String"/>
+	<group name="HF_">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band height="138">
+				<staticText>
+					<reportElement x="199" y="9" width="269" height="19"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="-49" y="28" width="248" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{don_vi_ban_giao_ho_so_vu_viec}.toUpperCase()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="-49" y="9" width="248" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="12" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{co_quan_cap_tren_truc_tiep}.toUpperCase()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="72" width="439" height="38"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="14" isBold="true"/>
+					</textElement>
+					<text><![CDATA[BIÊN BẢN
+Bàn giao hồ sơ vụ việc có dấu hiệu tội phạm
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="199" y="28" width="269" height="21"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="14" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Độc lâp - tự do - hạnh phúc]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="H1_">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band height="21">
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="0" width="440" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["     "+"Hôm nay, vào lúc "+$P{thoi_gian_ban_giao}+", tại "+$P{dia_diem_ban_giao}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="H2_">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<staticText>
+					<reportElement x="0" y="0" width="440" height="20"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<text><![CDATA[Chúng tôi gồm:]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+	</group>
+	<group name="H3_">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="0" width="440" height="20"/>
+					<textElement textAlignment="Justified" markup="html">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["      "+$P{Dai_dien}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="118">
+				<staticText>
+					<reportElement x="0" y="29" width="209" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Đại diện bên nhận]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="224" y="29" width="217" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="13" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Đại diện bên giao]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="H4_">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band height="20">
+				<textField isStretchWithOverflow="true">
+					<reportElement x="-1" y="0" width="440" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Justified" markup="html">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{don_vi_ban_giao_ho_so_vu_viec}+" tiến hành bàn giao cho "+$P{co_quan_dieu_tra}+" hồ sơ vụ việc có dấu hiệu tội phạm được "+$P{don_vi_ban_giao_ho_so_vu_viec}+" phát hiện qua giải quyết tố cáo của công dân."]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="53">
+				<textField isStretchWithOverflow="true">
+					<reportElement x="-1" y="-20" width="440" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Việc giao nhận hoàn thành vào lúc "+$P{viec_giao_nhan_hoan_thanh_vao_luc}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="0" y="0" width="441" height="53" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<text><![CDATA[Biên bản giao, nhận hồ sơ, tài liệu đã được đọc lại cho những người có tên nêu trên nghe và ký xác nhận; biên bản được thành lập thành 02 bản, mỗi bên giữ 01 bản./.]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="4_">
+		<groupFooter>
+			<band height="20"/>
+		</groupFooter>
+	</group>
+	<group name="1">
+		<groupFooter>
+			<band height="43">
+				<staticText>
+					<reportElement x="0" y="0" width="441" height="20"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<text><![CDATA[Hồ sơ gồm: ]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="20" width="440" height="23"/>
+					<textElement textAlignment="Justified" markup="html">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["      "+$P{Noi_dung_lam_viec}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+</jasperReport>

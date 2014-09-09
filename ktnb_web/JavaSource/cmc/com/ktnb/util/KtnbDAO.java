@@ -1,0 +1,60 @@
+package cmc.com.ktnb.util;
+
+import java.util.Collection;
+import java.util.Date;
+
+import org.json.simple.JSONObject;
+
+import cmc.com.ktnb.exception.KtnbException;
+import cmc.com.ktnb.vo.SearchStoreVO;
+import cmc.com.ktnb.vo.SearchTableVO;
+import cmc.com.ktnb.vo.SearchVO;
+public interface KtnbDAO {
+	void close();
+	//Collection getLOV_CID(String pid) throws Exception;
+	void createUser(String macb) throws Exception;
+	Collection getAllMaNsd() throws Exception;
+	void deleteUser(String userId)	throws Exception;
+	void lockUser(String macb) throws Exception;
+	void unLockUser(String macb) throws Exception;
+	void changePassword(String userId,String newPass) throws Exception;
+	void changePasswordBtc(String userId,String newPass) throws Exception;
+	ApplicationContext authenticate(String user,String pass) throws Exception;
+	ApplicationContext authenticateBtc(String username, String pass) throws KtnbException;
+	String getSEQ(String seqName) throws Exception;
+	Collection lovCanBo(SearchVO searchVO) throws Exception;
+	String insertDM(String parentId,String ten) throws Exception;
+	void updateDM(String ma,String ten) throws Exception;
+	void updateDMTime(JSONObject jo) throws Exception;
+	Collection getDBLink() throws Exception;
+	void refreshDMPhong(String db) throws Exception;
+	void refreshDMCanBo(String db) throws Exception;
+	void insCanBo(JSONObject jo) throws Exception;
+	void updCanBo(JSONObject jo) throws Exception;
+	void delCanBo(String macb) throws Exception;
+	void insDMPhong(String macqt,JSONObject jo) throws Exception;
+	void insDMNgayNghi(String nam,JSONObject jo) throws Exception;
+	void updDMPhong(JSONObject jo) throws Exception;
+	void updDMNgayNghi(String nam, JSONObject jo) throws Exception;
+	void updUserRole(String macb,String role) throws Exception;
+	void moveDM(String ma,String newParentId) throws Exception;
+	void updUserDataRole(String macb, String role) throws Exception;
+	JSONObject getDsTinh(SearchStoreVO searchStoreVO) throws Exception;
+	JSONObject getDsCanBo(SearchStoreVO searchStoreVO) throws Exception;
+	JSONObject getDsDB() throws Exception;
+	JSONObject getDsCqt(SearchStoreVO searchStoreVO) throws Exception;
+	JSONObject getDsCucThue(SearchStoreVO searchStoreVO) throws Exception;
+	JSONObject getDsPhong(SearchStoreVO searchStoreVO) throws Exception;
+	JSONObject getTree(String pma,boolean check) throws Exception;
+	JSONObject getTree(String pma,String maHs,String loaiRls) throws Exception;
+	JSONObject getTreeCqt(String pma) throws Exception;
+	JSONObject getDsTime(SearchStoreVO searchStoreVO) throws Exception;
+	JSONObject getRoleByUser(String parentId) throws Exception;
+	JSONObject getRoleByUserByCqt(String parentId) throws Exception;
+	JSONObject getDsCuocTTKT(SearchStoreVO searchStoreVO) throws Exception;
+	Collection getNgayNghi(String year)throws Exception;
+	Collection getNgayNghi(String startYear,String endYear)throws Exception;
+	JSONObject getDsNgayNghi(SearchStoreVO searchStoreVO) throws Exception;
+	JSONObject getAllUser(String parentId) throws Exception;
+	void chonNsd(String id, String name) throws Exception;
+}

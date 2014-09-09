@@ -1,0 +1,47 @@
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4                                                                        
+//*-----------------------------------------------------------------//          
+//* INITIALIZE SM DATABASE TO SWITCH SMF RECORDING OFF              //          
+//*-----------------------------------------------------------------//          
+//DB2EXEC EXEC PGM=IKJEFT01,DYNAMNBR=20                                         
+//DBRMLIB  DD DISP=SHR,DSN=&DSNDBRM                                             
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSUDUMP DD SYSOUT=*                                                          
+//SYSPRINT DD SYSOUT=*                                                          
+//SYSTSIN  DD *                                                                 
+ DSN SYSTEM(&DB2SSID)                                                           
+ RUN PROGRAM(DSNTIAD) PLAN(DSNTIA&DB2LVL.1)  -                                  
+     LIB('&DSNRUN')                                                             
+ END                                                                            
+//SYSIN    DD *                                                                 
+ UPDATE BBO.BBOMT06_ACT_SG                                                      
+ SET WR_SRV_ACT_SMF_REC = '.',                                                  
+ WR_CON_ACT_SMF_REC = '.',                                                      
+ WR_SRV_INT_SMF_REC = '.',                                                      
+ WR_CON_INT_SMF_REC = '.',                                                      
+ SMF_INT_LENGTH = 3600;                                                         
+ UPDATE BBO.BBOMT10_ACT_SERVER                                                  
+ SET WR_SRV_ACT_SMF_REC = '.',                                                  
+ WR_CON_ACT_SMF_REC = '.',                                                      
+ WR_SRV_INT_SMF_REC = '.',                                                      
+ WR_CON_INT_SMF_REC = '.',                                                      
+ SMF_INT_LENGTH = 3600;                                                         
+ UPDATE BBO.BBOMT15_ACT_CONTNR                                                  
+ SET WR_CON_ACT_SMF_REC = '.',                                                  
+ WR_CON_INT_SMF_REC = '.',                                                      
+ SMF_INT_LENGTH = 3600;                                                         
+/*                                                                              
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                

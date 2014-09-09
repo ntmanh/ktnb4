@@ -1,0 +1,37 @@
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4                                                                        
+//********************************************************************/         
+// SET ENV='&DMCENS..&DMNONS..&DMSSNS.'                                         
+// SET ROOT='&DMCONFIG.'                                                        
+// SET FOUT='properties/service/logs/applyPTF.out'                              
+//********************************************************************/         
+//APPLY   EXEC PGM=BPXBATCH,REGION=0M,                                          
+// PARM='SH &&ROOT./&&ENV..HOME/bin/applyPTF.sh batch'                          
+//STDOUT   DD PATH='&&ROOT./&&ENV..HOME/&&FOUT.',                               
+// PATHOPTS=(OWRONLY,OCREAT,OAPPEND),PATHMODE=(SIRWXU,SIRWXG)                   
+//STDERR   DD PATH='&&ROOT./&&ENV..HOME/&&FOUT.',                               
+// PATHOPTS=(OWRONLY,OCREAT,OAPPEND),PATHMODE=(SIRWXU,SIRWXG)                   
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+//* From source skeleton: &skin                                                 
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   MD17879 H28W500 082803  PDML: initial release.                 */         
+)CM   PQ77867 H28W500 030909  PDML: change CBCONFIG to DMCONFIG.     */         
+)CM   PQ79433 H28W500 110703  PDML: update path to applyPTF.sh.      */         
+)CM                                                                  */         
+)CM ================================================================ */         

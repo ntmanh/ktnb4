@@ -1,0 +1,59 @@
+------Start of DE processing------ = [7/4/14 9:13:09:617 GMT] , key = java.net.SocketException com.ibm.ws.webcontainer.servlet.RequestUtils.parsePostData 398
+Exception = java.net.SocketException
+Source = com.ibm.ws.webcontainer.servlet.RequestUtils.parsePostData
+probeid = 398
+Stack Dump = java.net.SocketException: Connection reset
+	at java.net.SocketInputStream.read(SocketInputStream.java:195)
+	at com.ibm.ws.io.Stream.read(Stream.java:17)
+	at com.ibm.ws.io.ReadStream.read(ReadStream.java:181)
+	at com.ibm.ws.http.ContentLengthInputStream.read(ContentLengthInputStream.java:48)
+	at com.ibm.ws.io.ReadStream.read(ReadStream.java:181)
+	at com.ibm.ws.webcontainer.http.HttpConnection.read(HttpConnection.java:342)
+	at com.ibm.ws.webcontainer.srp.SRPConnection.read(SRPConnection.java:200)
+	at com.ibm.ws.webcontainer.srt.SRTInputStream.read(SRTInputStream.java:80)
+	at com.ibm.ws.webcontainer.srt.http.HttpInputStream.read(HttpInputStream.java:312)
+	at com.ibm.ws.webcontainer.servlet.RequestUtils.parsePostData(RequestUtils.java:595)
+	at com.ibm.ws.webcontainer.srt.SRTServletRequest.parseParameters(SRTServletRequest.java:840)
+	at com.ibm.ws.webcontainer.srt.SRTServletRequest.getParameterNames(SRTServletRequest.java:481)
+	at cmc.com.ktnb.util.FormResetUtils.getAllProperties(FormResetUtils.java:40)
+	at cmc.com.ktnb.util.FormResetUtils.resetForm(FormResetUtils.java:384)
+	at cmc.com.ktnb.web.BaseActionForm.reset(BaseActionForm.java:13)
+	at org.apache.struts.action.RequestProcessor.processPopulate(RequestProcessor.java:816)
+	at org.apache.struts.action.RequestProcessor.process(RequestProcessor.java:254)
+	at org.apache.struts.action.ActionServlet.process(ActionServlet.java:1482)
+	at org.apache.struts.action.ActionServlet.doPost(ActionServlet.java:525)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:760)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:853)
+	at com.ibm.ws.webcontainer.servlet.StrictServletInstance.doService(StrictServletInstance.java:110)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet._service(StrictLifecycleServlet.java:174)
+	at com.ibm.ws.webcontainer.servlet.IdleServletState.service(StrictLifecycleServlet.java:313)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet.service(StrictLifecycleServlet.java:116)
+	at com.ibm.ws.webcontainer.servlet.ServletInstance.service(ServletInstance.java:283)
+	at com.ibm.ws.webcontainer.servlet.ValidServletReferenceState.dispatch(ValidServletReferenceState.java:42)
+	at com.ibm.ws.webcontainer.servlet.ServletInstanceReference.dispatch(ServletInstanceReference.java:40)
+	at com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(WebAppFilterChain.java:76)
+	at cmc.com.ktnb.util.AuthenticationFilter.doFilter(AuthenticationFilter.java:99)
+	at com.ibm.ws.webcontainer.filter.FilterInstanceWrapper.doFilter(FilterInstanceWrapper.java:132)
+	at com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(WebAppFilterChain.java:71)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.handleWebAppDispatch(WebAppRequestDispatcher.java:1162)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.dispatch(WebAppRequestDispatcher.java:676)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.forward(WebAppRequestDispatcher.java:203)
+	at com.ibm.ws.webcontainer.srt.WebAppInvoker.doForward(WebAppInvoker.java:125)
+	at com.ibm.ws.webcontainer.srt.WebAppInvoker.handleInvocationHook(WebAppInvoker.java:300)
+	at com.ibm.ws.webcontainer.cache.invocation.CachedInvocation.handleInvocation(CachedInvocation.java:71)
+	at com.ibm.ws.webcontainer.srp.ServletRequestProcessor.dispatchByURI(ServletRequestProcessor.java:246)
+	at com.ibm.ws.webcontainer.oselistener.OSEListenerDispatcher.service(OSEListener.java:334)
+	at com.ibm.ws.webcontainer.http.HttpConnection.handleRequest(HttpConnection.java:56)
+	at com.ibm.ws.http.HttpConnection.readAndHandleRequest(HttpConnection.java:652)
+	at com.ibm.ws.http.HttpConnection.run(HttpConnection.java:458)
+	at com.ibm.ws.util.ThreadPool$Worker.run(ThreadPool.java:936)
+
+Dump of callerThis = 
+null
+
+Exception = java.net.SocketException
+Source = com.ibm.ws.webcontainer.servlet.RequestUtils.parsePostData
+probeid = 398
+Dump of callerThis = 
+null
+

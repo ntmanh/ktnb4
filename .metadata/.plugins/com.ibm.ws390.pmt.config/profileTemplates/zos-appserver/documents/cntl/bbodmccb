@@ -1,0 +1,60 @@
+/* ================================================================ */          
+/*                                                                  */          
+/* COPYRIGHT =                                                      */          
+/* Licensed Material - Property of IBM                              */          
+/*                                                                  */          
+/* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */          
+/* (C) Copyright IBM Corp. 1999, 2006                               */          
+/* All Rights Reserved                                              */          
+/* US Government Users Restricted Rights - Use, duplication or      */          
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/          
+/*                                                                  */          
+/* FUNCTION:  IEADMCCB is a sample parmlib member used to dump      */          
+/*            WebSphere and related address spaces.                 */          
+/*                                                                  */          
+/* ---------------------------------------------------------------- */          
+/*                                                                  */          
+/* NOTES: - The dump allows only 15 address spaces, so you may need */          
+/*          to identify fewer address spaces than listed in this    */          
+/*          sample as JOBNAMEs.                                     */          
+/*                                                                  */          
+/*        - If the defined dump storage is too small on your system */          
+/*          i.e it defaults to 500M, the message 'IEA043I SVC DUMP  */          
+/*          REACHED MAXSPACE LIMIT - MAXSPACE=00000500MEG' will     */          
+/*          be issued by the system and the dump might be           */          
+/*          incomplete.                                             */          
+/*          The size of dump storage can be changed by issuing      */          
+/*          CHNGDUMP SET,SDUMP,MAXSPACE=nnnnnM command              */          
+/*                                                                  */          
+/* Instructions to use:                                             */          
+/*                                                                  */          
+/*       1. Place this member into your parmlib data set (the       */          
+/*          default is SYS1.PARMLIB).  The member must be named     */          
+/*          in the format IEADMCxx, where xx is of your choosing    */          
+/*          (i.e. to IEADMCCB).                                     */          
+/*                                                                  */          
+/*       2. The recommendations for address spaces to dump are:     */          
+/*            - all component broker address spaces (BBO*) and      */          
+/*              corresponding data spaces ('BOSS*') data space in   */          
+/*              BBODMN address space.                               */          
+/*            - OpenEdition kernel (OMVS)                           */          
+/*            - DB2 subsystem (DB2*)                                */          
+/*            - XCF address space (XCF*)                            */          
+/*            - RRS address space (RRS)                             */          
+/*            - Logger address space (IXGLOGR)                      */          
+/*            - Lock manager address space (IRLM)                   */          
+/*          This is accomplished with the jobnames assigned to      */          
+/*          the JOBNAME variable in this sample.                    */          
+/*                                                                  */          
+/*       3. To take a dump, issue the operator command:             */          
+/*                 DUMP COMM=(title),PARMLIB=xx                     */          
+/*            i.e. DUMP COMM=(CB Address Spaces),PARMLIB=CB         */          
+/*                                                                  */          
+/* File Tailored on &ZDATE at &ZTIMEL by &ZUSER  */                             
+/* ================================================================ */          
+/* Sample IEADMCCB Member.                                          */          
+/* ================================================================ */          
+JOBNAME=(BBO*,RRS,OMVS,IXGLOGR,DB2*,XCF*,IRLM*),                                
+DSPNAME=('BBO*'.BOSS*),                                                         
+SDATA=(RGN,XESDATA,ALLNUC,CSA,LSQA,PSA,SQA,SUM,SWA,TRT,WLM)                     
+/* Boss dump parmlib for single system */                                       

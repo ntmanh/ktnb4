@@ -1,0 +1,349 @@
+)CM This job copies the response file (CELL) to the HFS (/tmp)                  
+)CM Then it invokes the bbowprof.sh                                             
+)CM In the end, it deletes the response file from the HFS.                      
+)CM --------------------------------------------------------                    
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4                                                                        
+//********************************************************************/         
+//*  copy library verification script to the cell-dmgr HFS           */         
+//********************************************************************/         
+//COPYLIBD EXEC  PGM=IKJEFT1A                                                   
+//* Copy customized members to the HFS files                                    
+//SYSEXEC   DD DISP=SHR,DSN=&TRGHLQ..DATA                                       
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+%BBODCPYL                                                                       
+/*                                                                              
+//********************************************************************/         
+//*  invoke script for cell-dmgr                                     */         
+//********************************************************************/         
+/*                                                                              
+//LIBVSCRD EXEC PGM=IKJEFT01,REGION=0M                                          
+)SEL &LSPROD = Y                                                                
+//STEPLIB  DD DISP=SHR,DSN=&BBOLOAD                                             
+)ENDSEL                                                                         
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+  &DMCONFIG.+                                                                   
+  /&DMDIRN.+                                                                    
+  /bin/bbowlibv_&TIMESTMP..sh +                                                 
+  1>> /tmp/bbowwpfc_&TIMESTMP..out +                                          
+  2>> /tmp/bbowwpfc_&TIMESTMP..err                                            
+/*
+//********************************************************************/         
+//*  copy library verification script to the cell-node HFS           */         
+//********************************************************************/         
+//COPYLIBA EXEC  PGM=IKJEFT1A                                                   
+//* Copy customized members to the HFS files                                    
+//SYSEXEC   DD DISP=SHR,DSN=&TRGHLQ..DATA                                       
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+%BBODCPYA                                                                       
+/*                                                                              
+//********************************************************************/         
+//*  invoke script for cell-node                                     */         
+//********************************************************************/         
+/*                                                                              
+//LIBVSCRA EXEC PGM=IKJEFT01,REGION=0M                                          
+)SEL &LSPROD = Y                                                                
+)SEL &CELLSDSN = Y                                                                
+//STEPLIB  DD DISP=SHR,DSN=&BBOLOAD                                             
+)ENDSEL                                                                         
+)SEL &CELLSDSN = N                                                                
+//STEPLIB  DD DISP=SHR,DSN=&BBOLOADA                                             
+)ENDSEL                                                                         
+)ENDSEL                                                                         
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+  &CBCONFIG.+                                                                   
+  /&ASDIRN.+                                                                    
+  /bin/bbowliba_&TIMESTMP..sh +                                                 
+  1>>>> /tmp/bbowwpfc_&TIMESTMP..out +                                          
+  2>>>> /tmp/bbowwpfc_&TIMESTMP..err                                            
+/*
+//********************************************************************/         
+//*  copy response file to the HFS (/tmp)                            */         
+//********************************************************************/         
+//COPYRESD EXEC  PGM=IKJEFT1A                                                   
+//SYSEXEC   DD DISP=SHR,DSN=&TRGHLQ..DATA                                       
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+   BBOWBOWN &TRGHLQ..DATA(BBOWRECD) +                                           
+            /tmp/bbowrecd_&TIMESTMP &WASHFSU &CNFGGRP                           
+/*                                                                              
+//********************************************************************/         
+//*  copy response file to the HFS (/tmp)                            */         
+//********************************************************************/         
+//COPYRESC EXEC  PGM=IKJEFT1A                                                   
+//SYSEXEC   DD DISP=SHR,DSN=&TRGHLQ..DATA                                       
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+   BBOWBOWN &TRGHLQ..DATA(BBOWRECN) +                                           
+            /tmp/bbowrecn_&TIMESTMP &WASHFSU &CNFGGRP                           
+/*
+//********************************************************************/
+//*  Make the was_home/logs/wasprofile dir                           */
+//********************************************************************/
+//MKLOGDIR EXEC PGM=IKJEFT01,REGION=0M                                 
+//SYSTSPRT DD  SYSOUT=*                                                
+//SYSTSIN  DD  *                                                       
+ BPXBATCH SH +                                                         
+  mkdir -p &DMCONFIG.+
+   /&DMDIRN.+
+   /logs/wasprofile
+/*                                                                     
+//********************************************************************/         
+//*  copy ports files to the HFS                                     */         
+//********************************************************************/         
+//COPYPORT EXEC  PGM=IKJEFT1A                                                   
+//* Copy customized members to the HFS files                                    
+//SYSEXEC   DD DISP=SHR,DSN=&TRGHLQ..DATA                                       
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+%BBOCCPYP
+/*                                                                              
+)SEL &LSPROD = Y                                                                
+//********************************************************************/         
+//* create SED script                                                */         
+//********************************************************************/         
+//MKSCRPT EXEC PGM=IKJEFT01,REGION=0M,                                          
+//  COND=(0,LT)                                                                 
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN DD *                                                                  
+  BPXBATCH SH +                                                                 
+   echo "3i\\" 1>> /tmp/&TIMESTMP..zSED; +                                    
+   echo "export STEPLIB=\$STEPLIB:"+                                            
+   &BBOLOAD +                                                                   
+   1>>>> /tmp/&TIMESTMP..zSED                                                   
+/*                                                                              
+//********************************************************************/         
+//* create a temp bbowprof.sh with STEPLIB exported                  */         
+//********************************************************************/         
+//TMPSCRPD EXEC PGM=IKJEFT01,REGION=0M,                                         
+//  COND=(0,LT)                                                                 
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDENV DD *                                                                   
+_DMCONFIG=&DMCONFIG                                                             
+_DMDIR=&DMDIRN                                                                  
+/*                                                                              
+//SYSTSIN DD *                                                                  
+  BPXBATCH SH +                                                                 
+   sed -f /tmp/&TIMESTMP..zSED +                                                
+   $_DMCONFIG+                                                                  
+   /$_DMDIR+                                                                    
+   /bin/bbowprof.sh >>>> +                                                      
+   $_DMCONFIG+                                                                  
+   /$_DMDIR+                                                                    
+   /bin/_&TIMESTMP._bbowprof.sh; +                                              
+   chmod 770 +                                                                  
+   $_DMCONFIG+                                                                  
+   /$_DMDIR+                                                                    
+   /bin/_&TIMESTMP._bbowprof.sh;                                                
+/*                                                                              
+//********************************************************************/         
+//* create a temp bbowprof.sh with STEPLIB exported                  */         
+//********************************************************************/         
+//TMPSCRPN EXEC PGM=IKJEFT01,REGION=0M,                                         
+//  COND=(0,LT)                                                                 
+//SYSTSPRT DD SYSOUT=*                                                          
+//STDENV DD *                                                                   
+_CBCONFIG=&CBCONFIG                                                             
+_ASDIR=&ASDIRN                                                                  
+/*                                                                              
+//SYSTSIN DD *                                                                  
+  BPXBATCH SH +                                                                 
+   sed -f /tmp/&TIMESTMP..zSED +                                                
+   $_CBCONFIG+                                                                  
+   /$_ASDIR+                                                                    
+   /bin/bbowprof.sh >>>> +                                                      
+   $_CBCONFIG+                                                                  
+   /$_ASDIR+                                                                    
+   /bin/_&TIMESTMP._bbowprof.sh; +                                              
+   chmod 770 +                                                                  
+   $_CBCONFIG+                                                                  
+   /$_ASDIR+                                                                    
+   /bin/_&TIMESTMP._bbowprof.sh;                                                
+/*                                                                              
+)ENDSEL                                                                         
+//********************************************************************/         
+//*  invoke bbowprof.sh for cell-dmgr                                */         
+//********************************************************************/         
+//CELPROFD EXEC PGM=IKJEFT01,REGION=0M,                                         
+//  COND=(0,LT)                                                                 
+)SEL &LSPROD = Y                                                                
+//STEPLIB  DD DISP=SHR,DSN=&BBOLOAD                                             
+)ENDSEL                                                                         
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+)SEL &LSPROD = Y                                                                
+&DMCONFIG.+                                                                     
+/&DMDIRN.+                                                                      
+/bin/_&TIMESTMP._bbowprof.sh +                                                  
+)ENDSEL                                                                         
+)SEL &LSPROD = N                                                                
+   &DMCONFIG.+                                                                  
+   /&DMDIRN.+                                                                   
+   /bin/bbowprof.sh +                                                           
+)ENDSEL                                                                         
+    -response '/tmp/bbowrecd_&TIMESTMP' +                                       
+     1>>>> /tmp/bbowwpfc_&TIMESTMP..out +                                         
+     2>>>> /tmp/bbowwpfc_&TIMESTMP..err                                           
+/*                                                                              
+//********************************************************************/         
+//*  invoke bbowprof.sh for cell-node                                */         
+//********************************************************************/         
+//CELPROFN EXEC PGM=IKJEFT01,REGION=0M,                                         
+//  COND=(0,LT)                                                                 
+)SEL &LSPROD = Y                                                                
+)SEL &CELLSDSN = Y                                                                
+//STEPLIB  DD DISP=SHR,DSN=&BBOLOAD                                             
+)ENDSEL                                                                         
+)SEL &CELLSDSN = N                                                                
+//STEPLIB  DD DISP=SHR,DSN=&BBOLOADA                                             
+)ENDSEL                                                                         
+)ENDSEL                                                                         
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+)SEL &LSPROD = Y                                                                
+&CBCONFIG.+                                                                     
+/&ASDIRN.+                                                                      
+/bin/_&TIMESTMP._bbowprof.sh +                                                  
+)ENDSEL                                                                         
+)SEL &LSPROD = N                                                                
+   &CBCONFIG.+                                                                  
+   /&ASDIRN.+                                                                   
+   /bin/bbowprof.sh +                                                           
+)ENDSEL                                                                         
+    -response '/tmp/bbowrecn_&TIMESTMP' +                                       
+     1>>>> /tmp/bbowwpfc_&TIMESTMP..out +                                         
+     2>>>> /tmp/bbowwpfc_&TIMESTMP..err                                           
+/*                                                                                                           
+//********************************************************************/         
+//*  Copy response files to joblog                                   */         
+//********************************************************************/         
+//COPYRSP  EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSEXEC  DD  DISP=SHR,DSN=&BBOEXEC                                            
+//SYSTSIN  DD *                                                                 
+   BBOHFSWR '/tmp/bbowrecd_&TIMESTMP'                                           
+   BBOHFSWR '/tmp/bbowrecn_&TIMESTMP'                                           
+//SYSTSPRT DD SYSOUT=*                                                          
+//********************************************************************/         
+//*  delete cell-dmgr response file from the HFS.                    */         
+//********************************************************************/         
+//DELETER1 EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+    rm /tmp/bbowrecd_&TIMESTMP  +                                               
+     1>>>> /tmp/bbowwpfc_&TIMESTMP..out +                                       
+     2>>>> /tmp/bbowwpfc_&TIMESTMP..err                                         
+/*                                                                              
+//********************************************************************/         
+//*  delete cell-node response file from the HFS.                    */         
+//********************************************************************/         
+//DELETER2 EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+    rm /tmp/bbowrecn_&TIMESTMP  +                                               
+     1>>>> /tmp/bbowwpfc_&TIMESTMP..out +                                       
+     2>>>> /tmp/bbowwpfc_&TIMESTMP..err                                         
+/*                                                                              
+)SEL &LSPROD = Y                                                                
+//********************************************************************/         
+//*  delete cell-dmgr temp scripts.                                  */         
+//********************************************************************/         
+//DELETER3 EXEC PGM=IKJEFT01,REGION=0M,                                         
+//  COND=(0,LT,TMPSCRPD)                                                         
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+ rm &DMCONFIG.+                                                                 
+ /&DMDIRN.+                                                                     
+ /bin/_&TIMESTMP._bbowprof.sh; +                                                
+    rm /tmp/&TIMESTMP..zSED +                                                   
+     1>>>> /tmp/bbowwpfc_&TIMESTMP..out +                                       
+     2>>>> /tmp/bbowwpfc_&TIMESTMP..err                                         
+/*                                                                              
+//********************************************************************/         
+//*  delete cell-node temp scripts.                                  */         
+//********************************************************************/         
+//DELETER3 EXEC PGM=IKJEFT01,REGION=0M,                                         
+//  COND=(0,LT,TMPSCRPN)                                                         
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+ rm &CBCONFIG.+                                                                 
+ /&ASDIRN.+                                                                     
+ /bin/_&TIMESTMP._bbowprof.sh +                                                
+     1>>>> /tmp/bbowwpfc_&TIMESTMP..out +                                       
+     2>>>> /tmp/bbowwpfc_&TIMESTMP..err                                         
+/*                                                                              
+)ENDSEL                                                                         
+//********************************************************************/         
+//*  delete script file from the cell-dmgr HFS.                      */         
+//********************************************************************/         
+//DELETER3 EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+ rm &DMCONFIG.+                                                                 
+ /&DMDIRN.+                                                                     
+ /bin/bbowlibv_&TIMESTMP..sh +                                                  
+     1>>>> /tmp/bbowwpfc_&TIMESTMP..out +                                       
+     2>>>> /tmp/bbowwpfc_&TIMESTMP..err                                         
+/*                                                                              
+//********************************************************************/         
+//*  delete script file from the cell-node HFS.                      */         
+//********************************************************************/         
+//DELETER3 EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+ rm &CBCONFIG.+                                                                 
+ /&ASDIRN.+                                                                     
+ /bin/bbowliba_&TIMESTMP..sh +                                                  
+     1>>>> /tmp/bbowwpfc_&TIMESTMP..out +                                       
+     2>>>> /tmp/bbowwpfc_&TIMESTMP..err                                         
+/*                                                                              
+//********************************************************************/         
+//*  Copy script output back to joblog                               */         
+//********************************************************************/         
+//COPYOUT  EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSEXEC  DD  DISP=SHR,DSN=&BBOEXEC                                            
+//SYSTSIN  DD *                                                                 
+   BBOHFSWR '/tmp/bbowwpfc_&TIMESTMP..out'                                      
+   BBOHFSWR '/tmp/bbowwpfc_&TIMESTMP..err'                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM  LIDB3773-25	H28W610	110405	DB: Initial creation             */
+)CM  322918             H28W610 111305  DB: add ports files          */
+)CM  327881             H28W610 113005  DB: various problems in job  */
+)CM  334832             H28W610 010405  DB: first log write use >>   */
+)CM       362742    H28W610 041406  DB: remove customization info    */
+)CM  369117         H28W610     052306  DB: fix sed script           */
+)CM  373356         H28W610     071206  DB: names intead of uid/gid  */
+)CM  396079.1       H28W610     011507  PDOP: Cell appserv data sets */
+)CM                                                                  */         
+)CM ================================================================ */         

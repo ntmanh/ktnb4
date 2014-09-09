@@ -1,0 +1,35 @@
+//&ASMRCS  PROC ENV=,Z=&ASMRCS.Z,AMODE=                                         
+//  SET ROOT='&MNCONFIG.'                                                       
+//STEP1    EXEC PGM=BBOOMTST,PARM='&&AMODE.'                                    
+//  INCLUDE MEMBER=&&Z                                                          
+//TEST1    IF (STEP1.RC = 0) THEN                                               
+//BBOSR   EXEC PGM=BBOSR,REGION=0M,TIME=NOLIMIT,                                
+// PARM='TRAP(ON,NOSPIE),ENVAR("_EDC_UMASK_DFLT=007") /'                        
+//BBOENV DD PATH='&&ROOT/&&ENV/was.env'                                         
+//  INCLUDE MEMBER=&&Z                                                          
+//           ELSE                                                               
+//BBGSR   EXEC PGM=BBGSR,REGION=0M,TIME=NOLIMIT,MEMLIMIT=NOLIMIT,               
+// PARM='TRAP(ON,NOSPIE),ENVAR("_EDC_UMASK_DFLT=007") /'                        
+//BBOENV DD PATH='&&ROOT/&&ENV/was.env'                                         
+//  INCLUDE MEMBER=&&Z                                                          
+//           ENDIF                                                              
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM    252060 H28W601 021505    DB: Initial release.                 */         
+)CM    367038 H28W610 050406    DB: 64 bit logic for BBGSR           */         
+)CM   403541  H28W610 111306   DMB: 64 bit updates                   */         
+)CM                                                                  */         

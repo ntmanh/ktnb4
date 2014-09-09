@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<parameter name="p_mahs" class="java.lang.String"/>
+	<queryString language="plsql">
+		<![CDATA[SELECT hd.ma_can_bo,hd.nnd_ten,hd.nguoi_bi_kntc_ten,hd.noi_dung FROM kntc_ho_so_hdr hd 
+WHERE hd.ma_hs=$P{p_mahs}]]>
+	</queryString>
+	<field name="MA_CAN_BO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NND_TEN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NGUOI_BI_KNTC_TEN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NOI_DUNG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="163" height="30"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NND_TEN}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="163" y="0" width="392" height="30"/>
+				<textElement/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NGUOI_BI_KNTC_TEN}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

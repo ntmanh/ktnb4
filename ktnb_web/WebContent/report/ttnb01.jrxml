@@ -1,0 +1,362 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ttnb01" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="192"/>
+	<parameter name="nam" class="java.lang.String"/>
+	<parameter name="ten_cqt" class="java.lang.String"/>
+	<parameter name="thu_truong_cqt" class="java.lang.String"/>
+	<parameter name="dv_thuc_hien_ttkt" class="java.lang.String"/>
+	<parameter name="ten_thu_truong_cqt" class="java.lang.String"/>
+	<parameter name="chuc_danh_thu_truong" class="java.lang.String"/>
+	<parameter name="noi_lap" class="java.lang.String"/>
+	<parameter name="noi_duyet" class="java.lang.String"/>
+	<parameter name="ngay_lap" class="java.lang.String"/>
+	<parameter name="ngay_duyet" class="java.lang.String"/>
+	<parameter name="truong_bo_phan_ttkt" class="java.lang.String"/>
+	<parameter name="id_don_vi_th" class="java.lang.String"/>
+	<parameter name="namHienThi" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select decode(t1.id_cuoc_ttkt_cha,'' , t1.ten_don_vi_bi, '    ' || t1.ten_don_vi_bi) ten_don_vi_bi, nvl(t2.ten_noi_dung, ' ') ten_noi_dung,
+to_char(nvl(t1.THOI_GIAN_DU_KIEN_TU_NGAY, t2.THOI_GIAN_DU_KIEN_TU_NGAY),'dd/mm/yyyy') || '-' || to_char(nvl(t1.THOI_GIAN_DU_KIEN_DEN_NGAY, t2.THOI_GIAN_DU_KIEN_DEN_NGAY),'dd/mm/yyyy') thoi_gian_du_kien,
+t1.ten_don_vi_th,
+to_char(nvl(t1.nien_do_tu_ngay, t2.nien_do_tu_ngay),'dd/mm/yyyy') || '-' || to_char(nvl(t1.nien_do_den_ngay, t2.nien_do_den_ngay),'dd/mm/yyyy') nien_do,
+nvl(decode(t2.hinh_thuc,0,'Thanh tra', 1, 'Kiểm tra '), decode(t1.hinh_thuc,0,'Thanh tra', 1, 'Kiểm tra ')) Ghi_chu
+from ttkt_kh_cuoc_ttkt t1, ttkt_kh_noi_dung_ttkt t2, (select id from ttkt_kh_cuoc_ttkt where loai = 0 and ma like $P!{nam} and id_don_vi_th = $P!{id_don_vi_th}) khn
+where (t1.id = khn.id or t1.id_cuoc_ttkt_cha = khn.id)
+and t1.id = t2.id_cuoc_ttkt (+)
+start with t1.id_cuoc_ttkt_cha is null
+connect by prior t1.id = t1.id_cuoc_ttkt_cha
+ORDER SIBLINGS BY t1.id_don_vi_bi ]]>
+	</queryString>
+	<field name="TEN_DON_VI_BI" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TEN_NOI_DUNG" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="THOI_GIAN_DU_KIEN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TEN_DON_VI_TH" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="NIEN_DO" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="GHI_CHU" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<group name="HF_">
+		<groupFooter>
+			<band height="224">
+				<staticText>
+					<reportElement x="10" y="46" width="305" height="41"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="14" isBold="false" isItalic="true" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[.....................................................
+....................................................]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="10" y="204" width="305" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="13" isBold="true" pdfFontName="Helvetica" pdfEncoding="Cp1250"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{ten_thu_truong_cqt}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="10" y="87" width="305" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="13" isBold="true" pdfFontName="Helvetica" pdfEncoding="Cp1250"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{chuc_danh_thu_truong}.toUpperCase()]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="10" y="29" width="305" height="18"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="13" isBold="true" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[Ý KIẾN PHÊ DUYỆT]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+					<reportElement x="497" y="141" width="305" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="13" isBold="true" pdfFontName="Helvetica" pdfEncoding="Cp1250"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{truong_bo_phan_ttkt}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="497" y="30" width="305" height="18"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="13" isBold="true" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[TRƯỞNG BỘ PHẬN TT,TK,NB]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="10" y="12" width="305" height="18"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="14" isBold="false" isItalic="true" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[....., Ngày.....Tháng.....Năm.....]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="497" y="12" width="305" height="18"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times New Roman" size="14" isBold="false" isItalic="true" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[....., Ngày.....Tháng.....Năm.....]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="1"/>
+	<group name="2">
+		<groupFooter>
+			<band height="134">
+				<staticText>
+					<reportElement x="0" y="0" width="802" height="20"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Times New Roman" size="14" isBold="true" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[II. Thuyết minh]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="20" width="802" height="114" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Times New Roman" size="14" isBold="false" isItalic="false" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+					</textElement>
+					<text><![CDATA[     - Nêu rõ lý do lựa chọn: Đơn vị, nội dung, thời kỳ đưa vào kế hoạch thanh tra, kiểm tra.
+     - Trường hợp kế hoạch thanh tra, kiểm tra thực hiện theo chuyên đề, thì phải thuyết minh rõ về mục tiêu của chuyên đề, đối tượng, nội dung, thời kỳ thanh tra, kiểm tra, dự kiến nguồn nhân lực, đơn vị thực hiện thanh tra, kiểm tra, thời gian bắt đầu, thời gian kết thúc.
+     - Trường hợp thanh tra, kiểm tra chéo thì cũng phải nói rõ mục tiêu, đối tượng, nội dung, thời kỳ thanh tra, kiểm tra, dự kiến nguồn nhân lực, đơn vị thực hiện thanh tra, kiểm tra, thời gian bắt đầu, thời gian kết thúc.
+     - Trường hợp lựa chọn đối tượng, nội dung, thời kỳ thanh tra, kiểm tra khác với hướng dẫn của cơ quan cấp trên thì phải nói rõ lý do]]></text>
+				</staticText>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="273" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="119" width="802" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfFontName="Helvetica" pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Năm: "+$P{namHienThi}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="82" width="802" height="37"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[TỜ TRÌNH
+Kế hoạch thanh tra, kiểm tra nội bộ ngành
+]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="10" width="296" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="false" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ten_cqt}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="139" width="802" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true" isItalic="true" pdfFontName="Helvetica" pdfEncoding="Cp1250"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["Kính gửi: "+$P{thu_truong_cqt}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="503" y="10" width="299" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="30" width="296" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="12" isBold="true" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{dv_thuc_hien_ttkt}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="503" y="30" width="299" height="20"/>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="14" isBold="true" isUnderline="true" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Độc lập - Tự do - Hạnh phúc]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="741" y="216" width="61" height="57"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Ghi chú]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="185" width="514" height="17"/>
+				<textElement>
+					<font fontName="Times New Roman" size="14" isBold="true" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[I: Kế hoạch thanh tra, kiểm tra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="216" width="130" height="57"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Đơn vị được thanh tra, kiểm tra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="130" y="216" width="206" height="57"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Nội dung thanh tra, kiểm tra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="336" y="216" width="143" height="57"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Thời kỳ thanh tra, kiểm tra (niên độ)]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="600" y="216" width="141" height="57"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Thời gian dự kiến thanh tra, kiểm tra]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="479" y="216" width="121" height="57"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Times New Roman" size="12" isBold="true" isUnderline="false" pdfFontName="Helvetica" pdfEncoding="Cp1250" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Đơn vị thực hiện thanh tra, kiểm tra]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="38">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="0" y="0" width="130" height="38" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TEN_DON_VI_BI}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="130" y="0" width="206" height="38" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TEN_NOI_DUNG}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="336" y="0" width="143" height="38" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{NIEN_DO}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="479" y="0" width="121" height="38" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TEN_DON_VI_TH}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="600" y="0" width="141" height="38" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{THOI_GIAN_DU_KIEN}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="741" y="0" width="61" height="38" isRemoveLineWhenBlank="true" isPrintWhenDetailOverflows="true"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{GHI_CHU}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,77 @@
+)CM This job copies customized members to parmlib/proclib.                      
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4                                                                        
+//COPY1 EXEC  PGM=IEBCOPY                                                       
+//* Copy customized members to the installation proclib                         
+//SYSPRINT  DD SYSOUT=*                                                         
+//INPUT     DD DISP=SHR,DSN=&TRGHLQ..CNTL                                       
+//OUTPUT    DD DISP=SHR,DSN=&PROCLIB                                            
+//SYSIN     DD *                                                                
+ C INDD=INPUT,OUTDD=OUTPUT                                                      
+ S M=((BBOPDMN3,&MNDPRCC,R))                                                    
+ S M=((BBOPASR2,&ASMRCS,R))                                                     
+ S M=((BBOPACR2,&ASMRCC,R))                                                     
+ S M=((BBOPCRA2,&AJMRCS,R))                                                     
+)SEL &MNDPRCC = BBOPDMN                                                         
+ S M=((BBOPDMNZ,,R))                                                            
+)ENDSEL                                                                         
+)SEL &MNDPRCC ^= BBOPDMN                                                        
+ S M=((BBOPDMNZ,&MNDPRCC.Z,R))                                                  
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)SEL &AAOPROC = BBOWPSH                                                         
+ S M=((BBOWPSH,,R))                                                             
+)ENDSEL                                                                         
+)SEL &AAOPROC ^= BBOWPSH                                                        
+ S M=((BBOWPSH,&AAOPROC,R))                                                     
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)SEL &ASMRCC = BBOPACR                                                          
+ S M=((BBOPACRZ,,R))                                                            
+)ENDSEL                                                                         
+)SEL &ASMRCC ^= BBOPACR                                                         
+ S M=((BBOPACRZ,&ASMRCC.Z,R))                                                   
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)SEL &ASMRCS = BBOPASR                                                          
+ S M=((BBOPASRZ,,R))                                                            
+)ENDSEL                                                                         
+)SEL &ASMRCS ^= BBOPASR                                                         
+ S M=((BBOPASRZ,&ASMRCS.Z,R))                                                   
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)SEL &AJMRCS = BBOPCRA                                                          
+ S M=((BBOPCRAZ,,R))                                                            
+)ENDSEL                                                                         
+)SEL &AJMRCS ^= BBOPCRA                                                         
+ S M=((BBOPCRAZ,&AJMRCS.Z,R))                                                   
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)CM -----------------------                                                     
+/*                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   246865  H28W601 011005    DB: initial release                  */         
+)CM   252060  H28W601 021505    DB: use logic similar to BBODCPY1    */         
+)CM                                 to generate procs                */         
+)CM    250492 H28W601 022405    DB: add customization "info" file    */         
+)CM    290470 H28W602 071805  PDML: remove SYSEXEC section.          */         
+)CM    287210 H28W602 082505    DB: remove excess slash in path      */         
+)CM    362742 H28W610 041306    DB: remove customization info step   */         
+)CM                                                                  */         
+)CM ================================================================ */         

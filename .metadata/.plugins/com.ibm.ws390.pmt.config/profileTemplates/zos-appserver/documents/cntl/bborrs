@@ -1,0 +1,46 @@
+//RRS      PROC GNAME='&RRSGRP.',CTMEM=''                                       
+//*  The following describes the parameters:                                    
+//*                                                                             
+//*  o GNAME=rrsgroupname                                                       
+//*                                                                             
+//*    where rrsgroupname is 1-8 characters and the first character             
+//*    is an alphabetic or national (@#$) and the remaining characters          
+//*    are alphabetic, numeric or national (@#$).                               
+//*                                                                             
+//*    Default (if no GNAME value provided): Sysplex Name                       
+//*                                                                             
+//*  o CTMEM=ctracemembername                                                   
+//*                                                                             
+//*    where ctracegroupname is a 8 character alphabetic, numeric               
+//*    or national (@#$).                                                       
+//*                                                                             
+//*    Default (if no CTMEM value provided): default RRS trace options.         
+//*                                                                             
+//*  If both are specified, they must be separated by atleast 1 blank.          
+//*  They are not positional, but there cannot be a blank(s) imbedded           
+//*  within the keyword=value string, i.e. GNAME = PLEX1 is not valid.          
+//*  It must be GNAME=PLEX1.                                                    
+//*                                                                             
+//*  Examples of valid parameter strings:                                       
+//*                                                                             
+//*      PARM='GNAME=PLEX1 CTMEM=CTIRRS00'                                      
+//*      PARM='CTMEM=CTIRRS00      GNAME=PLEX1'                                 
+//*      PARM='GNAME=PLEX1    '                                                 
+//*      PARM='         CTMEM=CTIRRS00             '                            
+//*                                                                             
+//*01* Target-Library: SYS1.PROCLIB(ATRRRS)                                     
+//*********************************************************************         
+//RRS      EXEC PGM=ATRIMIKE,REGION=4096K,TIME=NOLIMIT,                         
+//             PARM='GNAME=&&GNAME CTMEM=&&CTMEM'                               
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                

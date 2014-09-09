@@ -1,0 +1,160 @@
+)CM
+)CM This is the response file for use with Profile.  (cell-node)
+)CM
+)CM ================================================================ */
+)CM                                                                  */
+)CM Change Activity:                                                 */
+)CM  LIDB3773-25   H28W610 11032005   DB: initial creation           */
+)CM  320736   H28W610 110404 DB  : z.local.os.security=false for NS  */
+)CM  322918   H28W610 111205 DB  : rename port variables and add     */
+)CM                                portsfile variables               */
+)CM                                                                  */
+)CM  326473   H28W610 122905 DB  : set unauth user only for ZS       */
+)CM  329092   H28W610 120505 DB  : remove port variables             */
+)CM  340853   H28W610 012406 DB  : add dmgrProfilePath variable      */
+)CM  342234   H28W610 012706 DB  : add z.daemon.listen.ip.name       */
+)CM  320348.3 H28W610 020706 PDML: rename enableZSecurity to         */
+)CM                                useSAFSecurity.                   */
+)CM  326134   H28W610 022206 DB  : change values for encoding        */
+)CM   356332  H28W610 032006 DB  : add z.enable.daemon.ssl           */
+)CM   360428  H28W610 040506 DB  : use ASWASH for java home          */
+)CM   360832  H28W610 040606 DB  : use CBCONFIG for mount point var  */ 
+)CM   396079  H28W610 040606 PT  : use SMPEASHM for z.smpe.home      */
+)CM  396079.1 H28W610 011507 PDOP: App server data sets for cell     */
+)CM   638428  H28W610 032310 DB  : remove z.admin.password           */
+)CM ================================================================ */
+)CM
+create
+profileName=default
+profilePath=&ASWASH./profiles/default
+dmgrProfilePath=&DMWASH./profiles/default
+templatePath=&ASWASH./profileTemplates/cell/default
+portsFile=&DMWASH./profiles/default/properties/portdef.props
+nodePortsFile=&DMWASH./profiles/default/properties/nodeportdef.props
+appServerNodeName=&ASNONL.
+nodeName=&DMNONL.
+cellName=&DMCENL.
+hostName=&DMNOHOST.
+)BLANK
+z.admin.asynch.proc=&AAOPROC.
+z.keyring=&ASKEYR.
+z.config.group=&CNFGGRP.
+z.ctrace.parms=&CTRPARMS.
+cell.name=&DMCENL.
+z.cell.short.name=&DMCENS.
+z.config.mount.point=&CBCONFIG.
+z.cluster.transition.name=&DMCTN.
+z.appserver.cluster.transition.name=&ASCTN.
+z.daemon.home=&DMNHOME2.
+z.daemon.instance.name=&DMNINSN2.
+z.daemon.ip.name=&DMNIPNA2.
+z.daemon.listen.ip.name=&DMNLIPN2.
+z.daemon.ip.port=&DMNIPPR2.
+z.daemon.job.name=&DMNJNAM2.
+z.daemon.name=&DMNNAME2.
+node.host.name=&DMNOHOST.
+appserver.node.name=&ASNONL.
+node.name=&DMNONL.
+z.node.short.name=&DMNONS.
+z.appserver.node.short.name=&ASNONS.
+z.nodeagent.short.name=&ANSSNS.
+z.daemon.proc=&DMNPRCC2.
+)SEL &DMNWLMD. = Y
+z.daemon.dns.option=true
+)ENDSEL
+)SEL &DMNWLMD. ^= Y
+z.daemon.dns.option=false
+)ENDSEL
+)SEL &DAESSL. = Y        
+z.enable.daemon.ssl=true 
+)ENDSEL                  
+)SEL &DAESSL. ^= Y       
+z.enable.daemon.ssl=false
+)ENDSEL
+z.daemon.ssl.port=&DMNSLPR2.     
+orb.listener.host=&DMOLHN.         
+z.control.proc=&DMPRCC.
+z.appserver.control.proc=&ASPRCC.
+z.servant.proc=&DMPRCS.
+z.appserver.servant.proc=&ASPRCS.
+z.adjunct.proc=&AJPRCS.
+serverName=&DMSSNL.
+appServerServerName=&ASSSNL.
+z.server.short.name=&DMSSNS.
+z.appserver.server.short.name=&ASSSNS.
+http.transport.host=&DMVHHAHN.  
+was.install.root=&ASWASH.
+)SEL &BBOLANG. ^= JAPN
+z.file.encoding=IBM-1047
+)ENDSEL
+)SEL &BBOLANG. = JAPN
+z.file.encoding=IBM-939
+)ENDSEL
+z.inst.samples.option=&ASINSSAM.
+z.ras.logstream.name=&ERRLOG.
+java.install.root=&ASWASH./java
+z.smpe.home=&SMPEASHM.
+)SEL &LSPROD = Y                                                                
+)SEL &CELLSDSN = Y  
+z.STEPLIB1=&BBOWSTP1.
+z.STEPLIB2=&BBOWSTP2.
+)ENDSEL                                                                         
+)SEL &CELLSDSN = N  
+z.STEPLIB1=&BBOWSTP3.
+z.STEPLIB2=&BBOWSTP4.
+)ENDSEL                                                                         
+)ENDSEL                                                                         
+)SEL &LSPROD = N                                                                
+z.STEPLIB1=&BBOWSTP1.
+z.STEPLIB2=&BBOWSTP2.
+)ENDSEL                                                                         
+z.system.name=&SYSNAME.
+z.sysplex.name=&SYSPLEX.
+)SEL &BBOWST. = NS
+z.unauthenticated.userid=
+enableAdminSecurity=false
+useSAFSecurity=false
+z.local.os.security=false
+)ENDSEL
+)SEL &BBOWST. = FS
+z.unauthenticated.userid=
+enableAdminSecurity=true
+useSAFSecurity=false
+z.admin.userid=&WASADMU.
+adminUserName=&WASADMU.
+adminPassword=&WASPW.
+z.enable.trusted.apps=false
+z.saf.auth=false
+z.saf.delegation=false
+z.local.os.security=false
+)ENDSEL
+)SEL &BBOWST. = ZS
+z.unauthenticated.userid=&ALLUSRD.
+enableAdminSecurity=true
+useSAFSecurity=true
+z.security.domain.name=&DOMAINNM.
+z.admin.userid=&WASADMN.
+z.enable.trusted.apps=true
+z.saf.auth=true
+z.saf.delegation=true
+z.local.os.security=true
+)SEL &USEDOMN. = Y
+z.security.domain.type=cellQualified
+)ENDSEL
+)SEL &USEDOMN. ^= Y
+z.security.domain.type=none
+)ENDSEL
+)ENDSEL
+)SEL &WEBDEF = Y
+webServerCheck=true
+)ENDSEL
+)SEL &WEBDEF ^= Y
+webServerCheck=false
+)ENDSEL
+webServerType=&WEBSTYPE.
+webServerOS=&WEBSOS.
+webServerName=&WEBSNAME.
+webServerHostname=&WEBSHOST.
+webServerPort=&WEBSPORT.
+webServerInstallPath=&WEBSIDP.
+webServerPluginPath=&WEBSPIDP.

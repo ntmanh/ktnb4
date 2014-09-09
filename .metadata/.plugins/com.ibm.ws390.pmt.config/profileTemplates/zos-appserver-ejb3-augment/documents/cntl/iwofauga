@@ -1,0 +1,124 @@
+<!-- ================================================================ -->         
+<!--                                                                  -->         
+<!-- Job for generating Web services feature pack symlinks and        -->
+<!-- augmentation                                                     -->         
+<!--                                                                  -->         
+<!-- Change Activity:                                                 -->         
+<!--                                                                  -->         
+<!--   LIDB4584-17   V6.1    042607  PDOP: Initial version            -->         
+<!--   445982.3      V6.1    061907  PDOP: Add featurePackInstallRoot -->
+<!--   468335        V6.1    103107  PDOP: Identify req'd privileges  -->
+<!--                                                                  -->         
+<!-- ================================================================ -->         
+<!--  -->
+//${MEMBER}  JOB ${zJobStatement1}                      
+${zJobStatement2}                                                                        
+${zJobStatement3}                                                                        
+${zJobStatement4}                                                                        
+//* ================================================================ */
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */
+//* (C) Copyright IBM Corp. 1999, 2006                               */
+//* All Rights Reserved                                              */
+//* US Government Users Restricted Rights - Use, duplication or      */
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/
+//*                                                                  */          
+//* FUNCTION:  IWOFAUGA generates the Feature Pack for EJB3          */          
+//*            symbolic links and augmentation for an existing       */          
+//*            application server configuration file system.         */          
+//*                                                                  */          
+//* ---------------------------------------------------------------- */          
+//*                                                                  */          
+//* Instructions to use:                                             */          
+//*                                                                  */          
+//*       1. Stop the target application server.                     */          
+//*                                                                  */          
+//*       2. Back up the target configuration file system.           */          
+//*                                                                  */          
+//*       3. Run this job, which generates symbolic links within the */          
+//*          target configuration file system to the feature pack    */          
+//*          enablement code (which is contained within the base     */
+//*          WebSphere install image) and the Feature Pack for EJB3  */          
+//*          install image. It also augments the profile in the      */          
+//*          target configuration file system for Feature Pack for   */          
+//*          EJB3.                                                   */          
+//*                                                                  */
+//*          This job must be run under a user ID with the Unix      */
+//*          System Services files access privileges:                */
+//*                                                                  */
+//*          o Either uid=0, OR                                      */
+//*                                                                  */
+//*          o the following UNIXPRIV class profile privileges:      */
+//*                                                                  */
+//*            CONTROL access to SUPERUSER.FILESYS                   */            
+//*            READ    access to SUPERUSER.FILESYS.CHOWN             */
+//*            READ    access to SUPERUSER.FILESYS.CHANGEPERMS       */
+//*                                                                  */
+//*            If the UNIXPRIV profile CHOWN.UNRESTRICTED is defined,*/
+//*            then the SUPERUSER.FILESYS.CHOWN is not required.     */
+//*            For information about the UNIXPRIV class, see the     */
+//*            z/OS Unix System Services Planning book.              */
+//*                                                                  */
+//*          If the application server being updated is using a      */
+//*          LocalOS (SAF) user registry, the user ID used to run    */
+//*          this job must be connected to the application server's  */
+//*          configuration group.                                    */
+//*                                                                  */
+//*          If SSL certificates are stored in the SAF keyrings,     */
+//*          then the user ID used to run this job must have a SAF   */
+//*          keyring whose name matches the value of                 */
+//*          com.ibm.ssl.keyStore in the application server's        */
+//*          WAS_HOME/profiles/default/properties/ssl.client.props   */
+//*          file, and this keyring must contain the application     */
+//*          server's cell's CA certificate.                         */
+//*                                                                  */          
+//*       4. Restart the application server.                         */          
+//*                                                                  */          
+//* ================================================================ */         
+//* File Tailored on ${ZDATE} at ${ZTIMEL} by ${ZUSER}
+//*
+//*
+//********************************************************************/         
+//*  Generate EJB3 feature pack symbolic links                       */         
+//********************************************************************/         
+//EJB3SYM EXEC PGM=IKJEFT01,REGION=0M                                                                 
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+   ${zEjb3SmpePath}+
+   /bin/linkEJB3610zOSImage.sh +
+   ${zEjb3SmpePath} +
+   ${zWasHome} + 
+   ${zSmpePath} +                                              
+     1> /tmp/${zmember}_${TIMESTMP}.out +                                         
+     2> /tmp/${zmember}_${TIMESTMP}.err                                           
+/*                                                                              
+//********************************************************************/         
+//*  Augment profile                                                 */         
+//********************************************************************/         
+//AUGMENT EXEC PGM=IKJEFT01,REGION=0M,COND=(0,LT)                                                                 
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+   ${zWasHome}+                                                                  
+   /bin/manageprofiles.sh +
+   -augment -profileName default -templatePath +                                                           
+   ${zWasHome}+
+   /${zRuntimeTemplatePath} +                                       
+   -featurePackInstallRoot +
+   ${zEjb3SmpePath} +                                       
+     1>> /tmp/${zmember}_${TIMESTMP}.out +                                         
+     2>> /tmp/${zmember}_${TIMESTMP}.err                                           
+/*                                                                              
+//********************************************************************/         
+//*  Copy script output back to joblog                               */         
+//********************************************************************/         
+//JOBLOG  EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSEXEC DD DISP=SHR,DSN=${zTargetHLQ}.DATA                                       
+//SYSTSIN  DD *                                                                 
+   IWOFOUT '/tmp/${zmember}_${TIMESTMP}.out'                                      
+   IWOFOUT '/tmp/${zmember}_${TIMESTMP}.err'                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//                                                                              

@@ -1,0 +1,303 @@
+------Start of DE processing------ = [4/24/14 7:41:01:797 GMT] , key = java.net.SocketException com.ibm.ws.webcontainer.srt.BufferedWriter.flushChars 409
+Exception = java.net.SocketException
+Source = com.ibm.ws.webcontainer.srt.BufferedWriter.flushChars
+probeid = 409
+Stack Dump = java.net.SocketException: Connection reset by peer: socket write error
+	at java.net.SocketOutputStream.socketWrite0(Native Method)
+	at java.net.SocketOutputStream.socketWrite(SocketOutputStream.java(Compiled Code))
+	at java.net.SocketOutputStream.write(SocketOutputStream.java(Compiled Code))
+	at com.ibm.ws.io.Stream.write(Stream.java:26)
+	at com.ibm.ws.io.WriteStream.flushMyBuf(WriteStream.java:145)
+	at com.ibm.ws.io.WriteStream.flush(WriteStream.java:137)
+	at com.ibm.ws.http.ResponseStream.flush(ResponseStream.java:295)
+	at com.ibm.ws.io.WriteStream.flush(WriteStream.java:139)
+	at com.ibm.ws.webcontainer.http.HttpConnection.flush(HttpConnection.java:381)
+	at com.ibm.ws.webcontainer.srp.SRPConnection.flush(SRPConnection.java:242)
+	at com.ibm.ws.webcontainer.srt.SRTOutputStream.flush(SRTOutputStream.java:45)
+	at sun.nio.cs.StreamEncoder$ConverterSE.implFlush(StreamEncoder.java:289)
+	at sun.nio.cs.StreamEncoder.flush(StreamEncoder.java:199)
+	at java.io.OutputStreamWriter.flush(OutputStreamWriter.java:233)
+	at com.ibm.ws.webcontainer.srt.BufferedWriter.flushChars(BufferedWriter.java:360)
+	at com.ibm.ws.webcontainer.srt.BufferedWriter.flush(BufferedWriter.java:335)
+	at java.io.PrintWriter.flush(PrintWriter.java:131)
+	at com.ibm.ws.webcontainer.srt.SRTServletResponse.flushBuffer(SRTServletResponse.java:1163)
+	at com.ibm.ws.webcontainer.srt.SRTServletResponse.flushBuffer(SRTServletResponse.java:1148)
+	at com.ibm.ws.webcontainer.srt.SRTServletResponse.finish(SRTServletResponse.java:360)
+	at com.ibm.ws.webcontainer.srt.SRTConnectionContext.finishConnection(SRTConnectionContext.java:99)
+	at com.ibm.ws.webcontainer.srt.WebAppInvoker.doForward(WebAppInvoker.java:204)
+	at com.ibm.ws.webcontainer.srt.WebAppInvoker.handleInvocationHook(WebAppInvoker.java:300)
+	at com.ibm.ws.webcontainer.cache.invocation.CachedInvocation.handleInvocation(CachedInvocation.java:71)
+	at com.ibm.ws.webcontainer.srp.ServletRequestProcessor.dispatchByURI(ServletRequestProcessor.java:246)
+	at com.ibm.ws.webcontainer.oselistener.OSEListenerDispatcher.service(OSEListener.java:334)
+	at com.ibm.ws.webcontainer.http.HttpConnection.handleRequest(HttpConnection.java:56)
+	at com.ibm.ws.http.HttpConnection.readAndHandleRequest(HttpConnection.java:652)
+	at com.ibm.ws.http.HttpConnection.run(HttpConnection.java:458)
+	at com.ibm.ws.util.ThreadPool$Worker.run(ThreadPool.java:936)
+
+Dump of callerThis = 
+Object type = com.ibm.ws.webcontainer.srt.BufferedWriter
+com.ibm.ws.webcontainer.srt.BufferedWriter@35a99896
+
+Exception = java.net.SocketException
+Source = com.ibm.ws.webcontainer.srt.BufferedWriter.flushChars
+probeid = 409
+Dump of callerThis = 
+Object type = com.ibm.ws.webcontainer.srt.BufferedWriter
+  class$com$ibm$ws$webcontainer$srt$BufferedWriter = 
+    class$java$lang$Class = 
+      class$java$lang$Class = this.class$com$ibm$ws$webcontainer$srt$BufferedWriter.class$java$lang$Class
+      initted = true
+      reflectionFactory = this.class$com$ibm$ws$webcontainer$srt$BufferedWriter.reflectionFactory
+      serialPersistentFields = this.class$com$ibm$ws$webcontainer$srt$BufferedWriter.serialPersistentFields
+      serialVersionUID = 3206093459760846163
+      declaredPublicMethods = null
+      declaredPublicFields = null
+      publicConstructors = null
+      declaredConstructors = null
+      publicMethods = null
+      declaredMethods = null
+      publicFields = null
+      declaredFields = java.lang.ref.SoftReference@696918a6
+      useCaches = true
+      allPermDomain = this.class$com$ibm$ws$webcontainer$srt$BufferedWriter.allPermDomain
+      newInstanceCallerCache = null
+      cachedConstructor = null
+      have_extensions = true
+    initted = true
+    reflectionFactory = 
+      class$sun$reflect$ConstructorAccessorImpl = java.lang.Class@17d183c
+      class$java$lang$Class = this.class$com$ibm$ws$webcontainer$srt$BufferedWriter.class$java$lang$Class
+      inflationThreshold = 15
+      noInflation = false
+      langReflectAccess = java.lang.reflect.ReflectAccess@3d2c98bd
+      soleInstance = this.class$com$ibm$ws$webcontainer$srt$BufferedWriter.reflectionFactory
+      reflectionFactoryAccessPerm = java.lang.RuntimePermission@354cd8bd
+      useUnsafeFieldAccessors = true
+      initted = true
+    serialPersistentFields = {}
+    serialVersionUID = 3206093459760846163
+    declaredPublicMethods = null
+    declaredPublicFields = null
+    publicConstructors = null
+    declaredConstructors = null
+    publicMethods = null
+    declaredMethods = null
+    publicFields = null
+    declaredFields = 
+      timestamp = 35
+      clock = 35
+      pending = null
+      lock = java.lang.ref.Reference$Lock@43c418bc
+      processing = null
+      next = null
+      queue = java.lang.ref.ReferenceQueue$Null@354a58bd
+      referent = [Ljava.lang.reflect.Field;@7b05d893
+    useCaches = true
+    allPermDomain = 
+      loopingToString = false
+      staticPermissions = true
+      permissions = java.security.Permissions@1ced18b5
+      principals = {}
+      classloader = null
+      codesource = null
+    newInstanceCallerCache = null
+    cachedConstructor = null
+    have_extensions = true
+  nls = 
+    class$com$ibm$ejs$sm$client$ui$NLS = 
+      class$java$lang$Class = this.class$com$ibm$ws$webcontainer$srt$BufferedWriter.class$java$lang$Class
+      initted = true
+      reflectionFactory = this.class$com$ibm$ws$webcontainer$srt$BufferedWriter.reflectionFactory
+      serialPersistentFields = this.class$com$ibm$ws$webcontainer$srt$BufferedWriter.serialPersistentFields
+      serialVersionUID = 3206093459760846163
+      declaredPublicMethods = null
+      declaredPublicFields = null
+      publicConstructors = null
+      declaredConstructors = null
+      publicMethods = null
+      declaredMethods = null
+      publicFields = null
+      declaredFields = java.lang.ref.SoftReference@5f3118a6
+      useCaches = true
+      allPermDomain = this.class$com$ibm$ws$webcontainer$srt$BufferedWriter.allPermDomain
+      newInstanceCallerCache = null
+      cachedConstructor = null
+      have_extensions = true
+    bundle = 
+      resources = [[Ljava.lang.Object;@3c4058b4
+      lookup = java.util.HashMap@353418a6
+      class$java$util$ResourceBundle = java.lang.Class@1fb51826
+      locale = java.util.Locale@4f54d8b4
+      parent = com.ibm.servlet.resources.ServletEngineNLS@3d2e98b4
+      cacheList = sun.misc.SoftCache@4e56d8bc
+      DEFAULT_NOT_FOUND = -1
+      underConstruction = java.util.Hashtable@4e6b58bc
+      MAX_BUNDLES_SEARCHED = 3
+      CACHE_LOAD_FACTOR = 1.0
+      INITIAL_CACHE_SIZE = 25
+      cacheKey = java.util.ResourceBundle$ResourceCacheKey@4e6ad8bc
+    bundleName = com.ibm.servlet.resources.ServletEngineNLS
+    baseClassPackage = com.ibm.ejs.resources
+    messages = 
+      class$com$ibm$ejs$sm$client$ui$NLS = this.nls.class$com$ibm$ejs$sm$client$ui$NLS
+      bundle = com.ibm.ejs.resources.messages_en@373198b4
+      bundleName = messages
+      baseClassPackage = com.ibm.ejs.resources
+      messages = this.nls.messages
+      tc = this.nls.tc
+    tc = 
+      ivLogger = null
+      ivResourceBundleName = com.ibm.ejs.resources.seriousMessages
+      ivDumpEnabled = false
+      defaultMessageFile = com.ibm.ejs.resources.seriousMessages
+      ivEntryEnabled = false
+      ivEventEnabled = false
+      ivDebugEnabled = false
+      ivName = com.ibm.ejs.sm.client.ui.NLS
+  closeOnClose = false
+  tc = 
+    ivLogger = null
+    ivResourceBundleName = com.ibm.ejs.resources.seriousMessages
+    ivDumpEnabled = false
+    defaultMessageFile = com.ibm.ejs.resources.seriousMessages
+    ivEntryEnabled = false
+    ivEventEnabled = false
+    ivDebugEnabled = false
+    ivName = com.ibm.ws.webcontainer.srt.BufferedWriter
+  bufferSize = 4096
+  committed = true
+  except = null
+  _hasFlushed = true
+  _hasWritten = true
+  obs = com.ibm.ws.webcontainer.srt.SRTServletResponse@35b7d896
+  length = -1
+  connection = 
+    class$com$ibm$ws$webcontainer$srp$SRPConnection = 
+      class$java$lang$Class = this.class$com$ibm$ws$webcontainer$srt$BufferedWriter.class$java$lang$Class
+      initted = true
+      reflectionFactory = this.class$com$ibm$ws$webcontainer$srt$BufferedWriter.reflectionFactory
+      serialPersistentFields = this.class$com$ibm$ws$webcontainer$srt$BufferedWriter.serialPersistentFields
+      serialVersionUID = 3206093459760846163
+      declaredPublicMethods = null
+      declaredPublicFields = null
+      publicConstructors = null
+      declaredConstructors = java.lang.ref.SoftReference@35e418af
+      publicMethods = null
+      declaredMethods = null
+      publicFields = null
+      declaredFields = java.lang.ref.SoftReference@7e08d893
+      useCaches = true
+      allPermDomain = this.class$com$ibm$ws$webcontainer$srt$BufferedWriter.allPermDomain
+      newInstanceCallerCache = null
+      cachedConstructor = java.lang.reflect.Constructor@35e6d8af
+      have_extensions = true
+    nls = 
+      class$com$ibm$ejs$sm$client$ui$NLS = this.nls.class$com$ibm$ejs$sm$client$ui$NLS
+      bundle = this.nls.bundle
+      bundleName = com.ibm.servlet.resources.ServletEngineNLS
+      baseClassPackage = com.ibm.ejs.resources
+      messages = this.nls.messages
+      tc = this.nls.tc
+    tc = 
+      ivLogger = null
+      ivResourceBundleName = com.ibm.ejs.resources.seriousMessages
+      ivDumpEnabled = false
+      defaultMessageFile = com.ibm.ejs.resources.seriousMessages
+      ivEntryEnabled = false
+      ivEventEnabled = false
+      ivDebugEnabled = false
+      ivName = com.ibm.ws.webcontainer.srp.SRPConnection
+    _scriptName = /ktnb/extjs/xtheme-gray-extend.css
+    _pathInfo = null
+    _loadedHeaders = true
+    headers = 
+      [0][0] = accept
+      [0][1] = referer
+      [0][2] = accept-language
+      [0][3] = user-agent
+      [0][4] = accept-encoding
+      [0][5] = host
+      [0][6] = connection
+      [0][7] = cookie
+      [1][0] = text/css
+      [1][1] = http://10.64.28.57:7080/ktnb/login.do
+      [1][2] = en-US
+      [1][3] = Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
+      [1][4] = gzip, deflate
+      [1][5] = 10.64.28.57:7080
+      [1][6] = Keep-Alive
+      [1][7] = JSESSIONID=00007vlXJ7UmA9qWpduz00hqwfe:-1
+    _hvalues = 
+      [0] = text/css
+      [1] = http://10.64.28.57:7080/ktnb/login.do
+      [2] = en-US
+      [3] = Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)
+      [4] = gzip, deflate
+      [5] = 10.64.28.57:7080
+      [6] = Keep-Alive
+      [7] = JSESSIONID=00007vlXJ7UmA9qWpduz00hqwfe:-1
+    _hnames = 
+      [0] = accept
+      [1] = referer
+      [2] = accept-language
+      [3] = user-agent
+      [4] = accept-encoding
+      [5] = host
+      [6] = connection
+      [7] = cookie
+    oseconn = 
+      class$com$ibm$ws$webcontainer$http$HttpConnection = java.lang.Class@4146d8bc
+      tc = com.ibm.ejs.ras.TraceComponent@262f18af
+      appServerDispatcher = com.ibm.ws.webcontainer.oselistener.OSEListenerDispatcher@393358af
+      appServerEntry = com.ibm.ws.webcontainer.oselistener.OSEListener@2ff998b7
+      class$com$ibm$ws$http$HttpConnection = java.lang.Class@2d6258bc
+      broken = true
+      curKeepAliveRequests = 4
+      Aborted = false
+      Allocated = true
+      shouldStayAlive = true
+      isKeptAlive = true
+      allowKeepAlive = true
+      socket = java.net.Socket@4c74189a
+      writeStream = com.ibm.ws.io.WriteStream@393258af
+      readStream = com.ibm.ws.io.ReadStream@3931d8af
+      stream = com.ibm.ws.io.Stream@393098af
+      outStream = java.net.SocketOutputStream@6577d895
+      inStream = java.net.SocketInputStream@65751895
+      transport = com.ibm.ws.webcontainer.http.HttpTransport@2e90d8b7
+      httpServer = com.ibm.ws.webcontainer.http.HttpServer@7c5818b6
+      response = com.ibm.ws.http.HttpResponse@38cd18af
+      request = com.ibm.ws.webcontainer.http.HttpRequest@3b9f18af
+  limit = 6023
+  total = 57
+  count = 57
+  buf[4096] = {Error 500: Connection reset by peer: socket write error
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ...}
+  out = 
+    se = 
+      nBytes = 8192
+      nextByte = 0
+      bb[8192] = {69,114,114,111,114,32,53,48,48,58,32,67,111,110,110,101,99,116,105,111,110,32,114,101,115,101,116,32,98,121,32,112,101,101,114,58,32,115,111,99,107,101,116,32,119,114,105,116,101,32,101,114,114,111,114,13,10,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,...}
+      ctb = sun.io.CharToByteISO8859_1@13365890
+      out = this.out.lock
+      class$sun$nio$cs$StreamEncoder = null
+      useNio = false
+      isOpen = true
+      DEFAULT_BYTE_BUFFER_SIZE = 8192
+      lock = this.out
+      writeBufferSize = 1024
+      writeBuffer = null
+    lock = 
+      class$com$ibm$ws$webcontainer$srt$SRTOutputStream = java.lang.Class@76358bc
+      tc = com.ibm.ejs.ras.TraceComponent@a6798af
+      _observer = null
+      _conn = this.connection
+      lStrings = java.util.PropertyResourceBundle@68f158af
+      LSTRING_FILE = javax.servlet.LocalStrings
+    writeBufferSize = 1024
+    writeBuffer = null
+  lock = this
+  writeBufferSize = 1024
+  writeBuffer[1024] = {
+ror 500: Connection reset by peer: socket write error                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         }
+

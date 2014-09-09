@@ -1,0 +1,130 @@
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4
+//********************************************************************/         
+//*  Invoke bbowpost.sh for cell-dmgr                                */         
+//********************************************************************/         
+//MCFGSD EXEC PGM=IKJEFT01,REGION=0M                                            
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+ &DMCONFIG.+                                                                    
+ /&DMDIRN.+                                                                     
+ /bin/bbowpost.sh +                                                             
+   '&SMPEHOME' +                                                                
+   '&DMCONFIG.+                                                                 
+   /&DMDIRN.' +                                                                 
+  1>> /tmp/bbowpost_&TIMESTMP..out +                                            
+  2>> /tmp/bbowpost_&TIMESTMP..err                                              
+/*                                                                              
+//********************************************************************/         
+//*  Invoke bbowpost.sh for cell-node                                */         
+//********************************************************************/         
+//MCFGSN EXEC PGM=IKJEFT01,REGION=0M                                            
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+ &CBCONFIG.+                                                                    
+ /&ASDIRN.+                                                                     
+ /bin/bbowpost.sh +                                                             
+   '&SMPEASHM' +                                                                
+   '&CBCONFIG.+                                                                 
+   /&ASDIRN.' +                                                                 
+  1>> /tmp/bbowpost_&TIMESTMP..out +                                            
+  2>> /tmp/bbowpost_&TIMESTMP..err                                              
+/*                                                                        
+//********************************************************************/         
+//*  set permission for cell-dmgr directories                        */         
+//********************************************************************/         
+//MCFGCD EXEC PGM=IKJEFT01,REGION=0M                                            
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+ &SMPEHOME+                                                                     
+ /bin/bbowhfsb.sh +                                                             
+   '&DMCONFIG.+                                                                 
+    /&DMDIRN.' +                                                                
+  1>> /tmp/bbochfsb_&TIMESTMP..out +                                            
+  2>> /tmp/bbochfsb_&TIMESTMP..err                                              
+/*                                                                              
+//********************************************************************/         
+//*  set permission for cell-node directories                        */         
+//********************************************************************/         
+//MCFGCN EXEC PGM=IKJEFT01,REGION=0M                                            
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+ &SMPEASHM+                                                                     
+ /bin/bbowhfsb.sh +                                                             
+   '&CBCONFIG.+                                                                 
+    /&ASDIRN.' +                                                                
+  1>> /tmp/bbochfsb_&TIMESTMP..out +                                            
+  2>> /tmp/bbochfsb_&TIMESTMP..err                                              
+/*                                                                              
+//********************************************************************/         
+//*  change owner / group for cell-dmgr directories                  */         
+//********************************************************************/         
+//MCFGCD1 EXEC PGM=IKJEFT01,REGION=0M                                           
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+ &SMPEHOME+                                                                     
+ /bin/bbowhfsc.sh +                                                             
+   '&DMCONFIG.+                                                                 
+    /&DMDIRN.' +                                                                
+   '&WASHFSU.' +                                                                
+   '&CNFGGRP.' +                                                                
+  1>>>> /tmp/bbochfsb_&TIMESTMP..out +                                          
+  2>>>> /tmp/bbochfsb_&TIMESTMP..err                                            
+/*                                                                              
+//********************************************************************/         
+//*  change owner / group for cell-node directories                  */         
+//********************************************************************/         
+//MCFGCN1 EXEC PGM=IKJEFT01,REGION=0M                                           
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+ &SMPEASHM+                                                                     
+ /bin/bbowhfsc.sh +                                                             
+   '&CBCONFIG.+                                                                 
+    /&ASDIRN.' +                                                                
+   '&WASHFSU.' +                                                                
+   '&CNFGGRP.' +                                                                
+  1>>>> /tmp/bbochfsb_&TIMESTMP..out +                                          
+  2>>>> /tmp/bbochfsb_&TIMESTMP..err                                            
+/*                                                                                                                    
+//********************************************************************/         
+//*  STEP Copy - Copy script output back to joblog                   */         
+//********************************************************************/         
+//MCFGC EXEC PGM=IKJEFT01,REGION=0M                                             
+//SYSEXEC  DD  DISP=SHR,DSN=&BBOEXEC                                            
+//SYSTSIN  DD *                                                                 
+   BBOHFSWR '/tmp/bbochfsb_&TIMESTMP..out'                                      
+   BBOHFSWR '/tmp/bbochfsb_&TIMESTMP..err'                                      
+   BBOHFSWR '/tmp/bbowpost_&TIMESTMP..out'                                      
+   BBOHFSWR '/tmp/bbowpost_&TIMESTMP..err'                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+//* From source skeleton: &skin                                                 
+)CM                                                                             
+)CM ================================================================ */         
+)CM  Change Activity:                                                */         
+)CM                                                                  */         
+)CM  LIDB3773-25	H28W610	110405	DB: Initial creation             */         
+)CM  321972             H28W610 110805  DB: fix step names that were */
+)CM                                         too long                 */
+)CM       362742    H28W610 041406  DB: remove customization info    */
+)CM  396079.1       H28W610 070119 PDOP: corrected cell-node smpepath*/
+)CM   PK74687 H28W610 121008    DB: Move bbowpost step to top        */
+)CM ================================================================ */       

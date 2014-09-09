@@ -1,0 +1,68 @@
+//&ASMRCC  PROC ENV=,PARMS=' ',REC=N,Z=&ASMRCC.Z,AMODE=                         
+// SET ROOT='&MNCONFIG.'                                                        
+// SET FOUT='properties/service/logs/applyPTF.out'                              
+//*************************************************************                 
+//* Test that OMVS can successfully launch a shell and return *                 
+//*************************************************************                 
+//TOMVS   EXEC PGM=BPXBATCH,REGION=0M,                                          
+// PARM='SH exit 13'                                                            
+//STDOUT   DD PATH='&&ROOT./&&ENV..HOME/&&FOUT.',                               
+// PATHOPTS=(OWRONLY,OCREAT,OAPPEND),PATHMODE=(SIRWXU,SIRWXG)                   
+//STDERR   DD PATH='&&ROOT./&&ENV..HOME/&&FOUT.',                               
+// PATHOPTS=(OWRONLY,OCREAT,OAPPEND),PATHMODE=(SIRWXU,SIRWXG)                   
+//*********************************************************                     
+//* If the shell RC code is as expected (13) - proceed    *                     
+//*********************************************************                     
+//IFTST   IF (RC = 13) THEN                                                     
+//*********************************************************                     
+//* Start the Multi-Product PTF Post-Installer            *                     
+//*********************************************************                     
+//APPLY   EXEC PGM=BPXBATCH,REGION=0M,                                          
+// PARM='SH &&ROOT./&&ENV..HOME/bin/applyPTF.sh inline'                         
+//STDOUT   DD PATH='&&ROOT./&&ENV..HOME/&&FOUT.',                               
+// PATHOPTS=(OWRONLY,OCREAT,OAPPEND),PATHMODE=(SIRWXU,SIRWXG)                   
+//STDERR   DD PATH='&&ROOT./&&ENV..HOME/&&FOUT.',                               
+// PATHOPTS=(OWRONLY,OCREAT,OAPPEND),PATHMODE=(SIRWXU,SIRWXG)                   
+//       IF (APPLY.RC <<= 4) THEN                                               
+//*********************************************************                     
+//* If the RC from the Post-Installer is LE 4 then start  *                     
+//* the WebSphere Application Server                      *                     
+//*********************************************************                     
+//STEP1    EXEC PGM=BBOOMTST,PARM='&&AMODE.'                                    
+// INCLUDE MEMBER=&&Z                                                           
+//TEST1    IF (STEP1.RC = 0) THEN                                               
+//BBOCTL   EXEC PGM=BBOCTL,REGION=0M,TIME=MAXIMUM,                              
+// PARM='TRAP(ON,NOSPIE),ENVAR("_EDC_UMASK_DFLT=007") /                x        
+//             &&PARMS. REC=&&REC'                                              
+//BBOENV DD PATH='&&ROOT/&&ENV/was.env'                                         
+// INCLUDE MEMBER=&&Z                                                           
+//           ELSE                                                               
+//BBGCTL   EXEC PGM=BBGCTL,REGION=0M,TIME=MAXIMUM,MEMLIMIT=NOLIMIT,             
+// PARM='TRAP(ON,NOSPIE),ENVAR("_EDC_UMASK_DFLT=007") /                x        
+//             &&PARMS. REC=&&REC'                                              
+//BBOENV DD PATH='&&ROOT/&&ENV/was.env'                                         
+// INCLUDE MEMBER=&&Z                                                           
+//          ENDIF                                                               
+//          ENDIF                                                               
+//IFTSTEND ENDIF                                                                
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+//* From source skeleton: &skin                                                 
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   252060  H28W601 021505    DB: Initial release.                 */         
+)CM   403541  H28W610 111306   DMB: 64 bit updates                   */         
+)CM                                                                  */         
+)CM ================================================================ */         

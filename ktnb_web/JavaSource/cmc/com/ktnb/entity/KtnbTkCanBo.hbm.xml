@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cmc.com.ktnb.entity.KtnbTkCanBo" table="KTNB_TK_CAN_BO" schema="KTNB_OWNER">
+        <id name="ma" type="java.lang.String">
+            <column name="MA" length="50"/>
+            <generator class="assigned" />
+        </id>
+        <property name="ngay_bat_dau" type="java.util.Date">
+            <column name="NGAY_BAT_DAU" length="7" not-null="false" />
+        </property>
+		<property name="ngay_ket_thuc" type="java.util.Date">
+            <column name="NGAY_KET_THUC" length="7" not-null="false" />
+        </property>
+		<property name="ma_cqt" type="java.lang.String">
+            <column name="MA_CQT" length="50" not-null="false" />
+        </property>
+		<property name="ten_cqt" type="java.lang.String">
+            <column name="TEN_CQT" length="100" not-null="false" />
+        </property>
+		<property name="so_cct" type="java.lang.Long">
+            <column name="SO_CCT" length="5" not-null="false" />
+        </property>
+		<property name="so_doi_ktnb" type="java.lang.Long">
+            <column name="SO_DOI_KTNB" length="5" not-null="false" />
+        </property>
+		<property name="trinh_do_dh" type="java.lang.Long">
+            <column name="TRINH_DO_DH" length="5" not-null="false" />
+        </property>
+		<property name="trinh_do_cdtc" type="java.lang.Long">
+            <column name="TRINH_DO_CDTC" length="5" not-null="false" />
+        </property>
+		<property name="chuyen_trach" type="java.lang.Long">
+            <column name="CHUYEN_TRACH" length="5" not-null="false" />
+        </property>
+		<property name="kiem_nhiem" type="java.lang.Long">
+            <column name="KIEM_NHIEM" length="5" not-null="false" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,94 @@
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4                                                                        
+//********************************************************************/         
+//*  Check version step                                              */         
+//********************************************************************/         
+//CHEKV EXEC PGM=IKJEFT01,REGION=0M                                             
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+ &SMPEHOME+                                                                     
+ /bin/bbowchkv.sh +                                                             
+   '&SMPEHOME' +                                                                
+   'bbowhfsa' +                                                                 
+   '&TIMESTMP' +                                                                
+   '<<version>>6.1' +                                                           
+  1>> /tmp/bbowhfsa_&TIMESTMP..out +                                            
+  2>> /tmp/bbowhfsa_&TIMESTMP..err                                              
+/*                                                                              
+//********************************************************************/         
+//*  create WAS HOME                                                 */         
+//********************************************************************/         
+//MCFG1 EXEC PGM=IKJEFT01,REGION=0M,COND=(1,LE,CHEKV)                           
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+ &SMPEHOME+                                                                     
+ /bin/bbowhfsa.sh +                                                             
+   '&SMPEHOME.' +                                                               
+   '&CBCONFIG.+                                                                 
+    /&ASDIRN.' +                                                                
+  1>>>> /tmp/bbowhfsa_&TIMESTMP..out +                                          
+  2>>>> /tmp/bbowhfsa_&TIMESTMP..err                                            
+/*                                                                              
+//********************************************************************/         
+//*  Generate EJB3 feature pack symbolic links                       */         
+//********************************************************************/         
+//EJB3SYM EXEC PGM=IKJEFT01,REGION=0M 
+<!-- if (${zRunWasFromSteplib}==true) --> 
+//STEPLIB  DD DISP=SHR,DSN=${zBboloadName}                                             
+<!-- endif -->
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+   ${zEjb3SmpePath}+
+   /bin/linkEJB3610zOSImage.sh +
+   ${zEjb3SmpePath} +
+   ${zWasHome} + 
+   ${zSmpePath} +                                              
+  1>>>> /tmp/bbowhfsa_&TIMESTMP..out +                                          
+  2>>>> /tmp/bbowhfsa_&TIMESTMP..err                                            
+/*                                                                              
+//********************************************************************/         
+//*  STEP Copy - Copy script output back to joblog                   */         
+//********************************************************************/         
+//MCFGC EXEC PGM=IKJEFT01,REGION=0M                                             
+//SYSEXEC  DD  DISP=SHR,DSN=&BBOEXEC                                            
+//SYSTSIN  DD *                                                                 
+   BBOHFSWR '/tmp/bbowhfsa_&TIMESTMP..out'                                      
+   BBOHFSWR '/tmp/bbowhfsa_&TIMESTMP..err'                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+//* From source skeleton: &skin                                                 
+)CM                                                                             
+)CM ================================================================ */         
+)CM  Change Activity:                                                */         
+)CM                                                                  */         
+)CM    xxxxxx          092304 PDML: initial release.                 */         
+)CM    250492 H28W601 022405    DB: add customization "info" file    */         
+)CM    252283 H28W601 022805 PDML: change BASE.product to WAS.product*/         
+)CM    264283 H28W602 051005    DB: use date instead of TIMESTMP     */         
+)CM    277775 H28W602 052005    DB: change version check to 6.0      */         
+)CM    292455 H28W610 072005    DB: change version check to 7.0      */         
+)CM    287210 H28W602 082505    DB: remove excess slash in path      */         
+)CM  312696.2 H28W610 101305    DB: change version check to 6.1      */         
+)CM    362742 H28W610 041306    DB: remove customization info step   */         
+)CM    419506 H28W610 020207  PDOP: Added fpec and wsfp symlinks     */         
+)CM    425750 H28W610 030907  PDOP: zWAS/FPEC install image merge    */
+)CM    425750 H28W610 040307  PDOP: Added STEPLIB to WSFPSYM step    */
+)CM LIDB4584-17 H28W610 042607 PDOP:Initial EJB3 feature pack version*/
+)CM                                                                  */         
+)CM ================================================================ */         

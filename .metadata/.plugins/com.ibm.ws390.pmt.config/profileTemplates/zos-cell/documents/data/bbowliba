@@ -1,0 +1,35 @@
+#!/bin/sh
+#
+# File Tailored on &ZDATE at &ZTIMEL by &ZUSER
+#
+#-------------------------------------------------------------------
+# Licensed Material - Property of IBM
+#
+# 5724-I63, 5724-H88, 5655-N01, 5733-W61
+# (C) Copyright IBM Corp. 1999, 2006
+# All Rights Reserved.
+# U.S. Government users - RESTRICTED RIGHTS - Use, Duplication, or
+# Disclosure restricted by GSA-ADP schedule contract with IBM Corp.
+#
+#-------------------------------------------------------------------
+)CM Change Activity
+)CM 396079.1, V6.1, 20070117, PDOP: Initial version
+)CM-------------------------------------------------------------------
+#
+)SEL &LSPROD = Y
+)SEL &CELLSDSN = Y                                                                
+export STEPLIB=$STEPLIB:&BBOLOAD:&BBGLOAD
+)ENDSEL                                                                         
+)SEL &CELLSDSN = N                                                                
+export STEPLIB=$STEPLIB:&BBOLOADA:&BBGLOADA
+)ENDSEL                                                                         
+)ENDSEL
+binDir=`dirname $0`
+. $binDir/setupCmdLine.sh
+)BLANK
+)BLANK
+"$JAVA_HOME/bin/java" \
+  -classpath "$WAS_HOME/plugins/com.ibm.ws.runtime_6.1.0.jar" \
+  com/ibm/ws/profile/utils/VerifyLibraryAccess bboujuu bbouph
+)BLANK
+exit $?
