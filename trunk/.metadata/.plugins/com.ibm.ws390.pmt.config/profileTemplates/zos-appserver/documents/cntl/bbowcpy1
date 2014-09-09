@@ -1,0 +1,92 @@
+)CM This job copies customized members to parmlib/proclib.                      
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4                                                                        
+//COPY1 EXEC  PGM=IEBCOPY                                                       
+//* Copy customized members to the installation proclib                         
+//SYSPRINT  DD SYSOUT=*                                                         
+//INPUT     DD DISP=SHR,DSN=&TRGHLQ..CNTL                                       
+//OUTPUT    DD DISP=SHR,DSN=&PROCLIB                                            
+//SYSIN     DD *                                                                
+ C INDD=INPUT,OUTDD=OUTPUT                                                      
+)CM -----------------------                                                     
+)SEL &AAOPROC = BBOWPSH                                                         
+ S M=((BBOWPSH,,R))                                                             
+)ENDSEL                                                                         
+)SEL &AAOPROC ^= BBOWPSH                                                        
+ S M=((BBOWPSH,&AAOPROC,R))                                                     
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)SEL &DMNPRCC = BBOPDMN                                                         
+ S M=((BBOPDMN,,R))                                                             
+ S M=((BBOPDMNZ,,R))                                                            
+)ENDSEL                                                                         
+)SEL &DMNPRCC ^= BBOPDMN                                                        
+ S M=((BBOPDMN,&DMNPRCC,R))                                                     
+ S M=((BBOPDMNZ,&DMNPRCC.Z,R))                                                  
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)SEL &ASPRCC = BBOPACR                                                          
+ S M=((BBOPACR,,R))                                                             
+ S M=((BBOPACRZ,,R))                                                            
+)ENDSEL                                                                         
+)SEL &ASPRCC ^= BBOPACR                                                         
+ S M=((BBOPACR,&ASPRCC,R))                                                      
+ S M=((BBOPACRZ,&ASPRCC.Z,R))                                                   
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)SEL &ASPRCS = BBOPASR                                                          
+ S M=((BBOPASR,,R))                                                             
+ S M=((BBOPASRZ,,R))                                                            
+)ENDSEL                                                                         
+)SEL &ASPRCS ^= BBOPASR                                                         
+ S M=((BBOPASR,&ASPRCS,R))                                                      
+ S M=((BBOPASRZ,&ASPRCS.Z,R))                                                   
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+)SEL &AJPRCS = BBOPCRA                                                          
+ S M=((BBOPCRA,,R))                                                             
+ S M=((BBOPCRAZ,,R))                                                            
+)ENDSEL                                                                         
+)SEL &AJPRCS ^= BBOPCRA                                                         
+ S M=((BBOPCRA,&AJPRCS,R))                                                      
+ S M=((BBOPCRAZ,&AJPRCS.Z,R))                                                   
+)ENDSEL                                                                         
+)CM -----------------------                                                     
+/*                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* Status = H28W500                                                 */         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   MD15325 H28W500 030107  PDML: add BBOPATH = DM check           */         
+)CM   MD15360 H28W500 030108  PDML: add copy step for JCLLIB         */         
+)CM   MD15395 H28W500 030108  PDML: removed copy of HFS files.       */         
+)CM   MDxxxxx H28W500 030205  PDML: removed copy JCLLIB              */         
+)CM   MD16200 H28W500 030319  PDML: add bbow5sh to proclib.          */         
+)CM   MD16289 H28W500 030327  PDML: split skeletons.                 */         
+)CM   MD17109 H28W500 030702  PDML: ctrace parmlib member suffix     */         
+)CM                                        support.                  */         
+)CM   MD17453 H28W500 030825  PDML: now BBOW5SH proc name can change */         
+)CM   235963  H28W600 040930  PDML: add CRA PROC copy.               */         
+)CM    250492 H28W601 022405    DB: add customization "info" file    */         
+)CM   253275  H28W602 041505    DB: remove copy of CTRACE procs      */         
+)CM   290470  H28W602 071805  PDML: remove SYSEXEC section.          */         
+)CM    287210 H28W602 082505    DB: remove excess slash in path      */         
+)CM    329934 H28W602 121305    DB: remove step to copy BBOCTI00     */         
+)CM    335599 H28W602 010406    DB: COND stmt references wrong step  */         
+)CM    362742 H28W610 041306    DB: remove customization info step   */         
+)CM                                                                  */         
+)CM ================================================================ */         

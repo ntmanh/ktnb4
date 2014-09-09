@@ -1,0 +1,50 @@
+;                                                                               
+; The following needs to be added following the PORT statement                  
+;                                                                               
+;                                                                               
+ &DMSPORT  TCP &DMSSNS.     ; SOAP JMX Connector port                           
+;                                                                               
+ &DMCDADDP TCP &DMSSNS.     ; Cell Discovery Address port                       
+;                                                                               
+ &DMOLADDP TCP &DMSSNS.     ; ORB port                                          
+;                                                                               
+)SEL &DMOSSLAP ^= 0                                                             
+ &DMOSSLAP TCP &DMSSNS. NODELAYACKS  ; ORB SSL port                             
+;                                                                               
+)ENDSEL                                                                         
+ &DMACPRT  TCP &DMSSNS.     ; Admin Console Port                                
+;                                                                               
+ &DMACSPRT TCP &DMSSNS. NODELAYACKS  ; Admin Console Secure Port                
+;                                                                               
+ &DMDCSPRT TCP &DMSSNS.     ; High Availability manager                         
+;                               communications port                             
+;                                                                               
+ &DMNIPPR2 TCP &DMNJNAM2.   ; Daemon port                                       
+;                                                                               
+ &DMNSLPR2 TCP &DMNJNAM2. NODELAYACKS ; Daemon SSL port                         
+;                                                                               
+)BLANK                                                                          
+;/*********************************************************************/        
+;/* Licensed Material - Property of IBM                               */        
+;/*                                                                   */        
+;/* 5724-I63, 5724-H88, 5655-N01, 5733-W61                            */        
+;/* (C) Copyright IBM Corp. 1999, 2006                                */        
+;/* All Rights Reserved                                               */        
+;/* US Government Users Restricted Rights - Use, duplication or       */        
+;/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. */        
+;/*                                                                   */        
+;/* File Tailored on &ZDATE at &ZTIMEL by &ZUSER */                             
+;/* From source skeleton: &skin */                                              
+;/*********************************************************************/        
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   MD16289 H28W500 032503 PDML: splitted the file.                */         
+)CM   PQ75181 H28W500 030709 PDML: correct TCP/IP port infomation.   */         
+)CM   244860  HW28600 120204   DB: add SI and HA Manager ports       */         
+)CM   306104  HW28610 091805   DB: add admin console ports           */         
+)CM   319766  H28W610 110705   DB: remove HTTP transport ports       */         
+)CM                                for Deployment Manager            */         
+)CM   338960  H28W610 043006   DB: add NODELAYACKS for ssl ports     */         
+)CM ================================================================ */         

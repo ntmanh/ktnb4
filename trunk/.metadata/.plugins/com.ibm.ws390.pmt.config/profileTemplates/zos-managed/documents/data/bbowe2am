@@ -1,0 +1,30 @@
+)CM Change Defaults
+)DEFAULT )&?^<][
+)CM
+#!/bin/sh
+#
+# File Tailored on &ZDATE at &ZTIMEL by &ZUSER
+#
+#-------------------------------------------------------------------
+# PROPRIETARY-STATEMENT:
+# Licensed Material - Property of IBM
+#
+# 5724-I63, 5724-H88, 5655-N01, 5733-W61
+# (C) Copyright IBM Corp. 1999, 2006
+# All Rights Reserved
+# US Government Users Restricted Rights - Use, duplication or
+# disclosure restricted by GSA ADP Schedule Contract with IBM Corp.
+#
+)CM-----------------------------------------------------------------
+)CM Change Activity
+)CM  246865.1 H28W601, 20050110,   DB: inital support
+)CM  PK35920  H28W610, 20061211,   DB: SEL stmt should be using MNANNOGP
+)CM
+)CM-----------------------------------------------------------------
+)BLANK
+)SEL &MNANNOGP. ^= DefaultNodeGroup
+)BLANK
+ iconv -f IBM-1047 -t ISO8859-1 /tmp/createNodeGroup_&TIMESTMP..jacl > /tmp/createNodeGroup_&TIMESTMP._temp.jacl
+ rm -f /tmp/createNodeGroup_&TIMESTMP..jacl
+ mv /tmp/createNodeGroup_&TIMESTMP._temp.jacl /tmp/createNodeGroup_&TIMESTMP..jacl
+)ENDSEL

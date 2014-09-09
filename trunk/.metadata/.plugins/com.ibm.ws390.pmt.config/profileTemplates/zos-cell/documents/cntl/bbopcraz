@@ -1,0 +1,46 @@
+//*                                                                             
+//* Output DDs                                                                  
+//*                                                                             
+//CEEDUMP   DD SYSOUT=*,SPIN=UNALLOC,FREE=CLOSE                                 
+//SYSOUT    DD SYSOUT=*,SPIN=UNALLOC,FREE=CLOSE                                 
+//SYSPRINT  DD SYSOUT=*,SPIN=UNALLOC,FREE=CLOSE                                 
+//*                                                                             
+//*Steplib Setup                                                                
+//*                                                                                                                                                
+)SEL &LSPROD = Y                                                                
+//STEPLIB  DD DISP=SHR,DSN=&BBOLOD2                                             
+//         DD DISP=SHR,DSN=&BBOLOAD                                             
+//         DD DISP=SHR,DSN=&BBGLOAD
+)ENDSEL  
+//                                                                             
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* Status = H28W500                                                 */         
+//* ================================================================ */         
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   xxxxxxxx      H28W510 091504  PDML: initial release            */         
+)CM   244656        H28W600 111604  PDML: updated check for BBOLOD2. */         
+)CM     246983 H28W600 121604   DB: update STEPLIB logic based on    */         
+)CM                                 new product dataset panels       */         
+)CM   256378.1      H28W602 052405  DB: if using batch mode, set     */         
+)CM                                     BBOPATH to AS to allow proper*/         
+)CM                                     generation of proc in batch  */         
+)CM   290470        H28W602 071805  PDML: remove GSK.                */         
+)CM   311865        H28W610 100805  DB: remove SCEERUN items         */         
+)CM   338132        H28W610 020606  PDML: add SBBGLOAD.              */         
+)CM   351902        H28W610 030206  DB: remove migration related     */         
+)CM                                     items as this is no longer   */         
+)CM                                     generated for migration      */
+)CM  PK37600        H28W610 012406  DB: Remove batch mode logic      */         
+)CM ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                

@@ -1,0 +1,1670 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="bc_ktnb_43b" pageWidth="1270" pageHeight="842" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1210" leftMargin="30" rightMargin="30" topMargin="20" bottomMargin="20">
+	<property name="ireport.zoom" value="1.0000000000000004"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="59"/>
+	<style name="style1" isDefault="true" vAlign="Middle" pattern="" isBlankWhenNull="true" fontName="Times New Roman" fontSize="10" pdfFontName="arial.ttf"/>
+	<parameter name="ten_cqt" class="java.lang.String"/>
+	<parameter name="dia_diem_bao_cao" class="java.lang.String"/>
+	<parameter name="p_thct" class="java.lang.String"/>
+	<parameter name="p_tu_thang" class="java.lang.String"/>
+	<parameter name="p_den_thang" class="java.lang.String"/>
+	<parameter name="ten_cqt_bao_cao" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="thoi_gian" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ngay_lap_bao_cao" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="thoi_gian_bao_cao" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_ma_cqt" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_date" class="java.lang.String">
+		<defaultValueExpression><![CDATA["2011"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="p_type" class="java.lang.String">
+		<defaultValueExpression><![CDATA["NAM"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ten_can_bo" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="tt_cqt" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ten_thu_truong" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="cursor_ref" class="java.sql.ResultSet" isForPrompting="false"/>
+	<parameter name="p_ngay_lap_bao_cao" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString language="plsql">
+		<![CDATA[{call rp_43.prc_report_43b($P{p_date},$P{p_type},$P{p_ma_cqt},$P{p_thct},$P{p_tu_thang},$P{p_den_thang},$P{p_ngay_lap_bao_cao},$P{cursor_ref})}]]>
+	</queryString>
+	<field name="ma_tinh" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="TEN" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_knghi_thu_hoi_cct" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_knghi_hoan_tra_cct" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_knghi_thu_hoi_nnt" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_knghi_hoan_tra_nnt" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_knghi_hoan_tra_khac" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_spham_thu_hoi_cct" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_spham_hoan_tra_cct" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_spham_thu_hoi_nnt" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_spham_hoan_tra_nnt" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_spham_hoan_tra_khac" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="so_cuoc_kthuc" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="so_dv_ttkt" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="so_dv_sai_pham" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_da_thu_hoi_cct" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_da_hoan_tra_cct" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_da_thu_hoi_nnt" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_da_hoan_tra_nnt" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tien_da_hoan_tra_khac" class="java.math.BigDecimal">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="id_don_vi_th" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="tong_so_kien_nghi" class="java.math.BigDecimal"/>
+	<field name="tong_so_sai_pham" class="java.math.BigDecimal"/>
+	<field name="tong_so_da_thu_htra" class="java.math.BigDecimal"/>
+	<field name="tong_so" class="java.math.BigDecimal"/>
+	<variable name="sum_tien_knghi_thu_hoi_cct" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_knghi_thu_hoi_cct}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_knghi_hoan_tra_cct" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_knghi_hoan_tra_cct}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_knghi_thu_hoi_nnt" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_knghi_thu_hoi_nnt}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_knghi_hoan_tra_nnt" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_knghi_hoan_tra_nnt}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_knghi_hoan_tra_khac" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_knghi_hoan_tra_khac}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_spham_thu_hoi_cct" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_spham_thu_hoi_cct}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_spham_hoan_tra_cct" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_spham_hoan_tra_cct}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_spham_thu_hoi_nnt" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_spham_thu_hoi_nnt}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_spham_hoan_tra_nnt" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_spham_hoan_tra_nnt}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_spham_hoan_tra_khac" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_spham_hoan_tra_khac}]]></variableExpression>
+	</variable>
+	<variable name="sum_so_cuoc_kthuc" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{so_cuoc_kthuc}]]></variableExpression>
+	</variable>
+	<variable name="sum_so_dv_ttkt" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{so_dv_ttkt}]]></variableExpression>
+	</variable>
+	<variable name="sum_so_dv_sai_pham" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{so_dv_sai_pham}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_da_thu_hoi_cct" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_da_thu_hoi_cct}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_da_hoan_tra_cct" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_da_hoan_tra_cct}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_da_thu_hoi_nnt" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_da_thu_hoi_nnt}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_da_hoan_tra_nnt" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_da_hoan_tra_nnt}]]></variableExpression>
+	</variable>
+	<variable name="sum_tien_da_hoan_tra_khac" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tien_da_hoan_tra_khac}]]></variableExpression>
+	</variable>
+	<variable name="sum_tong_so_knghi" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tong_so_kien_nghi}]]></variableExpression>
+	</variable>
+	<variable name="sum_tong_so_sai_pham" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tong_so_sai_pham}]]></variableExpression>
+	</variable>
+	<variable name="sum_tong_so_da_thu_htra" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tong_so_da_thu_htra}]]></variableExpression>
+	</variable>
+	<variable name="sum_tong_so" class="java.math.BigDecimal" resetType="Group" resetGroup="ACC_G" calculation="Sum">
+		<variableExpression><![CDATA[$F{tong_so}]]></variableExpression>
+	</variable>
+	<group name="ACC_G">
+		<groupExpression><![CDATA[]]></groupExpression>
+		<groupHeader>
+			<band height="188">
+				<staticText>
+					<reportElement x="29" y="0" width="124" height="160"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Đơn vị]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="153" y="0" width="48" height="160"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Số cuộc TTKT đã kết thúc]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="249" y="0" width="48" height="160"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Số đơn vị có sai phạm]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="297" y="24" width="48" height="136"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Tổng số
+(Nghìn
+đồng) ]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="345" y="24" width="240" height="24"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Trong đó]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="345" y="90" width="48" height="70"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Phải thu hồi]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="393" y="90" width="48" height="70"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Phải hoàn trả]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="633" y="90" width="48" height="70"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Phải thu hồi]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="681" y="90" width="48" height="70"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Phải hoàn trả]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="729" y="90" width="48" height="70"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Phải thu hồi]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="777" y="90" width="48" height="70"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Phải hoàn trả]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="825" y="48" width="48" height="112"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Khác]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="873" y="24" width="48" height="136"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Tổng số
+(Nghìn
+đồng)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="0" width="29" height="160"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[STT]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="537" y="48" width="48" height="112"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Khác]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="585" y="24" width="48" height="136"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Tổng số
+(Nghìn
+đồng)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="201" y="0" width="48" height="160"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Số đơn vị được thanh tra kiểm tra]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="345" y="48" width="96" height="42"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Công chức thuế]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="297" y="0" width="288" height="24"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Số tiền sai phạm phải thu hồi và hoàn trả]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="441" y="48" width="96" height="42"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Người nộp thuế]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="441" y="90" width="48" height="70"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Phải thu hồi]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="489" y="90" width="48" height="70"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Phải hoàn trả]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="585" y="0" width="288" height="24"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Số tiền kiến nghị phải thu hồi và hoàn trả]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="633" y="24" width="240" height="24"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Trong đó]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="633" y="48" width="96" height="42"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Công chức thuế]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="729" y="48" width="96" height="42"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Người nộp thuế]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="873" y="0" width="288" height="24"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Số tiền đã thu hồi và hoàn trả]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="921" y="48" width="96" height="42"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Công chức thuế]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="921" y="24" width="240" height="24"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Trong đó]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1017" y="48" width="96" height="42"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Người nộp thuế]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="921" y="90" width="48" height="70"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Phải thu hồi]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="969" y="90" width="48" height="70"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Phải hoàn trả]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1017" y="90" width="48" height="70"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Phải thu hồi]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1065" y="90" width="48" height="70"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Phải hoàn trả]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1113" y="48" width="48" height="112"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Khác]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1161" y="0" width="49" height="160"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<textElement textAlignment="Center"/>
+					<text><![CDATA[Số còn phải thu và  hoàn trả
+(Nghìn
+đồng)]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="153" y="161" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[3]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="249" y="160" width="48" height="28"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[5]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="201" y="161" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[4]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1065" y="161" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[22]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="538" y="160" width="47" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[11]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1017" y="161" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[21]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="585" y="160" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[12=13+14+15
++16+17]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="969" y="161" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[20]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="921" y="161" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[19]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="489" y="160" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[10]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="441" y="161" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[9]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1113" y="161" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[23]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="1161" y="161" width="49" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[24=12-18]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="297" y="161" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[6=7+8+9+10+11]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="873" y="160" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[18=19+20+21
++22+23]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="825" y="160" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[17]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="29" y="161" width="124" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[2]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="161" width="29" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[1]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="393" y="161" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[8]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="345" y="161" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[7]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="633" y="160" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[13]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="729" y="161" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[15]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="681" y="161" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[14]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="777" y="161" width="48" height="27"/>
+					<box>
+						<pen lineWidth="0.5" lineStyle="Solid"/>
+						<topPen lineWidth="0.5" lineStyle="Solid"/>
+						<leftPen lineWidth="0.5" lineStyle="Solid"/>
+						<bottomPen lineWidth="0.5" lineStyle="Solid"/>
+						<rightPen lineWidth="0.5" lineStyle="Solid"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Times New Roman" size="7" isBold="true"/>
+					</textElement>
+					<text><![CDATA[16]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20">
+				<frame>
+					<reportElement x="0" y="0" width="1210" height="20"/>
+					<box>
+						<topPen lineWidth="0.5"/>
+						<leftPen lineWidth="0.5"/>
+						<bottomPen lineWidth="0.5"/>
+						<rightPen lineWidth="0.5"/>
+					</box>
+					<staticText>
+						<reportElement style="style1" x="0" y="0" width="153" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.3"/>
+							<leftPen lineWidth="0.3"/>
+							<bottomPen lineWidth="0.3"/>
+							<rightPen lineWidth="0.3"/>
+						</box>
+						<textElement textAlignment="Center" verticalAlignment="Middle">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<text><![CDATA[TỔNG CỘNG]]></text>
+					</staticText>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="153" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_so_cuoc_kthuc}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="201" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_so_dv_ttkt}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="249" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_so_dv_sai_pham}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="297" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tong_so_sai_pham}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="345" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_spham_thu_hoi_cct}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="393" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_spham_hoan_tra_cct}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="441" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_spham_thu_hoi_nnt}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="489" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_spham_hoan_tra_nnt}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="537" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_spham_hoan_tra_khac}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="585" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tong_so_knghi}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="633" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_knghi_thu_hoi_cct}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="681" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_knghi_hoan_tra_cct}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="729" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_knghi_thu_hoi_nnt}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="777" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_knghi_hoan_tra_nnt}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="825" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_knghi_hoan_tra_khac}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="873" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tong_so_da_thu_htra}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="921" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_da_thu_hoi_cct}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="969" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_da_hoan_tra_cct}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="1017" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_da_thu_hoi_nnt}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="1065" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_da_hoan_tra_nnt}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="1113" y="0" width="48" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tien_da_hoan_tra_khac}]]></textFieldExpression>
+					</textField>
+					<textField pattern="#,##0">
+						<reportElement style="style1" x="1161" y="0" width="49" height="20"/>
+						<box leftPadding="3" rightPadding="3">
+							<topPen lineWidth="0.5"/>
+							<leftPen lineWidth="0.5"/>
+							<bottomPen lineWidth="0.5"/>
+							<rightPen lineWidth="0.5"/>
+						</box>
+						<textElement textAlignment="Right">
+							<font size="9" isBold="false"/>
+						</textElement>
+						<textFieldExpression class="java.math.BigDecimal"><![CDATA[$V{sum_tong_so}]]></textFieldExpression>
+					</textField>
+				</frame>
+			</band>
+		</groupFooter>
+	</group>
+	<title>
+		<band height="120" splitType="Stretch">
+			<textField>
+				<reportElement style="style1" positionType="Float" x="0" y="80" width="1210" height="20"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA["TỔNG HỢP TÌNH HÌNH SAI PHẠM  PHẢI THU HỒI VÀ HOÀN TRẢ THEO KẾT LUẬN TT, KTNB "+$P{thoi_gian_bao_cao}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="style1" x="0" y="0" width="345" height="21"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="false" isItalic="true" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ten_cqt}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement style="style1" x="0" y="21" width="345" height="43"/>
+				<textElement textAlignment="Center">
+					<font size="10" isBold="true" isItalic="false" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ten_cqt_bao_cao}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="873" y="0" width="337" height="21"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font isItalic="true"/>
+				</textElement>
+				<text><![CDATA[Mẫu số 43B/BC/TTNB]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="0" y="0" width="29" height="20"/>
+				<box>
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.Integer"><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="29" y="0" width="124" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{TEN}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="153" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{so_cuoc_kthuc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="201" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{so_dv_ttkt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="249" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{so_dv_sai_pham}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="297" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tong_so_sai_pham}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="345" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_spham_thu_hoi_cct}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="393" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_spham_hoan_tra_cct}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="441" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_spham_thu_hoi_nnt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="489" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_spham_hoan_tra_nnt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="537" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_spham_hoan_tra_khac}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="585" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tong_so_kien_nghi}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="633" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_knghi_thu_hoi_cct}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="681" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_knghi_hoan_tra_cct}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="729" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_knghi_thu_hoi_nnt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="777" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_knghi_hoan_tra_nnt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="825" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_knghi_hoan_tra_khac}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="873" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tong_so_da_thu_htra}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="921" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_da_thu_hoi_cct}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="969" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_da_hoan_tra_cct}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="1017" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_da_thu_hoi_nnt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="1065" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_da_hoan_tra_nnt}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="1113" y="0" width="48" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tien_da_hoan_tra_khac}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="#,##0" isBlankWhenNull="true">
+				<reportElement style="style1" stretchType="RelativeToBandHeight" x="1161" y="0" width="49" height="20"/>
+				<box topPadding="3" leftPadding="3" bottomPadding="3" rightPadding="3">
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font size="9" isBold="false"/>
+				</textElement>
+				<textFieldExpression class="java.math.BigDecimal"><![CDATA[$F{tong_so}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="20" splitType="Stretch"/>
+	</pageFooter>
+	<lastPageFooter>
+		<band height="155">
+			<staticText>
+				<reportElement style="style1" x="0" y="20" width="201" height="115"/>
+				<box>
+					<pen lineWidth="0.3"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NGƯỜI LẬP BIỂU]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="135" width="201" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ten_can_bo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="921" y="20" width="289" height="115"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{tt_cqt}.toUpperCase()]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="921" y="135" width="289" height="20"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{ten_thu_truong}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="921" y="0" width="289" height="20"/>
+				<textElement textAlignment="Center">
+					<font isBold="true" isItalic="true"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$P{dia_diem_bao_cao}+", "+$P{ngay_lap_bao_cao}]]></textFieldExpression>
+			</textField>
+		</band>
+	</lastPageFooter>
+</jasperReport>

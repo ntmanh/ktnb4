@@ -1,0 +1,176 @@
+)CM
+)CM This is the response file for use with Profile.  (base app server)
+)CM
+)CM ================================================================ */
+)CM                                                                  */
+)CM Change Activity:                                                 */
+)CM   220998  H28W510 080204 PDML: initial release.                  */
+)CM   223373  H28W510 081104 PDML: update templatePath, zWAS.ASVHHAHN*/
+)CM                                add zWAS.ASDCSPRT.                */
+)CM   224870  H28W510 081704 PDML: update profileName and profilePath*/
+)CM   xxxxxx  H28W510 091704 PDML: add zWAS.AJPRCS.                  */
+)CM   242436  HW28510 102904 DB  : add zWAS.ASSIPRT, zWAS.ASSISEC,   */
+)CM                                zWAS.ASSIMQ, and zWAS.ASSIMQS     */
+)CM   245995  H28W600 120104 PDML: add zWAS.ASINSSAM.                */
+)CM   245054  H28W600 120204 DB  : add zWAS.SAFREG                   */
+)CM   245688  H28W600 120704 DB  : remove zWAS.CSQSMPEH              */
+)CM  250653.3 H28W610 012405 DB  : add zWAS.ASHAHOST                 */
+)CM   252014  H28W601 012705 PDML: update JAVAHOME.                  */
+)CM   250643  H28W601 013105 DB  : set ASHAHOST to ASHAHOST instead  */
+)CM                                of ASNOHOST                       */
+)CM   257634  H28W601 022505 DB  : replace zWAS.STEPLIB with         */
+)CM                                zWAS.STEP1 and zWAS.STEP2         */
+)CM 264190.2  H28W602 042705 DB  : remove ASHAHOST                   */
+)CM LIDB2356-34 H28W602 060605 PDML: add ASIPPORT.                   */
+)CM   289920  H28W610 071205 DB  : meaningful variable names         */
+)CM   298470  H28W610 081605 DB  : fix typo in a variable name       */
+)CM LIDB3561-19 H28W610 082405 PDML: IHS update.                     */
+)CM  300772   H28W610 082905 DB  : add admin.console.port and        */
+)CM                                admin.console.secure.port         */
+)CM LIDB2634  H28W610 083005 PDML: Security out of box update.       */
+)CM  300166   H28W610 091405 DB  : add sip.secure.port               */
+)CM  317958   H28W610 102705 PDML: change adminUser to adminUserName.*/
+)CM   320736  H28W610 110405 DB  : z.local.os.security=false for NS  */
+)CM  322918   H28W610 111205 DB  : modify port variable names        */
+)CM  326473   H28W610 122905 DB  : set unauth userid only for ZS     */
+)CM  320348   H28W610 011706 PDML: add enableZSecurity.              */
+)CM  342234   H28W610 012706 DB  : add z.daemon.listen.ip.name       */
+)CM  344344   H28W610 020406 DB  : add samplesPassword               */
+)CM  331834.3 H28W610 020606 DB  : set samplesPassword to user entry */
+)CM  345008   H28W610 020606 DB  : add omitAction for optional apps  */
+)CM                                and remove z.inst.samples.option  */
+)CM  320348.3 H28W610 020706 PDML: rename enableZSecurity to         */
+)CM                                useSAFSecurity.                   */
+)CM  345539   H28W610 020806 DB  : only set samplesPassword if       */
+)CM                                family security chosen and samples*/
+)CM                                selected                          */
+)CM   347157  H28W610 021306 DB  : remove ports from response file   */
+)CM  326134   H28W610 022206 DB  : change values for encoding        */
+)CM   356332  H28W610 032006 DB  : add z.enable.daemon.ssl           */
+)CM   360832  H28W610 040606 DB  : add z.unauthenticated.userid=     */
+)CM                                                                  */
+)CM   638428  H28W610 032310 DB  : remove z.admin.password           */
+)CM ================================================================ */
+)CM
+create
+profileName=default
+profilePath=&ASWASH./profiles/default
+portsFile=&ASWASH./logs/wasprofile/_portdef.props
+templatePath=&ASWASH./profileTemplates/default
+nodeName=&ASNONL.
+cellName=&ASCENL.
+hostName=&ASNOHOST.
+)BLANK
+)SEL &OMITAPPS. = Y
+omitAction=&OMITLIST.
+)ENDSEL
+)SEL &OMITAPPS. = N
+)SEL &ASINSSAM. = N
+omitAction=samplesInstallAndConfig
+)ENDSEL
+)ENDSEL
+z.admin.asynch.proc=&AAOPROC.
+z.adjunct.proc=&AJPRCS.
+cell.name=&ASCENL.
+z.cell.short.name=&ASCENS.
+z.cluster.transition.name=&ASCTN.
+z.keyring=&ASKEYR.
+node.host.name=&ASNOHOST.
+node.name=&ASNONL.
+z.node.short.name=&ASNONS.
+orb.listener.host=&ASOLHN.
+z.control.proc=&ASPRCC.
+z.servant.proc=&ASPRCS.
+serverName=&ASSSNL.
+z.server.short.name=&ASSSNS.
+http.transport.host=&ASVHHAHN.
+was.install.root=&ASWASH.
+z.config.mount.point=&CBCONFIG.
+z.config.group=&CNFGGRP.
+z.ctrace.parms=&CTRPARMS.
+z.daemon.home=&DMNHOMED.
+z.daemon.instance.name=&DMNINSN.
+z.daemon.ip.name=&DMNIPNAM.
+z.daemon.listen.ip.name=&DMNLIPNM.
+z.daemon.ip.port=&DMNIPPRT.
+z.daemon.job.name=&DMNJNAME.
+z.daemon.name=&DMNNAME.
+z.daemon.proc=&DMNPRCC.
+)SEL &DMNWLM. = Y
+z.daemon.dns.option=true
+)ENDSEL
+)SEL &DMNWLM. ^= Y
+z.daemon.dns.option=false
+)ENDSEL
+z.daemon.ssl.port=&DMNSLPRT.
+)SEL &BBOLANG. ^= JAPN
+z.file.encoding=IBM-1047
+)ENDSEL
+)SEL &BBOLANG. = JAPN
+z.file.encoding=IBM-939
+)ENDSEL
+)SEL &DAESSL. = Y
+z.enable.daemon.ssl=true
+)ENDSEL
+)SEL &DAESSL. ^= Y
+z.enable.daemon.ssl=false
+)ENDSEL
+z.ras.logstream.name=&ERRLOG.
+java.install.root=&CBCONFIG./&ASDIRN./java
+z.smpe.home=&SMPEHOME.
+z.STEPLIB1=&BBOWSTP1.
+z.STEPLIB2=&BBOWSTP2.
+z.system.name=&SYSNAME.
+z.sysplex.name=&SYSPLEX.
+z.dialog.language=&BBOLANG.
+)SEL &BBOWST. = NS
+z.unauthenticated.userid=
+enableAdminSecurity=false
+useSAFSecurity=false
+z.local.os.security=false
+)ENDSEL
+)SEL &BBOWST. = FS
+z.unauthenticated.userid=
+enableAdminSecurity=true
+useSAFSecurity=false
+)SEL &ASINSSAM. = Y
+samplesPassword=&SAMPPWD.
+)ENDSEL
+z.admin.userid=&WASADMU.
+adminUserName=&WASADMU.
+adminPassword=&WASPW.
+z.enable.trusted.apps=false
+z.saf.auth=false
+z.saf.delegation=false
+z.local.os.security=false
+)ENDSEL
+)SEL &BBOWST. = ZS
+z.unauthenticated.userid=&ALLUSRD.
+enableAdminSecurity=true
+useSAFSecurity=true
+z.security.domain.name=&DOMAINNM.
+z.admin.userid=&WASADMN.
+z.enable.trusted.apps=true
+z.saf.auth=true
+z.saf.delegation=true
+z.local.os.security=true
+)SEL &USEDOMN. = Y
+z.security.domain.type=cellQualified
+)ENDSEL
+)SEL &USEDOMN. ^= Y
+z.security.domain.type=none
+)ENDSEL
+)ENDSEL
+)SEL &WEBDEF = Y
+webServerCheck=true
+)ENDSEL
+)SEL &WEBDEF ^= Y
+webServerCheck=false
+)ENDSEL
+webServerType=&WEBSTYPE.
+webServerOS=&WEBSOS.
+webServerName=&WEBSNAME.
+webServerHostname=&WEBSHOST.
+webServerPort=&WEBSPORT.
+webServerInstallPath=&WEBSIDP.
+webServerPluginPath=&WEBSPIDP.

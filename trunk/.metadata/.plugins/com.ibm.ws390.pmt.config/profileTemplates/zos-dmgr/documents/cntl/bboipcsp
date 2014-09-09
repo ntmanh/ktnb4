@@ -1,0 +1,65 @@
+ /********************************************************************/         
+ /*                                                                  */         
+ /* PROPRIETARY-STATEMENT:                                           */         
+ /* Licensed Material - Property of IBM                              */         
+ /*                                                                  */         
+ /* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+ /* (C) Copyright IBM Corp. 1999, 2006                               */         
+ /* All Rights Reserved                                              */         
+ /* US Government Users Restricted Rights - Use, duplication or      */         
+ /* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+ /*                                                                  */         
+ /* FUNCTION: Models for WebSphere IPCS processing.                  */         
+ /*                                                                  */         
+ /* ---------------------------------------------------------------- */         
+ /*                                                                  */         
+ /* Instructions to use:                                             */         
+ /*                                                                  */         
+ /*   - Copy this file to your installation parmlib data set (by     */         
+ /*     default, this is SYS1.PARMLIB) or the PARMLIB data set used  */         
+ /*     for IPCS processing.  Ensure that the target member name     */         
+ /*     is BLSCUSER (i.e., change this name to BLSCUSER).            */         
+ /*                                                                  */         
+ /*     - If you already have an BLSCUSER parmlib member, you can    */         
+ /*       append the specifications below to the existing set.       */         
+ /*                                                                  */         
+ /* ---------------------------------------------------------------- */         
+ /*                                                                  */         
+ /* CHANGE ACTIVITY:                                                 */         
+ /*                                                                  */         
+ /*   PRODUCTS=                                                      */         
+ /* $L0= MD10262, H28W400,032001,PDG1: Initial release               */         
+ /*                                                                  */         
+ /* File Tailored on &ZDATE at &ZTIMEL by &ZUSER  */                            
+ /* ---------------------------------------------------------------- */         
+ /* Sample BLSCUSER member.                                          */         
+ /* ================================================================ */         
+ /*                                                                  */         
+ /********************************************************************/         
+ /* ---------------------------------------------------------------- */         
+ /* IPCS Verb Exits                                                  */         
+ /* ---------------------------------------------------------------- */         
+)BLANK                                                                          
+    EXIT EP(BBORDATA) VERB(CBDATA)                                              
+ /* ---------------------------------------------------------------- */         
+ /* IPCS Data Struct                                                 */         
+ /* ---------------------------------------------------------------- */         
+    DATA STRUCTURE(ACRW) MODEL(BBORACRW) ENVIRONMENT(ALL); /* acrw   */         
+    DATA STRUCTURE(ASR)  MODEL(BBORASR)  ENVIRONMENT(ALL); /* asr    */         
+    DATA STRUCTURE(ASRE) MODEL(BBORASRE) ENVIRONMENT(ALL); /* asre   */         
+    DATA STRUCTURE(BACB) MODEL(BBORBACB) ENVIRONMENT(ALL); /* bacb   */         
+    DATA STRUCTURE(BGVT) MODEL(BBORBGVT) ENVIRONMENT(ALL); /* bgvt   */         
+    DATA STRUCTURE(BOAM) MODEL(BBORBOAM) ENVIRONMENT(ALL); /* boam   */         
+    DATA STRUCTURE(BOAX) MODEL(BBORBOAX) ENVIRONMENT(ALL); /* boax   */         
+    DATA STRUCTURE(BOBK) MODEL(BBORBOBK) ENVIRONMENT(ALL); /* bobk   */         
+    DATA STRUCTURE(BTCB) MODEL(BBORBTCB) ENVIRONMENT(ALL); /* btcb   */         
+    DATA STRUCTURE(DAUE) MODEL(BBORDAUE) ENVIRONMENT(ALL); /* daue   */         
+    DATA STRUCTURE(LSCB) MODEL(BBORLSCB) ENVIRONMENT(ALL); /* lscb   */         
+    DATA STRUCTURE(LSCP) MODEL(BBORLSCP) ENVIRONMENT(ALL); /* lscp   */         
+    DATA STRUCTURE(LSPC) MODEL(BBORLSPC) ENVIRONMENT(ALL); /* lspc   */         
+    DATA STRUCTURE(LSVT) MODEL(BBORLSVT) ENVIRONMENT(ALL); /* lsvt   */         
+    DATA STRUCTURE(TBUFSET) MODEL(BBORRTBS) ENVIRONMENT(ALL);                   
+    DATA STRUCTURE(TBUF) MODEL(BBORRTBF) ENVIRONMENT(ALL); /* tbuf   */         
+    DATA STRUCTURE(TRC)  MODEL(BBORRTRC) ENVIRONMENT(ALL); /* trc    */         
+    DATA STRUCTURE(SCOX) MODEL(BBORSCOX) ENVIRONMENT(ALL); /* scox   */         
+    DATA STRUCTURE(TMP)  MODEL(BBORTMP)  ENVIRONMENT(ALL); /* tmp    */         

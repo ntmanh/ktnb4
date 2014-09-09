@@ -1,0 +1,37 @@
+//*                                                                             
+//* Output DDs                                                                  
+//*                                                                             
+//CEEDUMP   DD SYSOUT=*,SPIN=UNALLOC,FREE=CLOSE                                 
+//SYSOUT    DD SYSOUT=*,SPIN=UNALLOC,FREE=CLOSE                                 
+//SYSPRINT  DD SYSOUT=*,SPIN=UNALLOC,FREE=CLOSE                                 
+//*                                                                             
+//*Steplib Setup                                                                
+//*                                                                             
+)SET STEP = N                                                                   
+)SEL &LSPROD = Y                                                                
+//STEPLIB  DD DISP=SHR,DSN=&BBOLOD2                                             
+//         DD DISP=SHR,DSN=&BBOLOAD                                             
+//         DD DISP=SHR,DSN=&BBGLOAD                                             
+)SET STEP = Y                                                                   
+)ENDSEL                                                                         
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+)CM ================================================================ */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   LIDB2117-39.1 H28W510 061004  PDFD: Removed MQ data sets       */         
+)CM     246983 H28W600 121604   DB: update STEPLIB logic based on    */         
+)CM                                 new product dataset panels       */         
+)CM     311865 H28W610 100805   DB: remove SCEERUN items             */         
+)CM  338132   H28W610 020606  PDML: add SBBGLOAD.                    */         
+)CM ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                

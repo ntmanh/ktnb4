@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts-config PUBLIC           "-//Apache Software Foundation//DTD Struts Configuration 1.1//EN"           "http://jakarta.apache.org/struts/dtds/struts-config_1_1.dtd">
+<struts-config>
+	<form-beans>
+		<form-bean name="tiepDanForm" type="cmc.com.ktnb.web.kntc.tiep_dan.SoTiepDanForm"></form-bean>
+		<form-bean name="phieuForm" type="cmc.com.ktnb.web.kntc.tiep_dan.PhieuForm"></form-bean>
+		<form-bean name="phieuHenForm" type="cmc.com.ktnb.web.kntc.tiep_dan.PhieuHenForm"></form-bean>
+		<form-bean name="stdTimKiemForm" type="cmc.com.ktnb.web.kntc.tiep_dan.TimkiemForm"></form-bean>
+		<form-bean name="phanCongCanBoForm" type="cmc.com.ktnb.web.kntc.tiep_dan.PhanCongCanBoForm"></form-bean>
+		<form-bean name="xacMinhForm" type="cmc.com.ktnb.web.kntc.xac_minh.XacMinhForm"></form-bean>
+		<form-bean name="khxmForm" type="cmc.com.ktnb.web.kntc.xac_minh.KeHoachForm"></form-bean>
+		<form-bean name="xmPhieuYeuCauForm" type="cmc.com.ktnb.web.kntc.xac_minh.tien_hanh.PhieuYeuCauForm"></form-bean>
+		<form-bean name="dxxlForm" type="cmc.com.ktnb.web.kntc.xu_ly.DeXuatXuLyKNForm"></form-bean>
+		<form-bean name="phanLoaiDonForm" type="cmc.com.ktnb.web.kntc.xu_ly.PhanLoaiDonForm"></form-bean>
+		<form-bean name="tachDonForm" type="cmc.com.ktnb.web.kntc.tiep_dan.TachDonForm"></form-bean>
+		<form-bean name="xmBaoCaoForm" type="cmc.com.ktnb.web.kntc.xac_minh.tien_hanh.BaoCaoForm"></form-bean>
+		<form-bean name="xmGiahanForm" type="cmc.com.ktnb.web.kntc.xac_minh.tien_hanh.GiaHanXmForm"></form-bean>
+		<form-bean name="SoTiepDanVanThuForm" type="cmc.com.ktnb.web.kntc.tiep_dan.SoTiepDanVanThuForm"></form-bean>
+		<form-bean name="xmKetQuaForm" type="cmc.com.ktnb.web.kntc.ket_qua.KetQuaXmForm"></form-bean>
+		<form-bean name="xmTcKetQuaForm" type="cmc.com.ktnb.web.kntc.ket_qua.KetQuaXmTcForm"></form-bean>
+		<form-bean name="qdGqForm" type="cmc.com.ktnb.web.kntc.ket_qua.QuyetDinhGqKnForm"></form-bean>
+		<form-bean name="phieuHdNknForm" type="cmc.com.ktnb.web.kntc.xu_ly.PhieuHdNknForm"></form-bean>
+		<form-bean name="bbChuyenDtForm" type="cmc.com.ktnb.web.kntc.xac_minh.tien_hanh.BienBanChuyenDieuTraForm"></form-bean>
+		<form-bean name="troGiupForm" type="cmc.com.ktnb.web.kntc.TroGiupForm"></form-bean>
+		<form-bean name="reportForm" type="cmc.com.ktnb.web.kntc.bao_cao.BaocaoForm"></form-bean>
+		<form-bean name="daTiepNhanForm" type="cmc.com.ktnb.web.kntc.tiep_dan.DaTiepNhanForm"></form-bean>
+		<form-bean name="lichTrinhDuKienForm" type="cmc.com.ktnb.web.kntc.xu_ly.LichTrinhDuKienForm"></form-bean>
+		<form-bean name="thongBaoKQGQToCaoForm" type="cmc.com.ktnb.web.kntc.xu_ly.ThongBaoKQGQToCaoForm"></form-bean>
+		<form-bean name="baoCaoKqXmForm" type="cmc.com.ktnb.web.kntc.xac_minh.BaoCaoKqXmForm"></form-bean>
+		<form-bean name="baoCaoKqThucHienForm" type="cmc.com.ktnb.web.kntc.ket_qua.BaoCaoKetQuaThucHienForm"></form-bean>
+	</form-beans>
+	<action-mappings>
+		<action name="tiepDanForm" path="/kntc_tiep_dan" type="cmc.com.ktnb.web.kntc.tiep_dan.SoTiepDanAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/std/so_tiep_dan_main.jsp" />
+			<forward name="view" path="kntc/std/so_tiep_dan_main.jsp" />
+		</action>
+		<action name="tiepDanForm" path="/kntc_bo_sung_hs" type="cmc.com.ktnb.web.kntc.tiep_dan.SoTiepDanAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/std/std_bo_sung_hs.jsp" />
+		</action>
+		<action name="phieuForm" path="/kntc_giay_bn" type="cmc.com.ktnb.web.kntc.tiep_dan.GiayBienNhanAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/std/so_tiep_dan_giay_bn.jsp" />
+			<forward name="cghs" path="kntc/std/std_phieu_giao_nhan_hs.jsp" />
+		</action>
+					
+		<action name="stdTimKiemForm" path="/kntc_tim_kiem" type="cmc.com.ktnb.web.kntc.tiep_dan.TimKiemStdAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/kntc_tim_kiem.jsp" />
+			<forward name="lov" path="kntc/lov_ho_so.jsp" />			
+		</action>
+		<action name="stdTimKiemForm" path="/ktnb_dm" type="cmc.com.ktnb.web.dung_chung.DanhMucAction" parameter="method" scope="request">
+			<forward name="success" path="dung_chung/lov_dm.jsp" />
+		</action>
+		<action name="stdTimKiemForm" path="/kntc_tim_kiem_chuyen_ho_so" type="cmc.com.ktnb.web.kntc.tiep_dan.TimKiemStdAction" parameter="method" scope="request">
+			<forward name="success" path="kntc2/action_search/kntc_tim_kiem_chuyen_ho_so.jsp" />			
+		</action>
+		<action name="stdTimKiemForm" path="/kntc_tim_kiem_phan_loai_kn" type="cmc.com.ktnb.web.kntc.tiep_dan.TimKiemStdAction" parameter="method" scope="request">
+			<forward name="success" path="kntc2/action_search/kntc_tim_kiem_phan_loai_kn.jsp" />			
+		</action>
+		<action name="stdTimKiemForm" path="/kntc_tim_kiem_1lan" type="cmc.com.ktnb.web.kntc.tiep_dan.TimKiemStdAction" parameter="method" scope="request">
+			<forward name="success" path="kntc2/action_search/kntc_tim_kiem_1lan.jsp" />			
+		</action>
+		
+		<action name="stdTimKiemForm" path="/kntc_tim_kiem_phan_loai_tc" type="cmc.com.ktnb.web.kntc.tiep_dan.TimKiemStdAction" parameter="method" scope="request">
+			<forward name="success" path="kntc2/action_search/kntc_tim_kiem_phan_loai_tc.jsp" />			
+		</action>
+		<!-- Khong biet sao ngay xua lai tach form nay -->
+		<action name="stdTimKiemForm" path="/xm_tim_kiem" type="cmc.com.ktnb.web.kntc.xac_minh.TimKiemHoSoXmAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/xldkn/xac_minh/xm_tim_kiem.jsp" />
+		</action>
+		<action name="phieuHenForm" path="/kntc_phieu_hen" type="cmc.com.ktnb.web.kntc.tiep_dan.PhieuHenAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/std/std_phieu_hen.jsp" />
+		</action>
+		<action name="phanCongCanBoForm" path="/kntc_phan_cong_can_bo" type="cmc.com.ktnb.web.kntc.tiep_dan.PhanCongCanBoAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/std/std_phan_cong_can_bo.jsp" />
+			<forward name="tvd" path="kntc/std/std_phan_cong_can_bo.jsp" />
+		</action>
+		<action name="baoCaoKqXmForm" path="/kntc_bc_kq_xm" type="cmc.com.ktnb.web.kntc.xac_minh.XacMinhHoSo" parameter="method" scope="request">
+			<forward name="bbKqXm" path="kntc/xldkn/xac_minh/bao_cao_kqxm.jsp" />
+			<forward name="bbKqXmTc" path="kntc/xldtc/xac_minh/bao_cao_kqxm.jsp" />
+		</action>
+		<action name="xacMinhForm" path="/kntc_xac_minh" type="cmc.com.ktnb.web.kntc.xac_minh.XacMinhHoSo" parameter="method" scope="request">
+			<forward name="success" path="kntc/xldkn/xac_minh/xm_quyet_dinh.jsp" />
+			<forward name="qdtc" path="kntc/xldtc/xac_minh/xm_quyet_dinh.jsp" />
+			<forward name="viewXacMinhKhieuNai" path="kntc/xldkn/xac_minh/xac_minh_kn.jsp"/>
+			<forward name="viewXacMinhToCao" path="kntc/xldtc/xac_minh/xac_minh_tc.jsp"/>
+		</action>
+		<action name="khxmForm" path="/kntc_khxm" type="cmc.com.ktnb.web.kntc.xac_minh.XacMinhHoSo" parameter="method" scope="request">
+			<forward name="khxm" path="kntc/xldkn/xac_minh/ke_hoach.jsp" />
+			<forward name="khxmTc" path="kntc/xldtc/xac_minh/ke_hoach.jsp" />
+			<forward name="bb" path="kntc/xldkn/xac_minh/bien_ban_12.jsp" />
+		</action>
+		<action name="phanCongCanBoForm" path="/phan_cong_can_bo_history" type="cmc.com.ktnb.web.kntc.xu_ly.HistoryPCCBAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/lichsu/phan_cong_can_bo_history.jsp" />
+		</action>
+		<action name="xmPhieuYeuCauForm" path="/kntc_xm_phieu_yc" type="cmc.com.ktnb.web.kntc.xac_minh.tien_hanh.PhieuYeuCauHsTlAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/xldkn/xac_minh/tien_hanh/phieu_yeu_cau_hs_tl.jsp" />
+			<forward name="ycgt" path="kntc/xldkn/xac_minh/tien_hanh/phieu_yc_nkn_giai_trinh.jsp" />
+			<forward name="yktv" path="kntc/xldkn/xac_minh/tien_hanh/phieu_lay_y_kien_tu_van.jsp" />
+			<forward name="tcgd" path="kntc/xldkn/xac_minh/tien_hanh/phieu_giam_dinh.jsp" />
+		</action>
+		<action name="xmBaoCaoForm" path="/kntc_xm_bao_cao" type="cmc.com.ktnb.web.kntc.xac_minh.tien_hanh.BaoCaoAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/xldkn/xac_minh/tien_hanh/bao_cao_nkn_giai_trinh.jsp" />
+		</action>
+		<action name="phanLoaiDonForm" path="/phan_loai_don" type="cmc.com.ktnb.web.kntc.xu_ly.PhanLoaiDonAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/xldkn/phan_loai_don_KN.jsp" />
+		</action>
+		<action name="dxxlForm" path="/phieu_dxxl_kn" type="cmc.com.ktnb.web.kntc.xu_ly.DeXuatXuLyKNAction" parameter="method" scope="request">
+			<forward name="phanloaiHSKN" path="kntc/xldkn/phieu_de_xuat_xu_ly_KN.jsp" />
+			<forward name="phanloaiHSTC" path="kntc/xldkn/phieu_de_xuat_xu_ly_TC.jsp" />
+		</action>
+		<action name="SoTiepDanVanThuForm" path="/kntc_tiep_dan_van_thu" type="cmc.com.ktnb.web.kntc.tiep_dan.SoTiepDanVanThuAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/std/so_tiep_dan_van_thu.jsp" />
+			<forward name="view" path="kntc/std/so_tiep_dan_van_thu.jsp"/>
+		</action>
+		<action name="SoTiepDanVanThuForm" path="/kntc_tiep_dan_van_thu_xem" type="cmc.com.ktnb.web.kntc.tiep_dan.SoTiepDanVanThuAction" parameter="method" scope="request">
+			<forward name="view" path="kntc/std/so_tiep_dan_van_thu_xem.jsp"/>
+		</action>
+		<action name="xmGiahanForm" path="/kntc_xm_gia_han" type="cmc.com.ktnb.web.kntc.xac_minh.XacMinhHoSo" parameter="method" scope="request">
+			<forward name="giahan" path="kntc/xldkn/xac_minh/tien_hanh/gia_han_xac_minh.jsp" />
+		</action>
+		<action name="xmKetQuaForm" path="/kntc_kq_xm" type="cmc.com.ktnb.web.kntc.ket_qua.BaoCaoKetQuaXacMinh" parameter="method" scope="request">
+			<forward name="baocao" path="kntc/xldkn/xac_minh/tien_hanh/bao_cao_kq_gqkn.jsp" />
+			<forward name="qdgq" path="kntc/xldkn/xac_minh/tien_hanh/quyet_dinh_gq_kn.jsp" />
+			<forward name="baocaoketqua" path="kntc/xldkn/xac_minh/tien_hanh/bao_cao_ket_qua_thuc_hien_khieu_nai.jsp" />
+			<forward name="ketThucKhieuNai" path="kntc/xldkn/xac_minh/tien_hanh/ket_thuc_kn.jsp" />
+			
+			<forward name="klndtc" path="kntc/xldtc/xac_minh/tien_hanh/ket_luan_noi_dung_tc.jsp" />
+			<forward name="tbkqgqtc" path="kntc/xldtc/xac_minh/tien_hanh/thong_bao_ket_qua_gqtc.jsp" />
+			<forward name="baocaoketquatc" path="kntc/xldtc/xac_minh/tien_hanh/bao_cao_ket_qua_giai_quyet_tc.jsp" />
+			<forward name="ketThucToCao" path="kntc/xldtc/xac_minh/tien_hanh/ket_thuc_tc.jsp" />
+		</action>
+		<action name="baoCaoKqThucHienForm" path="/kntc_bckqth" type="cmc.com.ktnb.web.kntc.ket_qua.BaoCaoKetQuaThucHienAction" parameter="method" scope="request">
+			<!-- <forward name="baocaoketqua" path="kntc/xldkn/xac_minh/tien_hanh/bao_cao_ket_qua_thuc_hien_khieu_nai.jsp" /> -->
+		</action>
+		<action name="xmTcKetQuaForm" path="/kntc_kq_xm_tc" type="cmc.com.ktnb.web.kntc.ket_qua.BaoCaoKetQuaXacMinh" parameter="method" scope="request">
+			<forward name="bcKqXmTc" path="kntc/xldtc/xac_minh/tien_hanh/bao_cao_kq_xm_main.jsp" />
+			
+			<forward name="ketLuanTc" path="kntc/xldtc/ket_luan/ket_luan_main.jsp" />
+		</action>
+		<action name="qdGqForm" path="/kntc_qdgq" type="cmc.com.ktnb.web.kntc.ket_qua.QuyetDinhGqKnAction" parameter="method" scope="request">
+			<!-- <forward name="qdgq" path="kntc/xldkn/xac_minh/tien_hanh/quyet_dinh_gq_kn.jsp" /> -->
+			<forward name="rutdon" path="kntc/xldkn/xac_minh/tien_hanh/rut_don_kntc.jsp" />
+			<forward name="theodoi" path="kntc/xldkn/theo_doi_thi_hanh_KNTC.jsp" />
+		</action>
+		<action name="phieuHdNknForm" path="/kntc_dxxl" type="cmc.com.ktnb.web.kntc.xu_ly.PhieuHdNKnAction" parameter="method" scope="request">
+			<forward name="phieuHdNkn" path="kntc/xldkn/phieu_huong_dan_nkn.jsp" />
+			<forward name="phieuCd" path="kntc/xldkn/phieu_chuyen_don.jsp" />
+			<forward name="phieuCdTc" path="kntc/xldtc/phieu_chuyen_don.jsp" />
+			<forward name="phieuTd" path="kntc/xldkn/phieu_tra_don.jsp" />
+			<forward name="thongBaoKThuLy" path="kntc/xldkn/thong_bao_khong_thu_ly.jsp" />
+			<forward name="thongBaoThuLy" path="kntc/xldkn/thong_bao_thu_ly.jsp" />
+			<forward name="chuyenDieuTra" path="kntc/xldtc/xac_minh/chuyen_don_cqdt/phieu_chuyen_don_25A.jsp" />
+		</action>
+		<action name="khxmForm" path="/kntc_bb" type="cmc.com.ktnb.web.kntc.xac_minh.XacMinhHoSo" parameter="method" scope="request">
+			<forward name="bb25B" path="kntc/xldtc/xac_minh/chuyen_don_cqdt/bien_ban_bg_cqdt.jsp" />
+		</action>
+		<action name="troGiupForm" path="/kntc_tg" type="cmc.com.ktnb.web.kntc.TroGiupAction" parameter="method" scope="request">
+			<forward name="lopDt" path="kntc/tro_giup/tg_lop_dao_tao.jsp" />
+		</action>
+		<action name="reportForm" path="/kntc_rp" type="cmc.com.ktnb.web.kntc.bao_cao.BaocaoAction" parameter="method" scope="request">
+			<forward name="bc28" path="report/kntc_28.jsp" />
+			<forward name="bcKn" path="report/kntc_29.jsp" />
+			<forward name="29" path="report/kntc_29.jsp" />
+			<forward name="29A" path="report/kntc_29A.jsp" />
+			<forward name="29B" path="report/kntc_29B.jsp" />
+			<forward name="bcKnNd" path="report/kntc_29C.jsp" />
+			<forward name="bcTcNd" path="report/kntc_30C.jsp" />
+			<forward name="bcTc" path="report/kntc_30.jsp" />
+			<forward name="31" path="report/kntc_31.jsp" />
+			<forward name="bcTtKt" path="report/ttkt.jsp" />
+			<forward name="bctt01" path="report/ttkt.jsp" />
+			<forward name="bctt02" path="report/ttkt02.jsp" />
+			<forward name="bctt43f" path="report/ttkt43f.jsp" />
+			<forward name="bcTtKt43E" path="report/ttkt_43E.jsp" />
+			<forward name="bc2a" path="report/kntc_2a.jsp" />
+			<forward name="bc2b" path="report/kntc_2b.jsp" />
+			<forward name="bc2c" path="report/kntc_2c.jsp" />
+			<forward name="bc2d" path="report/kntc_2d.jsp" />
+			<forward name="bc2dd" path="report/kntc_2dd.jsp" />
+			<forward name="bc1a" path="report/ttkt_1a.jsp" />
+			<forward name="bc1b" path="report/ttkt_1b.jsp" />
+		</action>
+		<action name="daTiepNhanForm" path="/kntc_da_tiep_nhan" type="cmc.com.ktnb.web.kntc.tiep_dan.DaTiepNhanAction" scope="request" parameter="method">
+			<forward name="success" path="kntc/std/xu_ly_ho_so_da_tn.jsp" />
+			<forward name="gopHs" path="kntc/std/gop_ho_so.jsp" />
+		</action>
+		<action name="tachDonForm" path="/kntc_tach_don" type="cmc.com.ktnb.web.kntc.xu_ly.DeXuatXuLyKNAction" parameter="method" scope="request">
+			<forward name="tachDon" path="kntc/std/tach_don.jsp" />
+			<forward name="success" path="kntc/std/tach_don.jsp" />
+		</action>
+		<action name="lichTrinhDuKienForm" path="/lich_trinh_du_kien" type="cmc.com.ktnb.web.kntc.xu_ly.LichTrinhDuKienAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/xlkhac/lich_trinh_du_kien.jsp" />
+		</action>
+		<action name="thongBaoKQGQToCaoForm" path="/tb_kqgq_tc" type="cmc.com.ktnb.web.kntc.xu_ly.ThongBaoKQGQToCaoAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/xldtc/ket_luan/thong_bao_kqgq_tc.jsp" />
+		</action>
+	</action-mappings>
+</struts-config>

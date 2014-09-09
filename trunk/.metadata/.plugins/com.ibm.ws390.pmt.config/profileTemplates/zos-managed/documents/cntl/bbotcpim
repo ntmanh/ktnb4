@@ -1,0 +1,43 @@
+;                                                                               
+; The following needs to be added following the PORT statement                  
+;                                                                               
+;                                                                               
+ &ANPORT.   TCP &MNANSSNS.   ; SOAP JMX Connector port                          
+;                                                                               
+ &ANNDPORT. TCP &MNANSSNS.   ; Node Discovery port                              
+;                                                                               
+ &ANNMCDPT. TCP &MNANSSNS.   ; Node Multicast Discovery port                    
+;                                                                               
+ &ANIPV6MC. TCP &MNANSSNS.   ; IPv6 Node Multicast Discovery port               
+;                                                                               
+ &ANOLAP.   TCP &MNANSSNS.   ; Node Agent's ORB port                            
+;                                                                               
+ &ANDCSPRT. TCP &MNANSSNS.   ; High Availability manager                        
+;                                communications port                            
+;                                                                               
+)SEL &ANOSSLAP ^= 0                                                             
+ &ANOSSLAP TCP &MNANSSNS. NODELAYACKS  ; Node Agent's ORB SSL port              
+;                                                                               
+)ENDSEL                                                                         
+)BLANK                                                                          
+;/*********************************************************************/        
+;/* Licensed Material - Property of IBM                               */        
+;/*                                                                   */        
+;/* 5724-I63, 5724-H88, 5655-N01, 5733-W61                            */        
+;/* (C) Copyright IBM Corp. 1999, 2006                                */        
+;/* All Rights Reserved                                               */        
+;/* US Government Users Restricted Rights - Use, duplication or       */        
+;/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. */        
+;/*                                                                   */        
+;/* File Tailored on &ZDATE at &ZTIMEL by &ZUSER */                             
+;/* From source skeleton: &skin */                                              
+;/*********************************************************************/        
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   257033  H28W601 022205    DB: initial creation                 */         
+)CM   358147   H28W610 032706    DB: add IPv6 node multicast port    */
+)CM   338960  H28W610 043006    DB: add NODELAYACKS for ssl ports    */         
+)CM                                                                  */         
+)CM ================================================================ */         

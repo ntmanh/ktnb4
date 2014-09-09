@@ -1,0 +1,45 @@
+/*REXX*/
+/* ================================================================ */
+/* PROPRIETARY-STATEMENT:                                           */         
+/* Licensed Material - Property of IBM                              */         
+/*                                                                  */
+/* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */
+/* (C) Copyright IBM Corp. 1999, 2006                               */
+/* All Rights Reserved                                              */
+/* US Government Users Restricted Rights - Use, duplication or      */
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/
+/* ================================================================ */         
+/*                                                                  */
+/* FUNCTION:                                                        */
+/* Writes HFS <infile> to SYSOUT                                    */
+/*                                                                  */
+/* ================================================================ */
+/*------------------------------------------------------------------*/
+/* STEPS:                                                           */
+/*       1. Called from a batch job to write an HFS file to SYSOUT. */
+/*                                                                  */
+<!-- Change Activity:                                              -->
+<!--                                                               -->
+<!--  $L0=f1614.SHIP.1 H28K510 990812 PDVY: Initial release        -->
+<!--  $P0=d7796        H28K510 20000309 PDVK: renamed file from    -->
+<!--                                          hfsfwtr to bbohfswr  -->
+<!--  $P1=MD08811      H28K510 20000630 PDRA: use readfile not     -->
+<!--                                          not EXECIO           -->
+<!--  $P2=LIDB4584-17  V6.1    20070426 PDOP: initial EJB3 version -->
+/* ================================================================ */
+
+parse arg infile .
+
+call syscalls 'ON'
+address syscall
+
+'readfile' (infile) line.
+
+if retval<>0 then
+   say 'ERROR: Unable to read file' path'. Error: 'errno errnojr
+else
+   do n=1 to line.0
+   say line.n
+   end
+
+exit 0

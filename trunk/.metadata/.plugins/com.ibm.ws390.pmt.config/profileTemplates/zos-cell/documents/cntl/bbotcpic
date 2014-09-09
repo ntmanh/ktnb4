@@ -1,0 +1,108 @@
+;                                                                               
+; The following needs to be added following the PORT statement                  
+;                                                                               
+; Deployment Manager definitions                                                 
+;                                                                               
+ &DMSPORT  TCP &DMSSNS.     ; SOAP JMX Connector port                           
+;                                                                               
+ &DMCDADDP TCP &DMSSNS.     ; Cell Discovery Address port                       
+;                                                                               
+ &DMOLADDP TCP &DMSSNS.     ; ORB port                                          
+;                                                                               
+)SEL &DMOSSLAP ^= 0                                                             
+ &DMOSSLAP TCP &DMSSNS.  NODELAYACKS   ; ORB SSL port                                      
+;                                                                               
+)ENDSEL                                                                         
+ &DMACPRT  TCP &DMSSNS.     ; Admin Console Port                                
+;                                                                               
+ &DMACSPRT TCP &DMSSNS.  NODELAYACKS   ; Admin Console Secure Port                         
+;                                                                               
+ &DMDCSPRT TCP &DMSSNS.     ; High Availability manager                         
+;                               communications port                             
+;                                                                               
+ &DMNIPPR2 TCP &DMNJNAM2.   ; Daemon port                                       
+;                                                                               
+ &DMNSLPR2 TCP &DMNJNAM2.  NODELAYACKS ; Daemon SSL port                                   
+;                                                                               
+)BLANK                                                                          
+;                                                                               
+; Application Server node definitions                                           
+;                                                                               
+ &ASSPORT TCP &ASSSNS.     ; SOAP JMX Connector port                            
+;                                                                               
+ &ASOLAP TCP &ASSSNS.      ; ORB port                                           
+;                                                                               
+)SEL &ASOSSLAP ^= 0                                                             
+ &ASOSSLAP TCP &ASSSNS.  NODELAYACKS  ; ORB SSL port                                       
+;                                                                               
+)ENDSEL                                                                         
+ &ASVHHA1P TCP &ASSSNS.    ; HTTP port                                          
+;                                                                               
+ &ASVHHA2P TCP &ASSSNS.   NODELAYACKS ; HTTPS port                                         
+;                        
+ &ASIPPORT TCP &ASSSNS.    ; Session Initiation Protocol                        
+;                              (SIP) Port                                       
+;                                                                               
+ &ASIPSEC  TCP &ASSSNS. NODELAYACKS  ;Session Initiation Protocol                        
+;                              (SIP) Secure Port                                
+;                                                                               
+ &ASDCSPRT TCP &ASSSNS.    ; High Availability Manager                          
+;                              Communications Port                              
+;                                                                               
+ &ASSIPRT  TCP &ASSSNS.A   ; Service Integration port                           
+;                                                                               
+ &ASSISEC  TCP &ASSSNS.A  NODELAYACKS ;Service Integration secure port                    
+;                                                                               
+ &ASSIMQ   TCP &ASSSNS.A   ; Service Integration MQ                             
+;                              Interoperability port                            
+;                                                                               
+ &ASSIMQS  TCP &ASSSNS.A  NODELAYACKS ; Service Integration MQ                             
+;                              Interoperability secure port 
+;                                                                               
+; Node agent definitions                                           
+;                                                                               
+ &ANPORT    TCP &ANSSNS.     ; SOAP JMX Connector port                          
+;                                                                               
+ &ANNDPORT  TCP &ANSSNS.     ; Node Discovery port                              
+;                                                                               
+ &ANNMCDPT  TCP &ANSSNS.     ; Node Multicast Discovery port                    
+;                                                                
+ &ANIPV6MC. TCP &ANSSNS.     ; IPv6 Node Multicast Discovery port
+;                                                                                                                                              
+ &ANOLAP    TCP &ANSSNS.     ; Node Agent's ORB port                            
+;                                                                               
+ &ANDCSPRT  TCP &ANSSNS.     ; High Availability manager                        
+;                                communications port                            
+;                                                                               
+)SEL &ANOSSLAP ^= 0                                                             
+ &ANOSSLAP TCP &ANSSNS.  NODELAYACKS ; Node Agent's ORB SSL port                        
+;                                                                               
+)ENDSEL                                                                                                                                                           
+)BLANK                                                                          
+;/*********************************************************************/        
+;/* Licensed Material - Property of IBM                               */        
+;/*                                                                   */        
+;/* 5724-I63, 5724-H88, 5655-N01, 5733-W61                            */        
+;/* (C) Copyright IBM Corp. 1999, 2006                                */        
+;/* All Rights Reserved                                               */        
+;/* US Government Users Restricted Rights - Use, duplication or       */        
+;/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp. */        
+;/*                                                                   */        
+;/* File Tailored on &ZDATE at &ZTIMEL by &ZUSER */                             
+;/* From source skeleton: &skin */                                              
+;/*********************************************************************/        
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM  LIDB3773-25	H28W610	110405	DB: Initial creation         */
+)CM  319766  	        H28W610	110705	DB: Add appserver node ports */
+)CM  321972             H28W610 110805  DB: Remove uneeded daemon    */
+)CM                                         ports                    */                                                                 */
+)CM  327875             H28W610 113005  DB: add nodeagent ports      */  
+)CM  329092             H28W610 120505  DB: remove unneeded periods  */
+)CM  332729             H28W610 011006  DB: remove duplicate admin   */
+)CM                                          ports and fix typo      */
+)CM  358147   H28W610 032706    DB: add IPv6 node multicast port     */
+)CM   338960  H28W610 043006   DB: add NODELAYACKS for ssl ports     */           
+)CM ================================================================ */         

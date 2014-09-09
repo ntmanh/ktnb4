@@ -1,0 +1,998 @@
+------Start of DE processing------ = [5/27/14 9:29:54:146 GMT] , key = java.sql.SQLException com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement.executeUpdate 449
+Exception = java.sql.SQLException
+Source = com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement.executeUpdate
+probeid = 449
+Stack Dump = java.sql.SQLException: ORA-12899: value too large for column "KTNB_OWNER"."KTNB_LOG"."ACTION" (actual: 1045, maximum: 1000)
+
+	at oracle.jdbc.driver.DatabaseError.throwSqlException(DatabaseError.java:124)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:304)
+	at oracle.jdbc.driver.T4CTTIoer.processError(T4CTTIoer.java:271)
+	at oracle.jdbc.driver.T4C8Oall.receive(T4C8Oall.java:623)
+	at oracle.jdbc.driver.T4CPreparedStatement.doOall8(T4CPreparedStatement.java:179)
+	at oracle.jdbc.driver.T4CPreparedStatement.execute_for_rows(T4CPreparedStatement.java:788)
+	at oracle.jdbc.driver.OracleStatement.doExecuteWithTimeout(OracleStatement.java:1032)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeInternal(OraclePreparedStatement.java:2884)
+	at oracle.jdbc.driver.OraclePreparedStatement.executeUpdate(OraclePreparedStatement.java:2956)
+	at com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement.executeUpdate(WSJdbcPreparedStatement.java:483)
+	at cmc.com.ktnb.util.KtnbLogging.insertLog(KtnbLogging.java:68)
+	at cmc.com.ktnb.util.BaseHibernateDAO.saveObject(BaseHibernateDAO.java:58)
+	at cmc.com.ktnb.web.ttkt.service.TtktService.saveDeCuong(TtktService.java:1334)
+	at cmc.com.ktnb.web.ttkt.chuan_bi_tien_hanh.action.ChuanBiTienHanhAction.saveDeCuong(ChuanBiTienHanhAction.java:1153)
+	at cmc.com.ktnb.web.ttkt.chuan_bi_tien_hanh.action.ChuanBiTienHanhAction.saveCbth(ChuanBiTienHanhAction.java:444)
+	at cmc.com.ktnb.web.ttkt.chuan_bi_tien_hanh.action.ChuanBiTienHanhAction.execute(ChuanBiTienHanhAction.java:126)
+	at org.apache.struts.action.RequestProcessor.processActionPerform(RequestProcessor.java:484)
+	at org.apache.struts.action.RequestProcessor.process(RequestProcessor.java:274)
+	at org.apache.struts.action.ActionServlet.process(ActionServlet.java:1482)
+	at org.apache.struts.action.ActionServlet.doPost(ActionServlet.java:525)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:760)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:853)
+	at com.ibm.ws.webcontainer.servlet.StrictServletInstance.doService(StrictServletInstance.java:110)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet._service(StrictLifecycleServlet.java:174)
+	at com.ibm.ws.webcontainer.servlet.IdleServletState.service(StrictLifecycleServlet.java:313)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet.service(StrictLifecycleServlet.java:116)
+	at com.ibm.ws.webcontainer.servlet.ServletInstance.service(ServletInstance.java:283)
+	at com.ibm.ws.webcontainer.servlet.ValidServletReferenceState.dispatch(ValidServletReferenceState.java:42)
+	at com.ibm.ws.webcontainer.servlet.ServletInstanceReference.dispatch(ServletInstanceReference.java:40)
+	at com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(WebAppFilterChain.java:76)
+	at cmc.com.ktnb.util.AuthenticationFilter.doFilter(AuthenticationFilter.java:99)
+	at com.ibm.ws.webcontainer.filter.FilterInstanceWrapper.doFilter(FilterInstanceWrapper.java:132)
+	at com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(WebAppFilterChain.java:71)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.handleWebAppDispatch(WebAppRequestDispatcher.java:1162)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.dispatch(WebAppRequestDispatcher.java:676)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.forward(WebAppRequestDispatcher.java:203)
+	at com.ibm.ws.webcontainer.srt.WebAppInvoker.doForward(WebAppInvoker.java:125)
+	at com.ibm.ws.webcontainer.srt.WebAppInvoker.handleInvocationHook(WebAppInvoker.java:300)
+	at com.ibm.ws.webcontainer.cache.invocation.CachedInvocation.handleInvocation(CachedInvocation.java:71)
+	at com.ibm.ws.webcontainer.srp.ServletRequestProcessor.dispatchByURI(ServletRequestProcessor.java:246)
+	at com.ibm.ws.webcontainer.oselistener.OSEListenerDispatcher.service(OSEListener.java:334)
+	at com.ibm.ws.webcontainer.http.HttpConnection.handleRequest(HttpConnection.java:56)
+	at com.ibm.ws.http.HttpConnection.readAndHandleRequest(HttpConnection.java:652)
+	at com.ibm.ws.http.HttpConnection.run(HttpConnection.java:458)
+	at com.ibm.ws.util.ThreadPool$Worker.run(ThreadPool.java:936)
+
+Dump of callerThis = 
+Object type = com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement@5de35de3
+  _______________________________________________________________________
+  
+  Displaying FFDC information for wrapper hierarchy,
+
+  beginning from the Connection...
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.jdbc.WSJdbcConnection@59355935
+  _______________________________________________________________________
+  
+  com.ibm.ws.rsadapter.jdbc.WSJdbcConnection@59355935
+
+  Transaction Manager global transaction status is
+    STATUS ACTIVE
+
+  Underlying Connection: oracle.jdbc.driver.LogicalConnection@70727072
+    oracle.jdbc.driver.LogicalConnection@70727072
+
+  Key Object:
+    [B@1a2e1a2e
+
+  DataStoreHelper:
+    com.ibm.websphere.rsadapter.OracleDataStoreHelper@7eeb7eeb
+
+  Connection Manager:
+    [ConnectionManager]@58a958a9
+JNDI Name <jdbc/ktnbDS>
+shareable <true>
+
+
+  Connection Manager Configuration Data:
+    [Resource-ref settings]
+
+	res-auth:                 1 (APPLICATION)
+	res-isolation-level:      0 (TRANSACTION_NONE)
+	res-sharing-scope:        true (SHAREABLE)
+	res-resolution-control:   0 (RESOLVER_APPLICATION)
+[Other attributes]
+
+isCMP1_x:                 false (not CMP1.x)
+isJMS:                 false (not JMS)
+
+
+  Handle is reserved? false
+
+  AutoCommit value tracked by handle: true
+
+  Detection of multithreaded access is:
+    DISABLED
+
+  Thread id:
+    null
+
+  Wrapper State: 
+    ACTIVE
+
+  Parent wrapper:
+    null
+
+  Child wrappers:
+
+    null
+    com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement@5de35de3
+  
+  Performance Monitoring Instrumentation:
+    null
+
+  ____________________________________________________________
+
+  Child Wrapper #1
+
+  com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement@5de35de3
+
+  Underlying Statement: oracle.jdbc.driver.T4CPreparedStatement@59bb59bb
+    oracle.jdbc.driver.T4CPreparedStatement@59bb59bb
+
+  Statement properties have changed? false
+
+  key:
+    PSTMT: insert into ktnb_log values(?,sysdate,?,?,?,?,?) 1003 1007 0
+
+  Wrapper State: 
+    ACTIVE
+
+  Parent wrapper:
+    com.ibm.ws.rsadapter.jdbc.WSJdbcConnection@59355935
+
+  Child wrappers:
+
+    null
+  
+  Performance Monitoring Instrumentation:
+    null
+
+  
+  ConnectionRequestInfo:
+    null
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSManagedConnectionFactoryImpl@33c033c0
+  _______________________________________________________________________
+  
+  Detection of multithreaded access is
+    DISABLED
+
+  DataSource properties:
+    {statementCacheSize=10, password=******, dataSourceName=, networkProtocol=, oraclelogModuleMask=1, portNumber=1521, preTestSQLString=SELECT 1 FROM DUAL, URL=jdbc:oracle:thin:@localhost:1522:KTNB, dataSourceClass=oracle.jdbc.pool.OracleConnectionPoolDataSource, serverName=, loginTimeout=, connRetriesDuringDBFailover=100, dataStoreHelperClass=com.ibm.websphere.rsadapter.OracleDataStoreHelper, enableMultithreadedAccessDetection=false, driverType=, dbFailOverEnabled=false, description=, TNSEntryName=, connRetryIntervalDuringDBFailover=3000, oraclelogPrintMask=62, oraclelogCategoryMask=47, databaseName=, user=ktnb_owner}
+
+  Database Type:
+    null
+
+  DataStoreHelper:
+    com.ibm.websphere.rsadapter.OracleDataStoreHelper@7eeb7eeb
+
+  Description:
+    null
+
+  InternalDataStoreHelper:
+    com.ibm.ws.rsadapter.spi.InternalOracleDataStoreHelper@21fa21fa
+
+  Login Timeout:
+    0
+
+  Log Writer:
+    null
+
+  Performance Monitoring Instrumentation:
+    null
+
+  Statement Cache Size (maximum):
+    10
+
+  Transaction Resource Registration:
+    dynamic
+
+  Transaction Branches are set to be Loosely Coupled: 
+    false
+
+  Backend id checking is: 
+    true
+
+  dbFailOverEnabled: 
+    false
+
+  connectionRetriesDuringDBFailover: 
+    100
+
+  connRetryDurationDuringDBFailover: 
+    3000
+
+  Connection Factory Type:
+    com.ibm.ws.rsadapter.jdbc.WSJdbcDataSource
+
+  Implicit Handle Reactivation is
+    ENABLED
+
+  Listing CCI ConnectionFactories:
+
+  
+  Listing JDBC ConnectionFactories (DataSources):
+
+    com.ibm.ejs.j2c.ConnectionManager@58a958a9 --> com.ibm.ws.rsadapter.jdbc.WSJdbcDataSource@4b574b57
+  
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSRdbDataSource@7f357f35
+  _______________________________________________________________________
+  
+  DataSource Implementation Class Name:
+    oracle.jdbc.pool.OracleConnectionPoolDataSource
+
+  DataSource Name:
+    null
+
+  DataStoreHelper:
+    com.ibm.websphere.rsadapter.OracleDataStoreHelper@7eeb7eeb
+
+  DataSource properties:
+    {statementCacheSize=10, password=******, dataSourceName=, networkProtocol=, oraclelogModuleMask=1, portNumber=1521, preTestSQLString=SELECT 1 FROM DUAL, URL=jdbc:oracle:thin:@localhost:1522:KTNB, dataSourceClass=oracle.jdbc.pool.OracleConnectionPoolDataSource, serverName=, loginTimeout=, connRetriesDuringDBFailover=100, dataStoreHelperClass=com.ibm.websphere.rsadapter.OracleDataStoreHelper, enableMultithreadedAccessDetection=false, driverType=, dbFailOverEnabled=false, description=, TNSEntryName=, connRetryIntervalDuringDBFailover=3000, oraclelogPrintMask=62, oraclelogCategoryMask=47, databaseName=, user=ktnb_owner}
+
+  ONE PHASE ENABLED
+
+  Underlying DataSource Object: oracle.jdbc.pool.OracleConnectionPoolDataSource@bf00bf
+    oracle.jdbc.pool.OracleConnectionPoolDataSource@bf00bf
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl@1a711a71
+  _______________________________________________________________________
+  
+  ONE PHASE ENABLED
+
+  Database Type:
+    null
+
+  Transaction State:
+    LOCAL_TRANSACTION_ACTIVE
+
+  Statement Cache Size (maximum):
+    10
+
+  Key:
+    [B@1a2e1a2e
+
+  Performance Monitoring Instrumentation:
+    null
+
+  Log Writer:
+    null
+
+  Default AutoCommit:
+    true
+
+  Current AutoCommit:
+    false
+
+  Current Isolation:
+    READ COMMITTED
+
+  Support isolation level switching: 
+    false
+
+  Thread ID:
+    null
+
+  Already Processed Interaction Pending Event?
+    true
+
+  Underlying Connection Object: oracle.jdbc.driver.LogicalConnection@70727072
+    oracle.jdbc.driver.LogicalConnection@70727072
+
+  Underlying PooledConnection Object: oracle.jdbc.pool.OraclePooledConnection@6f806f80
+    oracle.jdbc.pool.OraclePooledConnection@6f806f80
+
+  SQLJ Default Context: null
+    null
+
+  Driver version:
+    10.1.0.3.0
+
+  Database version:
+    Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+  Connection Event Listeners:
+
+    com.ibm.ejs.j2c.ConnectionEventListener@67196719
+  
+  Maximum Handle List Size: 15
+
+  Handle Count: 1
+
+  Handles:
+
+    com.ibm.ws.rsadapter.jdbc.WSJdbcConnection@59355935
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+  
+  State Manager:
+    com.ibm.ws.rsadapter.spi.WSStateManager@66446644
+
+  XA Resource:
+    null
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSRdbSpiLocalTransactionImpl@6e0c6e0c
+  _______________________________________________________________________
+  
+  Connection:
+    oracle.jdbc.driver.LogicalConnection@70727072
+
+  ManagedConnection:
+    com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl@1a711a71
+
+  Detection of multithreaded access is:
+    DISABLED
+
+  ManagedConnectionMetaData:
+    null
+
+  Statement Cache:
+    
+com.ibm.ws.rsadapter.spi.CacheMap@648d648d
+Number of entries:   10
+Maximum entries:     10
+Number of buckets:   13
+Maximum bucket size: 5
+Number of discards:  23
+
+BUCKET SIZE PREV NEXT
+  000  003  002  006
+                      15891589 PSTMT: select ngay_nghi from ktnb_dm_ngay_nghi where nam between ? and ? 1003 1007 0
+                      5b385b38 PSTMT: select this_.ID as ID52_0_, this_.ID_CUOC_TTKT as ID2_52_0_, this_.NGAY_LAP as NGAY3_52_0_, this_.NOI_LAP as NOI4_52_0_, this_.NOI_PHE_DUYET as NOI5_52_0_, this_.NGAY_PHE_DUYET as NGAY6_52_0_, this_.Y_KIEN_PHE_DUYET as Y7_52_0_, this_.ID_DS_TVD_CU as ID8_52_0_, this_.ISNEW as ISNEW52_0_, this_.VB_QUY_DINH_CNANG_NVU as VB10_52_0_, this_.ID_NGUOI_CAP_NHAT as ID11_52_0_, this_.TEN_NGUOI_CAP_NHAP as TEN12_52_0_, this_.NGAY_CAP_NHAT as NGAY13_52_0_ from KTNB_OWNER.TTKT_CB_DS_TV_DOAN this_ where (this_.ID_CUOC_TTKT=? and this_.ID_DS_TVD_CU is null) 1003 1007 0
+                      41524152 PSTMT: select this_.ID as ID53_0_, this_.ID_DS_TVD as ID2_53_0_, this_.ID_CAN_BO as ID3_53_0_, this_.TEN_CAN_BO as TEN4_53_0_, this_.ID_PHONG as ID5_53_0_, this_.TEN_PHONG as TEN6_53_0_, this_.ID_CQT as ID7_53_0_, this_.TEN_CQT as TEN8_53_0_, this_.CHUC_VU as CHUC9_53_0_, this_.CHUC_VU_TRONG_DOAN as CHUC10_53_0_, this_.Y_KIEN as Y11_53_0_ from KTNB_OWNER.TTKT_CB_CHI_TIET_DS_TV_DOAN this_ where this_.ID_DS_TVD=? 1003 1007 0
+  001  001  007  014
+                      4ff94ff9 PSTMT: delete TTKT_CM_HS_TL where MASTER_ID = '140522100843000000000000722934' 1003 1007 0
+  002  001  011  000
+                      3cef3cef PSTMT: select this_.ID as ID79_0_, this_.ID_MASTER as ID2_79_0_, this_.HO_TEN as HO3_79_0_, this_.CHUC_VU as CHUC4_79_0_, this_.ID_CAN_BO as ID5_79_0_, this_.PHAN_LOAI as PHAN6_79_0_, this_.ID_NGUOI_CAP_NHAT as ID7_79_0_, this_.TEN_NGUOI_CAP_NHAP as TEN8_79_0_, this_.NGAY_CAP_NHAT as NGAY9_79_0_ from KTNB_OWNER.TTKT_CM_THANH_PHAN_THAM_DU this_ where this_.ID_MASTER=? 1003 1007 0
+  003  000  013  013
+  004  000  013  013
+  005  000  013  013
+  006  001  000  007
+                      6250625 PSTMT: select ma,ten from ktnb_dm where parent_id =? and ngay_het_hl is null order by ten 1003 1007 0
+  007  003  006  001
+                      72d072d PSTMT: select this_.ID as ID52_0_, this_.ID_CUOC_TTKT as ID2_52_0_, this_.NGAY_LAP as NGAY3_52_0_, this_.NOI_LAP as NOI4_52_0_, this_.NOI_PHE_DUYET as NOI5_52_0_, this_.NGAY_PHE_DUYET as NGAY6_52_0_, this_.Y_KIEN_PHE_DUYET as Y7_52_0_, this_.ID_DS_TVD_CU as ID8_52_0_, this_.ISNEW as ISNEW52_0_, this_.VB_QUY_DINH_CNANG_NVU as VB10_52_0_, this_.ID_NGUOI_CAP_NHAT as ID11_52_0_, this_.TEN_NGUOI_CAP_NHAP as TEN12_52_0_, this_.NGAY_CAP_NHAT as NGAY13_52_0_ from KTNB_OWNER.TTKT_CB_DS_TV_DOAN this_ where this_.ID=? 1003 1007 0
+                      63cf63cf PSTMT: select this_.ID as ID56_0_, this_.MASTER_ID as MASTER2_56_0_, this_.LOAI as LOAI56_0_, this_.TEN as TEN56_0_, this_.NOI_DUNG as NOI5_56_0_, this_.THOI_GIAN_BAN_GIAO as THOI6_56_0_, this_.DIA_DIEM_NHAN_ID as DIA7_56_0_, this_.DIA_DIEM_NHAN_NAME as DIA8_56_0_, this_.NGUOI_NHAN_ID as NGUOI9_56_0_, this_.NGUOI_NHAN_NAME as NGUOI10_56_0_, this_.THOI_KY_TU as THOI11_56_0_, this_.THOI_KY_DEN as THOI12_56_0_, this_.HINH_THUC as HINH13_56_0_ from KTNB_OWNER.TTKT_CM_HS_TL this_ where this_.MASTER_ID=? 1003 1007 0
+                      47714771 PSTMT: select this_.ID as ID58_0_, this_.ID_CUOC_TTKT as ID2_58_0_, this_.SO_QUYET_DINH as SO3_58_0_, this_.DIA_DIEM_RA_QUYET_DINH as DIA4_58_0_, this_.NGAY_RA_QUYET_DNH as NGAY5_58_0_, this_.THU_TRUONG_CAC_DV_LIEN_QUAN as THU6_58_0_, this_.ID_NGUOI_CHI_DAO_GIAM_SAT as ID7_58_0_, this_.CHUC_VU_NGUOI_CHI_DAO_GIAM_SAT as CHUC8_58_0_, this_.TEN_NGUOI_CHI_DAO_GIAM_SAT as TEN9_58_0_, this_.VB_QUY_DINH_CNANG_NVU as VB10_58_0_, this_.VAN_BAN_KE_HOACH as VAN11_58_0_, this_.ID_NGUOI_CAP_NHAT as ID12_58_0_, this_.TEN_NGUOI_CAP_NHAP as TEN13_58_0_, this_.NGAY_CAP_NHAT as NGAY14_58_0_ from KTNB_OWNER.TTKT_CB_QD this_ where this_.ID_CUOC_TTKT=? 1003 1007 0
+  008  000  013  013
+  009  000  013  013
+  010  000  013  013
+  011  001  013  002
+                      2f732f73 PSTMT: select this_.ID as ID71_0_, this_.ID_CUOC_TTKT as ID2_71_0_, this_.NOI_TRINH as NOI3_71_0_, this_.NGAY_TRINH as NGAY4_71_0_, this_.NOI_PHE_DUYET as NOI5_71_0_, this_.NGAY_PHE_DUYET as NGAY6_71_0_, this_.Y_KIEN_PHE_DUYET as Y7_71_0_, this_.SO_QD as SO8_71_0_, this_.NOI_RA_QD as NOI9_71_0_, this_.NGAY_RQ_QD as NGAY10_71_0_, this_.SO_NGAY_GIA_HAN as SO11_71_0_, this_.GIA_HAN_TU_NGAY as GIA12_71_0_, this_.GIA_HAN_DEN_NGAY as GIA13_71_0_, this_.LY_DO_GIA_HAN as LY14_71_0_, this_.DVI_CNHAN_LQUAN as DVI15_71_0_, this_.VB_QDINH_CNANG_NVU as VB16_71_0_, this_.ID_NGUOI_CAP_NHAT as ID17_71_0_, this_.TEN_NGUOI_CAP_NHAP as TEN18_71_0_, this_.NGAY_CAP_NHAT as NGAY19_71_0_ from KTNB_OWNER.TTKT_TH_GIA_HAN this_ where this_.ID_CUOC_TTKT=? 1003 1007 0
+  012  000  013  013
+  013  LRU       011
+  014  MRU  001
+
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSConnectionRequestInfoImpl@2
+  _______________________________________________________________________
+  
+  User Name:
+    null
+
+  Password:
+    null
+
+  Isolation Level:
+    READ COMMITTED
+
+  Catalog:
+    null
+
+  Is Read Only?
+    null
+
+  Type Map:
+    null
+
+  Hash Code:
+    2
+
+  Support isolation switching on connection:
+    false
+
+  Handle type:
+    java.sql.Connection
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSManagedConnectionFactoryImpl@33c033c0
+  _______________________________________________________________________
+  
+  Detection of multithreaded access is
+    DISABLED
+
+  DataSource properties:
+    {statementCacheSize=10, password=******, dataSourceName=, networkProtocol=, oraclelogModuleMask=1, portNumber=1521, preTestSQLString=SELECT 1 FROM DUAL, URL=jdbc:oracle:thin:@localhost:1522:KTNB, dataSourceClass=oracle.jdbc.pool.OracleConnectionPoolDataSource, serverName=, loginTimeout=, connRetriesDuringDBFailover=100, dataStoreHelperClass=com.ibm.websphere.rsadapter.OracleDataStoreHelper, enableMultithreadedAccessDetection=false, driverType=, dbFailOverEnabled=false, description=, TNSEntryName=, connRetryIntervalDuringDBFailover=3000, oraclelogPrintMask=62, oraclelogCategoryMask=47, databaseName=, user=ktnb_owner}
+
+  Database Type:
+    null
+
+  DataStoreHelper:
+    com.ibm.websphere.rsadapter.OracleDataStoreHelper@7eeb7eeb
+
+  Description:
+    null
+
+  InternalDataStoreHelper:
+    com.ibm.ws.rsadapter.spi.InternalOracleDataStoreHelper@21fa21fa
+
+  Login Timeout:
+    0
+
+  Log Writer:
+    null
+
+  Performance Monitoring Instrumentation:
+    null
+
+  Statement Cache Size (maximum):
+    10
+
+  Transaction Resource Registration:
+    dynamic
+
+  Transaction Branches are set to be Loosely Coupled: 
+    false
+
+  Backend id checking is: 
+    true
+
+  dbFailOverEnabled: 
+    false
+
+  connectionRetriesDuringDBFailover: 
+    100
+
+  connRetryDurationDuringDBFailover: 
+    3000
+
+  Connection Factory Type:
+    com.ibm.ws.rsadapter.jdbc.WSJdbcDataSource
+
+  Implicit Handle Reactivation is
+    ENABLED
+
+  Listing CCI ConnectionFactories:
+
+  
+  Listing JDBC ConnectionFactories (DataSources):
+
+    com.ibm.ejs.j2c.ConnectionManager@58a958a9 --> com.ibm.ws.rsadapter.jdbc.WSJdbcDataSource@4b574b57
+  
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSRdbDataSource@7f357f35
+  _______________________________________________________________________
+  
+  DataSource Implementation Class Name:
+    oracle.jdbc.pool.OracleConnectionPoolDataSource
+
+  DataSource Name:
+    null
+
+  DataStoreHelper:
+    com.ibm.websphere.rsadapter.OracleDataStoreHelper@7eeb7eeb
+
+  DataSource properties:
+    {statementCacheSize=10, password=******, dataSourceName=, networkProtocol=, oraclelogModuleMask=1, portNumber=1521, preTestSQLString=SELECT 1 FROM DUAL, URL=jdbc:oracle:thin:@localhost:1522:KTNB, dataSourceClass=oracle.jdbc.pool.OracleConnectionPoolDataSource, serverName=, loginTimeout=, connRetriesDuringDBFailover=100, dataStoreHelperClass=com.ibm.websphere.rsadapter.OracleDataStoreHelper, enableMultithreadedAccessDetection=false, driverType=, dbFailOverEnabled=false, description=, TNSEntryName=, connRetryIntervalDuringDBFailover=3000, oraclelogPrintMask=62, oraclelogCategoryMask=47, databaseName=, user=ktnb_owner}
+
+  ONE PHASE ENABLED
+
+  Underlying DataSource Object: oracle.jdbc.pool.OracleConnectionPoolDataSource@bf00bf
+    oracle.jdbc.pool.OracleConnectionPoolDataSource@bf00bf
+
+
+==> Performing default dump from com.ibm.ws.rsadapter.DiagnosticModuleForAdapter  = Tue May 27 09:29:54 GMT 2014
+This is a FFDC log generated for the Default Resource Adapter from source = com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement.executeUpdate
+The exception caught = java.sql.SQLException: ORA-12899: value too large for column "KTNB_OWNER"."KTNB_LOG"."ACTION" (actual: 1045, maximum: 1000)
+
+Operating System = Windows XP 6.1 build 7601 Service Pack 1 x86
+Classpath = C:/Program Files/IBM/SDP70/runtimes/express_v51/properties;C:/Program Files/IBM/SDP70/runtimes/express_v51/properties;C:/Program Files/IBM/SDP70/runtimes/express_v51/lib/bootstrap.jar;C:/Program Files/IBM/SDP70/runtimes/express_v51/lib/j2ee.jar;C:/Program Files/IBM/SDP70/runtimes/express_v51/lib/lmproxy.jar;C:/Program Files/IBM/SDP70/runtimes/express_v51/lib/urlprotocols.jar;C:/Program Files/IBM/SDP70Shared/plugins/com.ibm.etools.websphere.tools.v51_6.1.9.v200906140004/wteServers.jar;C:/Program Files/IBM/SDP70Shared/plugins/com.ibm.ws.ast.st.core_6.1.11.v201006060004/stcore.jar;file:C:/Program Files/IBM/SDP70Shared/plugins/com.ibm.ws.ast.st.core.util_6.1.1.v200701171835.jar!/stcoreUtil.jar
+Ext dirs = C:\Program Files\IBM\SDP70\runtimes\express_v51\java\jre\lib\ext
+Other related data. If null, nothing was passed in = 
+null
+
+The Objects' instance variables are printed below recursively 2 levels deep = 
+Object type = com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement@5de35de3
+  _______________________________________________________________________
+  
+  Displaying FFDC information for wrapper hierarchy,
+
+  beginning from the Connection...
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.jdbc.WSJdbcConnection@59355935
+  _______________________________________________________________________
+  
+  com.ibm.ws.rsadapter.jdbc.WSJdbcConnection@59355935
+
+  Transaction Manager global transaction status is
+    STATUS ACTIVE
+
+  Underlying Connection: oracle.jdbc.driver.LogicalConnection@70727072
+    oracle.jdbc.driver.LogicalConnection@70727072
+
+  Key Object:
+    [B@1a2e1a2e
+
+  DataStoreHelper:
+    com.ibm.websphere.rsadapter.OracleDataStoreHelper@7eeb7eeb
+
+  Connection Manager:
+    [ConnectionManager]@58a958a9
+JNDI Name <jdbc/ktnbDS>
+shareable <true>
+
+
+  Connection Manager Configuration Data:
+    [Resource-ref settings]
+
+	res-auth:                 1 (APPLICATION)
+	res-isolation-level:      0 (TRANSACTION_NONE)
+	res-sharing-scope:        true (SHAREABLE)
+	res-resolution-control:   0 (RESOLVER_APPLICATION)
+[Other attributes]
+
+isCMP1_x:                 false (not CMP1.x)
+isJMS:                 false (not JMS)
+
+
+  Handle is reserved? false
+
+  AutoCommit value tracked by handle: true
+
+  Detection of multithreaded access is:
+    DISABLED
+
+  Thread id:
+    null
+
+  Wrapper State: 
+    ACTIVE
+
+  Parent wrapper:
+    null
+
+  Child wrappers:
+
+    null
+    com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement@5de35de3
+  
+  Performance Monitoring Instrumentation:
+    null
+
+  ____________________________________________________________
+
+  Child Wrapper #1
+
+  com.ibm.ws.rsadapter.jdbc.WSJdbcPreparedStatement@5de35de3
+
+  Underlying Statement: oracle.jdbc.driver.T4CPreparedStatement@59bb59bb
+    oracle.jdbc.driver.T4CPreparedStatement@59bb59bb
+
+  Statement properties have changed? false
+
+  key:
+    PSTMT: insert into ktnb_log values(?,sysdate,?,?,?,?,?) 1003 1007 0
+
+  Wrapper State: 
+    ACTIVE
+
+  Parent wrapper:
+    com.ibm.ws.rsadapter.jdbc.WSJdbcConnection@59355935
+
+  Child wrappers:
+
+    null
+  
+  Performance Monitoring Instrumentation:
+    null
+
+  
+  ConnectionRequestInfo:
+    null
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSManagedConnectionFactoryImpl@33c033c0
+  _______________________________________________________________________
+  
+  Detection of multithreaded access is
+    DISABLED
+
+  DataSource properties:
+    {statementCacheSize=10, password=******, dataSourceName=, networkProtocol=, oraclelogModuleMask=1, portNumber=1521, preTestSQLString=SELECT 1 FROM DUAL, URL=jdbc:oracle:thin:@localhost:1522:KTNB, dataSourceClass=oracle.jdbc.pool.OracleConnectionPoolDataSource, serverName=, loginTimeout=, connRetriesDuringDBFailover=100, dataStoreHelperClass=com.ibm.websphere.rsadapter.OracleDataStoreHelper, enableMultithreadedAccessDetection=false, driverType=, dbFailOverEnabled=false, description=, TNSEntryName=, connRetryIntervalDuringDBFailover=3000, oraclelogPrintMask=62, oraclelogCategoryMask=47, databaseName=, user=ktnb_owner}
+
+  Database Type:
+    null
+
+  DataStoreHelper:
+    com.ibm.websphere.rsadapter.OracleDataStoreHelper@7eeb7eeb
+
+  Description:
+    null
+
+  InternalDataStoreHelper:
+    com.ibm.ws.rsadapter.spi.InternalOracleDataStoreHelper@21fa21fa
+
+  Login Timeout:
+    0
+
+  Log Writer:
+    null
+
+  Performance Monitoring Instrumentation:
+    null
+
+  Statement Cache Size (maximum):
+    10
+
+  Transaction Resource Registration:
+    dynamic
+
+  Transaction Branches are set to be Loosely Coupled: 
+    false
+
+  Backend id checking is: 
+    true
+
+  dbFailOverEnabled: 
+    false
+
+  connectionRetriesDuringDBFailover: 
+    100
+
+  connRetryDurationDuringDBFailover: 
+    3000
+
+  Connection Factory Type:
+    com.ibm.ws.rsadapter.jdbc.WSJdbcDataSource
+
+  Implicit Handle Reactivation is
+    ENABLED
+
+  Listing CCI ConnectionFactories:
+
+  
+  Listing JDBC ConnectionFactories (DataSources):
+
+    com.ibm.ejs.j2c.ConnectionManager@58a958a9 --> com.ibm.ws.rsadapter.jdbc.WSJdbcDataSource@4b574b57
+  
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSRdbDataSource@7f357f35
+  _______________________________________________________________________
+  
+  DataSource Implementation Class Name:
+    oracle.jdbc.pool.OracleConnectionPoolDataSource
+
+  DataSource Name:
+    null
+
+  DataStoreHelper:
+    com.ibm.websphere.rsadapter.OracleDataStoreHelper@7eeb7eeb
+
+  DataSource properties:
+    {statementCacheSize=10, password=******, dataSourceName=, networkProtocol=, oraclelogModuleMask=1, portNumber=1521, preTestSQLString=SELECT 1 FROM DUAL, URL=jdbc:oracle:thin:@localhost:1522:KTNB, dataSourceClass=oracle.jdbc.pool.OracleConnectionPoolDataSource, serverName=, loginTimeout=, connRetriesDuringDBFailover=100, dataStoreHelperClass=com.ibm.websphere.rsadapter.OracleDataStoreHelper, enableMultithreadedAccessDetection=false, driverType=, dbFailOverEnabled=false, description=, TNSEntryName=, connRetryIntervalDuringDBFailover=3000, oraclelogPrintMask=62, oraclelogCategoryMask=47, databaseName=, user=ktnb_owner}
+
+  ONE PHASE ENABLED
+
+  Underlying DataSource Object: oracle.jdbc.pool.OracleConnectionPoolDataSource@bf00bf
+    oracle.jdbc.pool.OracleConnectionPoolDataSource@bf00bf
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl@1a711a71
+  _______________________________________________________________________
+  
+  ONE PHASE ENABLED
+
+  Database Type:
+    null
+
+  Transaction State:
+    LOCAL_TRANSACTION_ACTIVE
+
+  Statement Cache Size (maximum):
+    10
+
+  Key:
+    [B@1a2e1a2e
+
+  Performance Monitoring Instrumentation:
+    null
+
+  Log Writer:
+    null
+
+  Default AutoCommit:
+    true
+
+  Current AutoCommit:
+    false
+
+  Current Isolation:
+    READ COMMITTED
+
+  Support isolation level switching: 
+    false
+
+  Thread ID:
+    null
+
+  Already Processed Interaction Pending Event?
+    true
+
+  Underlying Connection Object: oracle.jdbc.driver.LogicalConnection@70727072
+    oracle.jdbc.driver.LogicalConnection@70727072
+
+  Underlying PooledConnection Object: oracle.jdbc.pool.OraclePooledConnection@6f806f80
+    oracle.jdbc.pool.OraclePooledConnection@6f806f80
+
+  SQLJ Default Context: null
+    null
+
+  Driver version:
+    10.1.0.3.0
+
+  Database version:
+    Oracle Database 10g Enterprise Edition Release 10.2.0.1.0 - Production
+With the Partitioning, OLAP and Data Mining options
+
+  Connection Event Listeners:
+
+    com.ibm.ejs.j2c.ConnectionEventListener@67196719
+  
+  Maximum Handle List Size: 15
+
+  Handle Count: 1
+
+  Handles:
+
+    com.ibm.ws.rsadapter.jdbc.WSJdbcConnection@59355935
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+    null
+  
+  State Manager:
+    com.ibm.ws.rsadapter.spi.WSStateManager@66446644
+
+  XA Resource:
+    null
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSRdbSpiLocalTransactionImpl@6e0c6e0c
+  _______________________________________________________________________
+  
+  Connection:
+    oracle.jdbc.driver.LogicalConnection@70727072
+
+  ManagedConnection:
+    com.ibm.ws.rsadapter.spi.WSRdbManagedConnectionImpl@1a711a71
+
+  Detection of multithreaded access is:
+    DISABLED
+
+  ManagedConnectionMetaData:
+    null
+
+  Statement Cache:
+    
+com.ibm.ws.rsadapter.spi.CacheMap@648d648d
+Number of entries:   10
+Maximum entries:     10
+Number of buckets:   13
+Maximum bucket size: 5
+Number of discards:  23
+
+BUCKET SIZE PREV NEXT
+  000  003  002  006
+                      15891589 PSTMT: select ngay_nghi from ktnb_dm_ngay_nghi where nam between ? and ? 1003 1007 0
+                      5b385b38 PSTMT: select this_.ID as ID52_0_, this_.ID_CUOC_TTKT as ID2_52_0_, this_.NGAY_LAP as NGAY3_52_0_, this_.NOI_LAP as NOI4_52_0_, this_.NOI_PHE_DUYET as NOI5_52_0_, this_.NGAY_PHE_DUYET as NGAY6_52_0_, this_.Y_KIEN_PHE_DUYET as Y7_52_0_, this_.ID_DS_TVD_CU as ID8_52_0_, this_.ISNEW as ISNEW52_0_, this_.VB_QUY_DINH_CNANG_NVU as VB10_52_0_, this_.ID_NGUOI_CAP_NHAT as ID11_52_0_, this_.TEN_NGUOI_CAP_NHAP as TEN12_52_0_, this_.NGAY_CAP_NHAT as NGAY13_52_0_ from KTNB_OWNER.TTKT_CB_DS_TV_DOAN this_ where (this_.ID_CUOC_TTKT=? and this_.ID_DS_TVD_CU is null) 1003 1007 0
+                      41524152 PSTMT: select this_.ID as ID53_0_, this_.ID_DS_TVD as ID2_53_0_, this_.ID_CAN_BO as ID3_53_0_, this_.TEN_CAN_BO as TEN4_53_0_, this_.ID_PHONG as ID5_53_0_, this_.TEN_PHONG as TEN6_53_0_, this_.ID_CQT as ID7_53_0_, this_.TEN_CQT as TEN8_53_0_, this_.CHUC_VU as CHUC9_53_0_, this_.CHUC_VU_TRONG_DOAN as CHUC10_53_0_, this_.Y_KIEN as Y11_53_0_ from KTNB_OWNER.TTKT_CB_CHI_TIET_DS_TV_DOAN this_ where this_.ID_DS_TVD=? 1003 1007 0
+  001  001  007  014
+                      4ff94ff9 PSTMT: delete TTKT_CM_HS_TL where MASTER_ID = '140522100843000000000000722934' 1003 1007 0
+  002  001  011  000
+                      3cef3cef PSTMT: select this_.ID as ID79_0_, this_.ID_MASTER as ID2_79_0_, this_.HO_TEN as HO3_79_0_, this_.CHUC_VU as CHUC4_79_0_, this_.ID_CAN_BO as ID5_79_0_, this_.PHAN_LOAI as PHAN6_79_0_, this_.ID_NGUOI_CAP_NHAT as ID7_79_0_, this_.TEN_NGUOI_CAP_NHAP as TEN8_79_0_, this_.NGAY_CAP_NHAT as NGAY9_79_0_ from KTNB_OWNER.TTKT_CM_THANH_PHAN_THAM_DU this_ where this_.ID_MASTER=? 1003 1007 0
+  003  000  013  013
+  004  000  013  013
+  005  000  013  013
+  006  001  000  007
+                      6250625 PSTMT: select ma,ten from ktnb_dm where parent_id =? and ngay_het_hl is null order by ten 1003 1007 0
+  007  003  006  001
+                      72d072d PSTMT: select this_.ID as ID52_0_, this_.ID_CUOC_TTKT as ID2_52_0_, this_.NGAY_LAP as NGAY3_52_0_, this_.NOI_LAP as NOI4_52_0_, this_.NOI_PHE_DUYET as NOI5_52_0_, this_.NGAY_PHE_DUYET as NGAY6_52_0_, this_.Y_KIEN_PHE_DUYET as Y7_52_0_, this_.ID_DS_TVD_CU as ID8_52_0_, this_.ISNEW as ISNEW52_0_, this_.VB_QUY_DINH_CNANG_NVU as VB10_52_0_, this_.ID_NGUOI_CAP_NHAT as ID11_52_0_, this_.TEN_NGUOI_CAP_NHAP as TEN12_52_0_, this_.NGAY_CAP_NHAT as NGAY13_52_0_ from KTNB_OWNER.TTKT_CB_DS_TV_DOAN this_ where this_.ID=? 1003 1007 0
+                      63cf63cf PSTMT: select this_.ID as ID56_0_, this_.MASTER_ID as MASTER2_56_0_, this_.LOAI as LOAI56_0_, this_.TEN as TEN56_0_, this_.NOI_DUNG as NOI5_56_0_, this_.THOI_GIAN_BAN_GIAO as THOI6_56_0_, this_.DIA_DIEM_NHAN_ID as DIA7_56_0_, this_.DIA_DIEM_NHAN_NAME as DIA8_56_0_, this_.NGUOI_NHAN_ID as NGUOI9_56_0_, this_.NGUOI_NHAN_NAME as NGUOI10_56_0_, this_.THOI_KY_TU as THOI11_56_0_, this_.THOI_KY_DEN as THOI12_56_0_, this_.HINH_THUC as HINH13_56_0_ from KTNB_OWNER.TTKT_CM_HS_TL this_ where this_.MASTER_ID=? 1003 1007 0
+                      47714771 PSTMT: select this_.ID as ID58_0_, this_.ID_CUOC_TTKT as ID2_58_0_, this_.SO_QUYET_DINH as SO3_58_0_, this_.DIA_DIEM_RA_QUYET_DINH as DIA4_58_0_, this_.NGAY_RA_QUYET_DNH as NGAY5_58_0_, this_.THU_TRUONG_CAC_DV_LIEN_QUAN as THU6_58_0_, this_.ID_NGUOI_CHI_DAO_GIAM_SAT as ID7_58_0_, this_.CHUC_VU_NGUOI_CHI_DAO_GIAM_SAT as CHUC8_58_0_, this_.TEN_NGUOI_CHI_DAO_GIAM_SAT as TEN9_58_0_, this_.VB_QUY_DINH_CNANG_NVU as VB10_58_0_, this_.VAN_BAN_KE_HOACH as VAN11_58_0_, this_.ID_NGUOI_CAP_NHAT as ID12_58_0_, this_.TEN_NGUOI_CAP_NHAP as TEN13_58_0_, this_.NGAY_CAP_NHAT as NGAY14_58_0_ from KTNB_OWNER.TTKT_CB_QD this_ where this_.ID_CUOC_TTKT=? 1003 1007 0
+  008  000  013  013
+  009  000  013  013
+  010  000  013  013
+  011  001  013  002
+                      2f732f73 PSTMT: select this_.ID as ID71_0_, this_.ID_CUOC_TTKT as ID2_71_0_, this_.NOI_TRINH as NOI3_71_0_, this_.NGAY_TRINH as NGAY4_71_0_, this_.NOI_PHE_DUYET as NOI5_71_0_, this_.NGAY_PHE_DUYET as NGAY6_71_0_, this_.Y_KIEN_PHE_DUYET as Y7_71_0_, this_.SO_QD as SO8_71_0_, this_.NOI_RA_QD as NOI9_71_0_, this_.NGAY_RQ_QD as NGAY10_71_0_, this_.SO_NGAY_GIA_HAN as SO11_71_0_, this_.GIA_HAN_TU_NGAY as GIA12_71_0_, this_.GIA_HAN_DEN_NGAY as GIA13_71_0_, this_.LY_DO_GIA_HAN as LY14_71_0_, this_.DVI_CNHAN_LQUAN as DVI15_71_0_, this_.VB_QDINH_CNANG_NVU as VB16_71_0_, this_.ID_NGUOI_CAP_NHAT as ID17_71_0_, this_.TEN_NGUOI_CAP_NHAP as TEN18_71_0_, this_.NGAY_CAP_NHAT as NGAY19_71_0_ from KTNB_OWNER.TTKT_TH_GIA_HAN this_ where this_.ID_CUOC_TTKT=? 1003 1007 0
+  012  000  013  013
+  013  LRU       011
+  014  MRU  001
+
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSConnectionRequestInfoImpl@2
+  _______________________________________________________________________
+  
+  User Name:
+    null
+
+  Password:
+    null
+
+  Isolation Level:
+    READ COMMITTED
+
+  Catalog:
+    null
+
+  Is Read Only?
+    null
+
+  Type Map:
+    null
+
+  Hash Code:
+    2
+
+  Support isolation switching on connection:
+    false
+
+  Handle type:
+    java.sql.Connection
+
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSManagedConnectionFactoryImpl@33c033c0
+  _______________________________________________________________________
+  
+  Detection of multithreaded access is
+    DISABLED
+
+  DataSource properties:
+    {statementCacheSize=10, password=******, dataSourceName=, networkProtocol=, oraclelogModuleMask=1, portNumber=1521, preTestSQLString=SELECT 1 FROM DUAL, URL=jdbc:oracle:thin:@localhost:1522:KTNB, dataSourceClass=oracle.jdbc.pool.OracleConnectionPoolDataSource, serverName=, loginTimeout=, connRetriesDuringDBFailover=100, dataStoreHelperClass=com.ibm.websphere.rsadapter.OracleDataStoreHelper, enableMultithreadedAccessDetection=false, driverType=, dbFailOverEnabled=false, description=, TNSEntryName=, connRetryIntervalDuringDBFailover=3000, oraclelogPrintMask=62, oraclelogCategoryMask=47, databaseName=, user=ktnb_owner}
+
+  Database Type:
+    null
+
+  DataStoreHelper:
+    com.ibm.websphere.rsadapter.OracleDataStoreHelper@7eeb7eeb
+
+  Description:
+    null
+
+  InternalDataStoreHelper:
+    com.ibm.ws.rsadapter.spi.InternalOracleDataStoreHelper@21fa21fa
+
+  Login Timeout:
+    0
+
+  Log Writer:
+    null
+
+  Performance Monitoring Instrumentation:
+    null
+
+  Statement Cache Size (maximum):
+    10
+
+  Transaction Resource Registration:
+    dynamic
+
+  Transaction Branches are set to be Loosely Coupled: 
+    false
+
+  Backend id checking is: 
+    true
+
+  dbFailOverEnabled: 
+    false
+
+  connectionRetriesDuringDBFailover: 
+    100
+
+  connRetryDurationDuringDBFailover: 
+    3000
+
+  Connection Factory Type:
+    com.ibm.ws.rsadapter.jdbc.WSJdbcDataSource
+
+  Implicit Handle Reactivation is
+    ENABLED
+
+  Listing CCI ConnectionFactories:
+
+  
+  Listing JDBC ConnectionFactories (DataSources):
+
+    com.ibm.ejs.j2c.ConnectionManager@58a958a9 --> com.ibm.ws.rsadapter.jdbc.WSJdbcDataSource@4b574b57
+  
+  _______________________________________________________________________
+  
+      First Failure Data Capture information for
+            com.ibm.ws.rsadapter.spi.WSRdbDataSource@7f357f35
+  _______________________________________________________________________
+  
+  DataSource Implementation Class Name:
+    oracle.jdbc.pool.OracleConnectionPoolDataSource
+
+  DataSource Name:
+    null
+
+  DataStoreHelper:
+    com.ibm.websphere.rsadapter.OracleDataStoreHelper@7eeb7eeb
+
+  DataSource properties:
+    {statementCacheSize=10, password=******, dataSourceName=, networkProtocol=, oraclelogModuleMask=1, portNumber=1521, preTestSQLString=SELECT 1 FROM DUAL, URL=jdbc:oracle:thin:@localhost:1522:KTNB, dataSourceClass=oracle.jdbc.pool.OracleConnectionPoolDataSource, serverName=, loginTimeout=, connRetriesDuringDBFailover=100, dataStoreHelperClass=com.ibm.websphere.rsadapter.OracleDataStoreHelper, enableMultithreadedAccessDetection=false, driverType=, dbFailOverEnabled=false, description=, TNSEntryName=, connRetryIntervalDuringDBFailover=3000, oraclelogPrintMask=62, oraclelogCategoryMask=47, databaseName=, user=ktnb_owner}
+
+  ONE PHASE ENABLED
+
+  Underlying DataSource Object: oracle.jdbc.pool.OracleConnectionPoolDataSource@bf00bf
+    oracle.jdbc.pool.OracleConnectionPoolDataSource@bf00bf
+
+
++Data for directive [defaultadapter] obtained. = 
+==> Dump complete for com.ibm.ws.rsadapter.DiagnosticModuleForAdapter  = Tue May 27 09:29:54 GMT 2014

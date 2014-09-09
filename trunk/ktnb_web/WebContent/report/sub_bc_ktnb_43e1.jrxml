@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="sub_bc_ktnb_43e1" pageWidth="1180" pageHeight="1000" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="1180" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0">
+	<style name="style1" isDefault="true" vAlign="Middle" pattern="" isBlankWhenNull="true" fontName="Arial" fontSize="10" pdfFontName="arial.ttf"/>
+	<parameter name="p_content" class="java.lang.String">
+		<defaultValueExpression><![CDATA["190301;190302;190303;190304;190305;190306;190307"]]></defaultValueExpression>
+	</parameter>
+	<queryString language="plsql">
+		<![CDATA[select
+          ktnb_pck_report.get_content_ttkt(substr($P{p_content},0,6))   cot_01     
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},1)) cot_02
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},2)) cot_03
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},3)) cot_04
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},4)) cot_05
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},5)) cot_06
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},6)) cot_07
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},7)) cot_08
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},8)) cot_09
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},9)) cot_10
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},10)) cot_11
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},11)) cot_12
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},12)) cot_13
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},13)) cot_14
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},14)) cot_15
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},15)) cot_16
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},16)) cot_17
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},17)) cot_18
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},18)) cot_19
+        , ktnb_pck_report.get_content_ttkt(ktnb_pck_report.get_string($P{p_content},19)) cot_20
+        from dual]]>
+	</queryString>
+	<field name="COT_01" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_02" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_03" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_04" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_05" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_06" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_07" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_08" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_09" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_10" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_11" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_12" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_13" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_14" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_15" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_16" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_17" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_18" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_19" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<field name="COT_20" class="java.lang.String">
+		<fieldDescription><![CDATA[]]></fieldDescription>
+	</field>
+	<detail>
+		<band height="160">
+			<textField>
+				<reportElement x="0" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_01}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="59" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_02}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="118" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_03}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="177" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_04}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="236" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_05}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="295" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_06}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="354" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_07}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="413" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_08}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="472" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_09}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="531" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_10}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="590" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_11}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="649" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_12}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="708" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_13}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="767" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_14}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="826" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_15}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="885" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_16}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="944" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_17}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1003" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_18}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1062" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_19}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1121" y="0" width="59" height="160"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="Times New Roman" size="9"/>
+				</textElement>
+				<textFieldExpression class="java.lang.String"><![CDATA[$F{COT_20}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="cmc.com.ktnb.pl.hb.entity.KntcNdungDon" table="KNTC_NDUNG_DON" schema="KTNB_OWNER">
+        <id name="maDon" type="java.lang.String">
+            <column name="MA_DON" length="50" />
+            <generator class="assigned" />
+        </id>
+        <property name="maHs" type="java.lang.String">
+            <column name="MA_HS" length="50" not-null="true" />
+        </property>
+        <property name="soDon" type="java.lang.String">
+            <column name="SO_DON" length="50" not-null="true" />
+        </property>
+        <property name="soCv" type="java.lang.String">
+            <column name="SO_CV" length="50" not-null="true" />
+        </property>
+        <property name="maHsGoc" type="java.lang.String">
+            <column name="MA_HS_GOC" length="50" not-null="true" />
+        </property>
+        <property name="noiGuiDon" type="java.lang.String">
+            <column name="NOI_GUI_DON" length="50" not-null="true" />
+        </property>
+        <property name="ngayLap" type="java.util.Date">
+            <column name="NGAY_LAP" length="7" />
+        </property>
+        <property name="ngayCv" type="java.util.Date">
+            <column name="NGAY_CV" length="7" />
+        </property>
+        <property name="ngayBpxlCv" type="java.util.Date">
+            <column name="NGAY_BPXL_CV" length="7" />
+        </property>
+        <property name="ngayGuiDon" type="java.util.Date">
+            <column name="NGAY_GUI_DON" length="7" />
+        </property>       
+    </class>
+</hibernate-mapping>

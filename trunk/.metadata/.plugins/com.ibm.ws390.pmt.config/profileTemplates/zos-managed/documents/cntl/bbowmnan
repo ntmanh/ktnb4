@@ -1,0 +1,147 @@
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4                                                                        
+//********************************************************************/         
+//*  copy files to HFS                                               */         
+//********************************************************************/         
+//COPYUSS EXEC  PGM=IKJEFT1A                                                    
+//* Copy customized members to the HFS files                                    
+//SYSEXEC   DD DISP=SHR,DSN=&TRGHLQ..DATA                                       
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+%BBOWCPMN                                                                       
+/*                                                                              
+//********************************************************************/         
+//*  convert files to ASCII.                                         */         
+//********************************************************************/         
+/*                                                                              
+//E2ASCRPT EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+   /tmp/bbowe2am_&TIMESTMP..sh  +                                               
+     1>> /tmp/bbowmnan_&TIMESTMP..out +                                         
+     2>> /tmp/bbowmnan_&TIMESTMP..err                                           
+/*                                                                              
+)SEL &MNANNOGP. ^= DefaultNodeGroup                                             
+//********************************************************************/         
+//*  call createNodeGroup.                                           */         
+//********************************************************************/         
+/*                                                                              
+//CNGSCRPT EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+   &MNCONFIG.+                                                                  
+   /&MNDIRN.+                                                                   
+   /bin/wsadmin.sh +                                                            
+    -host &DMNOHOST. +                                                          
+    -port &DMSPORT. +                                                           
+    -conntype &DMPORTT. +
+)SEL &ANDMS = Y                                                                 
+    -username &FEDADMN. +                                                       
+    -password &FEDPASS. +                                                       
+)ENDSEL                                                                         
+    -f /tmp/createNodeGroup_&TIMESTMP..jacl +                                   
+      &MNANNOGP. +                                                              
+     1>>>> /tmp/bbowmnan_&TIMESTMP..out +                                       
+     2>>>> /tmp/bbowmnan_&TIMESTMP..err                                         
+/*                                                                              
+)ENDSEL                                                                         
+//********************************************************************/         
+//*  Run addNode.sh                                                  */         
+//********************************************************************/         
+//BBOWAN   EXEC PGM=IKJEFT01,REGION=0M                                          
+)SEL &LSPROD = Y                                                                
+//STEPLIB  DD DISP=SHR,DSN=&BBOLOAD                                             
+//         DD DISP=SHR,DSN=&BBGLOAD                                             
+)ENDSEL                                                                         
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+   &MNCONFIG.+                                                                  
+   /&MNDIRN.+                                                                   
+   /bin/addNode.sh +                                                            
+   &DMNOHOST. +                                                                 
+   &DMSPORT. +                                                                  
+)SEL &ANDMS = Y                                                                 
+   -username &FEDADMN. +                                                        
+   -password &FEDPASS. +                                                        
+)ENDSEL                                                                         
+)SEL &DMPORTT = RMI
+   -conntype RMI +
+)ENDSEL                                                                         
+)SEL &LAUNCHNA = N                                                              
+   -noagent +                                                                   
+)ENDSEL                                                                         
+   -nodegroupname &MNANNOGP. +                                                  
+   -nodeagentshortname &MNANSSNS. +                                             
+   -portprops /tmp/portFile_&TIMESTMP..props +                                  
+     1>>>> /tmp/bbowmnan_&TIMESTMP..out +                                       
+     2>>>> /tmp/bbowmnan_&TIMESTMP..err                                         
+/*                                                                              
+//********************************************************************/         
+//*  delete portFile from the HFS (/tmp)                             */         
+//********************************************************************/         
+//DELETEP  EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+    rm /tmp/portFile_&TIMESTMP..props  +                                        
+     1>>>> /tmp/bbowmnan_&TIMESTMP..out +                                       
+     2>>>> /tmp/bbowmnan_&TIMESTMP..err                                         
+/*                                                                              
+)SEL &MNANNOGP. ^= DefaultNodeGroup                                               
+//********************************************************************/         
+//*  delete jacl file from the HFS (/tmp)                            */         
+//********************************************************************/         
+//DELETEJ  EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSTSPRT DD  SYSOUT=*                                                         
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+    rm /tmp/createNodeGroup_&TIMESTMP..jacl +                                   
+     1>>>> /tmp/bbowmnan_&TIMESTMP..out +                                       
+     2>>>> /tmp/bbowmnan_&TIMESTMP..err                                         
+/*                                                                              
+)ENDSEL                                                                         
+//********************************************************************/         
+//*  Copy script output back to joblog                               */         
+//********************************************************************/         
+//BBOWANC  EXEC PGM=IKJEFT01,REGION=0M                                          
+//SYSEXEC DD DISP=SHR,DSN=&BBOEXEC                                              
+//SYSTSIN  DD *                                                                 
+   BBOHFSWR '/tmp/bbowmnan_&TIMESTMP..out'                                      
+   BBOHFSWR '/tmp/bbowmnan_&TIMESTMP..err'                                      
+//SYSTSPRT DD SYSOUT=*                                                          
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+)CM                                                                             
+)CM ================================================================ */         
+)CM  Change Activity:                                                */         
+)CM                                                                  */         
+)CM    246865  H28W601 011005   DB: initial release.                 */         
+)CM    252044  H28W601 012705   DB: update to use new variables      */         
+)CM    253598  H28W601 020705   DB: add portsfile to invocation of   */         
+)CM                                 addNode.sh                       */         
+)CM  264190.2 H28W602 042705   DB: remove dcshostname option         */         
+)CM    311865  H28W610 100805   DB: user now enters admin user/pass  */         
+)CM   319946   H28W610 110205 PDML: add option to launch nodeagent   */         
+)CM    322806 H28W602 111105    DB: some steps were using >> instead */         
+)CM                                 of >>>>                          */         
+)CM   334832   H28W602 010406   DB: first write to log should use >> */         
+)CM   338132   H28W610 020606 PDML: add SBBGLOAD.                    */         
+)CM   467454   H28W610 091707   DB: add RMI conntype support         */
+)CM   467454.1 H28W610 050108 PDOP: Add conntype createNodeGroup parm*/
+)CM                                                                  */         
+)CM ================================================================ */         

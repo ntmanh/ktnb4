@@ -1,0 +1,90 @@
+//&ASPRCC  PROC ENV=,PARMS=' ',REC=N,Z=&ASPRCC.Z,AMODE=                         
+// SET ROOT='&CBCONFIG.'                                                        
+// SET FOUT='properties/service/logs/applyPTF.out'                              
+//*************************************************************                 
+//* Test that OMVS can successfully launch a shell and return *                 
+//*************************************************************                 
+//TOMVS   EXEC PGM=BPXBATCH,REGION=0M,                                          
+// PARM='SH exit 13'                                                            
+//STDOUT   DD PATH='&&ROOT./&&ENV..HOME/&&FOUT.',                               
+// PATHOPTS=(OWRONLY,OCREAT,OAPPEND),PATHMODE=(SIRWXU,SIRWXG)                   
+//STDERR   DD PATH='&&ROOT./&&ENV..HOME/&&FOUT.',                               
+// PATHOPTS=(OWRONLY,OCREAT,OAPPEND),PATHMODE=(SIRWXU,SIRWXG)                   
+//*********************************************************                     
+//* If the shell RC code is as expected (13) - proceed    *                     
+//*********************************************************                     
+//IFTST   IF (RC = 13) THEN                                                     
+//*********************************************************                     
+//* Start the Multi-Product PTF Post-Installer            *                     
+//*********************************************************                     
+//APPLY   EXEC PGM=BPXBATCH,REGION=0M,                                          
+// PARM='SH &&ROOT./&&ENV..HOME/bin/applyPTF.sh inline'                         
+//STDOUT   DD PATH='&&ROOT./&&ENV..HOME/&&FOUT.',                               
+// PATHOPTS=(OWRONLY,OCREAT,OAPPEND),PATHMODE=(SIRWXU,SIRWXG)                   
+//STDERR   DD PATH='&&ROOT./&&ENV..HOME/&&FOUT.',                               
+// PATHOPTS=(OWRONLY,OCREAT,OAPPEND),PATHMODE=(SIRWXU,SIRWXG)                   
+//       IF (APPLY.RC <<= 4) THEN                                               
+//*********************************************************                     
+//* If the RC from the Post-Installer is LE 4 then start  *                     
+//* the WebSphere Application Server                      *                     
+//*********************************************************                     
+//STEP1    EXEC PGM=BBOOMTST,PARM='&&AMODE.'                                    
+)SEL &LSPROD = Y                                                                
+)SEL &CELLSDSN = Y                                                                
+//STEPLIB  DD DISP=SHR,DSN=&BBOLOAD                                             
+)ENDSEL                                                                         
+)SEL &CELLSDSN = N                                                                
+//STEPLIB  DD DISP=SHR,DSN=&BBOLOADA                                             
+)ENDSEL                                                                         
+)ENDSEL                                                                         
+//TEST1    IF (STEP1.RC = 0) THEN                                               
+//BBOCTL   EXEC PGM=BBOCTL,REGION=0M,TIME=MAXIMUM,                              
+// PARM='TRAP(ON,NOSPIE),ENVAR("_EDC_UMASK_DFLT=007") /                x        
+//             &&PARMS. REC=&&REC'                                              
+//BBOENV DD PATH='&&ROOT/&&ENV/was.env'                                         
+// INCLUDE MEMBER=&&Z                                                           
+//           ELSE                                                               
+//BBGCTL   EXEC PGM=BBGCTL,REGION=0M,TIME=MAXIMUM,MEMLIMIT=NOLIMIT,             
+// PARM='TRAP(ON,NOSPIE),ENVAR("_EDC_UMASK_DFLT=007") /                x        
+//             &&PARMS. REC=&&REC'                                              
+//BBOENV DD PATH='&&ROOT/&&ENV/was.env'                                         
+// INCLUDE MEMBER=&&Z                                                           
+//          ENDIF                                                               
+//          ENDIF                                                               
+//IFTSTEND ENDIF                                                                
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+//* From source skeleton: &skin                                                 
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   WS14568 H28W500 021118  PDML: Initial release.                 */         
+)CM   MD15360 H28W500 030106  PDML: fixed INCLUDE typo.              */         
+)CM   MD15853 H28W500 030106  PDML: remove blank before Z=xxxx       */         
+)CM   MD15863 H28W500 030215  PDG1: Link to dir and not was.env      */         
+)CM   MD15893 H28W500 030215  PDML: add umask to PARM.               */         
+)CM   MD16836 H28W500 030417  PDML: add PARMS and update ENV.        */         
+)CM   WS17417 H28W500 070903  PDML: post installer support.          */         
+)CM   PQ79433 H28W500 110703  PDML: update path to applyPTF.sh.      */         
+)CM   241099  H28W600 102204  PDML: remove applyPTF step.            */         
+)CM   2418362 H28W600 010705  PDML: change time from MAXIMUM to      */         
+)CM                                 NOLIMIT.                         */         
+)CM   250696  H28W601 020305    DB: update proc for V6 postinstaller */         
+)CM   253955  H28W601 020705  PDML: add missing ENDIF.               */         
+)CM   LIDB3645-13.2 H28W601 021705 PDML: add REC.                    */         
+)CM   338132  H28W61  020606  PDML: add test for 64-bit.             */
+)CM   396079.1 V6.1   011507  PDOP: App server data sets for cell    */         
+)CM   403541  H28W610 111306   DMB: 64 bit updates                   */         
+)CM                                                                  */         
+)CM ================================================================ */         

@@ -1,0 +1,66 @@
+)CM This job allocates the Config ZFS, creates the mount point                  
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4                                                                        
+//DEFINE   EXEC   PGM=IDCAMS                                                    
+//SYSPRINT DD     SYSOUT=*                                                      
+//SYSUDUMP DD     SYSOUT=*                                                      
+//AMSDUMP  DD     SYSOUT=*                                                      
+)SEL &MNCFGVOL ^= *                                                              
+//DASD0    DD     DISP=OLD,UNIT=3390,VOL=SER=&MNCFGVOL                           
+)ENDSEL                                                                         
+//SYSIN    DD     *                                                             
+     DEFINE CLUSTER (NAME(&MNCFGHFS) -                                           
+)SEL &MNCFGVOL ^= *                                                              
+        VOLUMES(&MNCFGVOL) -                                                     
+)ENDSEL                                                                         
+        LINEAR CYL(&MNCFGPRI &MNCFGSEC) SHAREOPTIONS(3))                          
+/*                                                                              
+//FORMAT   EXEC   PGM=IKJEFT01,REGION=0M,COND=(0,LT)                            
+//SYSTSPRT DD SYSOUT=*                                                          
+//SYSTSIN  DD  *                                                                
+ BPXBATCH SH +                                                                  
+  zfsadm format -aggregate +                                                    
+  '&MNCFGHFS' +                                                                    
+  -compat +                                                                     
+  1>> /tmp/bbomczfs_&TIMESTMP..out +                                            
+  2>> /tmp/bbomczfs_&TIMESTMP..err                                              
+/*                                                                              
+//MOUNT  EXEC  PGM=IKJEFT1A,COND=(0,LT)                                         
+//* Build the mount point for the Config ZFS                                    
+//SYSEXEC   DD DISP=SHR,DSN=&TRGHLQ..DATA                                       
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+  BBOWBMPT  &MNCONFIG +                                                         
+            &MNCFGHFS &WASHFSU &CNFGGRP ZFS                                     
+/*
+//CPYOUT EXEC PGM=IKJEFT01,REGION=0M                                   
+//SYSEXEC  DD  DISP=SHR,DSN=&BBOEXEC                                   
+//SYSTSIN  DD *                                                        
+   BBOHFSWR '/tmp/bbomczfs_&TIMESTMP..out'                             
+   BBOHFSWR '/tmp/bbomczfs_&TIMESTMP..err'                             
+//SYSTSPRT DD SYSOUT=*                                                 
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+)CM                                                                             
+)CM ================================================================ */         
+)CM  Change Activity:                                                */         
+)CM                                                                  */         
+)CM    342400  H28W610 013006   DB: allow SMS managed volume         */
+)CM    356728  H28W610 040306   DB: variable names misspelled        */         
+)CM    348320  H28W610 061406   DB: use names instead of ids         */
+)CM   PK33971  H28W610 110206   DB: MNFGVOL should be MNCFGVOL       */
+)CM   PK57907  H28W610 121707   DB: Use single quotes around dsname  */
+)CM   PK62715  H28W610 031808   DB: SYSOUT=* instead of SYSOUT=H     */
+)CM   PK62061  H28W610 031708   DB: Copy ouput to job log            */

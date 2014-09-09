@@ -1,0 +1,167 @@
+<html>
+<head>
+<title>
+</title>
+</head>
+<body>
+<!--                                                                  -->           
+<!-- ================================================================ -->         
+<!-- PROPRIETARY-STATEMENT:                                           -->         
+<!-- Licensed Material - Property of IBM                              -->         
+<!--                                                                  -->         
+<!-- 5724-I63, 5724-H88, 5655-N01, 5733-W61                           -->         
+<!-- (C) Copyright IBM Corp. 1999, 2006                               -->         
+<!-- All Rights Reserved                                              -->         
+<!-- US Government Users Restricted Rights - Use, duplication or      -->         
+<!-- disclosure restricted by GSA ADP Schedule Contract with IBM Corp.-->         
+<!-- ================================================================ -->         
+<!--                                                                  -->         
+<!-- Change Activity:                                                 -->         
+<!--                                                                  -->         
+<!--   LIDB4584-17   V6.1    042607  PDOP: Initial version            -->         
+<!--   468335        V6.1    103107  PDOP: Identify req'd privileges  -->
+<!--   517082        V6.1    043008  PDOP: Removed doc on run action  -->
+<!--                                                                  -->         
+<!-- ================================================================ -->         
+<!--  -->
+<h2>Augmenting a WebSphere for z/OS deployment manager with the Feature Pack 
+for EJB 3.0.</h2> 
+<p> 
+The Profile Management Tool has created a response file and a customization
+job that can be used to augment a WebSphere for z/OS deployment manager 
+node. This augmentation will update the runtime profile to configure 
+Feature Pack for EJB 3.0 on the target node based on the information you 
+provided.  
+</p>
+<p>
+Complete the following steps to perform the augmentation: 
+</p>
+<ol>
+<li>
+<b>Upload the customization job.</b>
+<p>
+Use the zPMT Upload action to upload the customization job and associated data
+to the target z/OS system. The data will be written to the following partitioned
+data sets:
+</p>
+<pre>
+     ${zTargetHLQ}.CNTL
+     ${zTargetHLQ}.DATA
+</pre>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<th>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Stop the target deployment manager.</b>
+<br><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<th>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Back up the target configuration file system.</b>
+<br><br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<th>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Run job IWOFAUGD.</b>
+<p>
+This job generates symbolic links within the target configuration file system
+to the feature pack enablement code (which is contained within the base
+WebSphere install image) and the Feature Pack for EJB 3.0 install image. It also 
+augments the profile in the target configuration file system for Feature Pack 
+for EJB 3.0.
+</p>
+<p>
+This job must be run under a user ID with the Unix System Services files access 
+privileges:
+</p>
+<ul>
+<li>Either uid=0, OR<br><br></li>
+<li>the following UNIXPRIV class profile privileges:
+<pre>
+CONTROL access to SUPERUSER.FILESYS             
+READ    access to SUPERUSER.FILESYS.CHOWN       
+READ    access to SUPERUSER.FILESYS.CHANGEPERMS
+</pre>
+<p> 
+If the UNIXPRIV profile CHOWN.UNRESTRICTED is defined, then  
+the SUPERUSER.FILESYS.CHOWN is not required.  For information
+about the UNIXPRIV class, see the z/OS Unix System Services  
+Planning book.
+</p>
+</li> 
+</ul>                                             
+<p>
+If the deployment manager being updated is using a LocalOS (SAF) user 
+registry, the user ID used to run this job must be connected to the 
+deployment manager's configuration group.
+</p>
+<p>
+If SSL certificates are stored in the SAF keyrings,  
+then the user ID used to run this job must have a    
+SAF keyring whose name matches the value of          
+com.ibm.ssl.keyStore in the     
+${zWasHome}/profiles/default/properties/ssl.client.props
+file, and this keyring must contain the deployment manager's CA certificate.
+</p>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<th>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+<li>
+<b>Restart the deployment manager.</b> 
+<p>
+The target deployment manager is now augmented to include the Feature Pack for EJB 3.0. 
+</p>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<th>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</li>
+</ol>
+</body>
+</html>
+                                                                                                                                                              

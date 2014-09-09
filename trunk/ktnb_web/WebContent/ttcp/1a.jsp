@@ -1,0 +1,220 @@
+<%@page pageEncoding="UTF-8"%>    
+<%@ include file="/top_bar.jsp"%> 
+<h3 class="Header">BÁO CÁO KẾT QUẢ CÔNG TÁC KIỂM TRA NỘI BỘ NGÀNH 1A/KTNB</h3>
+<html:form action="/bc1a.do?method=show">
+	<html:hidden property="maCqt" />	
+	<html:hidden property="ngayCuoiThang" />
+	<table>
+	<tr>
+		<td colspan="4" style="background-color:#CCE7FC"><b>Chọn thời điểm xem số liệu</b></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">&nbsp</td>
+		<td width="30%">
+			Năm <html:text property="nam" style="width:50px" onchange="search();"/> 
+			Tháng <html:select property="thang" style="width:50px" styleId="thang" onchange="search();">
+					<html:option value="1">1</html:option>
+					<html:option value="2">2</html:option>
+					<html:option value="3">3</html:option>
+					<html:option value="4">4</html:option>
+					<html:option value="5">5</html:option>
+					<html:option value="6">6</html:option>
+					<html:option value="7">7</html:option>
+					<html:option value="8">8</html:option>
+					<html:option value="9">9</html:option>
+					<html:option value="10">10</html:option>
+					<html:option value="11">11</html:option>
+					<html:option value="12">12</html:option>
+				</html:select>
+			<!-- <input type="button" value="Xem" id="btnSearch" onclick="search();"/> -->
+		</td>
+		<td width="20%" style="text-align: right;">&nbsp</td>
+		<td width="30%">&nbsp</td>		
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#CCC"><b>Kế hoạch năm</b></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Kế hoạch năm</td>
+		<td width="30%"><html:text property="KHN" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#CCC"><b>Số cuộc kiểm tra nội bộ thực hiện trong kỳ</b></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Tổng số</td>
+		<td width="30%"><html:text property="TONG_SO" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Thực hiện kỳ trước chuyển sang</td>
+		<td width="30%"><html:text property="KHN_TH_KY_TRUOC" style="width:250px; background-color: #CCC" readonly="true"/></td>
+		<td width="20%" style="text-align: right;">Thực hiện triển khai trong kỳ báo cáo</td>
+		<td width="30%"><html:text property="KHN_TH_TRONG_KY" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Hình thức theo kế hoạch</td>
+		<td width="30%"><html:text property="KHN_TH_THEO_KH" style="width:250px; background-color: #CCC" readonly="true"/></td>
+		<td width="20%" style="text-align: right;">Hình thức đột xuất</td>
+		<td width="30%"><html:text property="KHN_TH_DX" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Tiến độ kết thúc kiểm tra trực tiếp</td>
+		<td width="30%"><html:text property="KHN_TD_KT_TRUC_TIEP" style="width:250px; background-color: #CCC" readonly="true"/></td>
+		<td width="20%" style="text-align: right;">Tiến độ đã ban hành kết luận</td>
+		<td width="30%"><html:text property="KHN_TD_KT_KET_LUAN" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#CCC"><b>Kiểm tra, vi phạm</b></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Số đơn vị được kiểm tra</td>
+		<td width="30%"><html:text property="SO_DV_DUOC_KT" style="width:250px; background-color: #CCC" readonly="true"/></td>
+		<td width="20%" style="text-align: right;">Số đơn vị có vi phạm</td>
+		<td width="30%"><html:text property="SO_DV_SAI_PHAM" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#CCC"><b>Tổng vi phạm</b></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Tiền (hoặc tài sản quy thành tiền)</td>
+		<td width="30%"><html:text property="TSP_TIEN" style="width:250px; background-color: #CCC" readonly="true"/></td>
+		<td width="20%" style="text-align: right;">Khác</td>
+		<td width="30%"><html:text property="TSP_KHAC" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#CCC"><b>Kiến nghị thu hồi</b></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Tiền (hoặc tài sản quy thành tiền)</td>
+		<td width="30%"><html:text property="KNTH_TIEN" style="width:250px; background-color: #CCC" readonly="true"/></td>
+		<td width="20%" style="text-align: right;">Khác</td>
+		<td width="30%"><html:text property="KNTH_KHAC" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#CCC"><b>Kiến nghị khác</b></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Tiền (hoặc tài sản quy thành tiền)</td>
+		<td width="30%"><html:text property="KNKHAC_TIEN" style="width:250px; background-color: #CCC" readonly="true"/></td>
+		<td width="20%" style="text-align: right;">Khác</td>
+		<td width="30%"><html:text property="KNKHAC_KHAC" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#CCC"><b>Kiến nghị xử lý</b></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Số người xử lý hành chính</td>
+		<td width="30%"><html:text property="KNXL_HANH_CHINH" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Số vụ chuyển cơ quan điều tra</td>
+		<td width="30%"><html:text property="KNXL_HINH_SU_VU" style="width:250px; background-color: #CCC" readonly="true"/></td>
+		<td width="20%" style="text-align: right;">Số người chuyển cơ quan điều tra</td>
+		<td width="30%"><html:text property="KNXL_HINH_SU_NGUOI" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#CCC"><b>Kết quả xử lý</b></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Tổng số người đã xử lý</td>
+		<td width="30%"><html:text property="KQ_SO_NGUOI" style="width:250px; background-color: #CCC" readonly="true"/></td>
+		<td width="20%" style="text-align: right;">Kiểm điểm rút kinh nghiệm</td>
+		<td width="30%"><html:text property="KQ_HC_RUT_KN" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Khiển trách</td>
+		<td width="30%"><html:text property="KQ_HC_KHIEN_TRACH" style="width:250px; background-color: #CCC" readonly="true"/></td>
+		<td width="20%" style="text-align: right;">Cảnh cáo</td>
+		<td width="30%"><html:text property="KQ_HC_CANH_CAO" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Hạ bậc lương</td>
+		<td width="30%"><html:text property="KQ_HC_HA_LUONG" style="width:250px; background-color: #CCC" readonly="true"/></td>
+		<td width="20%" style="text-align: right;">Giáng chức</td>
+		<td width="30%"><html:text property="KQ_HC_GIANG_CHUC" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Cách chức</td>
+		<td width="30%"><html:text property="KQ_HC_CACH_CHUC" style="width:250px; background-color: #CCC" readonly="true"/></td>
+		<td width="20%" style="text-align: right;">Buộc thôi việc</td>
+		<td width="30%"><html:text property="KQ_HC_THOI_VIEC" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Xử lý hình sự</td>
+		<td width="30%"><html:text property="KQ_HS" style="width:250px; background-color: #CCC" readonly="true"/></td>
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#CCC"><b>Đã thu</b></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Đã thu tiền</td>
+		<td width="30%"><html:text property="daThuTien" style="width:250px" onblur="isNumber(this,'i')"/></td>
+		<td width="20%" style="text-align: right;">Đã thu khác</td>
+		<td width="30%"><html:text property="daThuKhac" style="width:250px" onblur="isNumber(this,'i')"/></td>		
+	</tr>
+	<tr>
+		<td colspan="4" style="background-color:#CCC"><b>Kiểm tra, đôn đốc việc thực hiện kết luận KTNB</b></td>
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Tổng số KLKTđã kiểm tra, đôn đốc</td>
+		<td width="30%"><html:text property="kiemTraTongSo" style="width:250px" onblur="isNumber(this,'i')"/></td>	
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Kết quả kiểm tra, đôn đốc số tiền phải thu</td>
+		<td width="30%"><html:text property="kiemTraTienPhaiThu" style="width:250px" onblur="isNumber(this,'i')"/></td>
+		<td width="20%" style="text-align: right;">Kết quả kiểm tra, đôn đốc số tiền đã thu</td>
+		<td width="30%"><html:text property="kiemTraTienDaThu" style="width:250px" onblur="isNumber(this,'i')"/></td>		
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Kết quả kiểm tra, đôn đốc khác phải thu</td>
+		<td width="30%"><html:text property="kiemTraKhacPhaiThu" style="width:250px" onblur="isNumber(this,'i')"/></td>
+		<td width="20%" style="text-align: right;">Kết quả kiểm tra, đôn đốc khác đã thu</td>
+		<td width="30%"><html:text property="kiemTraKhacDaThu" style="width:250px" onblur="isNumber(this,'i')"/></td>		
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Kết quả kiểm tra, đôn đốc số người đã xử lý hành chính</td>
+		<td width="30%"><html:text property="kiemTraDaXlyHC" style="width:250px" onblur="isNumber(this,'i')"/></td>	
+	</tr>
+	<tr>
+		<td width="20%" style="text-align: right;">Kết quả kiểm tra, đôn đốc đã khởi tố số vụ</td>
+		<td width="30%"><html:text property="kiemTraKhoiToVu" style="width:250px" onblur="isNumber(this,'i')"/></td>
+		<td width="20%" style="text-align: right;">Kết quả kiểm tra, đôn đốc đã khởi tố số người</td>
+		<td width="30%"><html:text property="kiemTraKhoiToNguoi" style="width:250px" onblur="isNumber(this,'i')"/></td>		
+	</tr>
+		
+	
+	<tr>
+		<td width="20%" style="text-align: right;">&nbsp</td>
+		<td width="30%">
+			<input type="button" value="Lưu số liệu" id="btnSearch" onclick="save();"/>
+			<input type="button"  value='Đóng' onclick="goHomeTTCP();">
+		</td>
+		<td width="20%" style="text-align: right;">&nbsp</td>
+		<td width="30%">&nbsp</td>		
+	</tr>
+	</table>
+</html:form>
+<script type="text/javascript" charset="utf-8">  
+$(document).ready(function(){
+	var ghiTC = "";
+	<logic:present name="ghiThanhcong">
+	     	ghiTC = '<%=request.getAttribute("ghiThanhcong")%>';
+	 </logic:present>
+	 if(ghiTC=='1'){
+		alert('Lưu thành công'); 
+	 }
+	 else  if(ghiTC=='0'){
+		alert('Lỗi khi ghi dữ liệu!!!'); 
+	 } 
+	 <%request.removeAttribute("ghiThanhcong");%>
+});
+function search(){	
+	document.forms[0].action='bc1a.do?method=show';
+	document.forms[0].submit();
+}
+function save(){
+	document.forms[0].action="bc1a.do?method=save";
+	document.forms[0].submit();
+}
+</script>
+<%@ include file="/bottom.jsp"%>

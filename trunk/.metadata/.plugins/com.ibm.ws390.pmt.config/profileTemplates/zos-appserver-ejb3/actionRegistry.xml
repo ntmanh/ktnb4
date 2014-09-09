@@ -1,0 +1,411 @@
+<!-- Licensed Materials - Property of IBM                                                 -->
+<!-- 5724-I63, 5724-H88, 5655-N01, 5733-W61 (C) Copyright IBM Corp. 1997, 2006            -->
+<!-- All Rights Reserved                                                                  -->
+<!-- US Government Users Restricted Rights - Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with  the IBM Corp.                                        -->
+
+<actions>
+     <action path="actions/zpmt.ant" priority="01" isFatal="true"> 
+        <argument key="profileName" values="1" required="true" >
+            <defaulter path="defaulters/profileNameDefaulter.ijc"/>
+            <validator path="validators/profileNameValidator.ijc"/>
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/noInvalidCharactersValidator.ijc"/>
+        </argument>
+        <argument key="profilePath" values="1" required="true" >
+            <defaulter path="defaulters/profileLocationDefaulter.ijc"/>
+            <validator path="validators/directoryValidator.ijc"/>
+        </argument>
+        <argument key="zTargetHLQ" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zTargetHLQLengthValidator.ijc"/>
+            <validator path="validators/zDataSetValidator.ijc"/> 
+        </argument>
+	    <argument key="zConfigurationGroup" values="1" required="true" >
+            <validator path="validators/zIDLengthValidator.ijc"/>
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zGroupIDFormatValidator.ijc"/>
+        </argument>
+        <argument key="zConfigurationGroupGID" values="1" required="true" >
+            <validator path="validators/zNumericIDValidator.ijc"/>
+        </argument>
+        <argument key="zHFSOwnerUserID" values="1" required="true" >
+            <validator path="validators/zIDLengthValidator.ijc"/>
+            <validator path="validators/zUseridFormatValidator.ijc"/>
+        </argument>
+        <argument key="zHFSOwnerUID" values="1" required="true" >
+            <validator path="validators/zNumericIDValidator.ijc"/>
+        </argument>
+        <argument key="zServantGroup" values="1" required="true" >
+            <validator path="validators/zIDLengthValidator.ijc"/>
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zGroupIDFormatValidator.ijc"/>
+        </argument>
+        <argument key="zServantGroupGID" values="1" required="true" >
+            <validator path="validators/zNumericIDValidator.ijc"/>
+        </argument>
+        <argument key="zLocalUserGroup" values="1" required="true" >
+            <validator path="validators/zIDLengthValidator.ijc"/>
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zGroupIDFormatValidator.ijc"/>
+        </argument>
+        <argument key="zLocalUserGroupGID" values="1" required="true" >
+            <validator path="validators/zNumericIDValidator.ijc"/>
+        </argument>
+         <argument key="zUserIDHomeDirectory" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zUnixStylePathValidator.ijc"/>
+            <validator path="validators/zUserHomeDirLengthValidator.ijc"/>
+         </argument>
+         <argument key="zSystemName" values="1" required="true" >
+            <validator path="validators/zSystemNameLengthValidator.ijc"/>
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/noInvalidCharactersValidator.ijc"/>
+        </argument>
+        <argument key="zSysplexName" values="1" required="true" >
+            <validator path="validators/zSysplexNameLengthValidator.ijc"/>
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/noInvalidCharactersValidator.ijc"/>
+        </argument>
+        <argument key="zProclibName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zProductDataSetLengthValidator.ijc"/>        
+            <validator path="validators/zDataSetValidator.ijc"/>
+        </argument>
+        <argument key="zBbolpaName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zProductDataSetLengthValidator.ijc"/>        
+            <validator path="validators/zDataSetValidator.ijc"/>
+        </argument>
+        <argument key="zBboloadName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zProductDataSetLengthValidator.ijc"/>        
+            <validator path="validators/zDataSetValidator.ijc"/>
+        </argument>
+        <argument key="zBbgloadName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zProductDataSetLengthValidator.ijc"/>        
+            <validator path="validators/zDataSetValidator.ijc"/>
+        </argument>
+        <argument key="zBbolod2Name" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zProductDataSetLengthValidator.ijc"/>        
+            <validator path="validators/zDataSetValidator.ijc"/>
+        </argument>
+        <argument key="zBboexecName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zProductDataSetLengthValidator.ijc"/>        
+            <validator path="validators/zDataSetValidator.ijc"/>
+        </argument>
+        <argument key="zBBOMSGName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zProductDataSetLengthValidator.ijc"/>        
+            <validator path="validators/zDataSetValidator.ijc"/>
+        </argument>
+        <argument key="zProductHlq" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zProductDataSetLengthValidator.ijc"/>        
+            <validator path="validators/zDataSetValidator.ijc"/>
+        </argument>
+        <argument key="zAdminConsolePort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zAdminConsoleSecurePort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zDaemonPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zDaemonSslPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zHighAvailManagerPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zHttpTransportPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zHttpTransportSslPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zOrbListenerPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zOrbListenerSslPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zServiceIntegrationMqPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zServiceIntegrationPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zServiceIntegrationSecureMqPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zServiceIntegrationSecurePort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zSessionInitiationPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zSessionInitiationSecurePort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zSoapPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zSmpePath" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zSMPEPathLengthValidator.ijc"/>
+            <validator path="validators/zUnixStylePathValidator.ijc"/>
+        </argument>
+        <argument key="zConfigMountPoint" values="1" required="true" >
+            <validator path="validators/zConfigPathLengthValidator.ijc"/>
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zUnixStylePathValidator.ijc"/>
+        </argument>
+        <argument key="zConfigHfsName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+	        <validator path="validators/zProductDataSetLengthValidator.ijc"/>
+            <validator path="validators/zDataSetValidator.ijc"/>
+        </argument>
+        <argument key="zConfigHfsVolume" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zVolumeLengthValidator.ijc"/>
+            <validator path="validators/zVolumeFormatValidator.ijc"/>
+        </argument>
+        <argument key="zErrorLogstreamName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zErrorLogLengthValidator.ijc"/>
+            <validator path="validators/zDataSetValidator.ijc"/>
+        </argument>
+        <argument key="zCtraceParmlibSuffix" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zCtraceLengthValidator.ijc"/>
+            <validator path="validators/zCtraceFormatValidator.ijc"/>
+        </argument>
+        <argument key="cellName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zCellNameLengthValidator.ijc"/>
+            <validator path="validators/zLongNameFormatValidator.ijc"/>
+        </argument>
+        <argument key="zCellShortName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zCellShortNameLengthValidator.ijc"/>
+            <validator path="validators/zShortNameFormatValidator.ijc"/>
+        </argument>
+        <argument key="nodeName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+	        <validator path="validators/zNodeNameLengthValidator.ijc"/>
+            <validator path="validators/zLongNameFormatValidator.ijc"/>
+        </argument>
+        <argument key="zNodeShortName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zNodeShortNameLengthValidator.ijc"/>
+            <validator path="validators/zShortNameFormatValidator.ijc"/>
+        </argument>
+        <argument key="serverName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zServerNameLengthValidator.ijc"/>
+            <validator path="validators/zLongNameFormatValidator.ijc"/>
+        </argument>
+        <argument key="zServerShortName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zServerShortNameLengthValidator.ijc"/>
+            <validator path="validators/zShortNameFormatValidator.ijc"/>
+        </argument>
+         <argument key="zWasServerDir" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zWasServerDirLengthValidator.ijc"/>
+            <validator path="validators/zUnixStylePathValidator.ijc"/>
+        </argument>
+        <argument key="zClusterTransitionName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zClusterLengthValidator.ijc"/>
+            <validator path="validators/zShortNameFormatValidator.ijc"/>
+        </argument>
+        <argument key="zAdminAsynchProcName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zLongProcLengthValidator.ijc"/>
+            <validator path="validators/zShortNameFormatValidator.ijc"/>
+        </argument>
+        <argument key="zAdminAsynchTaskUserid" values="1" required="true" >
+            <validator path="validators/zIDLengthValidator.ijc"/>
+            <validator path="validators/zUseridFormatValidator.ijc"/>
+        </argument>
+        <argument key="zAdminAsynchTaskUid" values="1" required="true" >
+            <validator path="validators/zNumericIDValidator.ijc"/>
+        </argument>
+        <argument key="zControlProcName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zProcLengthValidator.ijc"/>
+            <validator path="validators/zShortNameFormatValidator.ijc"/>
+        </argument>
+        <argument key="zControlUserid" values="1" required="true" >
+            <validator path="validators/zIDLengthValidator.ijc"/>
+            <validator path="validators/zUseridFormatValidator.ijc"/>
+        </argument>
+        <argument key="zControlUid" values="1" required="true" >
+            <validator path="validators/zNumericIDValidator.ijc"/>
+        </argument>
+        <argument key="zAdjunctProcName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zProcLengthValidator.ijc"/>
+            <validator path="validators/zShortNameFormatValidator.ijc"/>
+        </argument>
+        <argument key="zAdjunctUserid" values="1" required="true" >
+            <validator path="validators/zIDLengthValidator.ijc"/>
+            <validator path="validators/zUseridFormatValidator.ijc"/>
+        </argument>
+        <argument key="zAdjunctUid" values="1" required="true" >
+            <validator path="validators/zNumericIDValidator.ijc"/>
+        </argument>
+        <argument key="zServantProcName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zProcLengthValidator.ijc"/>
+            <validator path="validators/zShortNameFormatValidator.ijc"/>
+        </argument>
+        <argument key="zServantUserid" values="1" required="true" >
+            <validator path="validators/zIDLengthValidator.ijc"/>
+            <validator path="validators/zUseridFormatValidator.ijc"/>
+        </argument>
+        <argument key="zServantUid" values="1" required="true" >
+            <validator path="validators/zNumericIDValidator.ijc"/>
+        </argument>
+ 	    <argument key="hostName" values="1" required="true" >
+            <validator path="validators/zHostNameLengthValidator.ijc"/>
+            <validator path="validators/hostNameValidator.ijc"/>
+        </argument>
+         <argument key="zOrbListenerHostName" values="1" required="true" > 
+            <validator path="validators/zTransportHostNameValidator.ijc"/>
+        </argument>
+        <argument key="zHttpTransportHostName" values="1" required="true" >
+            <validator path="validators/zTransportHostNameValidator.ijc"/>
+        </argument>
+        <argument key="zDaemonJobName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zJobNameLengthValidator.ijc"/>
+            <validator path="validators/zJobNameFormatValidator.ijc"/>
+        </argument>
+        <argument key="zDaemonProcName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zProcLengthValidator.ijc"/>
+            <validator path="validators/zShortNameFormatValidator.ijc"/>
+        </argument>
+        <argument key="zDaemonUserid" values="1" required="true" >
+            <validator path="validators/zIDLengthValidator.ijc"/>
+            <validator path="validators/zUseridFormatValidator.ijc"/>
+        </argument>
+        <argument key="zDaemonUid" values="1" required="true" >
+            <validator path="validators/zNumericIDValidator.ijc"/>
+        </argument>
+        <argument key="zDaemonIPName" values="1" required="true" >
+            <validator path="validators/zDaemonIPFormatValidator.ijc"/>
+            <validator path="validators/zHostNameLengthValidator.ijc"/>
+            <validator path="validators/noSpacesValidator.ijc"/>
+        </argument>
+        <argument key="zDaemonListenIP" values="1" required="true" >
+            <validator path="validators/zTransportHostNameValidator.ijc"/>
+        </argument>
+	    <argument key="zCaKeylabel" values="1" required="true" >
+            <validator path="validators/zKeyLengthValidator.ijc"/>
+            <validator path="validators/noInvalidCharactersValidator.ijc"/>
+        </argument>
+        <argument key="zDefaultSAFKeyringName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zKeyLengthValidator.ijc"/>
+            <validator path="validators/zKeyringValidator.ijc"/>
+        </argument>
+        <argument key="zCaAuthorityExpirationDate" values="1" required="true" >
+            <validator path="validators/zDateValidator.ijc"/>
+        </argument>
+         <argument key="zAdminSecurityType" values="1" required="true">
+            <validator path="validators/zSecurityTypeValidator.ijc"/>
+         </argument>
+         <argument key="zSecurityDomainId" values="1" required="false" >
+          <validator path="validators/zSecurityDomainValidator.ijc"/>
+          <validator path="validators/zSecurityDomainFormatValidator.ijc"/>
+         </argument>
+         <argument key="zAdminUserid" values="1" required="false" >
+            <validator path="validators/zSecurityIDLengthValidator.ijc"/>
+            <validator path="validators/zSecurityIDFormatValidator.ijc"/>
+         </argument>
+         <argument key="zAdminUid" values="1" required="false" >
+            <validator path="validators/zSecurityNumericIDValidator.ijc"/>
+         </argument>
+         <argument key="zAdminUnauthenticatedUserid" values="1" required="false" >
+            <validator path="validators/zSecurityIDLengthValidator.ijc"/>
+            <validator path="validators/zSecurityIDFormatValidator.ijc"/>
+         </argument> 
+         <argument key="zAdminUnauthenticatedUid" values="1" required="false" >
+            <validator path="validators/zSecurityNumericIDValidator.ijc"/>
+         </argument>
+         <argument key="adminUserName" values="1" required="false">
+              <validator path="validators/familySecurityNoInvalidCharactersValidator.ijc"/>
+              <validator path="validators/familySecurityIDLengthValidator.ijc"/>
+          </argument>
+          <argument key="adminPassword" values="1" required="false">
+          </argument>
+          <argument key="samplesPassword" values="1" required="false">
+          </argument>
+          <argument key="webServerCheck" values="1" required="false">
+              <defaulter path="defaulters/webServerCheckDefaulter.ijc" priority="60"/>
+              <validator path="validators/booleanValidator.ijc"/>
+          </argument>
+          <argument key="webServerType" values="1" required="false">
+              <validator path="validators/webServerTypeValidator.ijc"/>
+              <validator path="validators/webServerDefinitionComboValidator.ijc"/>
+          </argument>
+          <argument key="webServerOS" values="1" required="false">
+              <validator path="validators/webServerOSValidator.ijc"/>
+              <validator path="validators/webServerDefinitionComboValidator.ijc"/>
+          </argument>
+          <argument key="webServerName" values="1" required="false">
+              <defaulter path="defaulters/webServerNameDefaulter.ijc" priority="65"/>
+              <validator path="validators/zWebServerLengthValidator.ijc"/>
+              <validator path="validators/webServerNoInvalidCharactersValidator.ijc"/>
+              <validator path="validators/webServerNoSpacesValidator.ijc"/>
+          </argument>
+          <argument key="webServerHostname" values="1" required="false">
+              <defaulter path="defaulters/zWebServerHostNameDefaulter.ijc" priority="65"/>
+              <validator path="validators/zWebServerHostValidator.ijc"/>
+              <validator path="validators/webServerHostNameValidator.ijc"/>
+          </argument>
+          <argument key="webServerPort" values="1" required="false">
+              <defaulter path="defaulters/webServerPortDefaulter.ijc" priority="65"/>
+              <validator path="validators/webServerPortValueInRangeValidator.ijc"/>
+          </argument>
+          <argument key="webServerInstallPath" values="1" required="false">
+              <defaulter path="defaulters/webServerInstallPathDefaulter.ijc" priority="65"/>						
+              <validator path="validators/zWebServerPathLengthValidator.ijc"/>
+              <validator path="validators/webServerProperlyFormedPathValidator.ijc"/>
+          </argument>
+          <argument key="webServerPluginPath" values="1" required="false">
+              <defaulter path="defaulters/zWebServerPluginPathDefaulter.ijc" priority="65"/>
+              <validator path="validators/zWebServerPathLengthValidator.ijc"/>
+              <validator path="validators/webServerProperlyFormedPathValidator.ijc"/>
+          </argument>
+        <argument key="zEjb3SmpePath" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zSMPEPathLengthValidator.ijc"/>
+            <validator path="validators/zUnixStylePathValidator.ijc"/>
+        </argument>
+        <argument key="zJobStatement1" values="1" required="true" >
+            <validator path="validators/zJobStatementLineOneLengthValidator.ijc"/>
+            <validator path="validators/zJobStatementFormatValidator.ijc"/>
+        </argument>
+        <argument key="zJobStatement2" values="1" required="true" >
+            <validator path="validators/zJobStatementLengthValidator.ijc"/>
+            <validator path="validators/zJobStatementFormatValidator.ijc"/>
+        </argument>
+        <argument key="zJobStatement3" values="1" required="true" >
+            <validator path="validators/zJobStatementLengthValidator.ijc"/>
+            <validator path="validators/zJobStatementFormatValidator.ijc"/>
+        </argument>
+        <argument key="zJobStatement4" values="1" required="true" >
+            <validator path="validators/zJobStatementLengthValidator.ijc"/>
+            <validator path="validators/zJobStatementFormatValidator.ijc"/>
+        </argument>
+    </action>
+</actions>

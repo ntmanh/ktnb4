@@ -1,0 +1,371 @@
+<HTML>
+<HEAD>
+<TITLE>Instructions for customizing WebSphere for z/OS to Federate a stand-alone Application Server node.                            
+</TITLE>  
+</HEAD>
+<BODY>
+<!--                                                                  -->           
+<!-- ================================================================ -->         
+<!-- PROPRIETARY-STATEMENT:                                           -->         
+<!-- Licensed Material - Property of IBM                              -->         
+<!--                                                                  -->         
+<!-- 5724-I63, 5724-H88, 5655-N01, 5733-W61                           -->         
+<!-- (C) Copyright IBM Corp. 1999, 2006                               -->         
+<!-- All Rights Reserved                                              -->         
+<!-- US Government Users Restricted Rights - Use, duplication or      -->         
+<!-- disclosure restricted by GSA ADP Schedule Contract with IBM Corp.-->         
+<!-- ================================================================ -->         
+<!--                                                                  -->         
+<!-- Change Activity:                                                 -->         
+<!--                                                                  -->         
+<!--   378205  V6.1    071506    FH: Initial version                  -->         
+<!--   417077  V6.1    012607    JG: Provide same look/feel           -->
+<!--   439478  V6.1    051807    DB: Wrong SOAP port being displayed  -->
+<!--  467454.1 V6.1    050108  PDOP: Updated retrieveSigners.sh sample-->
+<!-- ================================================================ -->         
+<!--  -->
+<h2>
+Instructions for customizing WebSphere for z/OS to Federate a stand-alone Application Server node.
+</h2>                                                                
+<p>                                                                               
+The Profile Management tool or Customization Dialog has created jobs based on the information you          
+provided. These instructions tell you how to modify the operating               
+system and run the jobs to customize WebSphere Application Server for z/OS.  
+When you upload the customization jobs to the target system, a text version of
+these instructions will be written to:
+<samp><xmp> 
+    ${zTargetHLQ}.CNTL(BBOANINS)
+</xmp></samp>                      
+</p>                                                                                
+<h3>Guidelines</h3>                                        
+<UL>
+<li>
+Upload the customization jobs to the following data sets on the target
+system:
+<samp><xmp>
+    ${zTargetHLQ}.CNTL
+    ${zTargetHLQ}.DATA
+</xmp></samp> 
+</li>
+<li>You need to use these instructions on your target system.
+</li>
+<LI>Complete the customization of a stand-alone application server and the customization 
+of a deployment manager server. Also, ensure that the deployment manager 
+server has been started before starting these instructions.
+</LI>
+</UL>
+<HR ALIGN=center NOSHADE SIZE=5 WIDTH=90%>
+<h4>Manual configuration updates</h4>
+<p>
+The Profile Management Tool does not attempt to
+update configuration data for your base operating system or existing
+subsystems. You need to perform the following manual steps prior to running
+the WebSphere for z/OS configuration jobs.
+</p>
+<br><br>
+<ol>
+<li><b>Update TCP/IP by reserving the following ports for WebSphere Application Server for z/OS:</b> 
+<BR>
+<BR>                                                                                
+<b>Attention:</b> Skip this step if the ports are already defined in the  
+ TCP/IP profile.  
+<br><br>                                                                          
+<table border=2 cellspacing=0 cellpadding=3>
+<tr>
+<th>Type</th>
+<th>Number</th>
+</tr>
+<tr>
+<td>SOAP JMX Connector port</td>
+<td align=right><tt>${zFederateJmxSoapConnectorPort}</tt></td>
+</tr>
+<tr>
+<td>Node Discovery port</td>
+<td align=right><tt>${zFederateNodeDiscoveryPort}</tt></td>
+</tr>
+<tr>
+<td>Node Multicast Discovery Port</td>
+<td align=right><tt>${zFederateNodeMulticastDiscoveryPort}</tt></td>
+</tr>
+<tr>
+<td>Node IPv6 multicast discovery port</td>
+<td align=right><tt>${zFederateNodeIPv6MulticastDiscoveryPort}</tt></td>
+</tr>
+<tr>
+<td>Node Agent's ORB port</td>
+<td align=right><tt>${zFederateOrbPortName}</tt></td>
+</tr>
+<tr>
+<td>High Availability Manager Communication port</td>
+<td align=right><tt>${zFederateHamCommPort}</tt></td>
+</tr>
+<!-- if (${zFederateOrbSslPortName}!=0) -->                                                           
+<tr>
+<td>Node Agent's ORB SSL port</td>
+<td align=right><tt>${zFederateOrbSslPortName}</tt></td>
+</tr>
+<!-- endif -->
+<tr>
+<td>Application Server's ORB Port</td>
+<td align=right><tt>${zFederateAppServerOrbPort}</tt></td>
+</tr>
+</table>
+<BR>                                                                        
+<p>                                                                                
+Add the contents of the
+<a href="./cntl/bbotcpia" type="text/plain">cntl/bbotcpia</a> 
+file within this customization definition to the PORT section of the file             
+referenced by the DD statement for the TCP/IP profile in the                
+TCP/IP start procedure. Copy and paste from this file into the             
+data set used by your installation.                                         
+</p>                                           
+<br>                                                        
+<p><B>Note:</B> The addNode process introduces a special utility server to                
+      the node.  This utility server is called a nodeagent and                  
+      exists to support administrative functions on the node.</p>                                           
+<p>By default the nodeagent takes over ORB port 2809.   Be aware that on                 
+      WebSphere z/OS the ORB port doubles as the INS CosNaming                  
+      bootstrap port.  By default, this port (2809) was assigned                
+      to the Application Server.  Usually you want the nodeagent               
+      to be the INS CosNaming bootstrap point for the entire node,              
+      so that RMI/IIOP clients that do not override the INS                     
+      CosNaming bootstrap defaults can locate within the namespace,             
+      EJBs installed on any server on that node.</p>  
+<p>In order for the              
+      nodeagent to take over port 2809,  the Application Server must            
+      be assigned a new ORB port.  The default new ORB port for the             
+      Application Server is 9810.  The nodeagent will take over an              
+      Application Server's ORB port if and only if the nodeagent's ORB          
+      port is equal to an Application Server's ORB port.  You can               
+      specify the nodeagent's ORB port in the 'ORB port' field.                 
+      You can specify the new ORB port for the Application Server in            
+      the 'Appplication Server's ORB Port' field.  
+</p>
+<b>Attention: </b>If another application has already reserved any of these
+    ports for its own use, you must resolve the resulting conflict
+    before you continue. If you update the WebSphere for z/OS 
+    Customization Dialog or Profile Management tool with new 
+    port specifications, be sure to regenerate the customization 
+    jobs, data, and instuctions.
+<BR>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+</LI>
+</ol>
+<HR ALIGN=center NOSHADE SIZE=5 WIDTH=90%>
+<br><br>
+<h3> 
+Running the customized jobs
+</h3>
+<br>
+<p> 
+The Profile Management Tool built a number of batch jobs with the
+variables you supplied. You need to run the jobs in the order listed
+below, using user IDs with the appropriate authority.
+</p> <br>
+<br>           
+<ol>
+<LI>
+<B>Run Job BBOWADDN</B>
+<BR><BR>
+<B>User ID requirement:</B> File system update authority.
+<br><br>
+<b>Note:</b> Whenever "file system update authority" is indicated, the user   
+       ID used to run the configuration job must have                   
+       either <samp>uid = 0</samp>
+<br>                                                 
+        or the following UNIXPRIV class profile privileges:          
+<samp><xmp>
+    CONTROL access to SUPERUSER.FILESYS                       
+    UPDATE  access to SUPERUSER.FILESYS.MOUNT                 
+    READ    access to SUPERUSER.FILESYS.CHOWN                 
+    READ    access to SUPERUSER.FILESYS.CHANGEPERMS           
+</xmp></samp>
+<p>
+       If the UNIXPRIV profile CHOWN.UNRESTRICTED is defined, then      
+       the SUPERUSER.FILESYS.CHOWN is not required.  For information    
+       about the UNIXPRIV class, see the z/OS Unix System Services      
+       Planning book. 
+</p>
+<p>If the Network Deployment cell uses a z/OS LocalOS           
+(SAF) registry, then the user ID used to run this            
+job must be connected to the Network Deployment              
+cell's configuration group.
+</p>   
+<p>     
+If SSL certificates are stored in the SAF keyrings,          
+then the user ID used to run this job must have a            
+SAF keyring whose name matches the value of                  
+com.ibm.ssl.keyStore in the application server's             
+<samp>WAS_HOME/profiles/default/properties/ssl.client.props </samp>        
+file, and this keyring must contain the Network              
+Deployment cell's CA certificate.   
+</p>
+<BR>Add the application server or servers associated with the stand-         
+alone application server node to the deployment manager's        
+cell.
+<BR><br>
+<b>For security enablement on the Deployment Manager:<br></b>
+<br><ul>
+<!-- if (${zFederateDmaSecurity}==true) -->                                                           
+<li>
+If both your target Network Deployment cell and the cell
+containing the node you are federating use WebSphere-managed   
+security, and both cells are using file-based   
+keystores, run the <samp>retrieveSigners.sh</samp> script from the   
+home directory of the node being federated:             
+<samp><xmp>                                                        
+    ${zConfigMountPoint}/${zWasServerDir}/bin/retrieveSigners.sh CellDefaultTrustStore ClientDefaultTrustStore -port ${zFederateDmaPort}    
+      -conntype ${zFederateDmaPortType} -user ${zFederateDmaSecurityUserID} -password ${zFederateDmaSecurityPassword} -autoAcceptBootstrapSigner   
+    </xmp></samp>
+</li>
+<!-- endif -->
+<!-- if (${zFederateDmaSecurity}!=true) -->                                                           
+<li>
+ Verify that your target Network Deployment cell is    
+ running without administrative security.  You should  
+ enable administrative security after federation to    
+ prevent unauthorized access to the Network Deployment 
+ cell.     
+</li>
+<!-- endif -->
+</ul>
+<br><br>
+If your application server is using z/OS log streams for  transaction XA partner logs, delete and recreate the log
+ streams before federation.          
+<br><br>
+<B>Note: </B>If your system is busy, you may want to include a rule           
+in your WLM policy that OMVS work for job <samp>${zFederateServerShortName}</samp>               
+(such as the postinstaller step) is to run in a service          
+class with a high service objective. 
+<BR><br>
+If you choose to start the node agent automatically,            
+the user ID used to run <samp>BBOWADDN</samp> will also need the              
+authority to issue the MVS START command.
+<BR>
+<BR>
+<BR><B>Attention:</B> Before you run the BBOWADDN job to                 
+federate the stand-alone Application Server node, you            
+must have started the stand-alone Application server             
+that you are federating at least once so the applyPTF            
+step runs.  Otherwise, the <samp>BBOWADDN</samp> job will fail with           
+an error such as:   
+<BR>
+<samp><xmp>
+    java.lang.NullPointerException at                              
+    com.ibm.ws.management.tools.NodeFederationUtility.createNDProductFile(NodeFederationUtility.java:1929)
+</xmp></samp>
+<BR> 
+<B>Note: </B>Run this job only once for each node that you              
+federate, regardless of how many application servers the         
+node contains. 
+<BR><br>
+<B>Result:</B> Upon successful completion of this job, you will       
+see the following message in SYSPRINT:                                 
+<br>
+<samp><xmp>
+    ADMU0003I: Node <nodename> has been successfully federated.                                                                    
+</xmp></samp>
+<BR>  
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+<BR><BR>
+</LI>
+<LI>
+<B>Start the node agent server</B>
+<BR><BR>
+<br> 
+<B>Note:</B> If your server is already running, this step is not necessary.  
+<BR><BR>
+<B>Example:</B> If your Application Server proc name is 
+<samp>XXXXXXXX</samp>, and              
+your Application Server node name (short)                       
+is <samp>YYYYYYYY</samp>, and your Deployment Manager cell                   
+name (short) is <samp>ZZZZZZZZ</samp>, issue the MVS command:  
+<BR>
+<samp><xmp>
+    START XXXXXXXX,JOBNAME=${zFederateServerShortName}, ENV=ZZZZZZZZ.YYYYYYYY.${zFederateServerShortName}  
+</xmp></samp>
+<BR>
+This command starts the node agent server.
+<BR> <BR>
+<B>Result:</B> The following message appears on the console and         
+in the job log of <samp>${zFederateServerShortName}.</samp> 
+<BR>
+<samp> <xmp>
+    BBOO0019I INITIALIZATION COMPLETE FOR WEBSPHERE FOR z/OS CONTROL PROCESS ${zFederateServerShortName}.       
+</xmp></samp>
+<br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br>
+<BR>
+</LI>
+<BR>
+<LI>
+<B>Start the Application Server </B>(optional) 
+<BR><BR>
+<B>Note:</B> You must start the node agent before you start the         
+Application Server, if the node agent has not already            
+been started. 
+<BR><br>
+<B>Example:</B> If your Application Server proc name is                
+<samp>XXXXXXXX</samp>, and your Application Server node name (short) is          
+<samp>YYYYYYYY</samp>, and your server short name is <samp>BBOS001</samp>, and your             
+Deployment Manager cell name (short) is <samp>ZZZZZZZZ</samp>,          
+the MVS command you would issue would be similar to the following:          
+<BR>
+<samp><xmp>
+    START XXXXXXXX,JOBNAME=BBOS001, ENV=ZZZZZZZZ.YYYYYYYY.BBOS001  
+</xmp></samp>
+<BR>
+This command starts the Application Server.
+<BR> <BR>
+<B>Result:</B> The following message appears on the console and         
+in the job log of <samp>BBOS001</samp>. 
+<BR> 
+<samp><xmp>
+    BBOO0019I INITIALIZATION COMPLETE FOR WEBSPHERE FOR z/OS CONTROL PROCESS BBOS001    
+</xmp></samp> 
+<BR><BR>
+<br>
+<table border=1 cellspacing=1 cellpadding=3 width="75%">
+<tr>
+<TH>Status of task</th>
+<th>Date </th>
+</tr>
+<tr>
+<td>&nbsp;&nbsp;</td>
+<td>&nbsp;&nbsp;  </td>
+</tr>
+</table> 
+<br><br> 
+</OL>   
+</BODY>                                                                  
+</HTML>

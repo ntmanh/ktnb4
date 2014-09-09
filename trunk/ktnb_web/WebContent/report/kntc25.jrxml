@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Mau_25_chuyen_hs_sang_co_quan_dieu_tra" pageWidth="595" pageHeight="842" columnWidth="440" leftMargin="99" rightMargin="56" topMargin="70" bottomMargin="70">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="co_quan_cap_tren_truc_tiep" class="java.lang.String"/>
+	<parameter name="co_quan_thue_ra_van_ban" class="java.lang.String"/>
+	<parameter name="so_phieu" class="java.lang.String"/>
+	<parameter name="ngay_lap" class="java.lang.String"/>
+	<parameter name="ten_co_quan_dieu_tra_co_tham_quyen" class="java.lang.String"/>
+	<parameter name="so_quyet_dinh" class="java.lang.String"/>
+	<parameter name="ngay_ra_quyet_dinh" class="java.lang.String"/>
+	<parameter name="chuc_danh_thu_truong_co_quan_thue_ra_quyet_dinh_xac_minh" class="java.lang.String"/>
+	<parameter name="tom_tat_hanh_vi_vi_pham" class="java.lang.String"/>
+	<parameter name="hanh_vi_vi_pham_co_dau_hieu_toi_pham" class="java.lang.String"/>
+	<parameter name="tt_cqt" class="java.lang.String"/>
+	<parameter name="ten_thu_truong" class="java.lang.String"/>
+	<group name="HF_">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band height="132">
+				<staticText>
+					<reportElement x="199" y="6" width="269" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="12" isBold="true"/>
+					</textElement>
+					<text><![CDATA[CỘNG HOÀ XÃ HỘI CHỦ NGHĨA VIỆT NAM
+
+]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="-39" y="25" width="238" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="12" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{co_quan_thue_ra_van_ban}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="-39" y="44" width="238" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="13"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Số: "+$P{so_phieu}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="-39" y="6" width="238" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="12" isBold="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{co_quan_cap_tren_truc_tiep}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="199" y="44" width="251" height="20"/>
+					<textElement textAlignment="Right">
+						<font fontName="Times" size="14" isItalic="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{ngay_lap}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement x="-25" y="63" width="218" height="40"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<text><![CDATA[V/v chuyển hồ sơ, vụ việc có dấu hiệu tội phạm sang cơ quan điều tra.]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="199" y="26" width="269" height="19"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="14" isBold="true" isUnderline="true"/>
+					</textElement>
+					<text><![CDATA[Độc lập - tự do - hạnh phúc]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="188">
+				<staticText>
+					<reportElement x="0" y="34" width="110" height="39"/>
+					<textElement>
+						<font fontName="Times" size="11" isItalic="false"/>
+					</textElement>
+					<text><![CDATA[   - Như trên;
+   - Lưu:VT,...
+]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="0" y="15" width="110" height="21"/>
+					<textElement>
+						<font fontName="Times" size="12" isBold="true" isItalic="true"/>
+					</textElement>
+					<text><![CDATA[Nơi nhận:]]></text>
+				</staticText>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="218" y="15" width="222" height="20" isRemoveLineWhenBlank="true"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{tt_cqt}.toUpperCase()]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="218" y="89" width="222" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="14" isBold="true"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA[$P{ten_thu_truong}]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="H1_">
+		<groupExpression><![CDATA[$V{PAGE_NUMBER}]]></groupExpression>
+		<groupHeader>
+			<band height="54">
+				<textField>
+					<reportElement x="0" y="0" width="440" height="20"/>
+					<textElement textAlignment="Center">
+						<font fontName="Times" size="14" isItalic="false"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["Kính gửi: "+$P{ten_co_quan_dieu_tra_co_tham_quyen}]]></textFieldExpression>
+				</textField>
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="33" width="440" height="21" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["     "+"Thực hiện nhiệm vụ xác minh theo Quyết định số "+$P{so_quyet_dinh}+"  "+$P{ngay_ra_quyet_dinh}+" của "+$P{chuc_danh_thu_truong_co_quan_thue_ra_quyet_dinh_xac_minh}+" về việc xác minh thấy "+$P{tom_tat_hanh_vi_vi_pham}]]></textFieldExpression>
+				</textField>
+			</band>
+			<band height="20">
+				<textField isStretchWithOverflow="true">
+					<reportElement x="0" y="0" width="440" height="20" isPrintWhenDetailOverflows="true"/>
+					<textElement textAlignment="Justified">
+						<font fontName="Times" size="14"/>
+					</textElement>
+					<textFieldExpression class="java.lang.String"><![CDATA["     "+"Căn cứ  Điểm m, khoản 1 Điều 42 Luật thanh tra và Thông tư liên tịch số 03/2006/TTLT–VKSNNTC–TTRCP–BCA–BQP ngày 23 tháng 5 năm 2006 về quan hệ phối hợp trong việc phát hiện, điều tra, xử lý các vụ việc có dấu hiệu tội phạm do cơ quan thanh tra kiến nghị khởi tố, "+$P{co_quan_thue_ra_van_ban}+" quyết định chuyển hồ sơ về "+$P{hanh_vi_vi_pham_co_dau_hieu_toi_pham}+" sang " +$P{ten_co_quan_dieu_tra_co_tham_quyen}+" để giải quyết theo quy định của pháp luật."]]></textFieldExpression>
+				</textField>
+			</band>
+		</groupHeader>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+</jasperReport>

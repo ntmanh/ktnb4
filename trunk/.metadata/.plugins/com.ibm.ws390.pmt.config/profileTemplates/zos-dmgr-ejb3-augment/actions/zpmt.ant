@@ -1,0 +1,60 @@
+<!-- Licensed Materials - Property of IBM                                                 -->
+<!-- 5724-I63, 5724-H88, 5655-N01, 5733-W61 (C) Copyright IBM Corp. 1999, 2006            -->
+<!-- All Rights Reserved                                                                  -->
+<!-- US Government Users Restricted Rights - Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with  the IBM Corp.                                        -->
+
+<project name="zpmt" default="augmentCustomizationDef" basedir=".">
+
+    <taskdef name="customizeFiles" classname="com.ibm.ws390.config.ant.ZFileCustomizer">
+        <classpath>
+            <pathelement location="${WAS_HOME}\lib\zwasconfig.jar"/>
+            <pathelement path="${java.class.path}"/>
+        </classpath>
+    </taskdef>
+
+    <taskdef name="fixNewLine" classname="com.ibm.ws390.config.ant.FixNewLine">
+        <classpath>
+            <pathelement location="${WAS_HOME}\lib\zwasconfig.jar"/>
+            <pathelement path="${java.class.path}"/>
+        </classpath>
+    </taskdef>
+
+    <target name="augmentCustomizationDef" 
+        description="Augments a z/OS customization definition">
+        
+        <echo message = "Copying template documents to location: ${profilePath}"/>
+        
+        <mkdir dir="${profilePath}/cntl"/>
+        <mkdir dir="${profilePath}/data"/>
+        <antcall target="copyDocs" /> 
+        
+        <echo message = "Updating template documents in location: ${profilePath}"/>
+
+        <property file="${WAS_HOME}\properties\zConfigWizard.properties"/>
+        
+        <customizeFiles dir="${profilePath}/cntl"
+            toolLevel="zConfigWizard ${zconfigwizard.version} Level ${zconfigwizard.level}"
+            maxLineLength="72"/>
+        <customizeFiles dir="${profilePath}/data"
+            toolLevel="zConfigWizard ${zconfigwizard.version} Level ${zconfigwizard.level}"
+            maxLineLength="0"/>
+         
+        <property name="cntlPath" location="${profilePath}\cntl"/>
+        <property name="dataPath" location="${profilePath}\data"/>
+         
+        <fixNewLine dir="${cntlPath}"/>
+        <fixNewLine dir="${dataPath}"/>
+    </target>
+    
+    <target name="copyDocs"> 
+        <echo message = "Copy ${templatePath}/documents/* to ${profilePath}"/>
+        
+        <copy todir="${profilePath}">
+           <fileset dir="${templatePath}/documents"/>
+        </copy>
+        <echo message="Finished copy"/>
+        
+    </target>
+    
+</project>

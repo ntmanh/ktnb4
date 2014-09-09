@@ -1,0 +1,118 @@
+)CM
+)DEFAULT )@?!?^]
+)CM
+/* REXX */
+ 
+/********************************************************************/
+/* PROPRIETARY-STATEMENT:                                           */
+/* Licensed Material - Property of IBM                              */
+/*                                                                  */
+/* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */
+/* (C) Copyright IBM Corp. 1999, 2006                               */
+/* All Rights Reserved                                              */
+/* US Government Users Restricted Rights - Use, duplication or      */
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/
+/*                                                                  */
+/* ________________________________________________________________ */
+/*                                                                  */
+/* This routine reads the member of the input data set and puts     */
+/* it in the specified member of the output data set. Thus          */
+/* avoiding the use of IEBGENER and its vagaries with data sets of  */
+/* different record formats and block sizes.                        */
+/*                                                                  */
+/* Invocation syntax:                                               */
+/*                                                                  */
+/*   BBOWCOPY I(WAS40.WAS.SBBOEXEC) O(SYS1.PTD.SYSEXEC) M(BBORBLOG) */
+/* ________________________________________________________________ */
+/*  Change Activity:                                                */
+/*  LIDB3773-25	H28W610	110405	DB: Initial creation                */
+/*                                                                  */
+/********************************************************************/
+ 
+ 
+trace  o
+ 
+x = msg("OFF")
+ 
+parse upper arg parms
+ 
+source_pdsa= ""
+target_pds = ""
+my_member  = ""
+my_rc = 0
+ 
+parse upper var parms .  "I(" source_pds ")" .
+parse upper var parms .  "O(" target_pds ")" .
+parse upper var parms .  "M(" my_member  ")" .
+ 
+source_pds = word(source_pds,1)
+target_pds = word(target_pds,1)
+ 
+if source_pds = ""
+   then do
+      say "BBOWCOPY: i(source_pds) missing,... terminating."
+      exit 4
+      end
+ 
+if target_pds = ""
+   then do
+      say "BBOWCOPY: o(target_pds) missing,... terminating. "
+      exit 4
+      end
+ 
+if my_member  = ""
+   then do
+      say "BBOWCOPY: m(member) missing,... terminating. "
+      exit 4
+      end
+ 
+if target_pds = source_pds
+   then do
+      say "BBOWCOPY: source_pds = target_pds, terminating. "
+      exit 4
+      end
+ 
+say 'BBOWCOPY: The EXEC to copy the member' my_member
+say '          from' source_pds 'to' target_pds 'has started.'
+say 'BBOWCOPY: Ran at ' TIME() ' on ' DATE()
+ 
+ 
+"FREE FI(DDLOAD)"
+"ALLOC DA('" || target_pds ||"("||my_member||")') FI(DDLOAD) SHR "
+if rc > 0 then do
+   Say 'BBOWCOPY: Allocation error processing' target_pds '... terminating.'
+   my_rc = 8
+   signal exitcopy
+end
+ 
+"FREE FI(DDUNLOAD)"
+"ALLOC DA('" || source_pds || "("||my_member||")') FI(DDUNLOAD) SHR REUS"
+if rc > 0 then do
+   Say 'BBOWCOPY: Allocation error processing' source_pds '... terminating.'
+   my_rc = 8
+   signal exitcopy
+end
+ 
+mystem. = 0                    /* stem variable to hold stream */
+/*
+   Now read the input member into output member.
+*/
+"EXECIO * DISKR DDUNLOAD  (STEM mystem. FINIS"
+ 
+/*
+   Now write the member into the target data set, letting
+   rexx deal with the different data set attributes.
+*/
+cards_out = mystem.0
+ 
+"EXECIO " cards_out " DISKW DDLOAD  ( STEM mystem. FINIS"
+ 
+exitcopy:
+ 
+"FREE FI(DDUNLOAD)"
+"FREE FI(DDLOAD)"
+ 
+say 'BBOWCOPY: The EXEC has completed with Return Code' my_rc
+say '---------------------------------------------------'
+ 
+exit 0

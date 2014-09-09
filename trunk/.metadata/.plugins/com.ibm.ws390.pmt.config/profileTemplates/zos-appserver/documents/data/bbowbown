@@ -1,0 +1,227 @@
+)CM Change Defaults
+)DEFAULT )@?!^]
+)CM
+/* REXX */
+ 
+/********************************************************************/
+/* PROPRIETARY-STATEMENT:                                           */
+/* Licensed Material - Property of IBM                              */
+/*                                                                  */
+/* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */
+/* (C) Copyright IBM Corp. 1999, 2006                               */
+/* All Rights Reserved                                              */
+/* US Government Users Restricted Rights - Use, duplication or      */
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/
+/*                                                                  */
+/* ________________________________________________________________ */
+/*                                                                  */
+/* This REXX exec will create the necessary directories and other   */
+/* files for product WebSphere for z/OS.                            */
+/* ________________________________________________________________ */
+/*  Change Activity:                                                */
+/*    $L0=MD10262 H28W400 032001 PDG1: Initial Release              */
+/*    $P1=MD15509 H28W500 030119 PDG1: Update for line continuation */
+/*    $P2=348320  H28W610 061406   DB: AUTOUID/AUTOGID support      */
+/*                                                                  */
+/********************************************************************/
+ 
+ 
+ 
+parse arg $osds  $hfsds  $user $group .
+ 
+/****************************************************************/
+/*     Beginning of main procedure:                             */
+/****************************************************************/
+ 
+say '------------------------------------------------------------'
+ 
+if syscalls(on)>4 then
+ Do
+  say 'Initialization failure. Please correct and resubmit.'
+  Exit 12
+ End
+ 
+$rc= 0
+ 
+ 
+ say 'The EXEC to copy the file ' $osds
+ say 'to' $hfsds ' has started'
+ 
+If (DATATYPE($user) = 'NUM' & DATATYPE($group) = 'NUM') then
+ Do
+  $uid=$user
+  $gid=$group
+  End
+Else
+ Do
+  address syscall 'getpwnam' $user  'uinfo.'
+  If (rc=0) then
+   Do
+    $uid = uinfo.pw_uid
+    say 'Owning userid is:' $user
+    say 'Owning uid    is:' $uid
+    End
+  Else
+   Do
+    say 'Unable to determine UID for user:' $user
+    say 'Make sure the user ID exists and has been assigned a UID.',
+    exit 12
+   End
+  address syscall 'getgrnam' $group 'ginfo.'
+  If (rc=0) then
+   Do
+    $gid = ginfo.gr_gid
+    say 'Owning group  is:' $group
+    say 'Owning gid    is:' $gid
+    say
+    End
+  Else
+   Do
+    say 'Unable to determine GID for group:' $group
+    say 'Make sure the group exists and has been assigned a GID.'
+    exit 12
+ End
+End
+say 'The EXEC ran at ' TIME() ' on ' DATE()
+say '                   '
+ 
+address syscall 'getuid'
+myuid=retval
+address syscall 'geteuid'
+myeuid=retval
+privflag=0                         /* Change the Effective UID to  */
+If myeuid \= 0 then                /* be 0 since invoker should    */
+  Do                               /* be part of the BPX.SUPERUSER */
+   address syscall 'seteuid 0'     /* facility class               */
+   privflag=1
+  End
+ 
+$root = "/"
+address syscall 'access' $root F_OK
+ 
+If (rc=0 & retval\=0) | rc\= 0 then
+ Do
+  If errno = 6F then           /* EACCESS */
+  Do
+    say 'Do not have appropriate permission to' $root
+    say '                                 '
+    say 'Please get appropriate permission to this directory',
+               'and resubmit.'
+    say '                                 '
+    exit 12
+  End
+  Else
+  Do
+    say 'Directory' $root 'does not exist.'
+    say '                                 '
+    say 'Please create this directory and resubmit.'
+    say '                                 '
+    exit 12
+   End
+ End
+Else
+ Do
+  /*
+    Allocate the input dataset.
+  address MVS
+  */
+  "FREE FI(D$D$1)"
+  "ALLOC DA('" || $osds || "') FI(D$D$1) SHR REUS"
+  if rc <> 0 then do
+    say 'Unable to allocate input file '|| $osds
+    exit 12
+    end
+  inds. = 0                   /* stem variable to hold input file */
+  /*
+   Now read the current.env file into environ.
+  */
+  "EXECIO * DISKR D$D$1     (STEM inds. FINIS"
+  if rc <> 0 then do
+    say 'Unable to read input file '|| $osds
+    exit 12
+    end
+  "FREE FI(D$D$1)"
+  /*
+   strip the trailing blanks and join continuation lines
+  */
+  outds. =0
+  outds.0 =inds.0
+  ox = 0                                                               /* @MD15509A*/
+  outline = ''                                                         /* @MD15509A*/
+  do ix = 1 to inds.0                                                  /* @MD15509C*/
+    inline =strip(inds.ix,t)                                           /* @MD15509C*/
+    len = length(inline)                                               /* @MD15509A*/
+    if (len>2) then do                                                 /* @MD15509A*/
+       if (substr(inline,len-1,2) = '\+') then do /* continuation */   /* @MD15509A*/
+          outline = outline || substr(inline,1,len-2)                  /* @MD15509A*/
+          iterate  /* don't write the line just yet */                 /* @MD15509A*/
+       end                                                             /* @MD15509A*/
+    end                                                                /* @MD15509A*/
+    outline = outline || inline                                        /* @MD15509A*/
+    ox = ox + 1                                                        /* @MD15509A*/
+    outds.ox = outline                                                 /* @MD15509C*/
+    outline = ''                                                       /* @MD15509A*/
+    end
+  outds.0 = ox                                                         /* @MD15509A*/
+  /*
+   write the file
+  */
+  address syscall
+  "writefile ($hfsds) 600 outds."
+ 
+  If (rc=0 & retval<0) | rc\= 0 then
+   do
+    say 'writefile of ' $hfsds 'returned with'
+    say 'RC='rc', RETVAL='retval', errno='errno', errnojr='errnojr
+    end
+  else say 'File ' $hfsds 'created from' $osds
+ 
+  call syscall4 chmod $hfsds  755
+  call syscall4 chown $hfsds  $uid $gid
+ 
+  /************************************************************/
+  /*    End of where you put other commands you may need      */
+  /************************************************************/
+ 
+End
+ 
+endit:
+If privflag=1 then
+  address syscall 'seteuid' myuid
+ 
+ say 'The EXEC has completed with RC='$rc
+ 
+Exit $rc
+ 
+ 
+  /*****************************************************/
+  /*  Subroutine for other calls - for example 'chown' */
+  /*****************************************************/
+ 
+syscall4:
+ parse arg cmd
+ address syscall cmd                      /* execute other calls */
+ 
+ If (rc=0 & retval\=0) | rc\= 0 then
+  Do
+    If errno \= 75 then
+      Do
+       say 'Command:' cmd 'failed'
+       say '  RC='errno '   RSN='errnojr
+       $rc = '12'
+      End
+    Else         /* EEXIST */
+      Do
+       say 'Following command result already exists'
+       say ' ' cmd
+       say ' '
+      End
+  End
+ Else
+  Do
+       say 'Following command was successful'
+       say ' ' cmd
+       say ' '
+  End
+Return
+ 

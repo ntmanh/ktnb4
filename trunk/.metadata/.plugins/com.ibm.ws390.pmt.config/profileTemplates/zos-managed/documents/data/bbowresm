@@ -1,0 +1,105 @@
+)CM
+)CM This is the response file for use with Profile. (managed node)
+)CM
+)CM ================================================================ */
+)CM                                                                  */
+)CM Change Activity:                                                 */
+)CM   223373  H28W510 081104 PDML: initial release.                  */
+)CM   240619  H28W600 111704 PDML: update with managed node values:  */
+)CM                                  all &MN* values.                */
+)CM   245054  H28W600 120204 DB  : add zWAS.SAFREG                   */
+)CM   245688  H28W600 120704 DB  : remove zWAS.CSQSMPEH              */
+)CM   246865  H28W601 011005 DB  : updates for managed node          */
+)CM   252014  H28W601 012705 PDML: update JAVAHOME.                  */
+)CM   257634  H28W601 022505 DB  : replace zWAS.STEPLIB with         */
+)CM                                zWAS.STEP1 and zWAS.STEP2         */
+)CM   289920  H28W610 071205 DB  : meaningful variable names         */
+)CM   298470  H28W610 081605 DB  : fix typo in variable name         */
+)CM LIDB2634  H28W610 082405 PDML: Security out of box update.       */
+)CM   313366  H28W610 101705 PDML: set enableAdminSecurity=false     */
+)CM   320736  H28W610 110405 DB  : z.local.os.security=false for NS  */
+)CM   322918  H28W610 111205 DB  : remove some unused fields         */
+)CM   323740  H28W610 111405 DB  : set http.transport.host=*         */
+)CM   335205  H28W610 011006 DB  : set z.keyring to MNKEYR           */
+)CM   320348  H28W610 011706 PDML: add enableZSecurity.              */
+)CM   342234  H28W610 012706 DB  : add z.daemon.listen.ip.name       */
+)CM  320348.3 H28W610 020706 PDML: rename enableZSecurity to         */
+)CM                                useSAFSecurity.                   */
+)CM  326134   H28W610 022206 DB  : change values for encoding        */
+)CM   356332  H28W610 032006 DB  : add z.enable.daemon.ssl           */
+)CM  360832   H28W610 040606 DB  : set z.unauthenticated.userid=     */
+)CM  369005   H28W610 051706 DB  : fix typos in two variables        */
+)CM  371313   H28W610 082806 DB  : set security variables properly   */
+)CM ================================================================ */
+)CM
+create
+profileName=default
+profilePath=&MNWASH./profiles/default
+templatePath=&MNWASH./profileTemplates/managed
+nodeName=&MNNONL.
+cellName=&MNCENL.
+hostName=&MNHOSTN.
+)BLANK
+z.local.os.security=false
+z.admin.asynch.proc=&AAOPROC.
+z.adjunct.proc=&AJMRCS.
+z.unauthenticated.userid=
+cell.name=&MNCENL.
+z.cell.short.name=&MNCENS.
+z.cluster.transition.name=&ASCTN.
+z.keyring=&MNKEYR.
+node.host.name=&MNHOSTN.
+node.name=&MNNONL.
+http.transport.host=*
+z.node.short.name=&MNNONS.
+orb.listener.host=&ASOLHN.
+z.control.proc=&ASMRCC.
+z.servant.proc=&ASMRCS.
+serverName=&ASSSNL.
+z.server.short.name=&ASSSNS.
+was.install.root=&MNWASH.
+z.config.mount.point=&MNCONFIG.
+z.config.group=&CNFGGRP.
+z.ctrace.parms=&CTRPARMS.
+z.daemon.home=&MNDHOMED.
+z.daemon.instance.name=&MNDINSN.
+z.daemon.ip.name=&DMNIPNAM.
+z.daemon.listen.ip.name=*
+z.daemon.ip.port=&DMNIPPRT.
+z.daemon.job.name=&MNDJNAME.
+z.daemon.name=&MNDNAME.
+z.daemon.proc=&MNDPRCC.
+)SEL &DMNWLM. = Y
+z.daemon.dns.option=true
+)ENDSEL
+)SEL &DMNWLM. ^= Y
+z.daemon.dns.option=false
+)ENDSEL
+z.daemon.ssl.port=&DMNSLPRT.
+)SEL &BBOLANG. ^= JAPN
+z.file.encoding=IBM-1047
+)ENDSEL
+)SEL &BBOLANG. = JAPN
+z.file.encoding=IBM-939
+)ENDSEL
+)SEL &DAESSL. = Y
+z.enable.daemon.ssl=true
+)ENDSEL
+)SEL &DAESSL. ^= Y
+z.enable.daemon.ssl=false
+)ENDSEL
+z.ras.logstream.name=&ERRLOG.
+java.install.root=&MNCONFIG./&MNDIRN./java
+z.smpe.home=&SMPEHOME.
+z.STEPLIB1=&BBOWSTP1.
+z.STEPLIB2=&BBOWSTP2.
+z.system.name=&SYSNAME.
+z.sysplex.name=&SYSPLEX.
+)SEL &BBOWST. = ZS
+enableAdminSecurity=true
+useSAFSecurity=true
+)ENDSEL
+)SEL &BBOWST. ^= ZS
+enableAdminSecurity=false
+useSAFSecurity=false
+)ENDSEL

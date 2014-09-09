@@ -1,0 +1,934 @@
+------Start of DE processing------ = [9/13/13 17:46:53:478 GMT] , key = java.io.EOFException com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier.generateNewClassFile 574
+Exception = java.io.EOFException
+Source = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier.generateNewClassFile
+probeid = 574
+Stack Dump = java.io.EOFException
+	at java.io.DataInputStream.readByte(DataInputStream.java:360)
+	at com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier.generateNewClassFile(ClassLineModifier.java:626)
+	at com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier.prepareClassFileForDebug(ClassLineModifier.java:111)
+	at com.ibm.ws.webcontainer.jsp.compiler.IBMDebugJavaCompiler.compile(IBMDebugJavaCompiler.java:150)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:294)
+	at org.apache.jasper.compiler.Compiler.compile(Compiler.java:130)
+	at com.ibm.ws.webcontainer.jsp.servlet.JspServlet.loadJSP(JspServlet.java:1015)
+	at com.ibm.ws.webcontainer.jsp.servlet.JspServlet$JspServletWrapper.loadIfNecessary(JspServlet.java:325)
+	at com.ibm.ws.webcontainer.jsp.servlet.JspServlet$JspServletWrapper.service(JspServlet.java:357)
+	at com.ibm.ws.webcontainer.jsp.servlet.JspServlet.serviceJspFile(JspServlet.java:739)
+	at com.ibm.ws.webcontainer.jsp.servlet.JspServlet.service(JspServlet.java:837)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:853)
+	at com.ibm.ws.webcontainer.servlet.StrictServletInstance.doService(StrictServletInstance.java:110)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet._service(StrictLifecycleServlet.java:174)
+	at com.ibm.ws.webcontainer.servlet.IdleServletState.service(StrictLifecycleServlet.java:313)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet.service(StrictLifecycleServlet.java:116)
+	at com.ibm.ws.webcontainer.servlet.ServletInstance.service(ServletInstance.java:283)
+	at com.ibm.ws.webcontainer.servlet.ValidServletReferenceState.dispatch(ValidServletReferenceState.java:42)
+	at com.ibm.ws.webcontainer.servlet.ServletInstanceReference.dispatch(ServletInstanceReference.java:40)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.handleWebAppDispatch(WebAppRequestDispatcher.java:1166)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.dispatch(WebAppRequestDispatcher.java:676)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.forward(WebAppRequestDispatcher.java:203)
+	at org.apache.struts.action.RequestProcessor.doForward(RequestProcessor.java:1069)
+	at org.apache.struts.action.RequestProcessor.processForwardConfig(RequestProcessor.java:455)
+	at org.apache.struts.action.RequestProcessor.process(RequestProcessor.java:279)
+	at org.apache.struts.action.ActionServlet.process(ActionServlet.java:1482)
+	at org.apache.struts.action.ActionServlet.doGet(ActionServlet.java:507)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:740)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:853)
+	at com.ibm.ws.webcontainer.servlet.StrictServletInstance.doService(StrictServletInstance.java:110)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet._service(StrictLifecycleServlet.java:174)
+	at com.ibm.ws.webcontainer.servlet.IdleServletState.service(StrictLifecycleServlet.java:313)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet.service(StrictLifecycleServlet.java:116)
+	at com.ibm.ws.webcontainer.servlet.ServletInstance.service(ServletInstance.java:283)
+	at com.ibm.ws.webcontainer.servlet.ValidServletReferenceState.dispatch(ValidServletReferenceState.java:42)
+	at com.ibm.ws.webcontainer.servlet.ServletInstanceReference.dispatch(ServletInstanceReference.java:40)
+	at com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(WebAppFilterChain.java:76)
+	at cmc.com.ktnb.util.AuthenticationFilter.doFilter(AuthenticationFilter.java:98)
+	at com.ibm.ws.webcontainer.filter.FilterInstanceWrapper.doFilter(FilterInstanceWrapper.java:132)
+	at com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(WebAppFilterChain.java:71)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.handleWebAppDispatch(WebAppRequestDispatcher.java:1162)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.dispatch(WebAppRequestDispatcher.java:676)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.forward(WebAppRequestDispatcher.java:203)
+	at com.ibm.ws.webcontainer.srt.WebAppInvoker.doForward(WebAppInvoker.java:125)
+	at com.ibm.ws.webcontainer.srt.WebAppInvoker.handleInvocationHook(WebAppInvoker.java:300)
+	at com.ibm.ws.webcontainer.cache.invocation.CachedInvocation.handleInvocation(CachedInvocation.java:71)
+	at com.ibm.ws.webcontainer.cache.invocation.CacheableInvocationContext.invoke(CacheableInvocationContext.java:120)
+	at com.ibm.ws.webcontainer.srp.ServletRequestProcessor.dispatchByURI(ServletRequestProcessor.java:250)
+	at com.ibm.ws.webcontainer.oselistener.OSEListenerDispatcher.service(OSEListener.java:334)
+	at com.ibm.ws.webcontainer.http.HttpConnection.handleRequest(HttpConnection.java:56)
+	at com.ibm.ws.http.HttpConnection.readAndHandleRequest(HttpConnection.java:652)
+	at com.ibm.ws.http.HttpConnection.run(HttpConnection.java:458)
+	at com.ibm.ws.util.ThreadPool$Worker.run(ThreadPool.java:936)
+
+Dump of callerThis = 
+Object type = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier
+com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier@1c301c3
+
+Exception = java.io.EOFException
+Source = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier.generateNewClassFile
+probeid = 574
+Dump of callerThis = 
+Object type = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.ClassLineModifier
+  generatedFileName = D:\Project\CMC\KTNB2\Source\ktnb_v2\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\cache\DefaultNode\server1\ktnb_svr\ktnb_web.war\kntc\xldtc\xac_minh\tien_hanh\_ket_5F_thuc_5F_tc.java
+  jspFileName = ket_thuc_tc.jsp
+  classFileName = D:\Project\CMC\KTNB2\Source\ktnb_v2\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\cache\DefaultNode\server1\ktnb_svr\ktnb_web.war\kntc\xldtc\xac_minh\tien_hanh\_ket_5F_thuc_5F_tc.class
+  newClassFileName = D:\Project\CMC\KTNB2\Source\ktnb_v2\.metadata\.plugins\org.eclipse.wst.server.core\tmp0\cache\DefaultNode\server1\ktnb_svr\ktnb_web.war\kntc\xldtc\xac_minh\tien_hanh\_ket_5F_thuc_5F_tc.classWASNew
+  classFileInput = 
+    pstr[3000] = {
+  } 
+});
+</script>
+</div>
+<div id="bottom">
+<table width="100%" border="0" bordercolor="#AEC1F1">
+	<tr>
+		<td align="center" width="20%" style="color: blue; font-size: 8pt">KTNB Phiên b?n <strong>2.0</strong> <br>
+		<script language=JavaScript>
+                                                dayname = new Array("Ch? nh?t", "Th? Hai", "Th? Ba", "Th? T?", "Th? N?m", "Th? Sáu", "Th? B?y");
+                                                monthname = new Array("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12");
+                                                now = new Date();
+                                                daynum = now.getDay();
+                                                day = dayname[daynum];
+                                                date = now.getDate();
+                                                monthnum = now.getMonth();
+                                                month = monthname[monthnum];
+                                          ...}
+    pbytearr[3000] = {114,101,108,101,97,115,101,80,97,103,101,67,111,110,116,101,120,116,98,108,101,59,41,86,112,83,101,114,118,108,101,116,82,101,113,117,101,115,116,59,76,106,97,118,97,120,47,115,101,114,118,108,101,116,47,104,116,116,112,47,72,116,116,112,83,101,114,118,108,101,116,82,101,115,112,111,110,115,101,59,76,106,97,118,97,47,108,97,110,103,47,83,116,114,105,110,103,59,76,106,97,118,97,120,47,115,101,114,118,108,101,116,47,106,115,112,47,74,115,112,87,114,105,116,101,114,59,90,41,86,67,111,110,116,101,120,116,59,104,61,34,50,48,37,34,32,115,116,121,108,101,61,34,99,111,108,111,114,58,32,98,108,117,101,59,32,102,111,110,116,45,115,105,122,101,58,32,56,112,116,34,62,75,84,78,66,32,80,104,105,-61,-86,110,32,98,-31,-70,-93,110,32,60,115,116,114,111,110,103,62,50,46,48,60,47,115,116,114,111,110,103,62,32,60,98,114,62,13,10,9,9,60,115,99,114,105,112,116,32,108,97,110,103,117,97,103,101,61,74,97,118,97,83,99,114,105,112,116,62,13,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,100,97,121,110,97,109,101,32,61,32,110,101,119,32,65,114,114,97,121,40,34,67,104,-31,-69,-89,32,110,104,-31,-70,-83,116,34,44,32,34,84,104,-31,-69,-87,32,72,97,105,34,44,32,34,84,104,-31,-69,-87,32,66,97,34,44,32,34,84,104,-31,-69,-87,32,84,-58,-80,34,44,32,34,84,104,-31,-69,-87,32,78,-60,-125,109,34,44,32,34,84,104,-31,-69,-87,32,83,-61,-95,117,34,44,32,34,84,104,-31,-69,-87,32,66,-31,-70,-87,121,34,41,59,13,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,109,111,110,116,104,110,97,109,101,32,61,32,110,101,119,32,65,114,114,97,121,40,34,48,49,34,44,32,34,48,50,34,44,32,34,48,51,34,44,32,34,48,52,34,44,32,34,48,53,34,44,32,34,48,54,34,44,32,34,48,55,34,44,32,34,48,56,34,44,32,34,48,57,34,44,32,34,49,48,34,44,32,34,49,49,34,44,32,34,49,50,34,41,59,13,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,110,111,119,32,61,32,110,101,119,32,68,97,116,101,40,41,59,13,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,100,97,121,110,117,109,32,61,32,110,111,119,46,103,101,116,68,97,121,40,41,59,13,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,100,97,121,32,61,32,100,97,121,110,97,109,101,91,100,97,121,110,117,109,93,59,13,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,100,97,116,101,32,61,32,110,111,119,46,103,101,116,68,97,116,101,40,41,59,13,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,109,111,110,116,104,110,117,109,32,61,32,110,111,119,46,103,101,116,77,111,110,116,104,40,41,59,13,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,109,111,110,116,104,32,61,32,109,111,110,116,104,110,97,109,101,91,109,111,110,116,104,110,117,109,93,59,13,10,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,32,...}
+    readBuffer[8] = {0,0,0,18,0,0,0,0}
+    lineBuffer = null
+    in = 
+      buf[2048] = {56,18,-103,83,89,16,57,18,-103,83,89,16,58,18,-103,83,89,16,59,18,-103,83,89,16,60,18,-103,83,89,16,61,18,-103,83,89,16,62,18,-103,83,89,16,63,18,-103,83,89,16,64,18,-103,83,89,16,65,18,-103,83,89,16,66,18,-103,83,89,16,67,18,-99,83,89,16,68,18,-99,83,83,89,4,16,69,-67,0,-106,89,3,18,-102,83,89,4,18,-98,83,89,5,18,-97,83,89,6,18,-96,83,89,7,18,-95,83,89,8,18,-94,83,89,16,6,18,-93,83,89,16,7,18,-93,83,89,16,8,18,-92,83,89,16,9,18,-92,83,89,16,10,18,-91,83,89,16,11,18,-91,83,89,16,12,18,-90,83,89,16,13,18,-90,83,89,16,14,18,-89,83,89,16,15,18,-89,83,89,16,16,18,-88,83,89,16,17,18,-88,83,89,16,18,18,-87,83,89,16,19,18,-87,83,89,16,20,18,-86,83,89,16,21,18,-86,83,89,16,22,18,-85,83,89,16,23,18,-85,83,89,16,24,18,-84,83,89,16,25,18,-84,83,89,16,26,18,-83,83,89,16,27,18,-83,83,89,16,28,18,-82,83,89,16,29,18,-82,83,89,16,30,18,-81,83,89,16,31,18,-81,83,89,16,32,18,-80,83,89,16,33,18,-80,83,89,16,34,18,-79,83,89,16,35,18,-79,83,89,16,36,18,-78,83,89,16,37,18,-78,83,89,16,38,18,-77,83,89,16,39,18,-77,83,89,16,40,18,-76,83,89,16,41,18,-76,83,89,16,42,18,-75,83,89,16,43,18,-75,83,89,16,44,18,-74,83,89,16,45,18,-74,83,89,16,46,18,-73,83,89,16,47,18,-73,83,89,16,48,18,-72,83,89,16,49,18,-72,83,89,16,50,18,-71,83,89,16,51,18,-71,83,89,16,52,18,-70,83,89,16,53,18,-69,83,89,16,54,18,-69,83,89,16,55,18,-69,83,89,16,56,18,-68,83,89,16,57,18,-67,83,89,16,58,18,-67,83,89,16,59,18,-98,83,89,16,60,18,-98,83,89,16,61,18,-90,83,89,16,62,18,-89,83,89,16,63,18,-66,83,89,16,64,18,-87,83,89,16,65,18,-85,83,89,16,66,18,-71,83,89,16,67,18,-89,83,89,16,68,18,-65,83,83,-77,0,-64,-79,0,0,0,1,0,-51,0,0,0,18,0,4,0,0,0,21,0,4,0,23,0,9,2,-58,0,60,2,-46,0,1,1,47,0,0,0,2,1,48,7,-13,2,24,7,-3,2,27,8,4,2,31,8,11,2,36,8,20,2,37,8,27,2,38,8,33,2,39,8,40,2,40,8,48,2,41,8,55,2,42,8,60,2,46,8,67,2,51,8,76,2,52,8,83,2,53,8,90,2,54,8,97,2,55,8,105,2,56,8,112,2,59,8,121,2,60,8,125,2,61,8,-118,2,64,8,-111,2,69,8,-102,2,70,8,-95,2,71,8,-88,2,72,8,-81,2,73,8,-74,2,74,8,-67,2,75,8,-61,2,76,8,-53,2,77,8,-46,2,80,8,-37,2,81,8,-33,2,82,8,-20,2,85,8,-13,2,90,8,-9,2,91,9,19,2,92,9,35,2,93,9,39,2,97,9,46,2,102,9,50,2,103,9,78,2,104,9,94,2,105,9,98,2,109,9,105,2,114,9,109,2,115,9,-119,2,116,9,-103,2,117,9,-99,2,121,9,-92,2,126,9,-88,2,127,9,-60,2,-128,9,-44,2,-127,9,-40,2,-123,9,-33,2,-119,9,-24,2,-117,9,-15,2,-116,9,-11,2,-115,10,2,2,-112,10,9,2,-108,10,22,2,-105,10,29,2,-101,10,36,2,-96,10,45,2,-95,10,52,2,-94,10,58,2,-93,10,65,2,-92,10,73,2,-91,10,80,2,-90,10,85,2,-86,10,92,2,-82,10,101,2,-80,10,110,2,-79,10,114,2,-78,10,127,2,-75,10,-122,2,-71,10,-119,2,-60,10,-116,2,-71,10,-114,2,-70,10,-101,2,-69,10,-96,2,-68,10,-84,2,-67,10,-81,2,-60,10,-78,2,-66,10,-60,2,-65,10,-44,2,-63,10,-32,2,-59,0,-50,0,0,2,-46,0,72,8,-9,0,48,0,-42,0,-58,0,65,9,50,0,48,0,-42,0,-58,0,65,9,109,0,48,0,-42,0,-58,0,65,9,-88,0,48,0,-42,0,-58,0,65,8,76,1,-109,0,-41,0,-40,0,61,8,112,1,111,0,-39,0,-38,0,62,8,-102,1,69,0,-37,0,-36,0,63,8,-46,1,13,0,-35,0,-38,0,64,0,-44,9,-78,0,-34,0,-33,0,13,0,-2,9,-120,0,-32,0,-38,0,14,1,40,9,94,0,-31,0,-30,0,15,1,75,9,59,0,-29,0,-38,0,16,1,117,9,17,0,-28,0,-30,0,17,1,-104,8,...}
+      count = 0
+      pos = 0
+      markpos = -1
+      marklimit = 548
+      defaultBufferSize = 2048
+      in = java.io.FileInputStream@29e029e0
+      SKIP_BUFFER_SIZE = 2048
+      skipBuffer = null
+    SKIP_BUFFER_SIZE = 2048
+    skipBuffer = null
+  classFileOutput = 
+    fd = 
+      fd = 174
+      fd2 = -1
+      boundfd = -1
+      fdinuse = -1
+      in = java.io.FileDescriptor@b7d0b7d
+      out = java.io.FileDescriptor@b840b84
+      err = java.io.FileDescriptor@b8b0b8b
+    channel = null
+    rw = true
+    O_RDONLY = 1
+    O_RDWR = 2
+    O_SYNC = 4
+    O_DSYNC = 8
+  encoding = UTF8
+  srcToByteLines = 
+    elementCount = 0
+    elementData = 
+      [0] = null
+      [1] = null
+      [2] = null
+      [3] = null
+      [4] = null
+      [5] = null
+      [6] = null
+      [7] = null
+      [8] = null
+      [9] = null
+    capacityIncrement = 0
+    serialVersionUID = -2767605614048989439
+    DEFAULT_SIZE = 10
+    modCount = 0
+  srcToSrcLines = 
+    elementCount = 67
+    elementData = 
+      [0] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@3d813d81
+      [1] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@3dcd3dcd
+      [2] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@3e1f3e1f
+      [3] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@3ea53ea5
+      [4] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@41c841c8
+      [5] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@47664766
+      [6] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@4a1d4a1d
+      [7] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@4d234d23
+      [8] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@4f894f89
+      [9] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@52955295
+      [10] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@54fe54fe
+      [11] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@58265826
+      [12] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@5a8e5a8e
+      [13] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@5d995d99
+      [14] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@60a860a8
+      [15] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@63b563b5
+      [16] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@661a661a
+      [17] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@69276927
+      [18] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@6b8d6b8d
+      [19] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@6e9f6e9f
+      [20] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@71057105
+      [21] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@74817481
+      [22] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@76e676e6
+      [23] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@79f579f5
+      [24] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@7c5b7c5b
+      [25] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@7f737f73
+      [26] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@1d901d9
+      [27] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@4eb04eb
+      [28] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@7500750
+      [29] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@a610a61
+      [30] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@d110d11
+      [31] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@10501050
+      [32] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@12b512b5
+      [33] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@15c115c1
+      [34] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@18261826
+      [35] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@1b371b37
+      [36] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@1d9c1d9c
+      [37] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@20ac20ac
+      [38] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@235c235c
+      [39] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@266c266c
+      [40] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@28d128d1
+      [41] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@2c382c38
+      [42] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@2e9d2e9d
+      [43] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@31b031b0
+      [44] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@34503450
+      [45] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@375f375f
+      [46] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@3a0f3a0f
+      [47] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@3fee3fee
+      [48] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@42d342d3
+      [49] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@46a246a2
+      [50] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@49114911
+      [51] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@4aaa4aaa
+      [52] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@500d500d
+      [53] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@52195219
+      [54] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@54db54db
+      [55] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@593e593e
+      [56] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@5c835c83
+      [57] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@5f4e5f4e
+      [58] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@63516351
+      [59] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@69216921
+      [60] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@6c6e6c6e
+      [61] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@6fbc6fbc
+      [62] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@730e730e
+      [63] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@78a078a0
+      [64] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@7d807d80
+      [65] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@2440244
+      [66] = com.ibm.ws.webcontainer.jsp.compiler.ibmdebug.SourceToSourceData@6b506b5
+      [67] = null
+      [68] = null
+      [69] = null
+      [70] = null
+      [71] = null
+      [72] = null
+      [73] = null
+      [74] = null
+      [75] = null
+      [76] = null
+      [77] = null
+      [78] = null
+      [79] = null
+    capacityIncrement = 0
+    serialVersionUID = -2767605614048989439
+    DEFAULT_SIZE = 10
+    modCount = 67
+  classFileIndex = 21116
+  srcFileIndex = 304
+  constantPoolStrings = 
+    [0] = null
+    [1] = null
+    [2] = null
+    [3] = null
+    [4] = null
+    [5] = null
+    [6] = null
+    [7] = null
+    [8] = null
+    [9] = null
+    [10] = null
+    [11] = null
+    [12] = null
+    [13] = null
+    [14] = null
+    [15] = null
+    [16] = null
+    [17] = null
+    [18] = null
+    [19] = null
+    [20] = null
+    [21] = null
+    [22] = null
+    [23] = null
+    [24] = null
+    [25] = null
+    [26] = null
+    [27] = null
+    [28] = null
+    [29] = null
+    [30] = null
+    [31] = null
+    [32] = null
+    [33] = null
+    [34] = null
+    [35] = null
+    [36] = null
+    [37] = null
+    [38] = null
+    [39] = null
+    [40] = null
+    [41] = null
+    [42] = null
+    [43] = null
+    [44] = null
+    [45] = null
+    [46] = null
+    [47] = null
+    [48] = null
+    [49] = null
+    [50] = null
+    [51] = null
+    [52] = null
+    [53] = null
+    [54] = null
+    [55] = null
+    [56] = null
+    [57] = null
+    [58] = null
+    [59] = null
+    [60] = null
+    [61] = null
+    [62] = null
+    [63] = null
+    [64] = null
+    [65] = null
+    [66] = null
+    [67] = null
+    [68] = null
+    [69] = null
+    [70] = null
+    [71] = null
+    [72] = null
+    [73] = null
+    [74] = null
+    [75] = null
+    [76] = null
+    [77] = null
+    [78] = null
+    [79] = null
+    [80] = null
+    [81] = null
+    [82] = null
+    [83] = null
+    [84] = null
+    [85] = null
+    [86] = null
+    [87] = null
+    [88] = null
+    [89] = null
+    [90] = null
+    [91] = null
+    [92] = null
+    [93] = null
+    [94] = null
+    [95] = null
+    [96] = null
+    [97] = null
+    [98] = null
+    [99] = null
+    [100] = null
+    [101] = null
+    [102] = null
+    [103] = null
+    [104] = null
+    [105] = null
+    [106] = null
+    [107] = null
+    [108] = null
+    [109] = null
+    [110] = null
+    [111] = null
+    [112] = null
+    [113] = null
+    [114] = null
+    [115] = null
+    [116] = null
+    [117] = null
+    [118] = null
+    [119] = null
+    [120] = null
+    [121] = null
+    [122] = null
+    [123] = null
+    [124] = null
+    [125] = null
+    [126] = null
+    [127] = null
+    [128] = null
+    [129] = null
+    [130] = null
+    [131] = null
+    [132] = null
+    [133] = null
+    [134] = null
+    [135] = null
+    [136] = null
+    [137] = null
+    [138] = null
+    [139] = null
+    [140] = null
+    [141] = null
+    [142] = null
+    [143] = null
+    [144] = null
+    [145] = null
+    [146] = null
+    [147] = null
+    [148] = null
+    [149] = null
+    [150] = null
+    [151] = null
+    [152] = null
+    [153] = null
+    [154] = null
+    [155] = null
+    [156] = null
+    [157] = null
+    [158] = null
+    [159] = null
+    [160] = null
+    [161] = null
+    [162] = null
+    [163] = null
+    [164] = null
+    [165] = null
+    [166] = null
+    [167] = null
+    [168] = null
+    [169] = null
+    [170] = null
+    [171] = null
+    [172] = null
+    [173] = null
+    [174] = null
+    [175] = null
+    [176] = null
+    [177] = null
+    [178] = null
+    [179] = null
+    [180] = null
+    [181] = null
+    [182] = null
+    [183] = null
+    [184] = null
+    [185] = null
+    [186] = null
+    [187] = null
+    [188] = null
+    [189] = null
+    [190] = null
+    [191] = null
+    [192] = null
+    [193] = null
+    [194] = null
+    [195] = _jspx_inited
+    [196] = Z
+    [197] = _jspx_debug_jspSourceLocation
+    [198] = Ljava/lang/String;
+    [199] = _jspx_debug_FileMapping
+    [200] = [[Ljava/lang/String;
+    [201] = _jspx_debug_LineMapping
+    [202] = <init>
+    [203] = ()V
+    [204] = Code
+    [205] = LineNumberTable
+    [206] = LocalVariableTable
+    [207] = this
+    [208] = Lorg/apache/jsp/_ket_5F_thuc_5F_tc;
+    [209] = _jspx_init
+    [210] = Exceptions
+    [211] = null
+    [212] = _jspService
+    [213] = (Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;)V
+    [214] = _jspx_qStr
+    [215] = _jspx_th_html_hidden_0
+    [216] = Lorg/apache/struts/taglib/html/HiddenTag;
+    [217] = _jspx_eval_html_hidden_0
+    [218] = I
+    [219] = _jspx_th_html_text_0
+    [220] = Lorg/apache/struts/taglib/html/TextTag;
+    [221] = _jspx_eval_html_text_0
+    [222] = ac
+    [223] = Lcmc/com/ktnb/util/ApplicationContext;
+    [224] = _jspx_eval_html_rewrite_0
+    [225] = _jspx_th_html_rewrite_1
+    [226] = Lorg/apache/struts/taglib/html/RewriteTag;
+    [227] = _jspx_eval_html_rewrite_1
+    [228] = _jspx_th_html_rewrite_2
+    [229] = _jspx_eval_html_rewrite_2
+    [230] = _jspx_th_html_rewrite_3
+    [231] = _jspx_eval_html_rewrite_3
+    [232] = _jspx_th_html_rewrite_4
+    [233] = _jspx_eval_html_rewrite_4
+    [234] = _jspx_th_html_rewrite_5
+    [235] = _jspx_eval_html_rewrite_5
+    [236] = _jspx_th_html_rewrite_6
+    [237] = _jspx_eval_html_rewrite_6
+    [238] = _jspx_th_html_rewrite_7
+    [239] = _jspx_eval_html_rewrite_7
+    [240] = _jspx_th_html_rewrite_8
+    [241] = _jspx_eval_html_rewrite_8
+    [242] = _jspx_th_html_rewrite_9
+    [243] = _jspx_eval_html_rewrite_9
+    [244] = _jspx_th_html_rewrite_10
+    [245] = _jspx_eval_html_rewrite_10
+    [246] = _jspx_th_html_rewrite_11
+    [247] = _jspx_eval_html_rewrite_11
+    [248] = _jspx_th_html_rewrite_12
+    [249] = _jspx_eval_html_rewrite_12
+    [250] = _jspx_th_html_rewrite_13
+    [251] = _jspx_eval_html_rewrite_13
+    [252] = _jspx_th_html_rewrite_14
+    [253] = _jspx_eval_html_rewrite_14
+    [254] = _jspx_th_html_rewrite_15
+    [255] = _jspx_eval_html_rewrite_15
+    [256] = _jspx_th_html_rewrite_16
+    [257] = _jspx_eval_html_rewrite_16
+    [258] = _jspx_th_html_rewrite_17
+    [259] = _jspx_eval_html_rewrite_17
+    [260] = _jspx_th_html_rewrite_18
+    [261] = _jspx_eval_html_rewrite_18
+    [262] = _jspx_th_html_rewrite_19
+    [263] = _jspx_eval_html_rewrite_19
+    [264] = _jspx_th_html_rewrite_20
+    [265] = _jspx_eval_html_rewrite_20
+    [266] = _jspx_th_html_rewrite_21
+    [267] = _jspx_eval_html_rewrite_21
+    [268] = _jspx_th_html_rewrite_22
+    [269] = _jspx_eval_html_rewrite_22
+    [270] = _jspx_th_html_form_0
+    [271] = Lorg/apache/struts/taglib/html/FormTag;
+    [272] = _jspx_eval_html_form_0
+    [273] = _jspx_th_logic_present_0
+    [274] = Lorg/apache/struts/taglib/logic/PresentTag;
+    [275] = _jspx_eval_logic_present_0
+    [276] = t
+    [277] = Ljava/lang/Throwable;
+    [278] = request
+    [279] = Ljavax/servlet/http/HttpServletRequest;
+    [280] = response
+    [281] = Ljavax/servlet/http/HttpServletResponse;
+    [282] = _jspxFactory
+    [283] = Ljavax/servlet/jsp/JspFactory;
+    [284] = pageContext
+    [285] = Ljavax/servlet/jsp/PageContext;
+    [286] = session
+    [287] = Ljavax/servlet/http/HttpSession;
+    [288] = application
+    [289] = Ljavax/servlet/ServletContext;
+    [290] = config
+    [291] = Ljavax/servlet/ServletConfig;
+    [292] = out
+    [293] = Ljavax/servlet/jsp/JspWriter;
+    [294] = page
+    [295] = Ljava/lang/Object;
+    [296] = _value
+    [297] = _jspxTagObjects
+    [298] = Ljava/util/Stack;
+    [299] = _jspx_th_html_rewrite_0
+    [300] = null
+    [301] = null
+    [302] = <clinit>
+    [303] = SourceFile
+    [304] = _ket_5F_thuc_5F_tc.java
+    [305] = null
+    [306] = java/util/Stack
+    [307] = org/apache/struts/taglib/html/RewriteTag
+    [308] = null
+    [309] = null
+    [310] = null
+    [311] = null
+    [312] = text/html;charset=UTF-8
+    [313] = null
+    [314] = null
+    [315] = 
+    [316] = null
+    [317] = null
+    [318] = null
+    [319] = null
+    [320] = null
+    [321] = null
+    [322] = 
+
+    [323] = null
+    [324] = null
+    [325] = <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+    [326] = UTF-8
+    [327] = null
+    [328] = null
+    [329] = application_context
+    [330] = null
+    [331] = null
+    [332] = cmc/com/ktnb/util/ApplicationContext
+    [333] = 
+<html>
+<head>
+<HTA:APPLICATION ID="Ulti" APPLICATIONNAME="Ultimater" BORDER="thick" BORDERSTYLE="sunken" INNERBORDER="yes" CONTEXTMENU="yes" CAPTION="yes" MAXIMIZEBUTTON="yes" MINIMIZEBUTTON="yes" NAVIGABLE="no" SCROLL="yes" SCROLLFLAT="no" SELECTION="yes" SINGLEINSTANCE="no" SHOWINTASKBAR="yes"
+	SINGLEINSTANCE="yes" SYSMENU="yes" WINDOWSTATE="normal">
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+	<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+	<META HTTP-EQUIV="Expires" CONTENT="-1">
+	<link rel="shortcut icon" type="image/ico" href="
+    [334] = null
+    [335] = null
+    [336] = /image/favicon.ico
+    [337] = null
+    [338] = null
+    [339] = null
+    [340] = null
+    [341] = null
+    [342] = javax/servlet/jsp/tagext/Tag
+    [343] = null
+    [344] = " />
+	<title>H? TH?NG KI?M TRA N?I B?</title>
+	<link type="text/css" href="
+    [345] = /stylesheet/ktnb.css
+    [346] = " rel="stylesheet">
+	<link type="text/css" href="
+    [347] = /stylesheet/base/jquery-ui.css
+    [348] = " rel="stylesheet">
+	<!--  <link type="text/css" href="
+    [349] = /stylesheet/base/jquery.treeTable.css
+    [350] = " rel="stylesheet">	-->
+	<link type="text/css" href="
+    [351] = /stylesheet/verticaltabs.css
+    [352] = " rel="stylesheet">
+	<link rel="stylesheet" type="text/css" href="include/js/themes/default/easyui.css">
+	<link rel="stylesheet" type="text/css" href="include/js/themes/icon.css">
+	<script type="text/javascript" src="
+    [353] = /include/js/jquery-1.4.2.min.js
+    [354] = "></script>
+	<script type="text/javascript" src="
+    [355] = /include/js/jquery.easyui.min.js
+    [356] = /include/js/jquery-ui-1.8.2.custom.min.js
+    [357] = /include/js/jquery.dataTables.min.js
+    [358] = /include/js/jquery.jeditable.mini.js
+    [359] = /include/js/jquery.ui.datepicker-vi.min.js
+    [360] = /include/js/jquery.jixedbar.js
+    [361] = /include/js/jquery.hotkeys.js
+    [362] = /include/js/jquery.treeTable.js
+    [363] = /include/js/ktnb.js
+    [364] = /include/js/datatable.util.js
+    [365] = /include/js/date.format.js
+    [366] = /include/js/verticaltabs.js
+    [367] = /include/js/verticaltabs.pack.js
+    [368] = /include/js/jquery.pngFix.pack.js
+    [369] = /include/js/pluginpage.js
+    [370] = /include/nicEdit/nicEdit.js
+    [371] = /include/js/FixedColumn.js
+    [372] = "></script>
+	<script>
+	$(function() 
+	{		
+		var readonly = '
+    [373] = r
+    [374] = null
+    [375] = null
+    [376] = ';
+		if(readonly=='rol'){
+			disableAllField();
+			if(isExist('btnKetXuat'))
+			document.getElementById('btnKetXuat').disabled = false;
+			if(isExist('btnXem'))
+			document.getElementById('btnXem').disabled = false;
+			if(isExist('btnClose'))
+			document.getElementById('btnClose').disabled = false;
+			if(isExist('btnClose2'))
+			document.getElementById('btnClose2').disabled = false;
+		}	  	
+		$('#container').pngFix( );
+	});
+  </script>
+</head>
+<body>
+<div id="container">
+<div id="topbar">
+<div class="item"><a href="index.do" onclick="window.location='index.do';"><img src="image/home.png" alt="" />Trang ch?</a></div>
+<div class="item"><a href="#"><img src="image/information.png" alt="" />Tr? giúp</a></div>
+<div class="item"><a href="index_kntc.do"><img src="image/blogs.png" alt="" />Khi?u n?i t? cáo</a></div>
+<div class="item"><a href="ttkt_index.do"><img src="image/feed.png" alt="" />Ki?m tra n?i b?</a></div>
+<div class="item"><a href="index_report.do"><img src="image/report2.png" alt="" />Báo cáo</a></div>
+<div class="item"><a href="index_system.do"><img src="image/system.png" alt="" />H? th?ng</a></div>
+<div class="item"><a href="pass.do" onclick="window.location='pass.do';"><img src="image/password.png" alt="" />??i MK</a></div>
+<div class="item"><a href="logout.do" onclick="window.location='logout.do';"><img src="image/exit.png" alt="" />Thoát</a></div>
+</div>
+<div id="logo">
+<div id="loginStatus"><b>CÁN B?:</b> 
+    [377] = null
+    [378] =  - <b>N?I CÔNG TÁC:</b> 
+    [379] = null
+    [380] =  - 
+    [381] = null
+    [382] = </div>
+</div>
+<div id="content">
+    [383] = org/apache/struts/taglib/html/FormTag
+    [384] = /kntc_kq_xm.do
+    [385] = null
+    [386] = 
+	<h3 class="Header">Báo cáo/K?t qu? gi?i quy?t h? s? t? cáo</h3>
+	
+    [387] = org/apache/struts/taglib/html/HiddenTag
+    [388] = maHidden
+    [389] = null
+    [390] = 
+	<div style="text-align: center; width: 100%"><font style="font-size: 14px; color: red">S? h? s?</font> 
+    [391] = org/apache/struts/taglib/html/TextTag
+    [392] = maHoSo
+    [393] = text
+    [394] = null
+    [395] = width:250px
+    [396] = null
+    [397] = null
+    [398] = </div>
+	<div id="super-tabs">
+	<ul>
+		<li><a href="#super-tab0" onclick="redirect('phieu_dxxl_kn.do?method=show&action=phanloaiHSTC&id=');"><span>PHÂN LO?I ?? XU?T X? LÝ TC</span></a></li>
+		<li><a href="#super-tab1" onclick="redirect('kntc_xac_minh.do?method=xacMinh&action=xacMinhToCao&id=');"><span>TI?N HÀNH XÁC MINH</span></a></li>
+		<li><a href="#super-tab2" onclick="redirect('kntc_kq_xm.do?method=ketThuc&action=ketThucToCao&id=');"><span>K?T THÚC GI?I QUY?T</span></a></li>
+	</ul>	
+	<div id="super-tab0"></div>	
+	<div id="super-tab1"></div>
+	<div id="super-tab2">	
+	<div id="tab_xac_minh" style="background-color: transparent; float: left;">
+	<ul>
+		<li><a href="#tab_bcxm" class="tabTitle">K?t lu?n n?i dung TC - M?u 24/KNTC</a></li>
+		<li><a href="#tab_qdgq" class="tabTitle">Thông báo k?t qu? gi?i quy?t TC - M?u 26/KNTC</a></li>
+		<li><a href="#tab_bckq" class="tabTitle">Báo cáo k?t qu? th?c hi?n gi?i quy?t TC</a></li>
+	</ul> 
+	<div id="tab_bcxm">
+    [399] = java/lang/StringBuffer
+    [400] = ket_luan_noi_dung_tc.jsp
+    [401] = null
+    [402] = null
+    [403] = null
+    [404] = null
+    [405] = true
+    [406] = javax.servlet.forward.seen
+    [407] = null
+    [408] = </div>
+	<div id="tab_qdgq">
+    [409] = thong_bao_ket_qua_gqtc.jsp
+    [410] = </div>
+	<div id="tab_bckq">
+    [411] = bao_cao_ket_qua_giai_quyet_tc.jsp
+    [412] = </div>
+	</div>	
+	</div>
+
+    [413] = /kntc2/other_action/to_cao.jsp
+    [414] = 
+</div>
+
+    [415] = null
+    [416] = 
+<script type="text/javascript" charset="utf-8"> 
+var super_tab;
+$(function(){	
+  super_tab=$("#super-tabs");
+  super_tab.tabs();
+  super_tab.tabs("select" , 2);
+  var tab_select=jQuery.fn.readCookie("TABII");
+  var tabOpts={selected:tab_select,select:function(event,tab){jQuery.fn.createCookie("TABII",tab.index);}}; 
+  $("#tab_xac_minh").tabs(tabOpts);
+  $("#tab_xac_minh").removeClass("ui-corner-all");
+  $("#tab_xac_minh").children().removeClass("ui-corner-all");  
+});
+function openBm(link){
+	link = link + '
+    [417] = id
+    [418] = ';
+	openWindow(link,800,600,false);
+}
+</script>
+
+    [419] = 
+<script language="Javascript">
+$(function() 
+{
+  $(document).bind('keydown','esc',function(evt){onButton('exit');return false;});
+  $(document).bind('keydown','home',function(evt){window.location='index.do';return false;});
+  if($('#exit').length>0)
+  {
+   $('#exit').button({icons:{primary:'ui-icon-close'}}).click(function(){onButton('exit');return false;});
+  }
+  if($('#search').length>0)
+  {
+    $('#search').button({icons:{primary:'ui-icon-search'}}).click(function(){onButton('search');return false;});
+    $(document).bind('keydown','Shift+s',function(evt){onButton('search');return false;});
+  }
+  if($('table.data_table').length>0)
+  {
+    $('table.data_table tbody tr').each(function(index) {$(this).addClass(arrClassName[index%3]);});
+    $("table.data_table tbody").delegate("tr", "hover", function(){$(this).toggleClass("highlight");});
+  }
+  if($('#msgdiv').length>0)
+  {
+    
+    [420] = org/apache/struts/taglib/logic/PresentTag
+    [421] = msg
+    [422] = null
+    [423] = 
+     $('#msgdiv').effect('pulsate',{times:3});
+    
+    [424] = 
+  } 
+});
+</script>
+</div>
+<div id="bottom">
+<table width="100%" border="0" bordercolor="#AEC1F1">
+	<tr>
+		<td align="center" width="20%" style="color: blue; font-size: 8pt">KTNB Phiên b?n <strong>2.0</strong> <br>
+		<script language=JavaScript>
+                                                dayname = new Array("Ch? nh?t", "Th? Hai", "Th? Ba", "Th? T?", "Th? N?m", "Th? Sáu", "Th? B?y");
+                                                monthname = new Array("01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12");
+                                                now = new Date();
+                                                daynum = now.getDay();
+                                                day = dayname[daynum];
+                                                date = now.getDate();
+                                                monthnum = now.getMonth();
+                                                month = monthname[monthnum];
+                                                document.write(""+day+", Ngày "+date+"/"+month+"/"+now.getYear()+"");
+          </script></td>
+		<td align="center" width="70%"><font style="color: blue; font-size: 8pt"> <b>T?NG C?C THU?</b> <BR>
+		<strong>??a ch?:</strong> S? 123 Lò ?úc, Hà N?i &nbsp; &nbsp;<strong>?i?n tho?i:</strong> (04) 9.724204 - 9.724209 <strong>Fax:</strong> (04) 9.712286 <br>
+		<strong>Website:</strong> <a href="http://www.gdt.gov.vn" target="_blank">http://www.gdt.gov.vn</a> </font></td>
+	</tr>
+</table>
+</div>
+</body>
+</html>
+    [425] = java/lang/Throwable
+    [426] = null
+    [427] = null
+    [428] = null
+    [429] = null
+    [430] = null
+    [431] = /kntc/xldtc/xac_minh/tien_hanh/ket_thuc_tc.jsp
+    [432] = null
+    [433] = [Ljava/lang/String;
+    [434] = java/lang/String
+    [435] = /top_bar.jsp
+    [436] = /bottom.jsp
+    [437] = 0
+    [438] = 1
+    [439] = 67
+    [440] = null
+    [441] = 2
+    [442] = 6
+    [443] = 7
+    [444] = 8
+    [445] = 9
+    [446] = 10
+    [447] = 18
+    [448] = 20
+    [449] = 21
+    [450] = 22
+    [451] = 23
+    [452] = 26
+    [453] = 27
+    [454] = 28
+    [455] = 29
+    [456] = 30
+    [457] = 31
+    [458] = 32
+    [459] = 33
+    [460] = 34
+    [461] = 35
+    [462] = 36
+    [463] = 37
+    [464] = 38
+    [465] = 39
+    [466] = 40
+    [467] = 41
+    [468] = 42
+    [469] = 43
+    [470] = 47
+    [471] = 76
+    [472] = 3
+    [473] = 5
+    [474] = 24
+    [475] = 25
+    [476] = null
+    [477] = org/apache/jsp/_ket_5F_thuc_5F_tc
+    [478] = com/ibm/ws/webcontainer/jsp/runtime/HttpJspBase
+    [479] = org/apache/jasper/runtime/JspException
+    [480] = java/io/IOException
+    [481] = javax/servlet/ServletException
+    [482] = javax/servlet/jsp/JspFactory
+    [483] = getDefaultFactory
+    [484] = ()Ljavax/servlet/jsp/JspFactory;
+    [485] = javax/servlet/http/HttpServletResponse
+    [486] = setContentType
+    [487] = (Ljava/lang/String;)V
+    [488] = getPageContext
+    [489] = (Ljavax/servlet/Servlet;Ljavax/servlet/ServletRequest;Ljavax/servlet/ServletResponse;Ljava/lang/String;ZIZ)Ljavax/servlet/jsp/PageContext;
+    [490] = javax/servlet/jsp/PageContext
+    [491] = getServletContext
+    [492] = ()Ljavax/servlet/ServletContext;
+    [493] = getServletConfig
+    [494] = ()Ljavax/servlet/ServletConfig;
+    [495] = getSession
+    [496] = ()Ljavax/servlet/http/HttpSession;
+    [497] = getOut
+    [498] = ()Ljavax/servlet/jsp/JspWriter;
+    [499] = javax/servlet/jsp/JspWriter
+    [500] = write
+    [501] = javax/servlet/http/HttpServletRequest
+    [502] = setCharacterEncoding
+    [503] = javax/servlet/http/HttpSession
+    [504] = getAttribute
+    [505] = (Ljava/lang/String;)Ljava/lang/Object;
+    [506] = setPageContext
+    [507] = (Ljavax/servlet/jsp/PageContext;)V
+    [508] = setParent
+    [509] = (Ljavax/servlet/jsp/tagext/Tag;)V
+    [510] = setPage
+    [511] = push
+    [512] = (Ljava/lang/Object;)Ljava/lang/Object;
+    [513] = doStartTag
+    [514] = ()I
+    [515] = doEndTag
+    [516] = pop
+    [517] = ()Ljava/lang/Object;
+    [518] = release
+    [519] = getParameter
+    [520] = (Ljava/lang/String;)Ljava/lang/String;
+    [521] = print
+    [522] = getTenCanbo
+    [523] = ()Ljava/lang/String;
+    [524] = getTenPhong
+    [525] = getTenCqt
+    [526] = setAction
+    [527] = setProperty
+    [528] = setStyleClass
+    [529] = setStyle
+    [530] = setReadonly
+    [531] = (Z)V
+    [532] = append
+    [533] = (Ljava/lang/String;)Ljava/lang/StringBuffer;
+    [534] = toString
+    [535] = org/apache/jasper/runtime/JspRuntimeLibrary
+    [536] = include
+    [537] = (Ljavax/servlet/http/HttpServletRequest;Ljavax/servlet/http/HttpServletResponse;Ljava/lang/String;Ljavax/servlet/jsp/JspWriter;Z)V
+    [538] = equals
+    [539] = (Ljava/lang/Object;)Z
+    [540] = doAfterBody
+    [541] = setName
+    [542] = getBufferSize
+    [543] = clearBuffer
+    [544] = handlePageException
+    [545] = (Ljava/lang/Throwable;)V
+    [546] = empty
+    [547] = ()Z
+    [548] = releasePageContext
+  constantPoolFileOffsets[549] = {0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,737,752,756,788,809,835,858,884,893,899,906,924,945,952,990,1003,0,1019,1033,1118,1131,1156,1200,1227,1231,1254,1296,1321,1326,1367,1395,1421,1466,1494,1520,1548,1574,1602,1628,1656,1682,1710,1736,1764,1790,1818,1844,1872,1898,1926,1953,1982,2009,2038,2065,2094,2121,2150,2177,2206,2233,2262,2289,2318,2345,2374,2401,2430,2457,2486,2513,2542,2569,2598,2625,2654,2677,2719,2744,2771,2817,2846,2850,2874,2884,2926,2937,2980,2995,3028,3042,3076,3086,3121,3135,3168,3177,3209,3215,3247,3254,3275,3284,3302,3322,0,0,3354,3365,3378,0,3409,3427,0,0,0,0,3488,0,0,3522,0,0,0,0,0,0,3553,0,0,3566,3634,0,0,3650,0,0,3680,3719,0,0,4305,0,0,0,0,0,4351,0,4387,4477,4500,4553,4586,4645,4685,4742,4773,4996,5030,5083,5118,5162,5201,5240,5285,5318,5350,5384,5406,5438,5467,5497,5532,5568,5596,5626,5655,5722,0,0,5736,0,7244,0,7279,0,7290,7327,7367,0,7389,7477,7519,0,7535,7649,7689,7698,0,7710,0,0,7734,8771,8796,0,0,0,0,8841,8848,0,8882,8913,8942,8973,9009,9039,9072,0,9090,9620,9625,9680,10597,10641,0,10652,10709,12308,0,0,0,0,0,12355,0,12409,12431,12450,12465,12479,12483,12487,0,12497,12501,12505,12509,12513,12517,12522,12527,12532,12537,12542,12547,12552,12557,12562,12567,12572,12577,12582,12587,12592,12597,12602,12607,12612,12617,12622,12627,12632,12637,12642,12647,12651,12655,12660,0,12670,12706,12756,12797,12819,12852,12883,12903,12938,12979,12996,13020,13037,13178,13210,13230,13265,13284,13318,13331,13368,13377,13411,13441,13449,13489,13512,13545,13560,13601,13618,13655,13667,13703,13713,13720,13761,13774,13780,13791,13797,13820,13830,13845,13886,13894,13908,13931,13945,13957,13969,13983,13999,14010,14024,14031,14040,14087,14098,14144,14154,14287,14296,14320,14334,14344,14360,14374,14396,14423,14431,14437}
+  typeOffsets[13] = {0,0,0,4,4,8,8,2,2,4,4,4,4}
+  CONSTANT_Utf8 = 1
+  CONSTANT_Long = 5
+  CONSTANT_Double = 6
+

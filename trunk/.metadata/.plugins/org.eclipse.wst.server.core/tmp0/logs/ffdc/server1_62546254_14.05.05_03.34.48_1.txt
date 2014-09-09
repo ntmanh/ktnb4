@@ -1,0 +1,224 @@
+------Start of DE processing------ = [5/5/14 3:34:48:189 GMT] , key = java.lang.IllegalStateException com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter 89
+Exception = java.lang.IllegalStateException
+Source = com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter
+probeid = 89
+Stack Dump = java.lang.IllegalStateException: Cannot forward. Response already committed. (Servlet 2.3, SRV 8.4)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.forward(WebAppRequestDispatcher.java:153)
+	at org.apache.struts.action.RequestProcessor.doForward(RequestProcessor.java:1069)
+	at org.apache.struts.action.RequestProcessor.internalModuleRelativeForward(RequestProcessor.java:1012)
+	at org.apache.struts.action.RequestProcessor.processForward(RequestProcessor.java:582)
+	at org.apache.struts.action.RequestProcessor.process(RequestProcessor.java:260)
+	at org.apache.struts.action.ActionServlet.process(ActionServlet.java:1482)
+	at org.apache.struts.action.ActionServlet.doGet(ActionServlet.java:507)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:740)
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:853)
+	at com.ibm.ws.webcontainer.servlet.StrictServletInstance.doService(StrictServletInstance.java:110)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet._service(StrictLifecycleServlet.java:174)
+	at com.ibm.ws.webcontainer.servlet.IdleServletState.service(StrictLifecycleServlet.java:313)
+	at com.ibm.ws.webcontainer.servlet.StrictLifecycleServlet.service(StrictLifecycleServlet.java:116)
+	at com.ibm.ws.webcontainer.servlet.ServletInstance.service(ServletInstance.java:283)
+	at com.ibm.ws.webcontainer.servlet.ValidServletReferenceState.dispatch(ValidServletReferenceState.java:42)
+	at com.ibm.ws.webcontainer.servlet.ServletInstanceReference.dispatch(ServletInstanceReference.java:40)
+	at com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(WebAppFilterChain.java:76)
+	at cmc.com.ktnb.util.AuthenticationFilter.doFilter(AuthenticationFilter.java:99)
+	at com.ibm.ws.webcontainer.filter.FilterInstanceWrapper.doFilter(FilterInstanceWrapper.java:132)
+	at com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter(WebAppFilterChain.java:71)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.handleWebAppDispatch(WebAppRequestDispatcher.java:1162)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.dispatch(WebAppRequestDispatcher.java:676)
+	at com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcher.forward(WebAppRequestDispatcher.java:203)
+	at com.ibm.ws.webcontainer.srt.WebAppInvoker.doForward(WebAppInvoker.java:125)
+	at com.ibm.ws.webcontainer.srt.WebAppInvoker.handleInvocationHook(WebAppInvoker.java:300)
+	at com.ibm.ws.webcontainer.cache.invocation.CachedInvocation.handleInvocation(CachedInvocation.java:71)
+	at com.ibm.ws.webcontainer.srp.ServletRequestProcessor.dispatchByURI(ServletRequestProcessor.java:246)
+	at com.ibm.ws.webcontainer.oselistener.OSEListenerDispatcher.service(OSEListener.java:334)
+	at com.ibm.ws.webcontainer.http.HttpConnection.handleRequest(HttpConnection.java:56)
+	at com.ibm.ws.http.HttpConnection.readAndHandleRequest(HttpConnection.java:652)
+	at com.ibm.ws.http.HttpConnection.run(HttpConnection.java:448)
+	at com.ibm.ws.util.ThreadPool$Worker.run(ThreadPool.java:936)
+
+Dump of callerThis = 
+Object type = com.ibm.ws.webcontainer.filter.WebAppFilterChain
+com.ibm.ws.webcontainer.filter.WebAppFilterChain@5fe35fe3
+
+Exception = java.lang.IllegalStateException
+Source = com.ibm.ws.webcontainer.filter.WebAppFilterChain.doFilter
+probeid = 89
+Dump of callerThis = 
+Object type = com.ibm.ws.webcontainer.filter.WebAppFilterChain
+  _filters = 
+    elementData = 
+      [0] = com.ibm.ws.webcontainer.filter.FilterInstanceWrapper@3e7b3e7b
+      [1] = null
+      [2] = null
+      [3] = null
+      [4] = null
+    size = 1
+    serialVersionUID = 8683452581122892189
+    class$java$lang$Object = null
+    modCount = 1
+  _currentFilterIndex = 1
+  _numberOfFilters = 1
+  _requestedServlet = 
+    _state = 
+      _instance = this._requestedServlet._state
+    _instance = 
+      _servletInstance = com.ibm.ws.webcontainer.servlet.StrictServletInstance@7df57df5
+      _servletName = action
+      _servletClassname = org.apache.struts.action.ActionServlet
+      _jspFile = null
+      _compMetaData = com.ibm.ws.webcontainer.metadata.WebComponentMetaDataImpl@35013501
+      _outstandingReferences = java.util.Vector@7de07de0
+      _evtSource = com.ibm.ws.webcontainer.webapp.WebAppEventSource@5cf85cf8
+      _event = com.ibm.websphere.servlet.event.ServletEvent@7e0d7e0d
+      _unavailableUntil = -1
+      _unavailableMessage = null
+      _permanentlyUnavailable = false
+      tc = com.ibm.ejs.ras.TraceComponent@7d357d35
+      nls = com.ibm.ejs.sm.client.ui.NLS@7d467d46
+      disableServletAuditLogging = -1
+      class$com$ibm$ws$webcontainer$servlet$ServletInstance = java.lang.Class@7c6b7c6b
+      config = com.ibm.ws.webcontainer.servlet.DefaultServletConfig@7e077e07
+    _listeners = 
+      elementCount = 1
+      elementData = [Ljava.lang.Object;@21b121b1
+      capacityIncrement = 0
+      serialVersionUID = -2767605614048989439
+      DEFAULT_SIZE = 10
+      modCount = 1
+    STATE_VALID = this._requestedServlet._state
+    STATE_INVALID = 
+      _instance = this._requestedServlet.STATE_INVALID
+  _invocationEvent = 
+    _servletName = action
+    _servletClassName = org.apache.struts.action.ActionServlet
+    responseTime = -1
+    _req = com.ibm.ws.webcontainer.srt.SRTServletRequest@27902790
+    _resp = com.ibm.ws.webcontainer.srt.SRTServletResponse@2b892b89
+    _context = com.ibm.ws.webcontainer.webapp.WebApp@4bdb4bdb
+    _servletNames = 
+      _instance = this._invocationEvent._servletNames
+    source = 
+      _dispatcherContext = com.ibm.ws.webcontainer.webapp.WebAppDispatcherContext@221f221f
+      _webApp = this._invocationEvent._context
+      _targetServlet = null
+      _dispatcherInfo = com.ibm.ws.webcontainer.webapp.WebAppRequestDispatcherInfo@1a081a08
+      _securityCollaborator = com.ibm.ws.webcontainer.webapp.WebAppSecurityCollaborator@38f038f0
+      _includedResponse = com.ibm.ws.webcontainer.servlet.IncludedResponse@23182318
+      _webAppNameSpaceCollaborator = com.ibm.ws.webcontainer.webapp.WebAppNameSpaceCollaborator@d000d
+      _connectionHandleList = com.ibm.ejs.j2c.HandleList@232a232a
+      _connectionHandleCollaborator = com.ibm.ws.webcontainer.collaborator.ConnectionHandleCollaborator@73ac73ac
+      _webAppTransactionCollaborator = com.ibm.ws.webcontainer.webapp.WebAppTransactionCollaborator@110011
+      _webAppInvocationCollaborators = [Lcom.ibm.ws.webcontainer.webapp.collaborator.WebAppInvocationCollaborator;@1f121f12
+      _invocationEvent = this._invocationEvent
+      _secCheckNeeded = true
+      _singleThreadServlet = false
+      tc = com.ibm.ejs.ras.TraceComponent@18351835
+      _oneReqMgr = com.ibm.ws.webcontainer.srt.PerRequestCollaboratorMgr@18ce18ce
+      nls = com.ibm.ejs.sm.client.ui.NLS@191a191a
+      class$com$ibm$ws$webcontainer$webapp$WebAppRequestDispatcher = java.lang.Class@17051705
+  _filtersDefined = true
+  _entryEnabled = false
+  tc = 
+    ivDumpEnabled = false
+    ivResourceBundleName = com.ibm.ejs.resources.seriousMessages
+    ivLogger = null
+    defaultMessageFile = com.ibm.ejs.resources.seriousMessages
+    ivName = com.ibm.ws.webcontainer.filter.WebAppFilterChain
+    ivDebugEnabled = false
+    ivEventEnabled = false
+    ivEntryEnabled = false
+  nls = 
+    bundleName = com.ibm.servlet.resources.ServletEngineNLS
+    bundle = 
+      resources = [[Ljava.lang.Object;@5c435c43
+      lookup = java.util.HashMap@f1b0f1b
+      parent = com.ibm.servlet.resources.ServletEngineNLS@5b765b76
+      locale = java.util.Locale@5ff05ff0
+      cacheKey = java.util.ResourceBundle$ResourceCacheKey@39733973
+      INITIAL_CACHE_SIZE = 25
+      CACHE_LOAD_FACTOR = 1.0
+      MAX_BUNDLES_SEARCHED = 3
+      underConstruction = java.util.Hashtable@397a397a
+      DEFAULT_NOT_FOUND = -1
+      cacheList = sun.misc.SoftCache@398f398f
+      class$java$util$ResourceBundle = java.lang.Class@20132013
+    tc = 
+      ivDumpEnabled = false
+      ivResourceBundleName = com.ibm.ejs.resources.seriousMessages
+      ivLogger = null
+      defaultMessageFile = com.ibm.ejs.resources.seriousMessages
+      ivName = com.ibm.ejs.sm.client.ui.NLS
+      ivDebugEnabled = false
+      ivEventEnabled = false
+      ivEntryEnabled = false
+    messages = 
+      bundleName = messages
+      bundle = com.ibm.ejs.resources.messages_en@5a4d5a4d
+      tc = this.nls.tc
+      messages = this.nls.messages
+      baseClassPackage = com.ibm.ejs.resources
+      class$com$ibm$ejs$sm$client$ui$NLS = this.nls.class$com$ibm$ejs$sm$client$ui$NLS
+    baseClassPackage = com.ibm.ejs.resources
+    class$com$ibm$ejs$sm$client$ui$NLS = 
+      serialVersionUID = 3206093459760846163
+      AllPermissionsPD = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.AllPermissionsPD
+      UNINITIALIZED = 0
+      INITIALIZED = 1
+      FAILED = 2
+      UNVERIFIED = 3
+      classNameMap = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.classNameMap
+      j9Version = 33620526
+      j9Config = 8314596479310233600
+      EmptyParameters = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.EmptyParameters
+      class$java$lang$reflect$Method = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.class$java$lang$reflect$Method
+      class$java$lang$Runnable = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.class$java$lang$Runnable
+  class$com$ibm$ws$webcontainer$filter$WebAppFilterChain = 
+    serialVersionUID = 3206093459760846163
+    AllPermissionsPD = 
+      codesource = null
+      classloader = null
+      principals = {}
+      permissions = java.security.Permissions@6a806a80
+      staticPermissions = true
+      loopingToString = false
+    UNINITIALIZED = 0
+    INITIALIZED = 1
+    FAILED = 2
+    UNVERIFIED = 3
+    classNameMap = 
+      m = java.util.WeakHashMap@783c783c
+      mutex = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.classNameMap
+      keySet = null
+      entrySet = null
+      values = null
+      serialVersionUID = 1978198479659022715
+    j9Version = 33620526
+    j9Config = 8314596479310233600
+    EmptyParameters = {}
+    class$java$lang$reflect$Method = 
+      serialVersionUID = 3206093459760846163
+      AllPermissionsPD = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.AllPermissionsPD
+      UNINITIALIZED = 0
+      INITIALIZED = 1
+      FAILED = 2
+      UNVERIFIED = 3
+      classNameMap = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.classNameMap
+      j9Version = 33620526
+      j9Config = 8314596479310233600
+      EmptyParameters = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.EmptyParameters
+      class$java$lang$reflect$Method = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.class$java$lang$reflect$Method
+      class$java$lang$Runnable = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.class$java$lang$Runnable
+    class$java$lang$Runnable = 
+      serialVersionUID = 3206093459760846163
+      AllPermissionsPD = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.AllPermissionsPD
+      UNINITIALIZED = 0
+      INITIALIZED = 1
+      FAILED = 2
+      UNVERIFIED = 3
+      classNameMap = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.classNameMap
+      j9Version = 33620526
+      j9Config = 8314596479310233600
+      EmptyParameters = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.EmptyParameters
+      class$java$lang$reflect$Method = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.class$java$lang$reflect$Method
+      class$java$lang$Runnable = this.class$com$ibm$ws$webcontainer$filter$WebAppFilterChain.class$java$lang$Runnable
+

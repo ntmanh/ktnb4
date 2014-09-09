@@ -1,0 +1,46 @@
+)CM Change Defaults
+)DEFAULT )&?^<Y>
+#============================================================================
+# This jacl script creates a node group if it does not already exist in the
+# config repository.
+#
+# USAGE:
+#
+# wsadmin.sh -host hostname -port 8879 -f createNodeGroup.jacl nodegroup
+#
+# On successful completion, this script will exit with a zero exit code.
+# ===========================================================================
+ 
+ 
+set found 0
+set SUCCESS 1
+ 
+if { !($argc == 1) } {
+   puts "this script requires 1 parameter: nodegroup name"
+   puts "Ex: wsadmin.sh -host zwas -port 8879 -f createNodeGroup.jacl eastplex"
+   return
+} else {
+   set nodeGroupName [lindex $argv 0]
+}
+ 
+set nodeGroupList [$AdminConfig list NodeGroup]
+foreach nodeGroup $nodeGroupList {
+ if {[string compare [$AdminConfig showAttribute $nodeGroup name] $nodeGroupName] == 0} {
+  set found 1
+ }
+}
+ 
+if {$found == 1} {
+ puts "*** createNodeGroup: $nodeGroupName already exists. ***"
+ exit 1
+}
+ 
+$AdminTask createNodeGroup $nodeGroupName
+ 
+$AdminConfig save
+ 
+set SUCCESS 0
+ 
+puts "*** create nodegroup $nodeGroupName was Successful ***"
+ 
+exit $SUCCESS

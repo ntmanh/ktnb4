@@ -1,0 +1,130 @@
+<!-- Licensed Materials - Property of IBM                                                 -->
+<!-- 5724-I63, 5724-H88, 5655-N01, 5733-W61 (C) Copyright IBM Corp. yyyy, 2006            -->
+<!-- All Rights Reserved                                                                  -->
+<!-- US Government Users Restricted Rights - Use, duplication or disclosure restricted by -->
+<!-- GSA ADP Schedule Contract with  the IBM Corp.                                        -->
+<actions>
+   <action path="actions/zpmt.ant" priority="01" isFatal="true"> 
+        <argument key="profileName" values="1" required="true" >
+            <defaulter path="defaulters/profileNameDefaulter.ijc"/>
+            <validator path="validators/profileNameValidator.ijc"/>
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/noInvalidCharactersValidator.ijc"/>
+        </argument>
+        <argument key="profilePath" values="1" required="true" >
+            <defaulter path="defaulters/profileLocationDefaulter.ijc"/>
+            <validator path="validators/directoryValidator.ijc"/>
+        </argument>
+         <argument key="zTargetHLQ" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zTargetHLQLengthValidator.ijc"/>
+            <validator path="validators/zDataSetValidator.ijc"/> 
+        </argument>
+        <argument key="zConfigMountPoint" values="1" required="true" >
+            <validator path="validators/zConfigPathLengthValidator.ijc"/>
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zUnixStylePathValidator.ijc"/>
+        </argument>
+         <argument key="zWasServerDir" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zWasServerDirLengthValidator.ijc"/>
+            <validator path="validators/zUnixStylePathValidator.ijc"/>
+        </argument>
+        <argument key="zFederateDmaNodeHostName" values="1" required="true" >
+            <validator path="validators/zHostNameLengthValidator.ijc"/>
+            <validator path="validators/hostNameValidator.ijc"/>
+        </argument>
+        <argument key="zNodeGroupName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zNodeGroupValidator.ijc"/>
+	        <validator path="validators/zLongNameFormatValidator.ijc"/>
+        </argument>
+        <argument key="zConfigurationGroupGID" values="1" required="true" >
+            <validator path="validators/zNumericIDValidator.ijc"/>
+        </argument>
+        <argument key="zHFSOwnerUID" values="1" required="true" >
+            <validator path="validators/zNumericIDValidator.ijc"/>
+        </argument>
+        <argument key="zFederateAppServerOrbPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zFederateDmaPortType" values="1" required="false" >
+            <defaulter path="defaulters/zJMXConnectorTypeDefaulter.ijc"/>
+            <validator path="validators/zJMXConnectorTypeValidator.ijc"/>
+        </argument>
+        <argument key="zFederateDmaPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zFederateHamCommPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zFederateJmxSoapConnectorPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zFederateNodeDiscoveryPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zFederateNodeIPv6MulticastDiscoveryPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zFederateNodeMulticastDiscoveryPort" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zFederateOrbPortName" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zFederateOrbSslPortName" values="1" required="true" >
+            <validator path="validators/portValueInRangeValidator.ijc"/>
+        </argument>
+        <argument key="zFederateOrbListenerHostName" values="1" required="true" >
+            <validator path="validators/zTransportHostNameValidator.ijc"/>
+        </argument>
+        <argument key="zFederateDmaSecurity" values="1" required="true" >
+            <validator path="validators/booleanValidator.ijc"/>
+        </argument>
+        <argument key="zFederateAppServerSecurity" values="1" required="false" >
+            <defaulter path="defaulters/falseDefaulter.ijc"/>
+            <validator path="validators/booleanValidator.ijc"/>
+        </argument>
+        <argument key="zFederateDmaSecurityUserID" values="1" required="false" >
+            <validator path="validators/zFederationUseridLengthValidator.ijc"/>
+            <validator path="validators/zFederationUseridFormatValidator.ijc"/>
+        </argument>
+        <argument key="zFederateAppServerSecurityUserID" values="1" required="false" >
+            <validator path="validators/zFederationAppsvrUseridLengthValidator.ijc"/>
+            <validator path="validators/zFederationAppsvrUseridFormatValidator.ijc"/>
+        </argument>
+        <argument key="zFederateDmaSecurityPassword" values="1" required="false" >
+			<validator path="validators/zFederationPasswordSpaceValidator.ijc"/>
+        </argument>      
+        <argument key="zFederateAppServerSecurityPassword" values="1" required="false" >
+            <validator path="validators/zFederationAppsvrPasswordSpaceValidator.ijc"/>
+        </argument>
+        <argument key="zFederateServerShortName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zServerShortNameLengthValidator.ijc"/>
+            <validator path="validators/zShortNameFormatValidator.ijc"/>
+        </argument>           
+         <argument key="zBboexecName" values="1" required="true" >
+            <validator path="validators/noSpacesValidator.ijc"/>
+            <validator path="validators/zProductDataSetLengthValidator.ijc"/>
+            <validator path="validators/zDataSetValidator.ijc"/>
+        </argument>    
+        <argument key="zJobStatement1" values="1" required="true" >
+            <validator path="validators/zJobStatementLineOneLengthValidator.ijc"/>
+            <validator path="validators/zJobStatementFormatValidator.ijc"/>
+        </argument>
+        <argument key="zJobStatement2" values="1" required="true" >
+            <validator path="validators/zJobStatementLengthValidator.ijc"/>
+            <validator path="validators/zJobStatementFormatValidator.ijc"/>
+        </argument>
+        <argument key="zJobStatement3" values="1" required="true" >
+            <validator path="validators/zJobStatementLengthValidator.ijc"/>
+            <validator path="validators/zJobStatementFormatValidator.ijc"/>
+        </argument>
+        <argument key="zJobStatement4" values="1" required="true" >
+            <validator path="validators/zJobStatementLengthValidator.ijc"/>
+            <validator path="validators/zJobStatementFormatValidator.ijc"/>
+        </argument>
+       </action>
+</actions>

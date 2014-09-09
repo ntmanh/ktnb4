@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+This XML file is used to manage access authorizations to resources owned by the
+WebSphere Application Server Integral JMS Provider.
+
+The default permissions as supplied is to allow public read & write access to all
+queues and +pub, +sub & +persist access to all topics. To restrict access to queues
+and topics these default permissions must first be removed.
+
+For node wide authorisations copy this file into the node directory:
+
+   .../config/cells/<your cell name>/nodes/<your node name>/integral-jms-authorizations.xml
+
+For cell wide authorisations copy this file into the cell directory:
+
+   .../config/cells/<your cell name>/integral-jms-authorizations.xml
+
+An explanation of the Document Type Definition (DTD)
+
+dynamic-update            - set to "true" or "false" to control whether the JMS
+                            Server will check for updates to this file dynamically
+                            or not. Setting this to "true" enables dynamic update
+                            support, setting it to "false" disables dynamic update
+                            checking and improves authorization performance. The
+                            default setting it "true".
+
+queue-admin-userids       - this element contains a list of all userids what will
+                            be granted administrative access to all Integral JMS
+                            server queue resources.
+
+queue-default-permissions - this element defines default queue access permissions
+                            which are assumed if no permissions are specified for
+                            a particular queue name. If not specified then no
+                            access permissions exist unless explicitly authorized.
+
+queue                     - this element starts the definition of authorizations to
+                            a single queue. The name element defines the name of the
+                            queue. The public element is used to define the default
+                            public access permission to the queue which is only used
+                            if no explicit authorization exists for a userid.
+                            Individual access authorizations are created using
+                            authorization elements repreated for each userid. Valid
+                            access permissions for queues are: read, write.
+
+topic                     - this element starts the definition of authorizations to
+                            a single topic. The name element defines the name of the
+                            topic. The public element is used to define the default
+                            public access permission to the topic. Individual access
+                            authorizations are created using authorization elements
+                            repeated for each userid. If specific access permissions
+                            do not exist for a userid on a particular topic then
+                            permissions are inherited first from the public permissions
+                            on the same topic and then from the parent topic. The
+                            inheritance of access permissions continues until the
+                            root at which time root permisions are assumed. Topic
+                            names should be specified absolutely, no wildcards or
+                            other substition characters should be specified. Valid
+                            access permisions for topics are: +pub, +sub, +persist,
+                            -pub, -sub & -persist where a '+' grants permission and
+                            '-' denies permission.
+
+An example Integral JMS Provider authorization file:
+
+<integral-jms-authorizations>
+
+  <dynamic-update>true</dynamic-update>
+
+  <queue-admin-userids>
+    <userid>adminid1</userid>
+    <userid>adminid2</userid>
+  </queue-admin-userids>
+
+  <queue-default-permissions>
+    <permission>write</permission>
+  </queue-default-permissions>
+
+  <queue>
+    <name>q1</name>
+    <public>
+    </public>
+    <authorize>
+      <userid>useridr</userid>
+      <permission>read</permission>
+    </authorize>
+    <authorize>
+      <userid>useridw</userid>
+      <permission>write</permission>
+    </authorize>
+  </queue>
+
+  <queue>
+    <name>q2</name>
+    <public>
+      <permission>write</permission>
+    </public>
+    <authorize>
+      <userid>useridr</userid>
+      <permission>read</permission>
+    </authorize>
+  </queue>
+
+  <topic>
+    <name></name>
+    <public>
+      <permission>+pub</permission>
+    </public>
+  </topic>
+
+  <topic>
+    <name>a/b/c</name>
+    <public>
+      <permission>+sub</permission>
+    </public>
+    <authorize>
+      <userid>useridpub</userid>
+      <permission>+pub</permission>
+    </authorize>
+  </topic>
+
+</integral-jms-authorizations>
+
+-->
+
+<!DOCTYPE integral-jms-authorizations [
+  <!ELEMENT integral-jms-authorizations (dynamic-update*,queue-admin-userids*,queue-default-permissions*,queue*,topic*)>
+  <!ELEMENT dynamic-update (#PCDATA)>
+  <!ELEMENT queue-admin-userids (userid*)>
+  <!ELEMENT queue-default-permissions (permission*)>
+  <!ELEMENT userid (#PCDATA)>
+  <!ELEMENT queue (name,public,authorize*)>
+  <!ELEMENT topic (name,public,authorize*)>
+  <!ELEMENT name (#PCDATA)>
+  <!ELEMENT public (permission*)>
+  <!ELEMENT authorize (userid,permission*)>
+  <!ELEMENT permission (#PCDATA)>
+]>
+
+<integral-jms-authorizations>
+
+  <queue-admin-userids>
+  </queue-admin-userids>
+
+<!-- Default queue access is read & write, remove these default queue permissions
+     to restrict queue access -->
+
+  <queue-default-permissions>
+    <permission>read</permission>
+    <permission>write</permission>
+  </queue-default-permissions>
+
+<!-- The following is a typical set of default queue authorisations -->
+
+  <queue>
+    <name>SYSTEM.BROKER.CONTROL.QUEUE</name>
+    <public>
+      <permission>write</permission>
+    </public>
+  </queue>
+
+  <queue>
+    <name>SYSTEM.BROKER.DEFAULT.STREAM</name>
+    <public>
+      <permission>write</permission>
+    </public>
+  </queue>
+
+  <queue>
+    <name>SYSTEM.DEAD.LETTER.QUEUE</name>
+    <public>
+      <permission>write</permission>
+    </public>
+  </queue>
+
+  <queue>
+    <name>SYSTEM.DEFAULT.MODEL.QUEUE</name>
+    <public>
+      <permission>read</permission>
+    </public>
+  </queue>
+
+  <queue>
+    <name>SYSTEM.JMS.ADMIN.QUEUE</name>
+    <public>
+      <permission>read</permission>
+      <permission>write</permission>
+    </public>
+  </queue>
+
+  <queue>
+    <name>SYSTEM.JMS.MODEL.QUEUE</name>
+    <public>
+      <permission>read</permission>
+    </public>
+  </queue>
+
+  <queue>
+    <name>SYSTEM.JMS.ND.SUBSCRIBER.QUEUE</name>
+    <public>
+      <permission>read</permission>
+      <permission>write</permission>
+    </public>
+  </queue>
+
+  <queue>
+    <name>SYSTEM.JMS.D.SUBSCRIBER.QUEUE</name>
+    <public>
+      <permission>read</permission>
+      <permission>write</permission>
+    </public>
+  </queue>
+
+  <queue>
+    <name>SYSTEM.JMS.ND.CC.SUBSCRIBER.QUEUE</name>
+    <public>
+      <permission>read</permission>
+      <permission>write</permission>
+    </public>
+  </queue>
+
+  <queue>
+    <name>SYSTEM.JMS.D.CC.SUBSCRIBER.QUEUE</name>
+    <public>
+      <permission>read</permission>
+      <permission>write</permission>
+    </public>
+  </queue>
+
+  <queue>
+    <name>SYSTEM.JMS.PS.STATUS.QUEUE</name>
+    <public>
+      <permission>read</permission>
+      <permission>write</permission>
+    </public>
+  </queue>
+
+  <queue>
+    <name>SYSTEM.JMS.REPORT.QUEUE</name>
+    <public>
+      <permission>read</permission>
+      <permission>write</permission>
+    </public>
+  </queue>
+
+<!-- Default topic access is +pub, +sub & +persist, remove these default topic
+     permissions to restrict topic access -->
+
+  <topic>
+    <name></name>
+    <public>
+      <permission>+pub</permission>
+      <permission>+sub</permission>
+      <permission>+persist</permission>
+    </public>
+  </topic>
+
+</integral-jms-authorizations>

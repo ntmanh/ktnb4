@@ -1,0 +1,497 @@
+package cmc.com.ktnb.web.kntc.ket_qua;
+
+import java.io.InputStream;
+import java.io.PrintWriter;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.naming.InitialContext;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.transaction.UserTransaction;
+
+import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionMapping;
+import org.hibernate.Query;
+import org.hibernate.Session;
+import org.json.JSONObject;
+
+import cmc.com.ktnb.exception.KtnbException;
+import cmc.com.ktnb.pl.hb.entity.KntcBienBan;
+import cmc.com.ktnb.pl.hb.entity.KntcDeXuatXly;
+import cmc.com.ktnb.pl.hb.entity.KntcHoSoHdr;
+import cmc.com.ktnb.pl.hb.entity.KntcHoSoTheoDoi;
+import cmc.com.ktnb.pl.hb.entity.KntcKqxmKluatKnghi;
+import cmc.com.ktnb.pl.hb.entity.KntcQdinhGquyet;
+import cmc.com.ktnb.pl.hb.entity.KntcQdinhXm;
+import cmc.com.ktnb.service.kntc.KntcSoTiepDan;
+import cmc.com.ktnb.service.kntc.PhanLoaiXuLyService;
+import cmc.com.ktnb.service.kntc.SoTiepDanService;
+import cmc.com.ktnb.service.kntc.XacMinhService;
+import cmc.com.ktnb.service.kntc.XuLyKNTCService;
+import cmc.com.ktnb.util.ApplicationContext;
+import cmc.com.ktnb.util.BaseHibernateDAO;
+import cmc.com.ktnb.util.Constants;
+import cmc.com.ktnb.util.Formater;
+import cmc.com.ktnb.util.HibernateSessionFactory;
+import cmc.com.ktnb.util.HttpUtil;
+import cmc.com.ktnb.util.KeyManagement;
+import cmc.com.ktnb.util.KntcDAO;
+import cmc.com.ktnb.util.KntcUtil;
+import cmc.com.ktnb.util.KtnbUtil;
+import cmc.com.ktnb.util.MsWordUtils;
+import cmc.com.ktnb.web.BaseDispatchAction;
+import cmc.com.ktnb.web.catalog.CatalogService;
+import cmc.com.ktnb.web.catalog.vo.HoSoLovVO;
+
+/**
+ * Xử lý quyết định giải quyết khiếu nại
+ * 
+ * @author Ntthu - CMCSOFT
+ * @since 18/03/2011
+ */
+public class QuyetDinhGqKnAction extends BaseDispatchAction {
+
+	public ActionForward qdgq(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		QuyetDinhGqKnForm qdgqForm = (QuyetDinhGqKnForm) form;
+		String maHs = request.getParameter("id");
+		if (!Formater.isNull(maHs)) {
+			qdgqForm.setMaHoSo(maHs);
+			XuLyKNTCService s = new XuLyKNTCService();
+			KntcQdinhGquyet kq = s.getQdinhGquyet(appContext, maHs);
+			if (kq == null) { // Tao moi
+				PhanLoaiXuLyService plService = new PhanLoaiXuLyService();
+				KntcDeXuatXly dx = plService.getDeXuatXly(appContext, maHs);
+				XacMinhService xmS = new XacMinhService();
+				KntcQdinhXm qd = xmS.getKntcQdinhXmByHoSo(appContext, maHs);
+				if ("0".equals(dx.getIsGquyetNgay().toString())) {
+					if (qd == null || qd.getNgayDuyet() == null) {
+						throw new KtnbException("Ch&#x1B0;a c&#xF3; Quy&#x1EBF;t &#x111;&#x1ECB;nh x&#xE1;c minh, ho&#x1EB7;c Q&#x110;XM ch&#x1B0;a &#x111;&#x1B0;&#x1EE3;c duy&#x1EC7;t!", "",
+								"C&#7847;n ho&#224;n thi&#7879;n Quy&#7871;t &#273;&#7883;nh x&#225;c minh tr&#432;&#7899;c khi l&#224;m c&#225;c bi&#7875;u m&#7851;u ti&#7871;p theo!");
+					}
+				}
+				if ("0".equals(dx.getIsGquyetNgay().toString())) {
+					if (xmS.getKntcKquaGquyetByHs(appContext, maHs) == null) {
+						throw new KtnbException("Ch&#432;a c&#243; b&#225;o c&#225;o k&#7871;t qu&#7843; x&#225;c minh m&#7851;u 17/KNTC!", "",
+								"C&#7847;n l&#7853;p b&#225;o c&#225;o k&#7871;t qu&#7843; x&#225;c minh m&#7851;u 17/KNTC tr&#432;&#7899;c khi l&#7853;p m&#7851;u quy&#7871;t &#273;&#7883;nh gi&#7843;i quy&#7871;t KN 19/KNTC!");
+					}
+				}
+				if (xmS.getKqxmKluatKnghiByMaHs(appContext, maHs) == null) {
+					throw new KtnbException("Ch&#432;a c&#243; b&#225;o c&#225;o k&#7871;t qu&#7843; gi&#7843;i quy&#7871;t KN 18/KNTC!", "",
+							"C&#7847;n l&#7853;p b&#225;o c&#225;o k&#7871;t qu&#7843; gi&#7843;i quy&#7871;t KN 18/KNTC tr&#432;&#7899;c khi l&#7853;p m&#7851;u quy&#7871;t &#273;&#7883;nh gi&#7843;i quy&#7871;t KN 19/KNTC!");
+				}
+
+				qdgqForm.setSoQd(KtnbUtil.getMaNvu(appContext, "Q\u0110"));
+				qdgqForm.setThoiDiem(Formater.date2str(new Date()));
+				qdgqForm.setNoiDungDon(dx.getNoiDung());
+
+				KntcKqxmKluatKnghi baoCaoKq = xmS.getKqxmKluatKnghiByMaHs(appContext, maHs);
+				if (baoCaoKq != null) {
+					qdgqForm.setNoiDungDon(baoCaoKq.getNoiDungKn());
+					qdgqForm.setKetLuan(baoCaoKq.getKetQuaXm());
+					qdgqForm.setDieu1(baoCaoKq.getKienNghi());
+					qdgqForm.setNoiDungViPham(baoCaoKq.getQuyetDinhHc());
+				}
+			} else { // Edit
+				// XacMinhService xmService = new XacMinhService();
+				// KntcKqxmKluatKnghi baoCaoKq =
+				// xmService.getKqxmKluatKnghi(appContext, kq.getMaHs());
+				// if (baoCaoKq != null)
+				// qdgqForm.setNoiDungViPham(baoCaoKq.getQuyetDinhHc());
+				qdgqForm.fromEntity(kq);
+				
+			}
+		}
+		KtnbUtil.setVanBan(appContext, request);
+		saveToken(request);
+		return map.findForward("qdgq");
+	}
+
+	public ActionForward rutdon(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		// request.getSession().getAttribute(Constants.APP_CONTEXT);
+		QuyetDinhGqKnForm cnForm = (QuyetDinhGqKnForm) form;
+		String maHs = request.getParameter("id");
+		if (!Formater.isNull(maHs)) {
+			cnForm.setMaHoSo(maHs);
+			cnForm.setThoiDiem(Formater.date2str(new Date()));		
+			SoTiepDanService stdService = new SoTiepDanService();
+			KntcSoTiepDan std = stdService.getSoTiepDan(appContext, maHs, true);
+			KntcHoSoHdr hdr = std.getHdr();
+		}
+		saveToken(request);
+		return map.findForward("rutdon");
+	}
+
+	public ActionForward theodoi(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		// ApplicationContext appContext = (ApplicationContext)
+		// request.getSession().getAttribute(Constants.APP_CONTEXT);
+		QuyetDinhGqKnForm cnForm = (QuyetDinhGqKnForm) form;
+		String maHs = request.getParameter("id");
+		if (!Formater.isNull(maHs)) {
+			cnForm.setMaHoSo(maHs);
+		}
+		cnForm.setThoiDiem(Formater.date2str(new Date()));
+		saveToken(request);
+		return map.findForward("theodoi");
+	}
+
+	public ActionForward saveTheodoi(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		QuyetDinhGqKnForm cnForm = (QuyetDinhGqKnForm) form;
+		// KntcHoSoTheoDoi td = new KntcHoSoTheoDoi();
+		KntcHoSoTheoDoi aCb = new KntcHoSoTheoDoi();
+		Session session = null;
+		UserTransaction tx = null;
+		try {
+
+			try {
+				tx = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
+				tx.begin();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			BaseHibernateDAO dao = new BaseHibernateDAO();
+			session = HibernateSessionFactory.currentSession();
+			aCb.setMaHs(cnForm.getMaHoSo());
+			aCb.setLanTd(new Long(0));
+			aCb.setNgayLap(Formater.str2date(cnForm.getThoiDiem()));
+			aCb.setNoiDung(cnForm.getNoidung());
+			aCb.setNguoiLap(appContext.getTenNsd());
+			aCb.setMaCqt(appContext.getMaCqt());
+			if (Formater.isNull(aCb.getMa())) // Save
+			{
+				aCb.setMa(KeyManagement.getGUID());
+				dao.saveObject(appContext, aCb, Boolean.TRUE);
+			} else // Update
+			{
+				dao.saveObject(appContext, aCb, Boolean.TRUE);
+			}
+			if (!Formater.isNull(cnForm.getKetLuan())) {
+				String sql = "Update KNTC_HO_SO_HDR set TRANG_THAI=?,NGAY_CAP_NHAT=?,NGUOI_CAP_NHAT=?,LOAI_KET_THUC=? where MA_HS=?";
+				Query q = session.createSQLQuery(sql);
+				q.setParameter(0, new Long(Constants.TT_KNTC_KET_THUC));
+				q.setParameter(1, Formater.str2date(cnForm.getThoiDiem()));
+				q.setParameter(2, appContext.getTenNsd());
+				q.setParameter(3, Constants.KNTC_KET_THUC_THUONG);
+				q.setParameter(4, cnForm.getMaHoSo());
+				q.executeUpdate();
+			}
+			session.flush();
+			tx.commit();
+			request.setAttribute("ghiThanhcong", "1");
+		} catch (Exception e) {
+			tx.rollback();
+			request.setAttribute("ghiThanhcong", "0");
+			e.printStackTrace();
+			throw new Exception(e);
+		} finally {
+			HibernateSessionFactory.closeSession(session);
+		}
+		return map.findForward("theodoi");
+	}
+
+	/***************************************************************************
+	 * Lưu quyết định giải quyết kn 19/KNTC,26/KNTC
+	 * 
+	 * @param map
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	public ActionForward saveQdgq(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		QuyetDinhGqKnForm cnForm = (QuyetDinhGqKnForm) form;
+		boolean isKN = SoTiepDanService.isKN(appContext, cnForm.getMaHoSo());
+		try {
+			XuLyKNTCService s = new XuLyKNTCService();
+			s.saveQuyetDinhGqKN(appContext, cnForm.toQdinhGquyet(appContext));
+			request.setAttribute(isKN ? "ghiThanhcong" : "ghiThanhcong_26", "1");
+		} catch (Exception e) {
+			request.setAttribute(isKN ? "ghiThanhcong" : "ghiThanhcong_26", "0");
+			e.printStackTrace();
+			throw e;
+		}
+		if (isKN)
+			HttpUtil.doForward("kntc_kq_xm.do?method=ketThuc&action=ketThucKhieuNai&id=" + cnForm.getMaHoSo(), request, response);
+		else
+			HttpUtil.doForward("kntc_kq_xm.do?method=ketThuc&action=ketThucToCao&id=" + cnForm.getMaHoSo(), request, response);
+		return null;
+	}
+
+	public ActionForward saveRutdon(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		Session session = null;
+		UserTransaction tx = null;
+		try {
+			QuyetDinhGqKnForm cnForm = (QuyetDinhGqKnForm) form;
+			try {
+				tx = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
+				tx.begin();
+			} catch (Exception e1) {
+				e1.printStackTrace();
+			}
+			session = HibernateSessionFactory.currentSession();
+			//Nếu việc rút đơn đã được duyệt
+			if(cnForm.getNgayDuyet()!=null){
+				String sql = "Update KNTC_HO_SO_HDR set TRANG_THAI=?,NGAY_CAP_NHAT=?,NGAY_KET_THUC=?,NGUOI_CAP_NHAT=?,LY_DO_RUT_DON=?,LOAI_KET_THUC=?" +
+						",NGAY_TRINH_TRUONG_BP=?,NGAY_TRUONG_BP_KY=?,Y_KIEN_TRUONG_BP=?,NGAY_TRINH_TRUONG_CQ=?,NGAY_TRUONG_CQ_KY=?,Y_KIEN_TRUONG_CQ=?" +
+						"  where MA_HS=?";
+				Query q = session.createSQLQuery(sql);
+				q.setParameter(0, new Long(Constants.TT_KNTC_KET_THUC));
+				q.setParameter(1, Formater.str2date(cnForm.getThoiDiem()));
+				q.setParameter(2, Formater.str2date(cnForm.getThoiDiem()));
+				q.setParameter(3, appContext.getTenNsd());
+				q.setParameter(4, cnForm.getNoiDungDon());
+				q.setParameter(5, Constants.KNTC_KET_THUC_RUT_DON);
+				
+				q.setParameter(7, cnForm.getNgayTrinhKy());
+				q.setParameter(8, cnForm.getNgayKy());
+				q.setParameter(9, cnForm.getKienTrinh());
+				q.setParameter(10, cnForm.getNgayTrinhDuyet());
+				q.setParameter(11, cnForm.getNgayDuyet());
+				q.setParameter(12, cnForm.getKienDuyet());
+				
+				q.setParameter(13, cnForm.getMaHoSo());
+				q.executeUpdate();
+			//Nếu chưa được duyệt
+			}else{
+				String sql = "Update KNTC_HO_SO_HDR set NGAY_CAP_NHAT=?,NGUOI_CAP_NHAT=?,LY_DO_RUT_DON=?" +
+						",NGAY_TRINH_TRUONG_BP=?,NGAY_TRUONG_BP_KY=?,Y_KIEN_TRUONG_BP=?,NGAY_TRINH_TRUONG_CQ=?,NGAY_TRUONG_CQ_KY=?,Y_KIEN_TRUONG_CQ=?" +
+						" where MA_HS=?";
+				Query q = session.createSQLQuery(sql);
+				q.setParameter(0, Formater.str2date(cnForm.getThoiDiem()));
+				q.setParameter(1, appContext.getTenNsd());
+				q.setParameter(2, cnForm.getNoiDungDon());
+				
+				q.setParameter(3, cnForm.getNgayTrinhKy());
+				q.setParameter(4, cnForm.getNgayKy());
+				q.setParameter(5, cnForm.getKienTrinh());
+				q.setParameter(6, cnForm.getNgayTrinhDuyet());
+				q.setParameter(7, cnForm.getNgayDuyet());
+				q.setParameter(8, cnForm.getKienDuyet());
+				
+				q.setParameter(9, cnForm.getMaHoSo());
+				q.executeUpdate();
+			}
+			session.flush();
+			tx.commit();
+			request.setAttribute("ghiThanhcong", "1");
+		} catch (Exception e) {
+			tx.rollback();
+			request.setAttribute("ghiThanhcong", "0");
+			e.printStackTrace();
+			throw new Exception(e);
+		} finally {
+			HibernateSessionFactory.closeSession(session);
+		}
+		return map.findForward("rutdon");
+	}
+
+	public ActionForward getListHsTheoDoi(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String maHs = request.getParameter("maHs");
+		if (Formater.isNull(maHs))
+			return null;
+		else {
+			JSONObject jsonResult = null;
+			KntcDAO kntcDAO = KntcUtil.getKntcDAO();
+			try {
+				jsonResult = kntcDAO.getListHoSoTheoDoi(maHs);
+				response.setContentType("application/json;charset=UTF-8");
+				response.setHeader("Cache-Control", "no-store");
+				PrintWriter out = response.getWriter();
+				out.println(jsonResult);
+				out.flush();
+				out.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				KntcUtil.releaseKntcDAO(kntcDAO);
+			}
+		}
+		return null;
+	}
+
+	public ActionForward inKntc19_old(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		HashMap[] reportRows = null;
+		Map parameters = new HashMap();
+		QuyetDinhGqKnForm dxForm = (QuyetDinhGqKnForm) form;
+		String maHs = dxForm.getMaHoSo();
+		if (!Formater.isNull(maHs)) {
+			SoTiepDanService stdService = new SoTiepDanService();
+			KntcSoTiepDan std = stdService.getSoTiepDan(appContext, maHs, true);
+			PhanLoaiXuLyService plService = new PhanLoaiXuLyService();
+			KntcDeXuatXly dx = plService.getDeXuatXly(appContext, maHs);
+			KntcHoSoHdr hdr = std.getHdr();
+			String fileTemplate = "kntc19";
+			
+			parameters.put("co_quan_cap_tren_truc_tiep", KtnbUtil.getTenCqtCapTrenTt4P(appContext));
+			parameters.put("co_quan_thue_ra_quyet_dinh", appContext.getTenCqt());
+			String ngayLap = "";
+			if (Formater.isNull(dxForm.getThoiDiem())) {
+				ngayLap = ".....,ng\u00E0y.....th\u00E1ng.....n\u0103m        ";
+			} else
+				ngayLap = Formater.getDateForPrint(dxForm.getThoiDiem());
+			parameters.put("ngay_lap_quyet_dinh", dxForm.getDiaDiem() + ", " + ngayLap);
+			parameters.put("van_ban_quy_dinh_chuc_nang_nhiem_vu", CatalogService.getTenDanhMucById(dxForm.getVanBanQd()));
+			parameters.put("chuc_danh_thu_truong_co_quan_thue_ra_quyet_dinh", KtnbUtil.getTenThuTruongCqt(appContext));
+			if (dxForm.getSoQd() != null)
+				parameters.put("so_quyet_dinh", dxForm.getSoQd());
+			else
+				parameters.put("so_quyet_dinh", "");
+			// ----------------//
+			parameters.put("lan_gq", "2");
+			parameters.put("ngay_bao_cao_kq_xac_minh", dxForm.getThoiDiem());
+			XacMinhService s = new XacMinhService();
+			KntcQdinhXm kh = s.getKntcQdinhXmByHoSo(appContext, dxForm.getMaHoSo());
+			if (kh != null) {
+				parameters.put("tu_ngay", Formater.getDateForPrint(Formater.date2str(kh.getTuNgayXm())));
+				parameters.put("den_ngay", Formater.getDateForPrint(Formater.date2str(kh.getDenNgayXm())));
+			}
+			// parameters.put("ngay_lap_quyet_dinh",
+			// Formater.getDateForPrint(Formater.date2str(kh.getNgayLap())));
+			parameters.put("ket_qua_giai_quyet", dxForm.getKetQuaXm());
+			parameters.put("ngay_lap_bao_cao", dxForm.getThoiDiem());
+			if (!Formater.isNull(dxForm.getKetQuaXm()))
+				parameters.put("ket_qua_xac_minh", "	K\u1EBFt qu\u1EA3 x\u00E1c minh n\u1ED9i dung khi\u1EBFu n\u1EA1i: " + dxForm.getKetQuaXm());
+			else
+				parameters.put("ket_qua_xac_minh", "");
+			// KntcNdungDon don = std.getNoiDungDon();
+			parameters.put("nguoi_co_quan_don_vi_khieu_nai", hdr.getNndTen());
+			parameters.put("dia_chi_nguoi_co_quan_don_vi_khieu_nai", hdr.getNndDiaChi());
+
+			// Lay thong tin mau 18/KNTC
+			KntcKqxmKluatKnghi qd = s.getKqxmKluatKnghi(appContext, maHs);
+			if (qd != null)
+				parameters.put("ten_qd_hanh_chinh_hanh_vi_hanh_chinh", qd.getQuyetDinhHc());
+			parameters.put("don_cong_van_de_ngay", Formater.getDateForPrint(Formater.date2str(hdr.getCongVanDenNgay())));
+			parameters.put("don_de_ngay", Formater.date2str(hdr.getNgayLap()));
+			parameters.put("nguoi_bi_khieu_nai", dx.getNguoiBiKNTC());
+			if (Formater.isNull(dx.getChuDanhNguoiBiKNTC())) {
+				parameters.put("chuc_vu_nguoi_bi_khieu_nai", "");
+			} else {
+				parameters.put("chuc_vu_nguoi_bi_khieu_nai", dx.getChuDanhNguoiBiKNTC());
+			}
+
+			parameters.put("dia_chi_nguoi_bi_khieu_nai", dx.getDcNguoiBiKNTC());
+			parameters.put("noi_dung_khieu_nai", dxForm.getNoiDungDon());
+			parameters.put("ten_vu_viec", stdService.getNoiDungDonForXm(appContext, maHs));
+			parameters.put("ket_luan", dxForm.getKetLuan());
+			parameters.put("dieu_1", dxForm.getDieu1());
+			parameters.put("dieu_2", dxForm.getDieu2());
+			parameters.put("thoi_han", dxForm.getDieu3ThoiHan());
+			parameters.put("can_cu_theo", dxForm.getCanCuTheo());
+			parameters.put("tt_cqt", appContext.getTenCqt());
+			parameters.put("nguoi_co_tham_quyen_giai_quyet_khieu_nai", dxForm.getDieu3NguoiQgTen());
+
+			InputStream inputStream = getServlet().getServletContext().getResourceAsStream("/report/" + fileTemplate + ".jasper");
+			KtnbUtil.printf(reportRows, fileTemplate, response, inputStream, parameters, null);
+		}
+		return null;
+	}
+
+	public ActionForward inKntc19(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String fileIn = request.getRealPath("/docin") + "\\KNTC19.doc";
+		String fileOut = request.getRealPath("/docout") + "\\KNTC19_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		HashMap[] reportRows = null;
+		Map parameters = new HashMap();
+		QuyetDinhGqKnForm dxForm = (QuyetDinhGqKnForm) form;
+		String maHs = dxForm.getMaHoSo();
+		if (!Formater.isNull(maHs)) {
+			SoTiepDanService stdService = new SoTiepDanService();
+			KntcSoTiepDan std = stdService.getSoTiepDan(appContext, maHs, true);
+			PhanLoaiXuLyService plService = new PhanLoaiXuLyService();
+			KntcDeXuatXly dx = plService.getDeXuatXly(appContext, maHs);
+			KntcHoSoHdr hdr = std.getHdr();
+			String fileTemplate = "kntc19";
+			try {
+				MsWordUtils word = new MsWordUtils(fileIn, fileOut);
+				word.put("[co_quan_cap_tren_truc_tiep]", KtnbUtil.getTenCqtCapTrenTt4P(appContext).toUpperCase());
+				word.put("[co_quan_thue_ra_quyet_dinh]", appContext.getTenCqt().toUpperCase());
+				if (dxForm.getSoQd() != null)
+					word.put("[so_quyet_dinh]", dxForm.getSoQd());
+				else
+					word.put("[so_quyet_dinh]", ".....");
+				String ngayLap = "";
+				if (Formater.isNull(dxForm.getThoiDiem())) {
+					ngayLap = ".....,ng\u00E0y.....th\u00E1ng.....n\u0103m";
+				} else
+					ngayLap = Formater.getDateForPrint(dxForm.getThoiDiem());
+				if (Formater.isNull(dxForm.getDiaDiem()))
+					word.put("[ngay_lap_quyet_dinh]", "......., " + ngayLap);
+				else
+					word.put("[ngay_lap_quyet_dinh]", dxForm.getDiaDiem() + ", " + ngayLap);
+				word.put("[ten_vu_viec]", stdService.getNoiDungDonForXm(appContext, maHs));
+				// ----------------//
+				word.put("[lan_gq]", "2");
+				word.put("[chuc_danh_thu_truong_co_quan_thue_ra_quyet_dinh]", KtnbUtil.getTenThuTruongCqtForMauin(appContext).toUpperCase());
+				if (Formater.isNull(dxForm.getVanBanQd()))
+					word.put("[van_ban_quy_dinh_chuc_nang_nhiem_vu]", KtnbUtil.inFieldNull(102));
+				else
+					word.put("[van_ban_quy_dinh_chuc_nang_nhiem_vu]", CatalogService.getTenDanhMucById(dxForm.getVanBanQd()));
+				word.put("[don_de_ngay]", Formater.date2str(hdr.getNgayLap()));
+				word.put("[nguoi_co_quan_don_vi_khieu_nai]", hdr.getNndTen());
+				word.put("[dia_chi_nguoi_co_quan_don_vi_khieu_nai]", hdr.getNndDiaChi());
+				XacMinhService s = new XacMinhService();
+				KntcQdinhXm kh = s.getKntcQdinhXmByHoSo(appContext, dxForm.getMaHoSo());
+				// Lay thong tin mau 18/KNTC
+				KntcKqxmKluatKnghi qd = s.getKqxmKluatKnghi(appContext, maHs);
+				if (qd != null)
+					word.put("[ten_qd_hanh_chinh_hanh_vi_hanh_chinh]", qd.getQuyetDinhHc());
+				else
+					word.put("[ten_qd_hanh_chinh_hanh_vi_hanh_chinh]", "................");
+				word.put("[dia_chi_nguoi_bi_khieu_nai]", dx.getDcNguoiBiKNTC());
+				if (Formater.isNull(dxForm.getNoiDungDon()))
+					word.put("[noi_dung_khieu_nai]", KtnbUtil.inFieldNull(82));
+				else
+					word.put("[noi_dung_khieu_nai]", dxForm.getNoiDungDon());
+				if (!Formater.isNull(dxForm.getKetQuaXm()))
+					word.put("[ket_qua_xac_minh]", "	K\u1EBFt qu\u1EA3 x\u00E1c minh n\u1ED9i dung khi\u1EBFu n\u1EA1i: " + dxForm.getKetQuaXm());
+				else
+					word.put("[ket_qua_xac_minh]", KtnbUtil.inFieldNull(115));
+				word.put("[thoi_han]", dxForm.getDieu3ThoiHan());
+				word.put("[nguoi_co_quan_don_vi_khieu_nai]", hdr.getNndTen());
+				word.put("[nguoi_co_tham_quyen_giai_quyet_khieu_nai]", dxForm.getDieu3NguoiQgTen());
+				word.put("[nguoi_bi_khieu_nai]", dx.getNguoiBiKNTC());
+				// word.put("[cac_don_vi_ca_nhan_co_lien_quan]", "");
+				word.put("[nguoi_co_quan_don_vi_khieu_nai]", hdr.getNndTen());
+				word.put("[tt_cqt]", appContext.getTenCqt().toUpperCase());
+				//word.put("[ten_thu_truong]", "");
+				// word.put("[ngay_bao_cao_kq_xac_minh]", dxForm.getThoiDiem());
+				// if (kh != null) {
+				// word.put("[tu_ngay]",
+				// Formater.getDateForPrint(Formater.date2str(kh.getTuNgayXm())));
+				// word.put("[den_ngay]",
+				// Formater.getDateForPrint(Formater.date2str(kh.getDenNgayXm())));
+				// }
+				// parameters.put("ngay_lap_quyet_dinh",
+				// Formater.getDateForPrint(Formater.date2str(kh.getNgayLap())));
+				// word.put("[ket_qua_giai_quyet]", dxForm.getKetQuaXm());
+				// word.put("[ngay_lap_bao_cao]", dxForm.getThoiDiem());
+				// KntcNdungDon don = std.getNoiDungDon();
+				// word.put("[don_cong_van_de_ngay]",
+				// Formater.getDateForPrint(Formater.date2str(hdr.getCongVanDenNgay())));
+				// if (Formater.isNull(dx.getChuDanhNguoiBiKNTC())) {
+				// word.put("[chuc_vu_nguoi_bi_khieu_nai]", "......");
+				// } else {
+				// word.put("[chuc_vu_nguoi_bi_khieu_nai]",
+				// dx.getChuDanhNguoiBiKNTC());
+				// }
+				word.saveAndClose();
+				word.downloadFile(fileOut, "Mau KNTC19", ".doc", response);
+			} catch (Exception ex) {
+				// ex.printStackTrace();
+				System.out.println("Download Error: " + ex.getMessage());
+			}
+		}
+		return null;
+	}
+}

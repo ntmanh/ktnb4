@@ -1,0 +1,313 @@
+)CM                                                                             
+)DEFAULT )&?![^]                                                               
+)CM                                                                             
+)CM ================================================================ */         
+)CM PROPRIETARY-STATEMENT:                                           */         
+)CM Licensed Material - Property of IBM                              */         
+)CM                                                                  */         
+)CM 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+)CM (C) Copyright IBM Corp. 1999, 2006                               */         
+)CM All Rights Reserved                                              */         
+)CM US Government Users Restricted Rights - Use, duplication or      */         
+)CM disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   MD17356.1 H28W500 030616  PDML: Initial release.               */         
+)CM   PQ75181 H28W500 030709  PDML: correct TCP/IP port infomation.  */         
+)CM   MD17621 H28W500 030725  PDG1: Additional changes for addNode   */         
+)CM   PQ74952 H28W500 030718  PDML: add a note to BBOWADDN.          */         
+)CM   MD17896 H28W500 030829  PDML: splitted the URL into two lines. */         
+)CM   MD18078 H28W500 030929  PDML: add a warning to BBOWADDN.       */         
+)CM   MD18711 H28W502 031120  PDML: remove ASNONS.                   */         
+)CM   MD19567 H28W510 030309  PDML: add logstream info.              */         
+)CM   MD19795 H28W510 040408  PDML: add warning text prior to running*/         
+)CM                                 BBOLOGSD.                        */         
+)CM   LIDB2117-39.1  H28W510 040610  PDFD: Removed JMS Server        */         
+)CM                                 instructions.                    */         
+)CM   MD20264 H28W510 040708  PDML: remove proc name variable:       */         
+)CM                                 ASPRCC.                          */         
+)CM   244860  H28W600 120204    DB: Add TCPIP instructions for SI    */         
+)CM                                 ports                            */         
+)CM   246983  H28W600 121504    DB: Revise instructions based on     */         
+)CM                                 new dataset panels               */         
+)CM   251673  H28W601 012605    DB: Fix a typo                       */         
+)CM   253951  H28W601 021705    DB: Add BBOACFGW to the instructions */         
+)CM   257024  H28W601 022205    DB: fix some typos and missing       */         
+)CM                                 periods                          */         
+)CM   271696  H28W602 042805    DB: remove BBOACFGW                  */         
+)CM   262089  H28W602 042805    DB: remove WLM static instructions   */         
+)CM   306950  H28W602 092105    DB: update START instruction section */         
+)CM                                 to not refer to DMCENS           */         
+)CM   317828  H28W610 111205  PDML: add OMVS WLM setup instructions. */         
+)CM   329630  H28W610 120805    DB: remove XA logstream section      */         
+)CM   342461  H28W610 013106    DB: add text to BBOWADDN step        */         
+)CM  357672.2 H28W610 032706    DB: add IPv6 node multicast port     */         
+)CM   367920  H28W610 062006    DB: add additional instructions and  */         
+)CM                                 userid requirements              */ 
+)CM  467454.1 V6.1    050108  PDOP: Update retrieveSigners.sh sample */            
+)CM ================================================================ */         
+                                                                                
+)BLANK                                                                          
+                                                                                
+                                                                                
+-----------------------------------------------                                 
+Instructions for customizing WebSphere for z/OS                                 
+for Federate stand-alone Application Server node.                               
+                                                                                
+)BLANK                                                                          
+                                                                                
+The customization dialog has created jobs based on the information you          
+provided. These instructions tell you how to modify the operating               
+system and run the jobs to customize WebSphere for z/OS.                        
+                                                                                
+)BLANK                                                                          
+                                                                                
+RULES:                                                                          
+                                                                                
+)BLANK                                                                          
+                                                                                
+1.  If you created the target data sets (*.CNTL and *.DATA) on another          
+    (driving) system, you must copy them to the target system and give          
+    them the same data set names.                                               
+                                                                                
+)BLANK                                                                          
+                                                                                
+2.  You must perform these instructions on your target system.                  
+                                                                                
+)BLANK                                                                          
+                                                                                
+3.  Update TCP/IP by reserving the following ports for WebSphere for            
+    z/OS:                                                                       
+                                                                                
+)BLANK                                                                          
+                                                                                
+       SOAP JMX Connector port                      - &ANPORT.                  
+       Node Discovery port                          - &ANNDPORT.                
+       Node Multicast Discovery Port                - &ANNMCDPT.                
+       Node IPv6 multicast discovery port           - &ANIPV6MC.                
+       Node Agent's ORB port                        - &ANOLAP.                  
+       High Availability Manager Communication port - &ANDCSPRT.                
+)SEL &ANOSSLAP ^= 0                                                             
+       Node Agent's ORB SSL port                    - &ANOSSLAP.                
+)ENDSEL                                                                         
+       Application Server's ORB Port                - &ANBSORBP.                
+                                                                                
+)BLANK                                                                          
+                                                                                
+    View member BBOTCPIA in                                                     
+)BLANK                                                                          
+    &TRGCNTL..                                                                  
+)BLANK                                                                          
+                                                                                
+    Add the contents of this member to the PORT section of the file             
+    referenced by the DD statement for the TCP/IP profile in the                
+    TCP/IP start procedure. Cut and paste from this member into the             
+    data set used by your installation.                                         
+                                                                                
+)BLANK                                                                          
+                                                                                
+                                                                                
+Note: The addNode process introduces a special utility server to                
+      the node.  This utility server is called a nodeagent and                  
+      exists to support administrative functions on the node. By                
+      default the nodeagent takes over ORB port 2809.   Note on                 
+      WebSphere z/OS the ORB port doubles as the INS CosNaming                  
+      bootstrap port.  By default, this port (2809) was assigned                
+      to the Application Server.  Normally you want the nodeagent               
+      to be the INS CosNaming bootstrap point for the entire node,              
+      so that RMI/IIOP clients that do not override the INS                     
+      CosNaming bootstrap defaults can locate within the namespace,             
+      EJBs installed on any server on that node.  In order for the              
+      nodeagent to take over port 2809,  the Application Server must            
+      be assigned a new ORB port.  The default new ORB port for the             
+      Application Server is 9810.  The nodeagent will take over an              
+      Application Server's ORB port if and only if the nodeagent's ORB          
+      port is equal to an Application Server's ORB port.  You can               
+      specify the nodeagent's ORB port in the 'ORB port' field.                 
+      You can specify the new ORB port for the Application Server in            
+      the 'Appplication Server's ORB Port' field.                               
+)BLANK                                                                          
+    ATTENTION: Skip this step if the ports are already defined in the           
+    TCP/IP profile.                                                             
+                                                                                
+)BLANK                                                                          
+4.  You must first complete the customization of a stand-alone                  
+    application server and the customization of a deployment manager            
+    server before starting these instructions. Also, ensure that the            
+    deployment manager server has been started before starting these            
+    instructions.                                                               
+                                                                                
+)BLANK                                                                          
+)BLANK                                                                          
+Running the customized jobs                                                     
+                                                                                
+---------------------------                                                     
+The customization dialog built a number of batch jobs with the                  
+variables you supplied. You must run the jobs in the order listed               
+below using user IDs with the appropriate authority.                            
+)BLANK                                                                          
+NOTE: Whenever "file system update authority" is indicated, the user            
+      ID used to run the configuration job must have                            
+      EITHER uid = 0                                                            
+          OR the following UNIXPRIV class profile privileges:                   
+             CONTROL access to SUPERUSER.FILESYS                                
+             UPDATE  access to SUPERUSER.FILESYS.MOUNT                          
+             READ    access to SUPERUSER.FILESYS.CHOWN                          
+             READ    access to SUPERUSER.FILESYS.CHANGEPERMS                    
+                                                                                
+      If the UNIXPRIV profile CHOWN.UNRESTRICTED is defined, then               
+      the SUPERUSER.FILESYS.CHOWN is not required.  For information             
+      about the UNIXPRIV class, see the z/OS Unix System Services               
+      Planning book.                                                            
+)BLANK                                                                          
+                                                                                
+)SEL &ANDMS = Y                                                                 
++-----------+----------------------------------------------------------+        
+| --------- | If both your target Network Deployment cell and the cell |        
++-----------+ containing the node you are federating use WebSphere-    |        
+|           | managed security, and both cells are using file-based    |        
+| Done:     | keystores, run the retrieveSigners.sh script from the    |        
+|           | home directory of the node being federated:              |        
+|           |                                                          |        
+|           | &MOUNTAN.                                                |        
+| By:       |  /&ASDIRNAN.                                             |        
+|           |  /bin/retrieveSigners.sh CellDefaultTrustStore           |        
+|           |  ClientDefaultTrustStore -port &DMSPORT.                 |        
+|           |  -conntype &DMPORTT.                                     |        
+|           |  -user &FEDADMN.                                         |        
+|           |  -password &FEDPASS.                                     |        
+|           |  -autoAcceptBootstrapSigner                              |        
+)ENDSEL                                                                         
+)SEL &ANDMS = N                                                                 
++-----------+----------------------------------------------------------+        
+| ----------|                                                          |        
++-----------+ Verify that your target Network Deployment cell is       |        
+| Done:     | running without administrative security.  You should     |        
+|           | enable administrative security after federation to       |        
+| By:       | prevent unauthorized access to the Network Deployment    |        
+|           | cell.                                                    |        
+|           |                                                          |        
+)ENDSEL                                                                         
++-----------+----------------------------------------------------------+        
+| --------  |                                                          |        
++-----------+ If your application server is using z/OS log streams for |        
+| Done:     | transaction XA partner logs, delete and recreate the log |        
+|           | streams before federation.                               |        
+| By:       |                                                          |        
++-----------+----------------------------------------------------------+        
+| --------  | If your system is busy, you may want to include a rule   |        
++-----------+ in your WLM policy that OMVS work for job &ANSSNS.       |        
+| Done:     | (such as the postinstaller step) is to run in a service  |        
+|           | class with a high service objective.                     |        
+| By:       |                                                          |        
++-----------+----------------------------------------------------------+        
+| BBOWADDN  | User ID requirement:                                     |        
++-----------+  1. File system update authority (see above).            |        
+|           |  2. If the Network Deployment cell uses a z/OS LocalOS   |        
+| Done:     |     (SAF) registry, then the user ID used to run this    |        
+|           |     job must be connected to the Network Deployment      |        
+|           |     cell's configuration group.                          |        
+| By:       |  3. If SSL certificates are stored in the SAF keyrings,  |        
+|           |     then the user ID used to run this job must have a    |        
+|           |     SAF keyring whose name matches the value of          |        
+|           |     com.ibm.ssl.keyStore in the application server's     |        
+|           |     WAS_HOME/profiles/default/properties/ssl.client.props|        
+|           |     file, and this keyring must contain the Network      |        
+|           |     Deployment cell's CA certificate.                    |        
+|           |                                                          |        
+|           | If you choose the start the node agent automatically,    |        
+|           | the user ID used to run BBOWADDN will also need the      |        
+|           | authority to issue the MVS START command.                |        
+|           |                                                          |        
+|           | This job will federate your stand-alone application      |        
+|           | server node into the specified Deployment Manager cell.  |        
+|           | Ensure that your Deployment Manager is running before    |        
+|           | submitting this job.                                     |        
+|           |                                                          |        
+|           | ATTENTION: Before you run this job (BBOWADDN) to         |        
+|           | federate the stand-alone Application Server node, you    |        
+|           | must have started the stand-alone Application server     |        
+|           | that you are federating at least once so the applyPTF    |        
+|           | step runs.  Otherwise, the BBOWADDN job will fail with   |        
+|           | an error such as:                                        |        
+|           |   java.lang.NullPointerException at                      |        
+|           |   com.ibm.ws.management.tools.NodeFederationUtility      |        
+|           |     .createNDProductFile(NodeFederationUtility.java:1929)|        
+|           |                                                          |        
+|           | Note: Run this job only once for each node that you      |        
+|           | federate, regardless of how many application servers the |        
+|           | node contains.                                           |        
+|           |                                                          |        
+|           | RESULT: Upon successful completion of this job, you will |        
+|           | see the following message in SYSPRINT:                   |        
+|           |                                                          |        
+|           |   ADMU0003I: Node <nodename> has been successfully       |        
+|           |     federated.                                           |        
+|           |                                                          |        
++-----------+----------------------------------------------------------+        
+| --------  | Start the node agent server                              |        
++-----------+                                                          |        
+| Done:     | Note: The node agent may have been started during the    |        
+|           | federation process.  This step is information, for       |        
+|           | starting the node agent at other times.                  |        
+| By:       |                                                          |        
+|           | Example: If your Application Server proc name is         |        
+|           | BBO6ACR, your Application Server node name (short) is    |        
+|           | SY1 and your Deployment Manager cell name (short) is     |        
+|           | PLEX1, issue the MVS commmand:                           |        
+|           |                                                          |        
+|           |   START BBO6ACR,JOBNAME=&ANSSNS.,                        |        
+|           |         ENV=PLEX.SY1.&ANSSNS.                            |        
+|           |                                                          |        
+|           | If you later convert the node agent to 64-bit mode, you  |        
+|           | must add AMODE=64 to the START command:                  |        
+|           |                                                          |        
+|           |   START BBO6ACR,JOBNAME=&ANSSNS.,                        |        
+|           |         ENV=PLEX.SY1.&ANSSNS.,AMODE=64                   |        
+|           |                                                          |        
+|           | This command starts the node agent server.               |        
+|           |                                                          |        
+|           | RESULT: The following message appears on the console and |        
+|           | in the job log of &ANSSNS..                              |        
+|           |                                                          |        
+|           |   BBOO0019I INITIALIZATION COMPLETE FOR WEBSPHERE FOR    |        
+|           |   z/OS CONTROL PROCESS &ANSSNS..                         |        
+|           |                                                          |        
++-----------+----------------------------------------------------------+        
+| --------  | Start the Application Server                             |        
++-----------+                                                          |        
+| Done:     | Note: You must start the node agent before you start the |        
+|           | Application Server, if the node agent has not already    |        
+|           | been started.                                            |        
+|           |                                                          |        
+| By:       | Example: If your Application Server proc name is         |        
+|           | BBO6ACR, your Application Server node name (short) is    |        
+|           | SY1, your server short name is BBOS001 and your          |        
+|           | Deployment Manager cell name (short) is PLEX1, issue     |        
+|           | the MVS command                                          |        
+|           |                                                          |        
+|           |   START BBO6ACR,JOBNAME=BBOS001,                         |        
+|           |         ENV=PLEX1.SY1.BBOS001                            |        
+|           |                                                          |        
+|           | If you later convert the application server to 64-bit    |        
+|           | mode, you must add AMODE=64 to the START command:        |        
+|           |                                                          |        
+|           |   START BBO6ACR,JOBNAME=BBOS001,                         |        
+|           |         ENV=PLEX1.SY1.BBOS001,AMODE=64                   |        
+|           |                                                          |        
+|           | This command starts the Application Server.              |        
+|           |                                                          |        
+|           | RESULT: The following message appears on the console and |        
+|           | in the job log of BBOS001.                               |        
+|           |                                                          |        
+|           |   BBOO0019I INITIALIZATION COMPLETE FOR WEBSPHERE FOR    |        
+|           |   z/OS CONTROL PROCESS BBOS001                           |        
+|           |                                                          |        
++-----------+----------------------------------------------------------+        
+)BLANK                                                                          
+                                                                                
+)BLANK                                                                          
+                                                                                
+)BLANK                                                                          

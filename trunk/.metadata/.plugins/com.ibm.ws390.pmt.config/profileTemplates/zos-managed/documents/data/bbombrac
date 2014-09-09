@@ -1,0 +1,1456 @@
+)CM
+)DEFAULT )&?![^]
+)CM
+/* REXX ----------------------------------------------------------- */
+/* ================================================================ */
+/*                                                                  */
+/* COPYRIGHT =                                                      */
+/* Licensed Material - Property of IBM                              */
+/*                                                                  */
+/* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */
+/* (C) Copyright IBM Corp. 1999, 2006                               */
+/* All Rights Reserved                                              */
+/* US Government Users Restricted Rights - Use, duplication or      */
+/* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/
+/*                                                                  */
+/*                                                                  */
+/* FUNCTION:                                                        */
+/*   WebSphere for z/OS Sample RACF group definitions               */
+/*                                                                  */
+/* ================================================================ */
+/* This is a sample exec which customers may modify to include      */
+/* installation specific RACF requirements.  This exec defines      */
+/* all the userids and groups that are necessary and sufficient     */
+/* for installing WebSphere and running the Initial Verification    */
+/* Program (IVP).                                                   */
+/* Additionally, there are commented sections for other components  */
+/* that might be used (for example, SSL).                           */
+/*                                                                  */
+/*==================================================================*/
+/* This EXEC either:                                                */
+/*    - generates a set of RACF commands in the form of a REXX exec */
+/*      which is written to the RACFCMDS DD statement. Any error or */
+/*      warnings for Exec processing will be written to SYSTSPRT DD */
+/*         or                                                       */
+/*    - creates and executes the RACF commands generated here.      */
+/*      in this case, all output is directed to SYSTSPRT DD         */
+/*                                                                  */
+/* THE SETTING OF THE *switch* VARIABLE CONTROLS THIS.              */
+/*==================================================================*/
+/*                                                                  */
+/* NOTE: This sample is biased toward getting WebSphere installed   */
+/* and running quickly on a test system.  You should reexamine the  */
+/* the values (especially the UACC values) when moving to           */
+/* production.                                                      */
+/* ---------------------------------------------------------------- */
+/* Basic Assumptions -                                              */
+/*                                                                  */
+/* RACF access will be at the group level rather than the userid    */
+/* to minimize the number of RACF definitions.                      */
+/*                                                                  */
+/* Each controller region will have its own unique userid. The      */
+/* WebSphere controller regions are:                                */
+/*     Daemon                                                       */
+/*     AppServer                                                    */
+/*     Deployment Manager                                           */
+/*                                                                  */
+/* All of the above controller regions' userids will be in the same */
+/* RACF group.                                                      */
+/*                                                                  */
+/* Initially, the servant regions will run under the same user ID;  */
+/* all servant user IDs will be in the same group.                  */
+/*                                                                  */
+/* STEPS TO USING THIS EXEC                                         */
+/*                                                                  */
+/* 1. Indicate if you want to generate a dataset with RACF          */
+/*    commands or issue them directly from this exec.               */
+/* 2. You must supply a logstream dataset name, and a DB2           */
+/*    subsystem name.                                               */
+/* 3. Review the supplied values for all the needed userids and     */
+/*    RACF groups.  You can use the values provided or change them. */
+/* 4. Determine which optional security mechanisms you wish to      */
+/*    enable, and modify values as needed for these.  See the       */
+/*    comment 'Optional Security Mechanisms'                        */
+/* 5. Modify and run the job BBOCBRAJ in the your CNTL PDS ...      */
+/*      &TRGHLQ..CNTL.                                              */
+/*    The results of the job can be seen in the SYSPRINT output.    */
+/*    If you generate command output, that will be in RACFCMDS DD.  */
+/*                                                                  */
+/* Usage notes:                                                     */
+/*                                                                  */
+/* -The definitions defined here are sufficient to get the basic    */
+/*  WAS system up and running and to run the IVP.                   */
+/*                                                                  */
+/* -If you are using this EXEC to migrate your installation from    */
+/*  WebSphere V5 to WebSphere V6, it is recommended that you route  */
+/*  RACF command output to a dataset rather than executing the      */
+/*  commands directly.                                              */
+/*                                                                  */
+/* -Similarly, if you wish to use this EXEC to control access to    */
+/*  the OPERCMDS class, it is recommended that you route RACF       */
+/*  command output to a dataset rather than executing the commands  */
+/*  directly.                                                       */
+/*                                                                  */
+/* - If you output RACF commands into a dataset, the output will    */
+/*  be formatted as a simple rexx EXEC. Code this output dataset    */
+/*  in the SYSEXEC DD statement of the JCL invoking the IKJEFT01    */
+/*  program.(BBOCBRAJ in your CNTL PDS also invokes IKJEFT01.)      */
+/*                                                                  */
+/* -If multiple WebSphere systems are running in the same security  */
+/*  environment, all controller region and servant regions can have */
+/*  unique identities merely by incrementing the number at the      */
+/*  the end of the name prefix.                                     */
+/*                                                                  */
+/* -WSGUEST and WSADMIN are special userids and it is easiest to    */
+/*  use these names asis.  See WebSphere Installation and           */
+/*  Customization for more information.                             */
+/*                                                                  */
+/* -default_WS_CFG_group is used as the group id of the WebSphere   */
+/*  configuration files in the hfs, all users which are connected   */
+/*  to this group will have read access to the configuration files. */
+/*  Therefore, this group doesn't need any explicit permits.        */
+/*                                                                  */
+/* -During installation, if you change the server short name to use */
+/*  a prefix other than the BBO* default, you must create your own  */
+/*  non-default RACF SAF profile using the non-default prefix. For  */
+/*  more information, see "Understanding System Authorization       */
+/*  Facility profile names generated by the Customization Dialog"   */
+/*  in the WebSphere Application Server Information Center located  */
+/*  at:                                                             */
+/*                                                                  */
+/*  www-306.ibm.com/software/webservers/appserv/zos_os390/library   */
+/*                                                                  */
+/* ---------------------------------------------------------------- */
+/*  Change History:                                                 */
+/*                                                                  */
+/*  $L0=7677    H28K510 000324  PDRA: Created                       */
+/*  $L1=OW46650 H28W400 001120  PDOC: Put Default values in quotes  */
+/*  $L2=OW45800 H28W400 001120  PDOC: Permit IVP_CR to LOGSTRM      */
+/*  $L3=WS14568 H28W500 030213  PDG1: Support for V5                */
+/*  $P1=MD15996 H28W500 030303  PDG1: Support for WSADMIN           */
+/*      MD16189 H28W500 030327  PDML: split skeleton.               */
+/*      MD16547 H28W500 030403  PDG1: remove daemon server/cbind    */
+/*      MD16604 H28W500 030403  PDG1: update started task           */
+/*      MD16362 H28W500 041003  PDG1: echo command before invoke    */
+/*      MD16761 H28W500 041103  PDG1: fix started task              */
+/*      MD16971 H28W500 050503  PDOC: enable SSL unconditionally    */
+/*                                    create SAF EJBROLES for       */
+/*                                    WAS administration            */
+/*                                    Restricted user profiles      */
+/*                                    Restructure for WS Sec on     */
+/*      MD17040 H28W500 050703  PDG1: Update SERVER for WLM-DAE     */
+/*      MD17166 H28W500 051603  PDG1: Change echo to use single str */
+/*      MD17013 H28W500 052103  PDML: Change Server Ids to Protected*/
+/*      MD16475 H28W500 053003  PDOC: Add CosNaming Profiles        */
+/*      MD17248 H28W500 053003  PDOC: Give APPL permission to Guest */
+/*      MD17349 H28W500 061303  PDOC: Make Server DN unique         */
+/*      WS15621 H28W502 080603  PDRZ: Multi-node support. Some      */
+/*                                    functions moved to BBOSBRAC   */
+/*      MD17453 H28W502 091203  PDRZ: Asynch Admin STARTED profile  */
+/*      WS17709 H28W502 093003  PDGK: JSSE 501 rollup               */
+/*      MD18098 H28W502 091603  PDRZ: Daemon SSL keyring, certs     */
+/*      MD18731 H28W502 120103  PDRZ: keyring for asynch admin user */
+/*      MD18997 H28W510 012004  PDOC: Add WLM permission for WBIFZ  */
+/*      PQ86559 H28W502 072304  PDSS: RACF BBO* SAF profile names   */
+/*      247142  H28W600 121004  PDOC: Add Control Region Adjunct    */
+/*      250035  H28W601 011704   DB:  Text updates for V6           */
+/*                                    Remove reference to keymask   */
+/*      251673  H28W601 012505    DB: Change v5/v6 to V5/V6         */
+/*      249948  H28W601 012805  PDML: update CRA.                   */
+/*      250152  H28W601 020105    DB: create keyring for for servant*/
+/*      255429  H28W601 021605    DB: update FILEPROC to 10000      */
+/*      258304  H28W601 031005    DB: connect WAS CA to CRA keyring */
+/*      253275  H28W602 041505    DB: remove CTRACE references      */
+/*      260883  H28W601 042005    DB: permit default application    */
+/*                                    environment to CRA userid     */
+/*      279429  H28W602 052705  PDML: update home.                  */
+/*      281074  H28W602 060305  PDML: update home.                  */
+/*      283304  H28W602 061305  PDML: remove USERHOME.              */
+/*     PK07374  H28W602 062105  PDML: update home.                  */
+/*    LIDB2634  H28W610 082405  PDML: security out of box update.   */
+/*      318762  H28W610 110205    DB: fix some variable names and   */
+/*                                    remove extraneous items       */
+/*      326125  H28W610 112805    DB: Certificate CN should be      */
+/*                                    daemon IP name                */
+/*      330975  H28W610 121405    DB: use cell_name for cert LABEL  */
+/*                                    and use MNKEYR now            */
+/*      334863  H28W610 020706  PDML: add security option.          */
+/*      361839  H28W610 041106    DB: add asynch admin id           */
+/*      354695  H28W610 041206    DB: remove setupOperCmds routine  */
+/*      360439  H28W610 041306  kvijai: explain generated RACF cmds */
+/*      348320  H28W610 060506    DB: auto UID/GID support          */
+/*      371657  H28W610 060707    DB: add refresh for APPL class    */
+/*----------------------------------------------------------------- */
+)BLANK
+issue_cmds_switch = ''
+parse upper arg parms
+)BLANK
+/*------------------------------------------------------------------*/
+/* Specify whether to execute commands immediately or write them    */
+/* to a file.                                                       */
+/*------------------------------------------------------------------*/
+parse upper var parms . "ISSUECMDS(" issue_cmds_switch ")" .
+issue_cmds_switch =strip(issue_cmds_switch)
+if issue_cmds_switch = "Y" then switch = "issuecmds"
+else switch = "generatecmds"
+)BLANK
+/*-----------------------------------------------------------------*/
+/* Define a group to own the files in the WAS configuration HFS.   */
+/* Controller regions (which run authorized code) also need to     */
+/* have this as their default group, since they update the HFS.    */
+/* Add anyone to this group that needs access to HFS configuration */
+/* files or administrator access.                    @MD16594.1C   */
+/*-----------------------------------------------------------------*/
+default_WS_CFG_group                    = "&CNFGGRP"
+default_WS_CFG_GID                      = "&CNFGGID"
+)BLANK
+/*-----------------------------------------------------------------*/
+/* Define a group for WebSphere servant region user IDs.           */
+/* These regions run application code but need some common         */
+/* permissions, which are granted to this group.                   */
+/*-----------------------------------------------------------------*/
+default_WS_SR_group                     = "&ALLGRPS"
+/*-------------------------------------------------------*/
+/* Define a user ID to run asynchronous administrative   */
+/* tasks.                                                */
+/*-------------------------------------------------------*/
+default_asynch_admin_userid = "&AAOPUSR"
+default_asynch_admin_uid    = "&AAOPUID"
+default_asynch_admin_proc   = "&AAOPROC"
+)BLANK
+default_daemon_CR_proc_name                = "&MNDPRCC"
+default_daemon_CR_userid                   = "&MNDUSRC"
+default_daemon_CR_UID                      = "&MNDUIDC"
+default_daemon_generic_server_name         = "&MNDJNAME"     /* @MD16604C*/
+)BLANK
+default_appServer_CR_proc_name             = "&ASMRCC"
+default_appServer_SR_proc_name             = "&ASMRCS"
+default_appServer_CR_userid                = "&ASMSRC"
+default_appServer_CR_UID                   = "&ASMIDC"
+default_appServer_SR_userid                = "&ASMSRS"
+default_appServer_SR_UID                   = "&ASMIDS"
+default_appServer_adjunct_userid           = "&AJMSRS"       /* @247142 A*/
+default_appServer_adjunct_UID              = "&AJMIDS"       /* @247142 A*/
+default_appServer_adjunct_procname         = "&AJMRCS"       /* @247142 A*/
+)BLANK
+cell_name                                  = "&MNCENS"
+daemon_ipname                              = "&MNHOSTN"
+)BLANK
+/* Optional SSL related variables.                       */
+/* If you are using Kerberos, or any other SSL related   */
+/* transport, we set up a test Certificate authority.    */
+/* with a label name as defined here.                    */
+WS_TestCA                   = "&CALAB"        /*@WS15621C*/
+WS_generate_CA_cert         = "&CAGEN"
+ws_cert_expiration_date     = "&CAEXPDAT"     /*@WS15621A*/
+)BLANK
+Appsrvr_keyring             = "&MNKEYR"
+Daemon_keyring              = "&MNKEYR"       /*@MD18098A*/
+)BLANK
+/*------------------------------------------------------------------*/
+/* Specify the name of the error log stream.                        */
+/*------------------------------------------------------------------*/
+default_logstream_name                  = "&ERRLOG" /*none pokvmtl5 */
+)BLANK
+/*------------------------------------------------------------------*/
+/* Provide your DB2 subsystem name for DSNR support.                */
+/*------------------------------------------------------------------*/
+default_DB2_ssname                      = "&DB2SSID"
+)BLANK
+/*-------------------------------------------------------*/
+/*    Optional security mechanisms?  "Y" or "N"          */
+/*-------------------------------------------------------*/
+/* do you use the DSNR class to protect DB2 resources?   */
+UseDB2DSNR = "N"
+)BLANK
+/* do you want to protect use of Operator Commands       */
+/* which are needed by ADMIN to manage Servers?          */
+UseOperCmds = "N"
+)BLANK
+/* Use SSL Basic Authentication? (ID/PW over SSL)        */
+UseSSLBA    = "N"
+)BLANK
+/* Use SSL Client Certificates?                          */
+UseSSLClientCerts = "N"
+)BLANK
+/* Setup for use also as Remote Client?                  */
+RemoteClient = "N"
+)BLANK
+/* Setup for use connectors?                             */
+useIMSOTMA="N"
+useCICSPAA="N"
+)BLANK
+/*-------------------------------------------------------*/
+/*             Start of Standard setup                   */
+/*-------------------------------------------------------*/
+maxrc = 0
+)BLANK
+/* Verify that required data fields are set up */
+call VerifyRequiredData
+if maxrc > 4 then
+   exit maxrc
+)BLANK
+)BLANK
+ if switch = 'issuecmds'  then do;
+    call PutComment('WebSphere Application Server RACF Setup')
+    call PutComment('-- Managed Node')
+    call PutComment('-- Config group:' default_WS_CFG_group )
+    call PutComment('Generated on ' || DATE() || ' at ' || TIME() )
+   end;
+)BLANK
+  else do;
+    call PutLine('/* REXX */')
+    call PutComment('WebSphere Application Server RACF Setup')
+    call PutComment('-- Managed Node')
+    call PutComment('-- Config group:' default_WS_CFG_group )
+    call PutComment('Generated on ' || DATE() || ' at ' || TIME() )
+    call PutLine('trace commands')
+   end;
+)BLANK
+/*-------------------------------------------------------*/
+/*        General RACF Classes for OS level Security     */
+/*-------------------------------------------------------*/
+call ActivateClasses
+)BLANK
+/*-------------------------------------------------------*/
+/* Create WAS user IDs for the location service daemon,  */
+/* controller and servants.  These are needed regardless */
+/* of which security scheme is chosen.                   */
+/*-------------------------------------------------------*/
+call CreateUsers
+)BLANK
+/*-------------------------------------------------------*/
+/* Create Asynch admin user                              */
+/*-------------------------------------------------------*/
+call Create_Asynch_User
+)BLANK
+/*-------------------------------------------------------*/
+/* Set up access to the WAS error logstream.             */
+/* If you want your clients to write to the logstream,   */
+/* you must update this procedure.                       */
+/*-------------------------------------------------------*/
+call AccessLogstream
+)BLANK
+/*-------------------------------------------------------*/
+/* Create SERVER definitions to control servant access   */
+/* to controller resources.                              */
+/*-------------------------------------------------------*/
+call ServerClass
+)BLANK
+/*-------------------------------------------------------*/
+/* Allow servant regions to access WLM services.         */
+/*-------------------------------------------------------*/
+call setupWLM                                           /*@MD18997A*/
+)BLANK
+/*-------------------------------------------------------*/
+/* Create started task profiles to assign user IDs to    */
+/* the daemon, controller and servant regions.           */
+/*-------------------------------------------------------*/
+call assignStarted
+)BLANK
+/*-------------------------------------------------------*/
+/* Perform basic SSL setup.                              */
+/*-------------------------------------------------------*/
+call setupSSL
+)BLANK
+)SEL &BBOWST = ZS
+/*-------------------------------------------------------*/
+/* Perform additional setup for WebSphere for z/OS       */
+/* security.                                             */
+/*-------------------------------------------------------*/
+)BLANK
+/*-------------------------------------------------------*/
+/* Set up SSL for WebSphere for z/OS security:           */
+/*  - digital certificate for the controller             */
+/*  - keyrings for servants and administrators           */
+/*-------------------------------------------------------*/
+call setupSSL_ZOS
+)BLANK
+/*-------------------------------------------------------*/
+/* End of additional setup for WebSphere for z/OS        */
+/* security.                                             */
+/*-------------------------------------------------------*/
+)ENDSEL
+/*-------------------------------------------------------*/
+/* If desired, allow servants to access DB2.             */
+/*-------------------------------------------------------*/
+if UseDB2DSNR = "Y"
+ then do
+    call setupDB2
+ end
+)BLANK
+/*-------------------------------------------------------*/
+/* the following authentication methods are options for  */
+/*  remote security.                                     */
+/*-------------------------------------------------------*/
+)BLANK
+if UseSSLClientCerts = "Y"
+   then do
+     call ServerSSLforClientCerts
+   end
+)BLANK
+/*-------------------------------------------------------*/
+/* Sample routines to set up IMS and CICS permissions.   */
+/*-------------------------------------------------------*/
+if useIMSOTMA="Y"
+  then do
+     call Permit4IMSPAA
+  end
+)BLANK
+if useCICSPAA="Y"
+  then do
+     call Permit4CICSPAA
+  end
+)BLANK
+/*---------------------------------------------------------*/
+/*           Exit with highest return code                 */
+/*---------------------------------------------------------*/
+call PutComment('End of generated commands.')
+if switch = "generatecmds" then do
+   "EXECIO 0 DISKW RACFCMDS ( FINIS "
+   end
+exit maxrc
+)BLANK
+)BLANK
+/*------------------------------------------------------------------*/
+/*  Start of Subroutine Section                                     */
+/*------------------------------------------------------------------*/
+VerifyRequiredData:
+/* ---------------------------------------------------------------- */
+/* Do prechecks of values that have no reasonable defaults and need */
+/* to be set before using this exec.                                */
+/* ---------------------------------------------------------------- */
+)BLANK
+if default_logstream_name = "" then
+  do
+     say "You need to fill in a valid logstream name before running this exec."
+     maxrc = 100
+  end
+)BLANK
+RETURN
+)BLANK
+)BLANK
+ActivateClasses:
+/* ---------------------------------------------------------------- */
+/* Activates all RACF classes which are needed regardless of        */
+/* which WebSphere security scheme is chosen.                       */
+/* ---------------------------------------------------------------- */
+call PutComment('Activating RACF classes which are needed regardless of security scheme.')
+CMD = "SETROPTS CLASSACT(SERVER)"
+call ProcessCmd CMD
+CMD = "SETROPTS RACLIST(SERVER) GENERIC(SERVER)"
+call ProcessCmd CMD
+CMD = "SETROPTS CLASSACT(STARTED)"
+call ProcessCmd CMD
+CMD = "SETROPTS RACLIST(STARTED) GENERIC(STARTED)"
+call ProcessCmd CMD
+CMD = "SETROPTS CLASSACT(FACILITY)"
+call ProcessCmd CMD
+CMD = "SETROPTS RACLIST(FACILITY) GENERIC(FACILITY)"
+call ProcessCmd CMD
+CMD = "SETROPTS GRPLIST"
+call ProcessCmd CMD
+)BLANK
+RETURN
+)BLANK
+)BLANK
+ActivateClasses_ZOS:
+/* ---------------------------------------------------------------- */
+/* Activates additional RACF classes used by WebSphere for z/OS     */
+/* security.                                                        */
+/* ---------------------------------------------------------------- */
+call PutComment('Activating classes needed only for z/OS security. ')
+CMD = "SETROPTS CLASSACT(CBIND)"
+call ProcessCmd CMD
+CMD = "SETROPTS RACLIST(CBIND) GENERIC(CBIND)"
+call ProcessCmd CMD
+CMD = "SETROPTS CLASSACT(SURROGAT) GENERIC(SURROGAT)"
+call ProcessCmd CMD
+)BLANK
+RETURN
+)BLANK
+)BLANK
+CreateUsers:
+/* -----------------------------------------------------------------*/
+/* Determine whether to use AUTOUID or the user specified UID for   */
+/* each of the user ids                                             */
+/* -----------------------------------------------------------------*/
+)BLANK
+/* Daemon userid ---------------------------------------------------*/
+if default_daemon_CR_UID = "*"
+ then do
+    daemon_CR_uid_string = "AUTOUID"
+ end
+ else do
+    daemon_CR_uid_string = "UID(&MNDUIDC)"
+ end
+/* appserver CR userid ---------------------------------------------*/
+if default_appServer_CR_UID = "*"
+ then do
+    appServer_CR_UID_string = "AUTOUID"
+ end
+ else do
+    appServer_CR_UID_string = "UID(&ASMIDC)"
+ end
+/* appserver SR userid ---------------------------------------------*/
+ if default_appServer_SR_UID = "*"
+  then do
+     appServer_SR_UID_string = "AUTOUID"
+  end
+  else do
+     appServer_SR_UID_string = "UID(&ASMIDS)"
+  end
+/* appserver adjunct userid ----------------------------------------*/
+ if default_appServer_adjunct_UID = "*"
+  then do
+     appServer_adjunct_UID_string = "AUTOUID"
+  end
+  else do
+     appServer_adjunct_UID_string = "UID(&AJMIDS)"
+  end
+/* Async userid ----------------------------------------------------*/
+if default_asynch_admin_uid = "*"
+ then do
+    asynch_admin_uid_string = "AUTOUID"
+ end
+ else do
+    asynch_admin_uid_string = "UID(&AAOPUID)"
+ end
+/* ---------------------------------------------------------------- */
+/* Define the user ids which are needed regardless of which         */
+/* security scheme is selected.                                     */
+/* ---------------------------------------------------------------- */
+)BLANK
+/* ---------------------------------------------------------------- */
+/* Define the user ids for each of the server controller regions:   */
+/* daemon, Appserver, and Deployment Manager.                       */
+/* ---------------------------------------------------------------- */
+)BLANK
+/* Daemon userid -------------------------------------------------- */
+ call PutComment('Adding users for WAS Controller Regions. ')
+)BLANK
+ call PutComment('Adding daemon controller user ID.')
+  CMD = "ADDUSER " || default_daemon_CR_userid || ,
+   " DFLTGRP(" || default_WS_CFG_group || ,
+   ") OMVS("|| daemon_CR_uid_string    || ,
+   " HOME(&USERHOME/&CNFGGRP) PROGRAM(/bin/sh)) NAME('WAS DAEMON CR') " ||  ,
+   " NOPASSWORD NOOIDCARD"                                /*MD17013C*/
+  call ProcessCmd CMD
+)BLANK
+/* AppServer controller user ID------------------------------------ */
+ call PutComment('Adding AppServer controller user ID.')
+ CMD = "ADDUSER " || default_appServer_CR_userid || ,
+   " DFLTGRP(" || default_WS_CFG_group || ,
+   ") OMVS("|| appServer_CR_UID_string || ,
+   " HOME(&USERHOME/&CNFGGRP) PROGRAM(/bin/sh)) NAME('WAS APPSVR CR') " ||  ,
+   " NOPASSWORD NOOIDCARD"                                /*MD17013C*/
+ call ProcessCmd CMD
+)BLANK
+)BLANK
+/* AppServer servant user ID--------------------------------------- */
+call PutComment('Adding AppServer servant user ID.')
+CMD = "ADDUSER " || default_appServer_SR_userid || ,
+   " DFLTGRP(" || default_WS_SR_group || ,
+   ") OMVS("|| appServer_SR_UID_string || ,
+   " HOME(&USERHOME/&ALLGRPS) PROGRAM(/bin/sh)) NAME('WAS APPSVR SR') " ||  ,
+   " NOPASSWORD NOOIDCARD"                               /* MD17013C*/
+call ProcessCmd CMD
+)BLANK
+call PutComment('Allow 10000 concurrently open files.')
+CMD = "ALU " || default_appServer_SR_userid || ,         /*@WS15621A*/
+             " OMVS(FILEPROC(10000))"                     /*@WS15621A*/
+call ProcessCmd CMD                                      /*@WS15621A*/
+)BLANK
+call PutComment('Adding user for WAS Control Region Adjunct')
+)BLANK
+/* AppServer control region adjunct user ID------------------------ */
+CMD = "ADDUSER " || default_appServer_adjunct_userid || ,
+     " DFLTGRP(" || default_WS_SR_group || ,
+   ") OMVS("|| appServer_adjunct_UID_string || ,
+   " HOME(&USERHOME/&ALLGRPS)" || ,
+   " PROGRAM(/bin/sh)) NAME('WAS APPSVR ADJUNCT') " || ,
+   " NOPASSWORD NOOIDCARD"                               /*@247142 A*/
+call ProcessCmd CMD                                      /*@247142 A*/
+call PutComment('Allow 10000 concurrently open files.')
+CMD = "ALU " || default_appServer_adjunct_userid || ,    /*@247142 A*/
+             " OMVS(FILEPROC(10000))"                     /*@247142 A*/
+call ProcessCmd CMD                                      /*@247142 A*/
+)BLANK
+/*-----------------------------------------------------------------  */
+/* Connect servant userids to the WebSphere configuration group.     */
+/* (Controllers already have this as their default group.)           */
+/*-----------------------------------------------------------------  */
+call PutComment(' Connecting servants to the WebSphere configuration group. ')
+CMD = "CONNECT " || default_appServer_SR_userid || ,
+   " group(" || default_WS_CFG_group || ")"
+call ProcessCmd CMD
+)BLANK
+CMD = "CONNECT " || default_appServer_adjunct_userid || ,
+   " group(" || default_WS_CFG_group || ")"             /*@247142 A*/
+call ProcessCmd CMD                                     /*@247142 A*/
+)BLANK
+)BLANK
+RETURN
+)BLANK
+Create_Asynch_User:
+/* ---------------------------------------------------------------- */
+/* Define the userid for the asynch admin task                      */
+/* ---------------------------------------------------------------- */
+)BLANK
+call PutComment('Adding default asynch admin task userid')
+)BLANK
+CMD = "ADDUSER " || default_asynch_admin_userid || ,
+      " DFLTGRP(" || default_WS_CFG_group       || ,
+      ") OMVS("|| asynch_admin_uid_string  || ,
+    " HOME(&USERHOME/&CNFGGRP) PROGRAM(/bin/sh)) NAME('WAS Asynch Admin Task') " || ,
+    " NOPASSWORD NOOIDCARD"
+call ProcessCmd CMD
+RETURN
+)BLANK
+)BLANK
+AccessLogstream:
+/* ---------------------------------------------------------------- */
+/* LOGSTREAM Set-Up                                                 */
+/*                                                                  */
+/* ---------------------------------------------------------------- */
+/*                                                                  */
+/* Set up access authorizations for the log stream:                 */
+/*                                                                  */
+/* For each server identity (or client identity, if you allow       */
+/* clients to write to the error log stream), assign UPDATE         */
+/* access to the log stream:                                        */
+/*                                                                  */
+/* Note: in a production environment, you would likely want the     */
+/*       UACC to be NONE.                                           */
+/* ---------------------------------------------------------------- */
+call PutComment('Set up access authorizations for the log stream')
+call PutComment('For each server identity or client identity if you allow clients')
+call PutComment('to write to the error log stream, assign UPDATE access to the log stream')
+ 
+ CMD = "RDEFINE LOGSTRM" default_logstream_name "UACC(READ)"
+ call ProcessCmd CMD
+)BLANK
+ CMD = "PERMIT" default_logstream_name "CLASS(LOGSTRM)" || ,
+      " ID("default_WS_CFG_group") ACCESS(UPDATE)"
+ call ProcessCmd CMD
+)BLANK
+)BLANK
+Call ProcessCmd ("SETROPTS CLASSACT(LOGSTRM)")
+/*------------------------------------------------------------------*/
+/* For each user who browses the error log stream, assign READ      */
+/* access:                                                          */
+/*                                                                  */
+/*  PERMIT log_stream_name CLASS(LOGSTRM) ID(user_ID) ACCESS(READ)  */
+/*                                                                  */
+/* ---------------------------------------------------------------- */
+RETURN
+)BLANK
+)BLANK
+CBINDClass:
+/* --------------------------------------------------------------------- */
+/* CLASS=CBIND                                                           */
+/* OS/390 WebSphere PROFILES                                             */
+/* --------------------------------------------------------------------- */
+/*  CLASS  = CBIND                                                       */
+/* PROFILE = CB.BIND.<cluster name>                                      */
+/*  (CB.BIND.CLUSTER)                                                    */
+/* Used for: determining if a client can "BIND" (access) a controller    */
+/*           region.                                                     */
+/* Notes:                                                                */
+/* 1. Any userid can gain access to the controller region if it has READ */
+/*    access to the CB.BIND.cluster_name profile.                        */
+/* 2. A userid can still gain access to the Controller Region if the     */
+/*    session owner has control access.                                  */
+/* 3. Within a local session (or SSL client certificate session)         */
+/*    the session owner is the userid of the client or controller        */
+/*    region (if server-as-client) that issued the message.              */
+/*    Otherwise, ownership is assigned to the first userid which         */
+/*    has successfully accessed the controller region.                   */
+/* --------------------------------------------------------------------- */
+)BLANK
+/* ---------------------------------------------------------------- */
+/* ACCESS TO J2EE Applications                                      */
+/* ---------------------------------------------------------------- */
+/* CLASS  = CBIND                                                   */
+/* PROFILE = CB.<CLUSTER NAME>                                      */
+/* Used for: Determining if a client can use J2EE applications in a */
+/*           server.                                                */
+/* ---------------------------------------------------------------- */
+)BLANK
+RETURN
+)BLANK
+)BLANK
+ServerClass:
+/* ---------------------------------------------------------------- */
+/* CLASS = SERVER                                                   */
+/* PROFILE = CB.<cluster>.<generic server>                          */
+/* Used for: determining if a servant region can initialize         */
+/* ---------------------------------------------------------------- */
+/* This is done in BBOWBRAC and/or BBODBRAC
+call PutComment('Defining SERVER CB.cluster.generic_server. ')  /* @MD16761C*/
+call PutComment('Used for determining if a servant region can initialize.')
+)BLANK
+CMD = "RDEFINE SERVER CB.*   UACC(NONE)"
+call ProcessCmd CMD
+)BLANK
+)BLANK
+CMD = "SETROPTS RACLIST(SERVER) GENERIC(SERVER) REFRESH"
+call ProcessCmd CMD */
+)BLANK
+RETURN
+)BLANK
+)BLANK
+assignStarted:
+/* ---------------------------------------------------------------- */
+/* Create STARTED task profiles for each runtime server identity    */
+/* Define User Identities for the runtime addresses/tasks           */
+/* ---------------------------------------------------------------- */
+call PutComment('Assigning async admin userid to started tasks. ')
+CMD = "RDEFINE STARTED " || default_asynch_admin_proc || ,
+   ".* STDATA(USER(" || default_asynch_admin_userid   || ,
+   ") GROUP(" || default_WS_CFG_group                 || ,
+   ") TRACE(YES))"
+call ProcessCmd CMD
+)BLANK
+call PutComment('Assign daemon CR userid to started task.')
+CMD = "RDEFINE STARTED " || default_daemon_CR_proc_name || , /* @MD16761C*/
+   ".* STDATA(USER(" || default_daemon_CR_userid || ,
+   ") GROUP(" || default_WS_CFG_group || ,
+   ") TRACE(YES))"
+call ProcessCmd CMD
+)BLANK
+/*------------------------------------------------------------------*/
+call PutComment('Assign AppServer CR userid to started task.')
+CMD = "RDEFINE STARTED " || default_appServer_CR_proc_name || , /* @MD16761C*/
+   ".* STDATA(USER(" || default_appServer_CR_userid || ,
+   ") GROUP(" || default_WS_CFG_group || ,
+   ") TRACE(YES))"                                        /* @MD16604A*/
+call ProcessCmd CMD                                       /* @MD16604A*/
+)BLANK
+/*------------------------------------------------------------------*/
+CMD = "SETROPTS RACLIST(STARTED) GENERIC(STARTED) REFRESH"
+call ProcessCmd CMD
+)BLANK
+RETURN
+)BLANK
+)BLANK
+setupWLM: /*@MD18997A*/
+/* ---------------------------------------------------------------- */
+/*  AsynchBeans for z/OS, require servants to have access to WLM    */
+/*  services.  New for @MD18997A                                    */
+/* ---------------------------------------------------------------- */
+call PutComment('Authorize servants to use WLM Services')
+CMD = "RDEFINE FACILITY (BPX.WLMSERVER) UACC(NONE)"
+call ProcessCmd CMD
+CMD = "PERMIT BPX.WLMSERVER ACCESS(READ) ID(" || ,
+      default_WS_SR_group  || ,
+      ") CL(FACILITY)"
+call ProcessCmd CMD
+CMD = "SETROPTS RACLIST(FACILITY) REFRESH"
+call ProcessCmd CMD
+)BLANK
+RETURN                                                 /*@MD18997A*/
+)BLANK
+/* ---------------------------------------------------------------- */
+/* Below this point are comments for other security systems and     */
+/* and access connections.  These are not needed to run the provided*/
+/* IVP, but would be needed for those shops that use them.          */
+/* To "activate" a section, remove the comment delimiters, make     */
+/* changes, and move the section above the "exit maxrc" line above. */
+/* ---------------------------------------------------------------- */
+)BLANK
+setupDB2:
+/* ---------------------------------------------------------------- */
+/* RACF set-up for IDENTITY with DB2 if DSNR is activated.          */
+/*  Note that which Identity is used by DB2 depends on the          */
+/*  type of server, Run-As setting for EJB, and DB2 configuration   */
+/* ---------------------------------------------------------------- */
+/* CLASS = DSNR                                                     */
+/* PROFILE = <db2>.RRSAF                                            */
+/* ---------------------------------------------------------------- */
+)BLANK
+call PutComment('Setting up DSNR for DB2 access. ')
+call PutComment('Note that which Identity is used by DB2 depends on the type of server, Run-As setting for EJB, and DB2 configuration.')
+CMD = "RDEFINE DSNR" default_DB2_ssname || ".RRSAF UACC(NONE)"
+call ProcessCmd CMD
+CMD = "PERMIT" default_DB2_ssname || ".RRSAF CLASS(DSNR)" ,
+    "ID(" ,
+       || default_WS_SR_group || ,
+    ") ACCESS(READ)"
+call ProcessCmd CMD
+)BLANK
+call ProcessCmd("SETROPTS CLASSACT(DSNR)")
+call ProcessCmd("SETROPTS RACLIST(DSNR) GENERIC(DSNR)")
+call ProcessCmd("SETROPTS RACLIST(DSNR) REFRESH")
+)BLANK
+RETURN
+)BLANK
+)BLANK
+setupEJBRoleAccess:
+/* ---------------------------------------------------------------- */
+/* EJB Role Access.  Needed if SAF Authorization desired           */
+/* ---------------------------------------------------------------- */
+/* RACF CLASS  = EJBROLES                                           */
+/* Sample Client Profile for access to installation defined methods.*/
+/*                           updated for MD16971AA                    */
+)BLANK
+call PutComment('Setting up EJBRoles Profiles for admin roles when using SAF authorization');
+call ProcessCmd("SETROPTS CLASSACT(EJBROLE)")
+call PutComment('Defining roles for SAF access');
+call ProcessCmd("RDEFINE EJBROLE " || domain_prefix || "administrator UACC(NONE)")
+call ProcessCmd("RDEFINE EJBROLE " || domain_prefix || "monitor       UACC(NONE)")
+call ProcessCmd("RDEFINE EJBROLE " || domain_prefix || "configurator UACC(NONE)")
+call ProcessCmd("RDEFINE EJBROLE " || domain_prefix || "operator     UACC(NONE)")
+/*            Start of changes for @309640A                */
+call ProcessCmd("RDEFINE EJBROLE " || domain_prefix || "deployer     UACC(NONE)")
+call ProcessCmd("RDEFINE EJBROLE " || domain_prefix || ,
+    "adminsecuritymanager UACC(NONE)")
+/*            End of changes for @309640A                  */
+)BLANK
+call PutComment('Setting up EJBRoles access for administrator and CR');
+CMD = "PERMIT " || domain_prefix ||  "administrator  CLASS(EJBROLE)  ID(" || ,
+       default_WS_CFG_group || ") ACCESS(READ)"        /*@MD16594C*/
+call ProcessCmd CMD
+)BLANK
+/*                         start of changes for    @MD16475AA */
+call PutComment('Setting up EJBRoles Profiles for Naming roles');
+call ProcessCmd("RDEFINE EJBROLE " || domain_prefix || "CosNamingRead   UACC(READ)")
+CMD = "PERMIT " || domain_prefix || "CosNamingRead  CLASS(EJBROLE)  ID(" || ,
+       default_WS_unauth_userid || ") ACCESS(READ)"
+call ProcessCmd CMD
+/*           Start of changes for @309640C                */
+call ProcessCmd("RDEFINE EJBROLE " || domain_prefix || "CosNamingWrite  UACC(NONE)")
+call ProcessCmd("RDEFINE EJBROLE " || domain_prefix || "CosNamingCreate UACC(NONE)")
+call ProcessCmd("RDEFINE EJBROLE " || domain_prefix || "CosNamingDelete UACC(NONE)")
+/*                        end of changes for         @MD16475AA */
+CMD = "PERMIT " || domain_prefix || "CosNamingWrite  CLASS(EJBROLE)  ID(" || ,
+       default_WS_CFG_group || ") ACCESS(READ)"
+call ProcessCmd CMD
+CMD = "PERMIT " || domain_prefix || "CosNamingCreate  CLASS(EJBROLE) ID(" || ,
+       default_WS_CFG_group || ") ACCESS(READ)"
+call ProcessCmd CMD
+CMD = "PERMIT " || domain_prefix || "CosNamingDelete  CLASS(EJBROLE) ID(" || ,
+       default_WS_CFG_group || ") ACCESS(READ)"
+call ProcessCmd CMD
+/*            End of changes for @309640C                  */
+)BLANK
+call ProcessCmd("SETROPTS RACLIST(EJBROLE) REFRESH")
+)BLANK
+RETURN
+)BLANK
+setupSSL:
+/* ---------------------------------------------------------------- */
+/*       SSL SET-UP                                                 */
+/*                                                                  */
+/*       This sets up a WAS Test Certificate Authority for use for  */
+/*          creating all certificates needed on both client and     */
+/*          servers, for test purposes.                              */
+/*       See "RACF Security Administrator's Guide" for more         */
+/*       information on Digital Certicates.                         */
+/* ---------------------------------------------------------------- */
+)BLANK
+call PutComment('Define permissions to work with certificates')
+call ProcessCmd("RDEFINE FACILITY IRR.DIGTCERT.LIST UACC(NONE)")
+call ProcessCmd("RDEFINE FACILITY IRR.DIGTCERT.LISTRING UACC(NONE)")
+)BLANK
+CMD = "PERMIT IRR.DIGTCERT.LIST CLASS(FACILITY) ID(" ,
+ || default_WS_CFG_group || ") ACC(READ) "
+call ProcessCmd CMD
+)BLANK
+CMD = "PERMIT IRR.DIGTCERT.LISTRING CLASS(FACILITY) ID(" ,
+ || default_WS_CFG_group || ") ACC(READ) "
+call ProcessCmd CMD
+)BLANK
+if WS_generate_CA_cert = "Y"
+ then do
+  call PutComment('Create a Certificate Authority certificate')
+  call PutComment('This will be used to sign client and server certs')
+  FORMAT_DATE = WS_cert_expiration_date
+  call PutComment('FORMAT_DATE IS ' || FORMAT_DATE);
+  CMD = "RACDCERT CERTAUTH GENCERT SUBJECTSDN(CN('WAS CertAuth for Security Domain') " ,
+        ||  " OU('"|| cell_name || "'))" ,
+        ||  " WITHLABEL('" || WS_TestCA || "')  TRUST " ,
+        ||  "NOTAFTER(DATE(" || FORMAT_DATE || "))"
+  call ProcessCmd CMD
+ end
+)BLANK
+call PutComment('Facility class refresh ')
+call ProcessCmd( "SETROPTS RACLIST(FACILITY) REFRESH")
+)BLANK
+)BLANK
+ RETURN
+)BLANK
+)BLANK
+ call PutComment('Creating SSL keyring for Location Service Daemon')
+ CMD = "RACDCERT ADDRING(" || Daemon_keyring || ,
+       ") ID(" default_daemon_CR_userid ")"
+ call ProcessCmd CMD
+)BLANK
+ call PutComment('Generating certificate for Location Service Daemon')
+)BLANK
+ FORMAT_DATE = ws_cert_expiration_date
+)BLANK
+ CMD = "RACDCERT ID (" || default_daemon_CR_userid             || ,
+       ") GENCERT SUBJECTSDN(CN('" || daemon_ipname            || ,
+       "')"                                                    || ,
+       " O('IBM') OU('" || cell_name || "'))"                  || ,
+       " WITHLABEL('DefaultDaemonCert."                        || ,
+                   cell_name || "')"                           || ,
+       " SIGNWITH(CERTAUTH LABEL('" || WS_TestCA || "'))"      || ,
+       " NOTAFTER(DATE(" || FORMAT_DATE || "))"
+ call ProcessCmd CMD
+ call PutComment('Connecting Daemon Certificate to the keyring')
+)BLANK
+ CMD = "RACDCERT ID(" || default_daemon_CR_userid || ") CONNECT ("   ,
+       || "LABEL('DefaultDaemonCert." || cell_name || ,
+       "') RING(" ||  Daemon_keyring ") DEFAULT)"
+ call ProcessCmd CMD
+)BLANK
+ call PutComment('Connect WAS CA Certificates to Daemon keyring')
+)BLANK
+ CMD = "RACDCERT ID(" ||  default_daemon_CR_userid    || ,
+       ") CONNECT (RING("                             || ,
+       Daemon_keyring || ") LABEL('" || WS_TestCA     || ,
+       "') CERTAUTH)"
+ call ProcessCmd CMD
+)BLANK
+ call PutComment('Connect Commercial CAs to Daemon keyring')
+)BLANK
+ CALabel = 'Verisign Class 3 Primary CA'
+ CMD = "RACDCERT ID(" ||  default_daemon_CR_userid || ") CONNECT (RING(" ,
+       ||  Daemon_keyring || ") CERTAUTH label('" || CALabel || "')",
+       || " USAGE(CERTAUTH))"
+ call ProcessCmd CMD
+)BLANK
+ CALabel = 'Verisign Class 1 Primary CA'
+ CMD = "RACDCERT ID(" ||  default_daemon_CR_userid || ") CONNECT (RING(" ,
+       ||  Daemon_keyring || ") CERTAUTH label('" || CALabel || "')",
+       ||  " USAGE(CERTAUTH))"
+ call ProcessCmd CMD
+)BLANK
+ CALabel = 'RSA Secure Server CA'
+ CMD = "RACDCERT ID(" ||  default_daemon_CR_userid || ") CONNECT (RING(" ,
+       ||  Daemon_keyring || ") CERTAUTH label('" || CALabel || "')",
+       || " USAGE(CERTAUTH))"
+ call ProcessCmd CMD
+)BLANK
+ CALabel = 'Thawte Server CA'
+ CMD = "RACDCERT ID(" ||  default_daemon_CR_userid || ") CONNECT (RING(" ,
+       ||  Daemon_keyring || ") CERTAUTH label('" || CALabel || "')",
+       || " USAGE(CERTAUTH))"
+ call ProcessCmd CMD
+)BLANK
+ CALabel = 'Thawte Premium Server CA'
+ CMD = "RACDCERT ID(" ||  default_daemon_CR_userid || ") CONNECT (RING(" ,
+       ||  Daemon_keyring || ") CERTAUTH label('" || CALabel || "')",
+       || " USAGE(CERTAUTH))"
+ call ProcessCmd CMD
+)BLANK
+ CALabel = 'Thawte Personal Basic CA'
+ CMD = "RACDCERT ID(" ||  default_daemon_CR_userid || ") CONNECT (RING(" ,
+       ||  Daemon_keyring || ") CERTAUTH label('" || CALabel || "')",
+       || " USAGE(CERTAUTH))"
+ call ProcessCmd CMD
+)BLANK
+ CALabel = 'Thawte Personal Freemail CA'
+ CMD = "RACDCERT ID(" ||  default_daemon_CR_userid || ") CONNECT (RING(" ,
+       ||  Daemon_keyring || ") CERTAUTH label('" || CALabel || "')",
+       || " USAGE(CERTAUTH))"
+ call ProcessCmd CMD
+)BLANK
+ CALabel = 'Thawte Personal Premium CA'
+ CMD = "RACDCERT ID(" ||  default_daemon_CR_userid || ") CONNECT (RING(" ,
+       ||  Daemon_keyring || ") CERTAUTH label('" || CALabel || "')",
+       || " USAGE(CERTAUTH))"
+ call ProcessCmd CMD
+)BLANK
+ CALabel = 'Verisign International Svr CA'
+ CMD = "RACDCERT ID(" ||  default_daemon_CR_userid || ") CONNECT (RING(" ,
+       ||  Daemon_keyring || ") CERTAUTH label('" || CALabel || "')",
+       || " USAGE(CERTAUTH))"
+ call ProcessCmd CMD
+)BLANK
+)BLANK
+ RETURN
+)BLANK
+)BLANK
+setupSSL_ZOS:
+/* ---------------------------------------------------------------- */
+/*    SSL BASIC SERVER SET-UP                                       */
+/* ---------------------------------------------------------------- */
+/* RACF set-up for SSL for Servers                                  */
+/*  The SSL set-up uses the RACF RACDCERT command to generate and   */
+/*  maintain digital certificates in RACF, using the WebSphere Test */
+/*  Certificate Authority cert created in BBOSBRAC.                 */
+/*  There must be a unique RACF keyring and digital certificate     */
+/*  public/private key pair for the identity of each server enabled */
+/*  for SSL.                                                        */
+/*  The certificate must be unique and owned by the server's id.    */
+/*                                                                  */
+/*  NOTES: 1. This step is required for ALL SSL based mechanisms,   */
+/*            including SSL Basic Auth, Kerberos over SSL,          */
+/*            SSL Client Certificates, and Asserted Identity        */
+/*        2.  The keyring name here must match the one set in the   */
+/*            EUI.                                                  */
+/* ---------------------------------------------------------------- */
+)BLANK
+call PutComment('Creating SSL keyrings for WebSphere servers ')
+)BLANK
+CMD = "RACDCERT ADDRING(" || Appsrvr_keyring || ") ID(" default_appServer_CR_userid ")"
+call ProcessCmd CMD
+)BLANK
+CMD = "RACDCERT ADDRING(" || Appsrvr_keyring || ") ID(" default_appServer_SR_userid ")"
+call ProcessCmd CMD
+)BLANK
+CMD = "RACDCERT ADDRING(" || Appsrvr_keyring || ") ID(" default_appServer_adjunct_userid ")"
+call ProcessCmd CMD
+)BLANK
+call PutComment('Generating certificates for WebSphere servers ')
+)BLANK
+FORMAT_DATE = ws_cert_expiration_date                          /*@WS15621C*/
+)BLANK
+CMD = "RACDCERT ID ("             || ,                         /*@WS15621C*/
+      default_appServer_CR_userid || ,                         /*@WS15621C*/
+      ") GENCERT SUBJECTSDN(CN('" || daemon_ipname || "')" || ,
+      " O('IBM') OU('" || cell_name || "."    ||      ,        /*@WS15621C*/
+           default_appserver_CR_userid "'))"  ||      ,        /*@WS15621C*/
+      " WITHLABEL('DefaultWASCert."                      || ,  /*@WS15621C*/
+           cell_name ||  "')"                            || ,  /*@WS15621C*/
+      " SIGNWITH(CERTAUTH LABEL('" || WS_TestCA || "'))" || ,  /*@WS15621C*/
+      " NOTAFTER(DATE(" || FORMAT_DATE || "))"                 /*@WS15621A*/
+call ProcessCmd CMD
+)BLANK
+call PutComment('Connecting Server Certificates to their keyrings ')
+)BLANK
+CMD = "RACDCERT ID(" || default_appServer_CR_userid || ") CONNECT (" ,
+|| "LABEL('DefaultWASCert." || cell_name || ,                     /*@WS15621C*/
+    "') RING(" ||  Appsrvr_keyring ") DEFAULT)"                   /*@WS15621C*/
+call ProcessCmd CMD
+)BLANK
+call PutComment('Connect WAS CA Certificates to Servers keyring')
+)BLANK
+CMD = "RACDCERT ID(" ||  default_appServer_CR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") LABEL('" || WS_TestCA || ,             /*@WS15621C*/
+                           "') CERTAUTH)"                         /*@WS15621C*/
+call ProcessCmd CMD
+CMD = "RACDCERT ID(" ||  default_appServer_SR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") LABEL('" || WS_TestCA || ,
+                           "') CERTAUTH)"
+call ProcessCmd CMD
+CMD = "RACDCERT ID(" ||  default_appServer_adjunct_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") LABEL('" || WS_TestCA || ,
+                           "') CERTAUTH)"
+call ProcessCmd CMD
+)BLANK
+call PutComment('Connect Commercial CAs to Servers keyring') /* MD16971AA*/
+)BLANK
+CALabel = 'Verisign Class 3 Primary CA'
+CMD = "RACDCERT ID(" ||  default_appServer_CR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Verisign Class 3 Primary CA'
+CMD = "RACDCERT ID(" ||  default_appServer_SR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Verisign Class 1 Primary CA'
+CMD = "RACDCERT ID(" ||  default_appServer_CR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ ||  " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Verisign Class 1 Primary CA'
+CMD = "RACDCERT ID(" ||  default_appServer_SR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ ||  " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'RSA Secure Server CA'
+CMD = "RACDCERT ID(" ||  default_appServer_CR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'RSA Secure Server CA'
+CMD = "RACDCERT ID(" ||  default_appServer_SR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Thawte Server CA'
+CMD = "RACDCERT ID(" ||  default_appServer_CR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Thawte Server CA'
+CMD = "RACDCERT ID(" ||  default_appServer_SR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Thawte Premium Server CA'
+CMD = "RACDCERT ID(" ||  default_appServer_CR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Thawte Premium Server CA'
+CMD = "RACDCERT ID(" ||  default_appServer_SR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Thawte Personal Basic CA'
+CMD = "RACDCERT ID(" ||  default_appServer_CR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Thawte Personal Basic CA'
+CMD = "RACDCERT ID(" ||  default_appServer_SR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Thawte Personal Freemail CA'
+CMD = "RACDCERT ID(" ||  default_appServer_CR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Thawte Personal Freemail CA'
+CMD = "RACDCERT ID(" ||  default_appServer_SR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Thawte Personal Premium CA'
+CMD = "RACDCERT ID(" ||  default_appServer_CR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Thawte Personal Premium CA'
+CMD = "RACDCERT ID(" ||  default_appServer_SR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Verisign International Svr CA'
+CMD = "RACDCERT ID(" ||  default_appServer_CR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"                               /*MD16971AA end */
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Verisign International Svr CA'
+CMD = "RACDCERT ID(" ||  default_appServer_SR_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+call PutComment('Creating SSL keyring for WebSphere asynch administrator ')
+)BLANK
+CMD = "RACDCERT ADDRING(" || Appsrvr_keyring || ") ID(" default_asynch_admin_userid ")"
+call ProcessCmd CMD
+)BLANK
+call PutComment('Connect WAS CA Certificates to Servers keyring')
+)BLANK
+CMD = "RACDCERT ID(" ||  default_asynch_admin_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") LABEL('" || WS_TestCA  ||"') CERTAUTH)"
+call ProcessCmd CMD
+)BLANK
+call PutComment('Connect Commercial CAs to Servers keyring')
+)BLANK
+CALabel = 'Verisign Class 3 Primary CA'
+CMD = "RACDCERT ID(" ||  default_asynch_admin_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Verisign Class 1 Primary CA'
+CMD = "RACDCERT ID(" ||  default_asynch_admin_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ ||  " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'RSA Secure Server CA'
+CMD = "RACDCERT ID(" ||  default_asynch_admin_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+CALabel = 'Thawte Server CA'
+CMD = "RACDCERT ID(" ||  default_asynch_admin_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Thawte Premium Server CA'
+CMD = "RACDCERT ID(" ||  default_asynch_admin_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Thawte Personal Basic CA'
+CMD = "RACDCERT ID(" ||  default_asynch_admin_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Thawte Personal Freemail CA'
+CMD = "RACDCERT ID(" ||  default_asynch_admin_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Thawte Personal Premium CA'
+CMD = "RACDCERT ID(" ||  default_asynch_admin_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+)BLANK
+CALabel = 'Verisign International Svr CA'
+CMD = "RACDCERT ID(" ||  default_asynch_admin_userid || ") CONNECT (RING(" ,
+ ||  Appsrvr_keyring || ") CERTAUTH label('" || CALabel || "')",
+ || " USAGE(CERTAUTH))"
+call ProcessCmd CMD
+call PutComment('Facility class refresh ')
+call ProcessCmd( "SETROPTS RACLIST(FACILITY) REFRESH")
+)BLANK
+ RETURN
+)BLANK
+ServerSSLforClientCerts:
+/* ---------------------------------------------------------------- */
+/*    SSL CLIENT CERTIFICATES SERVER SET-UP                         */
+/* ---------------------------------------------------------------- */
+/* Additional RACF set-up for SSL for Servers supporting            */
+/*   Client Certificates                                            */
+/* - connect the CA certificates for used to generate client        */
+/*   certificates into the servers' keyring.                        */
+/*                                                                  */
+/* - Provide a mapping from SubjectDN or IssuerDN to RACF userid    */
+/* ---------------------------------------------------------------- */
+call PutComment('Activate Digital Certificate Mapping class ')
+)BLANK
+CMD = "SETROPTS CLASSACT(DIGTNMAP) RACLIST(DIGTNMAP)"
+call ProcessCmd CMD
+)BLANK
+call PutComment('Refresh RACF classes ')
+CMD = "SETROPTS RACLIST(FACILITY) REFRESH"
+call ProcessCmd CMD
+)BLANK
+CMD = "SETROPTS RACLIST(DIGTNMAP) REFRESH"
+call ProcessCmd CMD
+)BLANK
+RETURN
+)BLANK
+)BLANK
+ClientSSLforClientCerts:
+/* ---------------------------------------------------------------- */
+/*    SSL CLIENT CERTIFICATES CLIENT SET-UP                         */
+/* ---------------------------------------------------------------- */
+/* Additional RACF set-up for SSL for Clients supporting            */
+/*   Client Certificates                                            */
+/* - create personal certificates for clients using our Test CA and */
+/*   connect these certificates into the clients' keyrings          */
+/*                                                                  */
+/*------------------------------------------------------------------*/
+)BLANK
+)BLANK
+RETURN
+)BLANK
+)BLANK
+permit4IMSPAA:
+/* ---------------------------------------------------------------- */
+/*      IMS OTMA PAA Usage                                          */
+/*                                                                  */
+/* ---------------------------------------------------------------- */
+/*                                                                  */
+/* Example access authorizations.                                   */
+/*                                                                  */
+/* ---------------------------------------------------------------- */
+/* 1. If you need to do authorization setup for IMS OTMA PAA        */
+/*    usage, uncomment and issue the following command to indicate  */
+/*    this type of processing is being done by the clist.           */
+/*                                                                  */
+/* 2. To control the users that are allowed to use the IMS OTMA     */
+/*    callable interface, uncomment the following two commands      */
+/*    to define the profile, IMSXCF.OTMACI, in the RACF FACILITY    */
+/*    class (only do once):                                         */
+/*                                                                  */
+/* "RDEF FACILITY IMSXCF.OTMACI UACC(NONE)"                         */
+/* "SETROPTS RACLIST(FACILITY) REFRESH"                             */
+/*                                                                  */
+/* 3. In all cases where a server is defined with a container that  */
+/*    has an IMS OTMA PAA LRM defined to it, authorize the userid   */
+/*    associated with the corresponding server region to use the    */
+/*    OTMA callable interface (i.e., the userid under which the     */
+/*    the server region is started). To do so, uncomment and        */
+/*    and replicate the following command once for each userid      */
+/*    that needs to be permitted to use the OTMA callable           */
+/*    interface. Replace xxxxx with the server region userid that   */
+/*    needs to be authorized.                                       */
+/*                                                                  */
+/* "PERMIT IMSXCF.OTMACI CLASS(FACILITY) ID(xxxxxx) ACCESS(READ)"   */
+/*                                                                  */
+/* ---------------------------------------------------------------- */
+)BLANK
+call PutComment('Facility class refresh ')
+call ProcessCmd( "SETROPTS RACLIST(FACILITY) REFRESH")
+)BLANK
+RETURN
+)BLANK
+)BLANK
+permit4CICSPAA:
+/* ---------------------------------------------------------------- */
+/*      CICS EXCI PAA Usage                                         */
+/*                                                                  */
+/* ---------------------------------------------------------------- */
+/*                                                                  */
+/* Example access authorizations.                                   */
+/*                                                                  */
+/* ---------------------------------------------------------------- */
+/* If you run your CICS with SURROGCHK=YES, you'll need to do       */
+/* the following authorization setup to use the CICS EXCI PAA       */
+/* support:                                                         */
+/*                                                                  */
+/* 1. Uncomment and issue the following command to indicate         */
+/*    CICS EXCI setup processing is being done by the clist.        */
+/*                                                                  */
+/* say 'Setup for CICS EXCI PAA usage '                             */
+/*                                                                  */
+/* 2. Uncomment the following two commands to setup a SURROGAT      */
+/*    class profile that can be used to permit a WebSphere/390 Server */
+/*    to be a surrogate for all users of the CICS EXCI interface.   */
+/*                                                                  */
+/* "RDEF SURROGAT *.DFHEXCI UACC(NONE)"                             */
+/* "SETROPTS RACLIST(SURROGAT) REFRESH"                             */
+/*                                                                  */
+/* 3. In all cases where a server is defined with a container that  */
+/*    has a CICS EXCI PAA LRM defined to it, authorize the userid   */
+/*    associated with the corresponding servant region (i.e., the   */
+/*    userid under which the servant region is started) to be a     */
+/*    surrogate for users of the EXCI interface. To do so,          */
+/*    uncomment and replicate the following command once for each   */
+/*    userid that needs to be permitted to be a surrogate. Replace  */
+/*    xxxxx with the servant region userid that needs to be         */
+/*    authorized.                                                   */
+/*                                                                  */
+/* "PERMIT *.DFHEXCI CLASS(SURROGAT) ID(xxxxxx) ACCESS(READ)"       */
+/*                                                                  */
+/* ---------------------------------------------------------------- */
+)BLANK
+RETURN
+)BLANK
+)BLANK
+/* ---------------------------------------------------------------- */
+/* PermitAPPLclass function                                @MD16761A*/
+/* ---------------------------------------------------------------- */
+/* Sets permissions for CLASS(APPL)                        @MD16761A*/
+/* PERMIT CBS390 CLASS(APPL) ID(all userids) ACCESS(READ)  @MD16761A*/
+/* ---------------------------------------------------------------- */
+PermitAPPLclass:
+call PutComment('APPL class setup.')
+call PutComment('Used to control client access to a WebSphere Application Server for z/OS cell or group of cells.')
+CMD = "RDEFINE APPL " || application_id || " UACC(NONE)" /*@WS15621C*/ /*WS15621C*/
+call ProcessCmd CMD                                      /*@MD16761A*/
+ 
+CMD = "PERMIT" application_id "CLASS(APPL) ID(" || ,
+       default_WS_CFG_group || ") ACCESS(READ)"
+call ProcessCmd CMD
+ 
+CMD = "PERMIT" application_id "CLASS(APPL) ID(" || ,
+       default_WS_unauth_userid || ") ACCESS(READ)"
+call ProcessCmd CMD
+)BLANK
+CMD = "SETROPTS RACLIST(APPL) REFRESH"
+call ProcessCmd CMD
+)BLANK
+return
+)BLANK
+)BLANK
+/* ---------------------------------------------------------------- */
+/*                   cv2lower function                              */
+/* ---------------------------------------------------------------- */
+/* converts upper case to lower case letters                        */
+/* ---------------------------------------------------------------- */
+)BLANK
+ cv2lower: procedure expose kerbId
+    upper = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+    lower = 'abcdefghijklmnopqrstuvwxyz'
+    parse ARG racfId
+)BLANK
+    kerbId = TRANSLATE(racfId, lower, upper)
+    return
+)BLANK
+/* ---------------------------------------------------------------- */
+/*                   ProcessCmd Routine                             */
+/* ---------------------------------------------------------------- */
+/* ProcessCmd either executes the command, or writes it out into   */
+/*        a file that is 80 characters in width.                   */
+/* ---------------------------------------------------------------- */
+ProcessCmd: procedure expose maxrc switch
+  parse arg command
+  linelen = 68                                         /* @MD16362A*/
+  if switch = 'issuecmds' then do
+     ADDRESS TSO command
+     rrc =rc
+     if rrc > maxrc  then
+        maxrc  = rrc
+     end
+   else do
+      start=1
+      do while (start <= LENGTH(command))
+      if  LENGTH(SUBSTR(command,start)) <= linelen then  /* @MD16362C*/
+         QUEUE  '"' || Substr(command,start) || '"'      /* @MD16362C*/
+      else
+         QUEUE  '"' || Substr(command,start,linelen) || '" || ,' /* @MD16362C*/
+      EXECIO 1 DISKW RACFCMDS
+      start = start + linelen                            /* @MD16362C*/
+      end
+     QUEUE 'say'        /* blank line after each cmd */  /* @MD17166A*/
+      EXECIO 1 DISKW RACFCMDS                            /* @MD17166A*/
+     QUEUE ' '          /* blank line after each cmd */  /* @MD17166A*/
+      EXECIO 1 DISKW RACFCMDS                            /* @MD17166A*/
+    end
+  return
+/* ---------------------------------------------------------------- */
+/*                   PutComment Routine                             */
+/* ---------------------------------------------------------------- */
+/* PutComment displays a comment.  If executing the command it      */
+/*        is out in SYSTSPRT, otherwise it is dispersed into the    */
+/*        command file.                                             */
+/* ---------------------------------------------------------------- */
+PutComment: procedure expose switch
+  parse arg comment
+  linelen = 68                                         /* @MD16362A*/
+  if switch = 'issuecmds' then do;
+     say comment
+     end;
+  else do;
+     start=1
+     do while (start <= LENGTH(comment))
+       QUEUE  "say '" || Substr(comment,start,linelen) || "'"
+       EXECIO 1 DISKW RACFCMDS
+       start =start+linelen                            /* @MD16362C*/
+     end;
+  end;
+  return
+/* ---------------------------------------------------------------- */
+/*                   PutLine Routine                             */
+/* ---------------------------------------------------------------- */
+/* PutLine writes a single line to SYSTSPRT or to the command file  */
+/* ---------------------------------------------------------------- */
+PutLine: procedure expose switch
+  parse arg comment
+  if switch = 'issuecmds' then do;
+     say comment
+     end;
+  else do;
+       QUEUE  comment
+       EXECIO 1 DISKW RACFCMDS
+  end;
+return

@@ -1,0 +1,40 @@
+)CM This job allocates the Config HFS, creates the mount point,                 
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4                                                                        
+//ALLOC   EXEC  PGM=IEFBR14                                                     
+//CHFS    DD    UNIT=SYSALLDA,DISP=(NEW,CATLG),                                 
+//        DSN=&MNCFGHFS,                                                        
+)SEL &MNCFGVOL ^= *                                                             
+//        VOL=SER=&MNCFGVOL,                                                    
+)ENDSEL                                                                         
+//        DSNTYPE=HFS,SPACE=(CYL,(&MNCFGPRI,&MNCFGSEC,1))                       
+//MNTHFS  EXEC  PGM=IKJEFT1A,COND=(0,LT)                                        
+//* Build the mount point for the Config HFS                                    
+//SYSEXEC   DD DISP=SHR,DSN=&TRGHLQ..DATA                                       
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+  BBOWBMPT  &MNCONFIG +                                                         
+            &MNCFGHFS &WASHFSU &CNFGGRP HFS                                     
+/*                                                                              
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+)CM ================================================================ */         
+)CM                                                                  */         
+)CM Change Activity:                                                 */         
+)CM                                                                  */         
+)CM   276727  H28W602 051705    DB: Use proper UID and GID           */         
+)CM   307776  H28W610 092305    DB: change WASUID to WASHUID         */         
+)CM   333384  H28W610 011206    DB: add fs type to BBOWBMPT call     */         
+)CM   348320  H28W610 061406    DB: use names instead of ids         */         

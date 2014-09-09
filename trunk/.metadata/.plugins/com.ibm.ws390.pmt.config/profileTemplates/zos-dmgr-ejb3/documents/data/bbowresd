@@ -1,0 +1,151 @@
+)CM
+)CM This is the response file for use with Profile.  (dmgr)
+)CM
+)CM ================================================================ */
+)CM                                                                  */
+)CM Change Activity:                                                 */
+)CM   223373  H28W510 081104 PDML: initial release.                  */
+)CM   224870  H28W510 081704 PDML: update profileName and profilePath*/
+)CM   xxxxxx  H28W510 092404 PDML: update profileName and profilePath*/
+)CM                                to use 'dmgr' instead of 'default'*/
+)CM   245054  H28W600 120204 DB  : add zWAS.SAFREG                   */
+)CM   245688  H28W600 120704 DB  : remove zWAS.CSQSMPEH              */
+)CM  250643.3 H28W601 012405 DB  : add DMHAHOST                      */
+)CM   252014  H28W601 012705 PDML: update JAVAHOME.                  */
+)CM   252039  H28W601 012705 DB  : change DMNWLM to DMNWLMD          */
+)CM   250643  H28W601 013105 DB  : set DMHAHOST to DMHAHOST          */
+)CM                                instead of DMNOHOST               */
+)CM   257634  H28W601 022505 DB  : replace zWAS.STEPLIB with         */
+)CM                                zWAS.STEP1 and zWAS.STEP2         */
+)CM  264190.2 H28W602 042705 DB  : remove DMHAHOST                   */
+)CM  289920   H28W610 071205 DB  : meaningful variable names         */
+)CM LIDB3561-19 H28W610 082405 PDML: IHS update.                     */
+)CM  300772   H28W610 082905 DB  : add admin.console.port and        */
+)CM                                admin.console.secure.port         */
+)CM  LIDB2634 H28W610 083005 PDML: Security out of box update.       */
+)CM  302376   H28W610 090105 DB  : change admin ports to refer to    */
+)CM                                DMgr versions                     */
+)CM  317958   H28W610 102705 PDML: change adminUser to adminUserName.*/
+)CM   320736  H28W610 110405 DB  : z.local.os.security=false for NS  */
+)CM  319766   H28W610 110705 DB  : remove HTTP transport ports for   */
+)CM                                Deployment Manager                */
+)CM  322918   H28W610 111205 DB  : modify port variable names        */
+)CM  326473   H28W610 112905 DB  : set unauth userid only for ZS     */
+)CM  335205   H28W610 011006 DB  : set z.keyring to DMKEYR           */
+)CM  320348   H28W610 011706 PDML: add enableZSecurity.              */
+)CM  342234   H28W610 012706 DB  : add z.daemon.listen.ip.name       */
+)CM  345008   H28W610 020606 DB  : add omitAction for optional items */
+)CM  320348.3 H28W610 020706 PDML: rename enableZSecurity to         */
+)CM                                useSAFSecurity.                   */
+)CM  347157   H28W610 021306 DB  : remove ports                      */
+)CM  326134   H28W610 022206 DB  : change values for encoding        */
+)CM   356332  H28W610 032006 DB  : add z.enable.daemon.ssl           */
+)CM  360832   H28W610 040606 DB  : add z.unauthenticated.userid=     */
+)CM  LIDB4584-17 H28W610 042607 PDOP: Set EJB3 templatePath          */
+)CM 445982.3  H28W610 061907 PDOP: Added featurePackInstallRoot      */
+)CM   638428  H28W610 032310 DB  : remove z.admin.password           */
+)CM                                                                  */
+)CM                                                                  */
+)CM Note: for DMGR, CBCONFIG is DMCONFIG.                            */
+)CM                                                                  */
+)CM ================================================================ */
+)CM
+create
+profileName=default
+profilePath=&DMWASH./profiles/default
+portsFile=&DMWASH./logs/wasprofile/_portdef.props
+templatePath=&DMWASH./profileTemplates/EJB3/dmgr.ejb3fep
+nodeName=&DMNONL.
+cellName=&DMCENL.
+hostName=&DMNOHOST.
+featurePackInstallRoot=${zEjb3SmpePath}
+)BLANK
+)SEL &OMITAPPS. = Y
+omitAction=&OMITLIST.
+)ENDSEL
+z.keyring=&DMKEYR.
+z.config.group=&CNFGGRP.
+z.ctrace.parms=&CTRPARMS.
+cell.name=&DMCENL.
+z.cell.short.name=&DMCENS.
+z.config.mount.point=&DMCONFIG.
+z.cluster.transition.name=&DMCTN.
+z.daemon.home=&DMNHOME2.
+z.daemon.instance.name=&DMNINSN2.
+z.daemon.ip.name=&DMNIPNA2.
+z.daemon.listen.ip.name=&DMNLIPN2.
+z.daemon.ip.port=&DMNIPPR2.
+z.daemon.job.name=&DMNJNAM2.
+z.daemon.name=&DMNNAME2.
+node.host.name=&DMNOHOST.
+node.name=&DMNONL.
+z.node.short.name=&DMNONS.
+z.daemon.proc=&DMNPRCC2.
+)SEL &DMNWLMD. = Y
+z.daemon.dns.option=true
+)ENDSEL
+)SEL &DMNWLMD. ^= Y
+z.daemon.dns.option=false
+)ENDSEL
+z.daemon.ssl.port=&DMNSLPR2.
+orb.listener.host=&DMOLHN.
+z.control.proc=&DMPRCC.
+z.servant.proc=&DMPRCS.
+serverName=&DMSSNL.
+z.server.short.name=&DMSSNS.
+http.transport.host=&DMVHHAHN.
+was.install.root=&DMWASH.
+)SEL &BBOLANG. ^= JAPN
+z.file.encoding=IBM-1047
+)ENDSEL
+)SEL &BBOLANG. = JAPN
+z.file.encoding=IBM-939
+)ENDSEL
+z.ras.logstream.name=&ERRLOG.
+java.install.root=&DMCONFIG./&DMDIRN./java
+z.smpe.home=&SMPEHOME.
+z.STEPLIB1=&BBOWSTP1.
+z.STEPLIB2=&BBOWSTP2.
+z.system.name=&SYSNAME.
+z.sysplex.name=&SYSPLEX.
+)SEL &BBOWST. = NS
+z.unauthenticated.userid=
+enableAdminSecurity=false
+useSAFSecurity=false
+z.local.os.security=false
+)ENDSEL
+)SEL &BBOWST. = FS
+z.unauthenticated.userid=
+enableAdminSecurity=true
+useSAFSecurity=false
+z.admin.userid=&WASADMU.
+adminUserName=&WASADMU.
+adminPassword=&WASPW.
+z.enable.trusted.apps=false
+z.saf.auth=false
+z.saf.delegation=false
+z.local.os.security=false
+)ENDSEL
+)SEL &BBOWST. = ZS
+z.unauthenticated.userid=&ALLUSRD.
+enableAdminSecurity=true
+useSAFSecurity=true
+z.security.domain.name=&DOMAINNM.
+z.admin.userid=&WASADMN.
+z.enable.trusted.apps=true
+z.saf.auth=true
+z.saf.delegation=true
+z.local.os.security=true
+)SEL &USEDOMN. = Y
+z.security.domain.type=cellQualified
+)ENDSEL
+)SEL &USEDOMN. ^= Y
+z.security.domain.type=none
+)ENDSEL
+)ENDSEL
+)SEL &DAESSL. = Y
+z.enable.daemon.ssl=true
+)ENDSEL
+)SEL &DAESSL. ^= Y
+z.enable.daemon.ssl=false
+)ENDSEL

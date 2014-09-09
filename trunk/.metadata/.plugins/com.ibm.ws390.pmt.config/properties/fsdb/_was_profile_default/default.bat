@@ -1,0 +1,1 @@
+set WAS_USER_SCRIPT=D:\workspace_ktnb2\ktnb_v2\.metadata\.plugins\com.ibm.ws390.pmt.config\profiles\default\bin\setupCmdLine.bat

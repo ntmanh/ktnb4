@@ -1,0 +1,37 @@
+)CM This job allocates the Config HFS, creates the mount point,                 
+//&MEMBER  JOB &BBOJCL1                                                         
+&BBOJCL2                                                                        
+&BBOJCL3                                                                        
+&BBOJCL4                                                                        
+//ALLOC   EXEC  PGM=IEFBR14                                                     
+//CHFS    DD    UNIT=SYSALLDA,DISP=(NEW,CATLG),                                 
+//        DSN=&CNFGHFS,                                                         
+)SEL &CNFGVOL ^= *                                                              
+//        VOL=SER=&CNFGVOL,                                                     
+)ENDSEL                                                                         
+//        DSNTYPE=HFS,SPACE=(CYL,(&CNFGPRI,&CNFGSEC,1))                         
+//MNTHFS  EXEC  PGM=IKJEFT1A,COND=(0,LT)                                        
+//* Build the mount point for the Config HFS                                    
+//SYSEXEC   DD DISP=SHR,DSN=&TRGHLQ..DATA                                       
+//SYSTSPRT  DD SYSOUT=*                                                         
+//SYSTSIN   DD *                                                                
+ BBOWBMPT  &CBCONFIG +                                                         
+ &CNFGHFS &WASHFSU &CNFGGRP HFS                                                                    
+/*                                                                              
+//                                                                              
+//* ================================================================ */         
+//* PROPRIETARY-STATEMENT:                                           */         
+//* Licensed Material - Property of IBM                              */         
+//*                                                                  */         
+//* 5724-I63, 5724-H88, 5655-N01, 5733-W61                           */         
+//* (C) Copyright IBM Corp. 1999, 2006                               */         
+//* All Rights Reserved                                              */         
+//* US Government Users Restricted Rights - Use, duplication or      */         
+//* disclosure restricted by GSA ADP Schedule Contract with IBM Corp.*/         
+//* ================================================================ */         
+//* File Tailored on &ZDATE at &ZTIMEL by &ZUSER                                
+)CM                                                                             
+)CM ================================================================ */         
+)CM  Change Activity:                                                */         
+)CM                                                                  */         
+)CM  243587.1  H28W610 012407   DB: call BBOWBMPT directly           */
