@@ -23,116 +23,107 @@
 			<html:file property="baoCaoKqDinhKem"  />
 		</div>
 	</logic:notPresent>
-		<fieldset><legend> Số liệu chuyển báo cáo </legend>
-		<div class="content1">
-			<div class="label" style="margin-right: 2px">Số đơn vị được thanh tra kiểm tra</div>
-			<html:text name="KetThucTtktForm" property="soDviDuocTtkt" styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-			<div class="note">(Đơn vị)</div>
-			<div class="label1">Số đơn vị sai phạm</div>
-			<html:text name="KetThucTtktForm" property="soDviSaiPham" styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-			<div class="note">(Đơn vị)</div>
-		</div>
-		<fieldset><legend> Sai phạm đã thu hồi và hoàn trả </legend>
-			<fieldset><legend> Tổng số tiền sai phạm đã thu hồi hoàn trả</legend>
-				<fieldset><legend> Công chức Thuế</legend>
-					<div class="content1">
-						<div class="label" style="width: 24%;margin-right: 1px;">Số tiền đã thu</div>
-						<html:text name="KetThucTtktForm" property="tienPhaiThuCongChucThue" styleClass="style2" onblur="isNumber(this, 'double')" onkeypress="return formatNumber(event, this)"></html:text>
-						<div class="note" style="margin-right: 14px;">(Nghìn đồng)</div>
-						<div class="label1">Số tiền đã hoàn trả</div>
-						<html:text name="KetThucTtktForm" property="tienHoanTraCongChucThue" styleClass="style2" onblur="isNumber(this, 'double')" onkeypress="return formatNumber(event, this)"></html:text>
-						<div class="note">(Nghìn đồng)</div>
-					</div>
-				</fieldset>
-				<fieldset><legend> Người nộp Thuế</legend>
-					<div class="content1">
-						<div class="label" style="width: 24%;margin-right: 1px;">Số tiền đã thu</div>
-						<html:text name="KetThucTtktForm" property="tienPhaiThuNguoiNopThue" styleClass="style2" onblur="isNumber(this, 'double')" onkeypress="return formatNumber(event, this)"></html:text>
-						<div class="note" style="margin-right: 14px;">(Nghìn đồng)</div>
-						<div class="label1">Số tiền đã hoàn trả</div>
-						<html:text name="KetThucTtktForm" property="tienHoanTraNguoiNopThue" styleClass="style2" onblur="isNumber(this, 'double')" onkeypress="return formatNumber(event, this)"></html:text>
-						<div class="note">(Nghìn đồng)</div>
-					</div>
-				</fieldset>
-			</fieldset>
-			<div class="content1">
-				<div class="label" style="width: 24%; margin-right: 3px;">Số tiền đã thu hồi và hoàn trả khác</div>
-				<html:text name="KetThucTtktForm" property="soTienThuHtraSpKhac" styleClass="style2" onblur="isNumber(this, 'double')" onkeypress="return formatNumber(event, this)"></html:text>
-			</div>
-		</fieldset>
-		<fieldset><legend> Cá nhân sai phạm đã xử lí </legend>
-			<fieldset><legend> Xử lí hành chính </legend>
-				<div class="content1">
-					<div class="label" style="width: 24%;">Kiểm điểm rút kinh nghiệm</div>
-					<html:text name="KetThucTtktForm" property="soKiemDiem" styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-					<div class="note">(Người)</div>
-					<div class="label1" style="width: 17%;">Giáng chức</div>
-					<html:text name="KetThucTtktForm" property="soGiangChuc"styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-					<div class="note">(Người)</div>
-				</div>
-				<div class="content1">
-					<div class="label" style="width: 24%;">Khiển trách</div>
-					<html:text name="KetThucTtktForm" property="soKhienTrach" styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-					<div class="note">(Người)</div>
-					<div class="label1" style="width: 17%;">Cách chức</div>
-					<html:text name="KetThucTtktForm" property="soCachChuc"styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-					<div class="note">(Người)</div>
-				</div>
-				<div class="content1">
-					<div class="label" style="width: 24%;">Cảnh cáo</div>
-					<html:text name="KetThucTtktForm" property="soCanhCao" styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-					<div class="note">(Người)</div>
-					<div class="label1" style="width: 17%;">Buộc thôi việc</div>
-					<html:text name="KetThucTtktForm" property="soThoiViec"styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-					<div class="note">(Người)</div>
-				</div>
-				<div class="content1">
-					<div class="label" style="width: 24%;">Hạ bậc lương</div>
-					<html:text name="KetThucTtktForm" property="soHaBacLuong" styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-					<div class="note">(Người)</div>
-					<div class="label1" style="width: 17%;">Khác</div>
-					<html:text name="KetThucTtktForm" property="soKhac" styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-					<div class="note">(Người)</div>
-				</div>				
-			</fieldset>
-			<div class="content1">
-				<div class="label" style="width: 24%; margin-right:1px; ">Xử lí hình sự (có án)</div>
-				<html:text name="KetThucTtktForm" property="soXlhsCoAn" styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-				<div class="note">(Người)</div>
-			</div>				
-		<fieldset><legend> Sai phạm khác đã xử lí</legend>
-			<div class="content1">
-				<div class="label" style="width: 24%;">Sửa đổi bổ sung văn bản pháp quy</div>
-				<html:text name="KetThucTtktForm" property="soSdbsVbpq" styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-				<div class="note">(Số lượng)</div>
-			</div>
-			<div class="content1">
-				<div class="label" style="width: 24%;">Sửa đổi bổ sung quy trình quy chế</div>
-				<html:text name="KetThucTtktForm" property="soSdbsQtqc" styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-				<div class="note">(Số lượng)</div>
-			</div>		
-			<fieldset><legend> Thanh tra kiểm tra lại về Thuế</legend>
-				<div class="content1">
-					<div class="label" style="width:24%;">Số lượng</div>
-					<html:text name="KetThucTtktForm" property="soTtktThue" styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-					<div class="note">(Số lượng)</div>
-				</div>   
-				<div class="content1">
-					<div class="label" style="width:24%;">Số tiền đã thu</div>
-					<html:text name="KetThucTtktForm" property="tienPhaiThuTtktThue" styleClass="style2" onblur="isNumber(this, 'double')" onkeypress="return formatNumber(event, this)"></html:text>
-					<div class="note">(Nghìn đồng)</div>
-					<div class="label1" style="width:17%;">Số tiền đã hoàn trả</div>
-					<html:text name="KetThucTtktForm" property="tienHoanTraTtktThue" styleClass="style2" onblur="isNumber(this, 'double')" onkeypress="return formatNumber(event, this)"></html:text>
-					<div class="note">(Nghìn đồng)</div>
-				</div>   
-			</fieldset>
-			<div class="content1">
-					<div class="label" style="width:24%;">Kiến nghị khác</div>
-					<html:text name="KetThucTtktForm" property="kienNghiKhac" styleClass="style2" onkeypress="return formatNumber(event, this)"></html:text>
-					<div class="note">(Số lượng)</div>
-				</div>
-		</fieldset>
-	</fieldset>
+		<table style="width:100%;">
+			<tr>
+				<td colspan="6" style="background-color:#CCC"><b>Số liệu chuyển báo cáo</b></td>             
+			</tr>
+			<tr>
+				<td width="20%" style="text-align: right;">Số đơn vị được thanh tra kiểm tra</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soDviDuocTtkt" styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Đơn vị)</td>
+				<td width="20%" style="text-align: right;">Số đơn vị sai phạm</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soDviSaiPham" styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Đơn vị)</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background-color:#CCC"><b>Sai phạm đã thu hồi và hoàn trả</b></td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background-color:#DDD"><b>Tổng số tiền sai phạm đã thu hồi hoàn trả</b></td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background-color:#DDD"><b>Công chức Thuế</b></td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align: right;">Số tiền đã thu</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="tienPhaiThuCongChucThue" styleClass="text" style="width:70%" onblur="isNumber(this, 'double')" onkeypress="return formatNumber(event, this)"></html:text>(Nghìn đồng)</td>
+				<td width="20%" style="text-align: right;">Số tiền đã hoàn trả</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="tienHoanTraCongChucThue" styleClass="text" style="width:70%" onblur="isNumber(this, 'double')" onkeypress="return formatNumber(event, this)"></html:text>(Nghìn đồng)</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background-color:#DDD"><b>Người nộp Thuế</b></td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align: right;">Số tiền đã thu</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="tienPhaiThuNguoiNopThue" styleClass="text" style="width:70%" onblur="isNumber(this, 'double')" onkeypress="return formatNumber(event, this)"></html:text>(Nghìn đồng)</td>
+				<td width="20%" style="text-align: right;">Số tiền đã hoàn trả</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="tienHoanTraNguoiNopThue" styleClass="text" style="width:70%" onblur="isNumber(this, 'double')" onkeypress="return formatNumber(event, this)"></html:text>(Nghìn đồng)</td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align: right;">Số tiền đã thu hồi và hoàn trả khác</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soTienThuHtraSpKhac" styleClass="text" style="width:70%" onblur="isNumber(this, 'double')" onkeypress="return formatNumber(event, this)"></html:text></td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background-color:#CCC"><b>Cá nhân sai phạm đã xử lí</b></td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background-color:#DDD"><b>Xử lí hành chính</b></td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align: right;">Kiểm điểm rút kinh nghiệm</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soKiemDiem" styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Người)</td>
+				<td width="20%" style="text-align: right;">Giáng chức</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soGiangChuc"styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Người)</td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align: right;">Khiển trách</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soKhienTrach" styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Người)</td>
+				<td width="20%" style="text-align: right;">Cách chức</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soCachChuc"styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Người)</td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align: right;">Cảnh cáo</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soCanhCao" styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Người)</td>
+				<td width="20%" style="text-align: right;">Buộc thôi việc</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soThoiViec"styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Người)</td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align: right;">Hạ bậc lương</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soHaBacLuong" styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Người)</td>
+				<td width="20%" style="text-align: right;">Khác</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soKhac" styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Người)</td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align: right;">Xử lí hình sự (có án)</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soXlhsCoAn" styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Người)</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background-color:#DDD"><b>Sai phạm khác đã xử lí</b></td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align: right;">Sửa đổi bổ sung văn bản pháp quy</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soSdbsVbpq" styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Số lượng)</td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align: right;">Sửa đổi bổ sung quy trình quy chế</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soSdbsQtqc" styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Số lượng)</td>
+			</tr>
+			<tr>
+				<td colspan="6" style="background-color:#DDD"><b>Thanh tra kiểm tra lại về Thuế</b></td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align: right;">Số lượng</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="soTtktThue" styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Số lượng)</td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align: right;">Số tiền đã thu</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="tienPhaiThuTtktThue" styleClass="text" style="width:70%" onblur="isNumber(this, 'double')" onkeypress="return formatNumber(event, this)"></html:text>(Nghìn đồng)</td>
+				<td width="20%" style="text-align: right;">Số tiền đã hoàn trả</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="tienHoanTraTtktThue" styleClass="text" style="width:70%" onblur="isNumber(this, 'double')" onkeypress="return formatNumber(event, this)"></html:text>(Nghìn đồng)</td>
+			</tr>
+			<tr>
+				<td width="20%" style="text-align: right;">Kiến nghị khác</td>
+				<td width="30%"><html:text name="KetThucTtktForm" property="kienNghiKhac" styleClass="text" style="width:70%" onkeypress="return formatNumber(event, this)"></html:text>(Số lượng)</td>
+			</tr>
+		</table>
 	<html:hidden property="idKqThucHienKl" />
 </html:form>
 <!--end-->
