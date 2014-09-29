@@ -26,6 +26,9 @@ public class TtktCbDeCuong extends PersistentObject implements java.io.Serializa
 	private Collection baoCaoPhaiCbiCungCap;
 	private Collection hstlPhaiCbiCungCap;
 	
+	private String baoCao;
+	private String taiLieu;
+	
 	// Static fields
 	public static final String IdCuocTtkt = "idCuocTtkt";
 	public static final String IdDsTvd = "idDsTvd";
@@ -236,6 +239,22 @@ public class TtktCbDeCuong extends PersistentObject implements java.io.Serializa
 
 	public void setTenNguoiCapNhat(String tenNguoiCapNhat) {
 		this.tenNguoiCapNhat = tenNguoiCapNhat;
+	}
+
+	public String getBaoCao() {
+		return baoCao;
+	}
+
+	public void setBaoCao(String baoCao) {
+		this.baoCao = baoCao;
+	}
+
+	public String getTaiLieu() {
+		return taiLieu;
+	}
+
+	public void setTaiLieu(String taiLieu) {
+		this.taiLieu = taiLieu;
 	}
 
 }
