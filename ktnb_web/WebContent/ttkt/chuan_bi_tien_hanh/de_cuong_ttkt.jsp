@@ -14,96 +14,14 @@
 			<td align="left" width="30%"><html:text styleClass="text" property="ngayLapDeCuong" onblur="if(!isDate(this)) return; validateNgayLapDeCuong()" onkeypress="return formatDate(event, this)"></html:text></td>
 		</tr>
 		<tr>
-			<td align="center" width="100%" colspan="6">
-			<fieldset style="width: 100%; margin: 0"><legend>Báo cáo phải chuẩn bị và cung cấp </legend>
-			<DIV style="overflow: scroll; width: 740; height: 150">
-			<TABLE width="1000" id="tblBaoCao">
-				<tr class="TdHeaderList">
-					<td>Tên <font color=red>*</font></td>
-					<td>Nội dung</td>
-					<td>Thời kỳ</td>
-					<td>Hình thức</td>
-					<td>Thời gian bàn giao <font color=red>*</font></td>
-					<td>Địa điểm nhận <font color=red>*</font></td>
-					<td>Người nhận <font color=red>*</font></td>
-					<td align="center"><INPUT type="checkbox" onclick="selectAllBaoCao(this)"></td>
-				</tr>
-				<logic:present name="ChuanBiTienHanhForm" property="dsBaoCao">
-					<logic:iterate name="ChuanBiTienHanhForm" property="dsBaoCao" indexId="index" id="baoCao">
-						<tr class='row<%=(index.intValue() % 2)+1 %>'>
-							<td><html:hidden name="ChuanBiTienHanhForm" property='<%="dsBaoCao[" + index + "].id"%>' /> <html:text styleClass="text1" styleId='<%="ten"+index%>' name="ChuanBiTienHanhForm" property='<%="dsBaoCao[" + index + "].ten"%>' onclick="showContents(event);">
-							</html:text></td>
-							<td><html:text styleClass="text1" styleId='<%="noiDung"+index%>' name="ChuanBiTienHanhForm" property='<%="dsBaoCao[" + index + "].noiDung"%>' onkeydown="showContents(event);" onchange="showContents(event);" onclick="showContents(event);">
-							</html:text></td>
-							<td><html:text styleClass="text1" style="width: 65" onkeypress="return formatDate(event, this)" onblur="isDate(this)" name="ChuanBiTienHanhForm" property='<%="dsBaoCao[" + index + "].strThoiKyTu"%>'>
-							</html:text> - <html:text style="width: 65" styleClass="text1" onkeypress="return formatDate(event, this)" onblur="isDate(this)" name="ChuanBiTienHanhForm" property='<%="dsBaoCao[" + index + "].strThoiKyDen"%>'>
-							</html:text></td>
-							<td><html:text styleClass="text1" name="ChuanBiTienHanhForm" property='<%="dsBaoCao[" + index + "].hinhThuc"%>'>
-							</html:text></td>
-							<td><html:text styleClass="text1" onkeypress="return formatDate(event, this)" onblur="isDate(this)" name="ChuanBiTienHanhForm" property='<%="dsBaoCao[" + index + "].strThoiGianBanGiao"%>'>
-							</html:text></td>
-							<td><html:hidden name="ChuanBiTienHanhForm" property='<%="dsBaoCao[" + index + "].diaDiemNhanId"%>' /> <html:text name="ChuanBiTienHanhForm" styleClass="text1" property='<%="dsBaoCao[" + index + "].diaDiemNhanName"%>'>
-							</html:text></td>
-							<td>
-								<html:select name="ChuanBiTienHanhForm" property='<%="dsBaoCao[" + index + "].nguoiNhanId"%>' onchange="getTen(this)" styleClass="decuong" >
-									<html:options collection="dsTvdLapDeCuong" property="idCanBo" labelProperty="tenCanBo" />
-								</html:select> 
-								<html:hidden name="ChuanBiTienHanhForm" property='<%="dsBaoCao[" + index + "].nguoiNhanName"%>' />
-							</td>
-							<td align="center"><INPUT type="checkbox" onclick="selectBaoCao(this)"></td>
-						</tr>
-					</logic:iterate>
-				</logic:present>
-			</TABLE>
-			</DIV>
-			<DIV style="width: 100%; text-align: right;" align="right"><INPUT type="button" onclick="themBaoCao()" value="Thêm"> <INPUT type="button" onclick="xoaBaoCao()" value="Xóa" id="xoaTblBaoCao"></DIV>
-			</fieldset>
-			</td>
+			<td align="right" width="19%">Báo cáo phải chuẩn bị cung cấp <font color=red>*</font></td>
+			<td style="width: 1%; min-width: 5px"></td>
+			<td colspan="4"><html:textarea property="bcPhaiCbiCungCap" onkeypress="imposeMaxLength(this);"  styleClass="textareaTitle"></html:textarea></td>
 		</tr>
 		<tr>
-			<td align="center" width="100%" colspan="6">
-			<fieldset style="width: 100%; margin: 0"><legend>Hồ sơ tài liệu phải chuẩn bị và cung cấp </legend>
-			<TABLE width="100%" id="tblHsTl">
-				<tr class="TdHeaderList">
-					<th>Tên <font color=red>*</font></th>
-					<th>Thời gian bàn giao <font color=red>*</font></th>
-					<th>Địa điểm nhận <font color=red>*</font></th>
-					<th>Người nhận <font color=red>*</font></th>
-					<TH align="center"><INPUT type="checkbox" onclick="selectAllHsTl(this)"></TH>
-				</tr>
-				<logic:present name="ChuanBiTienHanhForm" property="dsHoSoTl">
-				<logic:iterate name="ChuanBiTienHanhForm" property="dsHoSoTl" indexId="index" id="hoSoTl">
-					<tr class='row<%=(index.intValue() % 2)+1 %>'>
-						<td width="100px;">
-						<div style="width: 100px;overflow:hidden;">
-							<html:hidden name="ChuanBiTienHanhForm" property='<%="dsHoSoTl[" + index + "].id"%>' /> 
-							<html:text styleClass="text1" styleId='<%="dsHoSoTl_ten_"+index%>' name="ChuanBiTienHanhForm" property='<%="dsHoSoTl[" + index + "].ten"%>' onclick="showContents(event);">
-							</html:text>
-						</div>
-						</td>
-						<td>
-						<html:text styleClass="text1" onkeypress="return formatDate(event, this)" onblur="isDate(this)" name="ChuanBiTienHanhForm" property='<%="dsHoSoTl[" + index + "].strThoiGianBanGiao"%>'>
-						</html:text>
-						</td>
-						<td>
-						<html:hidden name="ChuanBiTienHanhForm" property='<%="dsHoSoTl[" + index + "].diaDiemNhanId"%>' /> 
-						<html:text styleClass="text1" name="ChuanBiTienHanhForm" property='<%="dsHoSoTl[" + index + "].diaDiemNhanName"%>'>
-						</html:text>
-						</td>
-						<td>
-							<html:select name="ChuanBiTienHanhForm" property='<%="dsHoSoTl[" + index + "].nguoiNhanId"%>' onchange="getTen(this)" styleClass="decuong">
-								<html:options collection="dsTvdLapDeCuong" property="idCanBo" labelProperty="tenCanBo" />
-							</html:select>
-							 <html:hidden name="ChuanBiTienHanhForm" property='<%="dsHoSoTl[" + index + "].nguoiNhanName"%>' />
-						</td>
-						<td align="center"><INPUT type="checkbox" onclick="selectHsTl(this)"></td>
-					</tr>
-				</logic:iterate>
-				</logic:present>
-			</TABLE>
-			<DIV style="width: 100%; text-align: right;" align="right"><INPUT type="button" onclick="themHoSoTl()" value="Thêm"> <INPUT type="button" onclick="xoaHoSoTl()" value="Xóa" id="xoaTblHsTl"></DIV>
-			</fieldset>
-			</td>
+			<td align="right" width="19%">Hồ sơ tài liệu phải chuẩn bị và cung cấp <font color=red>*</font></td>
+			<td style="width: 1%; min-width: 5px"></td>
+			<td colspan="4"><html:textarea property="hsPhaiCbiCungCap" onkeypress="imposeMaxLength(this);"  styleClass="textareaTitle"></html:textarea></td>
 		</tr>
 		<!--Nhung van de khac-->
 		<tr>			
@@ -357,18 +275,15 @@
 			return false;
 		if(!isRequired(document.getElementsByName('ngayLapDeCuong')[0]))
 			return false;
+		if(!isRequired(document.getElementsByName('bcPhaiCbiCungCap')[0]))
+			return false;
+		if(!isRequired(document.getElementsByName('hsPhaiCbiCungCap')[0]))
+			return false;
 		if(!compareDate(document.getElementsByName('ngayRaQuyetDnh')[0], document.getElementsByName('ngayLapDeCuong')[0], 'Ngày đề cương phải lớn hơn hoặc bằng ngày ra quyết định!')){
 			document.getElementsByName('ngayLapDeCuong')[0].focus();
 			return false;
 		}
-		if(bangBaoCao.numOfRow <=1 && bangHsTl.numOfRow <=1){
-			alert('Bạn phải nhập báo cáo hoặc hồ sơ tài liệu cần chuẩn bị và cung cấp!');
-			return false;
-		}
-		if(!validateGridBaoCao())
-			return false;
-		if(!validateGridHsTl()) 
-			return false;
+		
 		return true;
 	}
 	function validateDeCuong(){
