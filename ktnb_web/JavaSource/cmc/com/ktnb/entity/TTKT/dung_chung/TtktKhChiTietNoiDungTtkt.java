@@ -14,6 +14,7 @@ public class TtktKhChiTietNoiDungTtkt extends PersistentObject implements java.i
 	private String idNoiDungTtkt;
 	private String idNoiDungChiTiet;
 	private String tenNoiDungChiTiet;
+	private String maNoiDungChiTiet;
 
 	// Static field
 	public static String Id = "id";
@@ -28,11 +29,12 @@ public class TtktKhChiTietNoiDungTtkt extends PersistentObject implements java.i
 	}
 
 	/** full constructor */
-	public TtktKhChiTietNoiDungTtkt(String id, String idNoiDungTtkt, String idNoiDungChiTiet, String tenNoiDungChiTiet) {
+	public TtktKhChiTietNoiDungTtkt(String id, String idNoiDungTtkt, String idNoiDungChiTiet, String tenNoiDungChiTiet, String maNoiDungChiTiet) {
 		this.id = id;
 		this.idNoiDungTtkt = idNoiDungTtkt;
 		this.idNoiDungChiTiet = idNoiDungChiTiet;
 		this.tenNoiDungChiTiet = tenNoiDungChiTiet;
+		this.maNoiDungChiTiet= maNoiDungChiTiet;
 	}
 
 	// Property accessors
@@ -69,4 +71,12 @@ public class TtktKhChiTietNoiDungTtkt extends PersistentObject implements java.i
 		this.tenNoiDungChiTiet = tenNoiDungChiTiet;
 	}
 
+	public String getMaNoiDungChiTiet() {
+		return maNoiDungChiTiet;
+	}
+
+	public void setMaNoiDungChiTiet(String maNoiDungChiTiet) {
+		this.maNoiDungChiTiet = maNoiDungChiTiet;
+	}
+	
 }

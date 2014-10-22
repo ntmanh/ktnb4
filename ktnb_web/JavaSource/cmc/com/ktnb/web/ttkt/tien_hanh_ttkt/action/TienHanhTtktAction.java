@@ -960,6 +960,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		TtktThBbChitietvatonghop bbTongHop = TtktService.getBbTongHop(appContext, cuocTtktId, Constants.TTKT_BB_TH);
 		if (bbTongHop != null) {
 			tienHanhTtktForm.setIdBbTongHop(bbTongHop.getId());
+			tienHanhTtktForm.setTenFile(bbTongHop.getTenFile());
 		}
 	}
 	private void inMau16(HttpServletRequest request, ApplicationContext appContext, TienHanhTtktForm tienHanhTtktForm, HttpServletResponse response, MsWordUtils word, String fileIn, String fileOut,int type)

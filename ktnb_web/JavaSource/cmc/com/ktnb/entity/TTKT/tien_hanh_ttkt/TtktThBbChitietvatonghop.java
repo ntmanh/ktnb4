@@ -32,6 +32,7 @@ public class TtktThBbChitietvatonghop extends PersistentObject implements java.i
 	private FormFile fileDinhKem;
 	private Date ngayPhanCongCuaTd;
 	private String loaiBb;
+	private String tenFile;
 	// Static fields
 	public static final String IdCuocTtkt = "idCuocTtkt";
 	public static final String LoaiBb = "loaiBb";
@@ -526,6 +527,14 @@ public class TtktThBbChitietvatonghop extends PersistentObject implements java.i
 
 	public void setSoTienDaThuHauKiem(String soTienDaThuHauKiem) {
 		this.soTienDaThuHauKiem = soTienDaThuHauKiem;
+	}
+
+	public String getTenFile() {
+		return tenFile;
+	}
+
+	public void setTenFile(String tenFile) {
+		this.tenFile = tenFile;
 	}
 	
 }

@@ -17,11 +17,11 @@
 	tra</a></li> --> 
 	<li><a href="#tabNhatKyTtkt">Nhật ký đoàn kiểm tra</a></li>
 	<li><a href="#tabBbChiTiet">Biên bản chi tiết</a></li>
-	<li><a href="#tabBanGiaoHstlChoTd">Bàn giao HSTL cho trưởng đoàn</a></li>
+	<li><a href="#tabBanGiaoHstlChoTd">Bàn giao HSTL cho trưởng đoàn</a></li>     
 	<li><a href="#level2Tab">Biên bản tổng hợp</a></li>       
 </ul>      
 <DIV id="tabCBQD">
-<div style="width: 100%;"><%@ include file="/ttkt/tien_hanh_ttkt/cong_bo_quyet_dinh.jsp"%></div>
+<div style="width: 100%;"><%@ include file="/ttkt/tien_hanh_ttkt/cong_bo_quyet_dinh.jsp"%></div>   
 </DIV>   
 <DIV id="tabNhatKyTtkt">   
 <fieldset style="width: 99%"><%@ include file="/ttkt/tien_hanh_ttkt/nhat_ky.jsp"%></fieldset>
