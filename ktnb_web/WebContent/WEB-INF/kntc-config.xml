@@ -15,6 +15,22 @@
 		<form-bean name="tachDonForm" type="cmc.com.ktnb.web.kntc.tiep_dan.TachDonForm"></form-bean>
 		<form-bean name="xmBaoCaoForm" type="cmc.com.ktnb.web.kntc.xac_minh.tien_hanh.BaoCaoForm"></form-bean>
 		<form-bean name="xmGiahanForm" type="cmc.com.ktnb.web.kntc.xac_minh.tien_hanh.GiaHanXmForm"></form-bean>
+		
+		
+		
+		
+
+		<form-bean name="BienBanDoiThoaiForm" type="cmc.com.ktnb.web.kntc.xac_minh.tien_hanh.BienBanDoiThoaiForm"></form-bean>
+		<form-bean name="QuyetDinhDinhChiKNForm" type="cmc.com.ktnb.web.kntc.xac_minh.QuyetDinhDinhChiKNForm"></form-bean>
+		<form-bean name="QDTamDinhChiThiHanhKNForm" type="cmc.com.ktnb.web.kntc.xac_minh.QDTamDinhChiThiHanhKNForm"></form-bean>
+		<form-bean name="XlyPhuToCaoForm" type="cmc.com.ktnb.web.kntc.xu_ly.XlyPhuToCaoForm"></form-bean>
+		
+		
+		
+		
+		
+		
+		
 		<form-bean name="SoTiepDanVanThuForm" type="cmc.com.ktnb.web.kntc.tiep_dan.SoTiepDanVanThuForm"></form-bean>
 		<form-bean name="xmKetQuaForm" type="cmc.com.ktnb.web.kntc.ket_qua.KetQuaXmForm"></form-bean>
 		<form-bean name="xmTcKetQuaForm" type="cmc.com.ktnb.web.kntc.ket_qua.KetQuaXmTcForm"></form-bean>
@@ -28,6 +44,19 @@
 		<form-bean name="thongBaoKQGQToCaoForm" type="cmc.com.ktnb.web.kntc.xu_ly.ThongBaoKQGQToCaoForm"></form-bean>
 		<form-bean name="baoCaoKqXmForm" type="cmc.com.ktnb.web.kntc.xac_minh.BaoCaoKqXmForm"></form-bean>
 		<form-bean name="baoCaoKqThucHienForm" type="cmc.com.ktnb.web.kntc.ket_qua.BaoCaoKetQuaThucHienForm"></form-bean>
+		
+		
+		
+		
+		
+		<form-bean name="TestForm" type="cmc.com.ktnb.web.kntc.TestForm"></form-bean>
+		<form-bean name="TestPhieuHenForm" type="test.action.TestPhieuHenForm"></form-bean>
+		
+		
+		
+		
+		
+		
 	</form-beans>
 	<action-mappings>
 		<action name="tiepDanForm" path="/kntc_tiep_dan" type="cmc.com.ktnb.web.kntc.tiep_dan.SoTiepDanAction" parameter="method" scope="request">
@@ -117,6 +146,39 @@
 		<action name="xmGiahanForm" path="/kntc_xm_gia_han" type="cmc.com.ktnb.web.kntc.xac_minh.XacMinhHoSo" parameter="method" scope="request">
 			<forward name="giahan" path="kntc/xldkn/xac_minh/tien_hanh/gia_han_xac_minh.jsp" />
 		</action>
+		
+		
+		
+		
+		
+		
+		<action name="BienBanDoiThoaiForm" path="/kntc_xm_bb_doi_thoai" type="cmc.com.ktnb.web.kntc.xac_minh.tien_hanh.BienBanDoiThoaiAction" parameter="method" scope="request">
+			<forward name="success" path="/kntc/xldkn/xac_minh/tien_hanh/bien_ban_doi_thoai.jsp" />
+		</action>
+		<action name="QuyetDinhDinhChiKNForm" path="/kntc_qd_dinh_chi_kn" type="cmc.com.ktnb.web.kntc.xac_minh.QuyetDinhDinhChiKNAction" parameter="method" scope="request">
+			<forward name="success" path="/kntc/xldkn/xac_minh/quyet_dinh_dinh_chi_kn.jsp" />
+		</action>
+		<action name="QDTamDinhChiThiHanhKNForm" path="/kntc_qd_tam_dinh_chi_thi_hanh" type="cmc.com.ktnb.web.kntc.xac_minh.QDTamDinhChiThiHanhKNAction" parameter="method" scope="request">
+			<forward name="success" path="/kntc/xldkn/xac_minh/quyet_dinh_tam_dinh_chi_thi_hanh_kn.jsp" />
+			<forward name="tam" path="/kntc/xldkn/xac_minh/quyet_dinh_tam_dinh_chi_thi_hanh_kn.jsp" />
+			<forward name="huytam" path="/kntc/xldkn/xac_minh/quyet_dinh_huy_tam_dinh_chi_thi_hanh_kn.jsp" />
+		</action>
+		<action name="XlyPhuToCaoForm" path="/kntc_dxxltc" type="cmc.com.ktnb.web.kntc.xu_ly.XlyPhuToCaoAction" parameter="method" scope="request">
+			<forward name="success" path="/kntc/xldtc/bien_ban_noi_dung_tc_tt.jsp" />
+			<forward name="bbNoiDung" path="/kntc/xldtc/bien_ban_noi_dung_tc_tt.jsp" />
+			<forward name="tbKoGquyetTiep" path="/kntc/xldtc/thong_bao_khong_tly_gquyet_tiep.jsp" />
+			<forward name="tbKoThuLyGq" path="/kntc/xldtc/thong_bao_khong_tly_gquyet.jsp" />
+			<forward name="giaoNhiemVu" path="/kntc/xldtc/giao_nv_xac_minh_to_cao.jsp" />
+			
+		</action>
+		
+		
+		
+		
+		
+		
+		
+		
 		<action name="xmKetQuaForm" path="/kntc_kq_xm" type="cmc.com.ktnb.web.kntc.ket_qua.BaoCaoKetQuaXacMinh" parameter="method" scope="request">
 			<forward name="baocao" path="kntc/xldkn/xac_minh/tien_hanh/bao_cao_kq_gqkn.jsp" />
 			<forward name="qdgq" path="kntc/xldkn/xac_minh/tien_hanh/quyet_dinh_gq_kn.jsp" />
@@ -156,6 +218,21 @@
 		<action name="troGiupForm" path="/kntc_tg" type="cmc.com.ktnb.web.kntc.TroGiupAction" parameter="method" scope="request">
 			<forward name="lopDt" path="kntc/tro_giup/tg_lop_dao_tao.jsp" />
 		</action>
+		
+		
+		
+		
+		
+		
+		<action name="TestForm" path="/kntc_test" type="cmc.com.ktnb.web.kntc.TestAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/std/test_phieu_hen.jsp" />
+		</action>
+		<action name="TestPhieuHenForm" path="/kntc_test_phieu_hen" type="test.action.TestPhieuHenAction" parameter="method" scope="request">
+			<forward name="success" path="test/test_phieu_hen_2.jsp" />
+		</action>
+		
+		
+		
 		<action name="reportForm" path="/kntc_rp" type="cmc.com.ktnb.web.kntc.bao_cao.BaocaoAction" parameter="method" scope="request">
 			<forward name="bc28" path="report/kntc_28.jsp" />
 			<forward name="bcKn" path="report/kntc_29.jsp" />
