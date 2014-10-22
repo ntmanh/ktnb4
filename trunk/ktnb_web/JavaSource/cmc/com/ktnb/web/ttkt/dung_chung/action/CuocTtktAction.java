@@ -340,10 +340,10 @@ public class CuocTtktAction extends TimKiemAction {
 				if (!Formater.isNull(dsChiTiet)) {
 					String chiTietNoiDung = "";
 					Iterator iterator = dsChiTiet.iterator();
-					while (iterator.hasNext()) {
-						chiTietNoiDung= ((TtktKhChiTietNoiDungTtkt) iterator.next()).getMaNoiDungChiTiet();
-						break;
-					}
+					/**
+					 * Doan nay thay the code cu, chi can lay maNoiDungChiTiet tai index 0
+					 * */
+					chiTietNoiDung= ((TtktKhChiTietNoiDungTtkt)CollectionUtils.get(dsChiTiet, 0)).getMaNoiDungChiTiet().toString();
 					noiDung.setChiTietNoiDung(chiTietNoiDung.substring(0, chiTietNoiDung.length() - 1));
 				}
 				dsNoiDungTtktCqtTrucThuoc.add(noiDung);
