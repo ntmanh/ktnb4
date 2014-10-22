@@ -30,6 +30,7 @@ public class TienHanhTtktForm extends BaseActionForm {
 	private String idDonViTienHanh;	
 	private String baoCao;
 	private String hoSoTaiLieu;
+	private String tenFile;
 	
 	
 	
@@ -488,6 +489,14 @@ public class TienHanhTtktForm extends BaseActionForm {
 
 	public void setMaCuocTtkt(String maCuocTtkt) {
 		this.maCuocTtkt = maCuocTtkt;
+	}
+
+	public String getTenFile() {
+		return tenFile;
+	}
+
+	public void setTenFile(String tenFile) {
+		this.tenFile = tenFile;
 	}
 	
 

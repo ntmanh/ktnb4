@@ -5,6 +5,8 @@
 <html:form action="tien_hanh_ttkt.do?method=save&type=bienBanTongHop" method="POST" enctype="multipart/form-data">
 	<div id="saveBbTongHopKqResult" style="display: none;"></div>
 	<html:hidden name="TienHanhTtktForm" property="idBbTongHop" />
+	<html:hidden name="TienHanhTtktForm" property="tenFile" />
+
 	<TABLE width="100%" align="center">
 		<logic:notPresent name="readOnly">
 			<tr>
@@ -74,8 +76,11 @@ function chamThongQuaBbTongHop(){
 window.open('cham_thong_qua.do?idCuocTtkt=' + document.getElementsByName('idCuocTtkt')[0].value+'&type=chamthongqua');
 }
 function validateBbTongHop(){
-	if(!isRequired(document.getElementsByName('fileDinhKemBbTongHop')[0]))
+	if(document.getElementsByName('tenFile')[0]==null)
+	{
+		if(!isRequired(document.getElementsByName('fileDinhKemBbTongHop')[0]))
 			return false;
+	}
 	return true;
 }
 function downLoadBieuMau2(){

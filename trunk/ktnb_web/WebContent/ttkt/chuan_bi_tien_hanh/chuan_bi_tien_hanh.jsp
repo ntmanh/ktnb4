@@ -19,7 +19,7 @@
 <ul>
 	<li><a href="#tabBCKS"><b>Báo cáo khảo sát</b></a></li>
 	<li><a href="#tabTVDoan"><b>Thành viên đoàn</b></a></li>
-	<li><a href="#tabQuyetDinh"><b>Quyết định</b></a></li>
+	<li><a href="#tabQuyetDinh"><b>Quyết định</b></a></li>           
 	<li><a href="#tabKH"><b>Kế hoạch</b></a></li>
 	<li><a href="#tabDeCuong"><b>Đề cương</b></a></li>    
 	<li><a href="#tabHopDoanTrienKhai"><b>Họp đoàn triển khai</b></a></li>   
@@ -198,7 +198,7 @@ function saveActiveTab(){
 		url = 'chuan_bi_tien_hanh.do?method=save&type=kh';  
 	}else if(activeTab == 4){  
 		saveResultDivName = "getReturnDc";		
-		if(!validateDeCuong())           
+		if(!validateDeCuong())                
 			return;  
 		url = 'chuan_bi_tien_hanh.do?method=save&type=dc';   
 	}else if(activeTab == 5){         

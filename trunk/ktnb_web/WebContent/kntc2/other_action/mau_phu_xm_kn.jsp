@@ -17,6 +17,16 @@
 			<td><a href="#" onclick="openBm2('kntc_xm_phieu_yc.do?method=show&action=phieuYcHsTlKN&id=');">Phiếu yêu cầu cung cấp báo cáo hồ sơ, tài liệu - Mẫu 13/KNTC</a></td>
 			<td><a href="#" onclick="openBm2('kntc_xm_gia_han.do?method=giahan&action=giahanKN&id=');">Quyết định gia hạn thời gian xác minh - Mẫu 16/KNTC</a></td>
 		</tr>
+		
+		<tr>
+			<td><a href="#" onclick="openBm2('kntc_xm_bb_doi_thoai.do?method=show&action=view&id=');">Biên bản đối thoại</a></td>
+			<td><a href="#" onclick="openBm2('kntc_qd_dinh_chi_kn.do?method=show&action=view&id=');">Quyết định đình chỉ khiếu nại</td>
+		</tr>
+		
+		<tr>
+			<td><a href="#" onclick="openBm2('kntc_qd_tam_dinh_chi_thi_hanh.do?method=show&action=view&type=tam&id=');">Quyết định tạm đình chỉ thi hành quyết định hành chính bị khiếu nại</a></td>
+			<td><a href="#" onclick="openBm2('kntc_qd_tam_dinh_chi_thi_hanh.do?method=show&action=view&type=huytam&id=');">Quyết định hủy bỏ quyết định tạm đình chỉ thi hành quyết định hành chính bị khiếu nại</a></td>
+		</tr>
 	</table>
 </fieldset>
 <script type="text/javascript" charset="utf-8">

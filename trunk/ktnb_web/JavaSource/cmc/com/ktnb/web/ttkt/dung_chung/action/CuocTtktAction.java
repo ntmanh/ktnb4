@@ -12,6 +12,7 @@ import java.util.Iterator;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -340,8 +341,8 @@ public class CuocTtktAction extends TimKiemAction {
 					String chiTietNoiDung = "";
 					Iterator iterator = dsChiTiet.iterator();
 					while (iterator.hasNext()) {
-						chiTietNoiDung += ((TtktKhChiTietNoiDungTtkt) iterator.next()).getIdNoiDungChiTiet() + ",";
-
+						chiTietNoiDung= ((TtktKhChiTietNoiDungTtkt) iterator.next()).getMaNoiDungChiTiet();
+						break;
 					}
 					noiDung.setChiTietNoiDung(chiTietNoiDung.substring(0, chiTietNoiDung.length() - 1));
 				}
@@ -564,15 +565,17 @@ public class CuocTtktAction extends TimKiemAction {
 	 */
 	private Collection createChiTietNoiDung(String idNoiDung, String maChiTietNoiDung) throws Exception {
 		Collection listChiTietNoiDung = new ArrayList();
-		String[] arrChiTietNoiDung = maChiTietNoiDung.trim().split(",");
-		for (int i = 0; i < arrChiTietNoiDung.length; i++) {
+		// Sua code doan nay, chi can luu tat ca maChiTietNoiDung vao MaNoiDungChiTiet, khong can tach = split
+		//String[] arrChiTietNoiDung = maChiTietNoiDung.trim().split(",");
+		//for (int i = 0; i < arrChiTietNoiDung.length; i++) {
 			TtktKhChiTietNoiDungTtkt chiTietNoiDungTtkt = new TtktKhChiTietNoiDungTtkt();
 			chiTietNoiDungTtkt.setId(KeyManagement.getGUID());
 			chiTietNoiDungTtkt.setIdNoiDungTtkt(idNoiDung);
-			chiTietNoiDungTtkt.setIdNoiDungChiTiet(arrChiTietNoiDung[i].trim());
+			chiTietNoiDungTtkt.setIdNoiDungChiTiet("bo sung lai truong nay neu can");
+			chiTietNoiDungTtkt.setMaNoiDungChiTiet(maChiTietNoiDung+";");
 			chiTietNoiDungTtkt.setTenNoiDungChiTiet("phai lay lai noi dung chi tiet");
 			listChiTietNoiDung.add(chiTietNoiDungTtkt);
-		}
+		//}
 
 		return listChiTietNoiDung;
 	}

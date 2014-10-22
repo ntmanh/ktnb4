@@ -1318,6 +1318,7 @@ public class TtktService {
 			BaseHibernateDAO dao = new BaseHibernateDAO();
 			session = HibernateSessionFactory.currentSession();
 
+			/** Doan nay sua doi lai khong can phai luu vao ttkt_hs_tl
 			// Bao cao
 			if (Formater.isNull(deCuong.getIdBaoCaoPhaiCbiCungCap())) {
 				deCuong.setIdBaoCaoPhaiCbiCungCap(KeyManagement.getGUID());
@@ -1351,7 +1352,8 @@ public class TtktService {
 					dao.saveObject(appConText, hsTl, Boolean.TRUE);
 				}
 			}
-
+			 * 
+			 */
 			// De cuong
 			if (Formater.isNull(deCuong.getId())) {
 				deCuong.setId(KeyManagement.getGUID());
