@@ -1,0 +1,97 @@
+﻿# procdure move dữ liệu sang cột BAO_CAO
+
+CREATE OR REPLACE PROCEDURE "KTNB_OWNER"."TEST"
+
+AS
+p_cur     sys_refcursor;
+ v_master_id varchar2(40);
+ v_ten nvarchar2(2000);
+ v_noi_dung nvarchar2(2000);
+ v_thoi_ky_tu date;
+ v_thoi_ky_den date;
+v_hinh_thuc nvarchar2(200);
+ v_thoi_gian_ban_giao date;
+ v_dia_diem_nhan_name nvarchar2(2000);
+ v_nguoi_nhan_name nvarchar2(2000);
+BEGIN
+      open p_cur for 'select MASTER_ID,TEN,NOI_DUNG,THOI_KY_TU,THOI_KY_DEN,HINH_THUC,THOI_GIAN_BAN_GIAO,DIA_DIEM_NHAN_NAME,NGUOI_NHAN_NAME from TTKT_CM_HS_TL';
+      loop
+          fetch p_cur into v_master_id,v_ten,v_noi_dung,v_thoi_ky_tu,v_thoi_ky_den,v_hinh_thuc,v_thoi_gian_ban_giao,v_dia_diem_nhan_name,v_nguoi_nhan_name;
+          exit when p_cur%notfound;
+          begin
+            update ttkt_cb_de_cuong set bao_cao=('Tên báo cáo : ' || v_ten ||' , '|| ' Nội dung : ' || v_noi_dung ||' , '|| ' Thời kỳ từ : ' || v_thoi_ky_tu ||' , '|| ' Thời kỳ đến :' || v_thoi_ky_den ||' , '||
+            ' Hình thức : ' || v_hinh_thuc ||' , '|| ' Thời gian bàn giao : ' || v_thoi_gian_ban_giao ||' , '|| 'Địa điểm bàn giao : ' || 
+            v_dia_diem_nhan_name ||' , '|| 'Người nhận : ' || v_nguoi_nhan_name ) where BAO_CAO_PHAI_CBI_CUNG_CAP=v_master_id;
+          exception
+          when others then
+            null;
+          end;
+      end loop;
+    close p_cur;
+    commit;
+    exception
+    when others then
+     raise;
+END;
+
+
+# procdure move dữ liệu sang cột TAI_LIEU
+CREATE OR REPLACE PROCEDURE "KTNB_OWNER"."PRC_CONVERT_HSO"
+
+AS
+p_cur     sys_refcursor;
+ v_master_id varchar2(40);
+ v_ten nvarchar2(2000);
+ v_noi_dung nvarchar2(2000);
+ v_thoi_ky_tu date;
+ v_thoi_ky_den date;
+v_hinh_thuc nvarchar2(200);
+ v_thoi_gian_ban_giao date;
+ v_dia_diem_nhan_name nvarchar2(2000);
+ v_nguoi_nhan_name nvarchar2(2000);
+BEGIN
+      open p_cur for 'select MASTER_ID,TEN,NOI_DUNG,THOI_KY_TU,THOI_KY_DEN,HINH_THUC,THOI_GIAN_BAN_GIAO,DIA_DIEM_NHAN_NAME,NGUOI_NHAN_NAME from TTKT_CM_HS_TL';
+      loop
+          fetch p_cur into v_master_id,v_ten,v_noi_dung,v_thoi_ky_tu,v_thoi_ky_den,v_hinh_thuc,v_thoi_gian_ban_giao,v_dia_diem_nhan_name,v_nguoi_nhan_name;
+          exit when p_cur%notfound;
+          begin
+            update ttkt_cb_de_cuong set tai_lieu=('Tên hồ sơ tài liệu : ' || v_ten ||' , '|| ' Nội dung : ' || v_noi_dung ||' , '|| ' Thời kỳ từ : ' || v_thoi_ky_tu ||' , '|| ' Thời kỳ đến :' || v_thoi_ky_den ||' , '||
+            ' Hình thức : ' || v_hinh_thuc ||' , '|| ' Thời gian bàn giao : ' || v_thoi_gian_ban_giao ||' , '|| 'Địa điểm bàn giao : ' || 
+            v_dia_diem_nhan_name ||' , '|| 'Người nhận : ' || v_nguoi_nhan_name ) where HSTL_PHAI_CBI_CUNG_CAP=v_master_id;
+          exception
+          when others then
+            null;
+          end;
+      end loop;
+    close p_cur;
+    commit;
+    exception
+    when others then
+     raise;
+END;
+
+# Script move dữ liệu trong ttkt_kh_chi_tiet_noi_dung_ttkt
+CREATE OR REPLACE PROCEDURE "KTNB_OWNER"."PRC_MOVE_DATA"
+
+AS
+p_cur     sys_refcursor;
+ v_id_noi_dung_chi_tiet varchar2(40);
+ v_id_noi_dung_ttkt varchar2(40);
+BEGIN
+      open p_cur for 'select ID_NOI_DUNG_CHI_TIET, id_noi_dung_ttkt from ttkt_kh_chi_tiet_noi_dung_ttkt';
+      loop
+          fetch p_cur into v_id_noi_dung_chi_tiet,v_id_noi_dung_ttkt;
+          exit when p_cur%notfound;
+          begin
+            update ttkt_kh_chi_tiet_noi_dung_ttkt set ma_noi_dung_chi_tiet=(v_id_noi_dung_chi_tiet||';'||ma_noi_dung_chi_tiet) where ID_NOI_DUNG_TTKT=v_id_noi_dung_ttkt;
+          exception
+          when others then
+            null;
+          end;
+      end loop;
+    close p_cur;
+    commit;
+    exception
+    when others then
+     raise;
+END;
