@@ -14,6 +14,7 @@
 		<form-bean name="Bc2ddForm" type="cmc.com.ktnb.tccp.Bc2ddForm"></form-bean>
 		<form-bean name="Bc1aForm" type="cmc.com.ktnb.tccp.Bc1aForm"></form-bean>
 		<form-bean name="Bc1bForm" type="cmc.com.ktnb.tccp.Bc1bForm"></form-bean>
+		<form-bean name="loginForm" type="cmc.com.ktnb.web.LoginForm"></form-bean>
 	</form-beans>
 	<global-exceptions>
 		<exception type="java.lang.Exception" handler="cmc.com.ktnb.exception.KtnbExceptionHandler" key="exception" scope="request" />
@@ -55,7 +56,9 @@
 		<action path="/pass" type="cmc.com.ktnb.web.login.PassAction">
 			<forward name="success" path="/system/pass.jsp"></forward>
 		</action>
-		<action path="/loginAction" type="cmc.com.ktnb.web.login.LoginAction" />
+		<action path="/loginAction" type="cmc.com.ktnb.web.login.LoginAction" name="loginForm" >
+			<forward name="success" path="/system/login.jsp"></forward>
+		</action>
 		<action path="/right" forward="/system/right.jsp" />
 		<action path="/error" forward="/system/error.jsp" />
 		<action path="/tree" forward="/system/tree.jsp" />
