@@ -42,13 +42,13 @@
 	function validateForm(){
 		if($("#user").val()=="")
 		{
-			alert("Tên đăng nhập không được để trống ! ");
+			alert("T\u00EAn \u0111\u0103ng nh\u1EADp kh\u00F4ng \u0111\u01B0\u1EE3c \u0111\u1EC3 tr\u1ED1ng ! ");
 			$("#user").focus();
 			return;
 		}
 		else if($("#pass").val()=="")
 		{
-			alert("Mật khẩu không được để trống");
+			alert("M\u1EADt kh\u1EA9u kh\u00F4ng \u0111\u01B0\u1EE3c \u0111\u1EC3 tr\u1ED1ng !");
 			$("#pass").focus();
 			return;
 		}
@@ -226,7 +226,6 @@
 <%if(request.getAttribute("login") == "loi2"){%>
 <script language="javascript">
 		alert("Sai t\u00E0i kho\u1EA3n ho\u1EB7c m\u1EADt kh\u1EA9u");
-		document.getElementById('user').focus();
 	</script>
 <%}%>
 </html>
