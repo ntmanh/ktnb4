@@ -30,15 +30,15 @@
 <style type="text/css">
 	#divHienThi {
 		background-color: #B6E6FF;
-		width:24%;
+		width:27%;
 		height: 20%;
 		position: absolute;
 		top: 37%;
 		left: 38%;
 	}
-	.lb {float:left; width:100px;}
-	.text {float: left; width:150px;}
-	#box-login { float :left; margin-left: 3%;margin-bottom: 5px;}
+	.lb {float:left; width:40%;}
+	.text {float: left; width:57%;}
+	#box-login { float :left; margin: 5px auto;}
 	#tit-login { margin-bottom: 5px; background-color: red; font-weight: bold;}
 </style>
 <META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, no-store, must-revalidate">
