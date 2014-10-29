@@ -221,11 +221,13 @@
 <%if(request.getAttribute("login") == "loi1"){%>
 <script language="javascript">
 		alert("\u0110\u0103ng nh\u1EADp kh\u00F4ng th\u00E0nh c\u00F4ng");
+		window.location='login.do';
 	</script>
 <%}%>
 <%if(request.getAttribute("login") == "loi2"){%>
 <script language="javascript">
 		alert("Sai t\u00E0i kho\u1EA3n ho\u1EB7c m\u1EADt kh\u1EA9u");
+		window.location='login.do';
 	</script>
 <%}%>
 </html>
