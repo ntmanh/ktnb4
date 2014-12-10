@@ -1,6 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ include file="/top_bar.jsp"%> 
-<h3 class="Header">Phiếu lấy ý kiến tư vấn - 15A/KNTC</h3>
+<h3 class="Header">Phiếu lấy ý kiến tư vấn - 12A/KNTC</h3>
 <html:form action="/kntc_xm_phieu_yc.do?method=yktv">
 	<html:hidden property="maHoSo" />
 	<html:hidden property="ma" styleId="ma" />

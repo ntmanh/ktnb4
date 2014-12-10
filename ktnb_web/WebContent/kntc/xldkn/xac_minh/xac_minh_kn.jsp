@@ -14,7 +14,7 @@
 	<div id="tab_xac_minh" style="background-color: transparent; float: left;">
 	<ul>
 		<li><a href="#tab_qdxm" class="tabTitle">Quyết định xác minh - Mẫu 10/KNTC</a></li>
-		<li><a href="#tab_khxm" class="tabTitle">Kế hoạch xác minh - Mẫu 11/KNTC</a></li>
+		<li><a href="#tab_khxm" class="tabTitle">Kế hoạch xác minh - Mẫu 07/KN</a></li>
 		<li><a href="#tab_kqxm" class="tabTitle">Báo cáo kết quả xác minh - Mẫu 17/KNTC</a></li>
 	</ul>
 	<div id="tab_qdxm"><jsp:include page="xm_quyet_dinh.jsp"></jsp:include></div>
