@@ -21,11 +21,11 @@
 		</tr>
 		<tr>
 			<td align="right">File mẫu</td>
-			<td colspan="3"><A href="filemau/KNTC11.doc"> <font color=blue>Download File</font> </A></td>
+			<td colspan="3"><A href="filemau/KN07.doc"> <font color=blue>Download File</font> </A></td>
 		</tr>
 		<tr>
 			<td style="text-align: right;">File lưu trữ</td>
-			<td colspan="3"><A href="#" onclick="openUploadFile_kh();"><font color=blue>Kế hoạch xác minh mẫu 11/KNTC</font></A></td>
+			<td colspan="3"><A href="#" onclick="openUploadFile_kh();"><font color=blue>Kế hoạch xác minh mẫu 07/KN</font></A></td>
 		</tr>
 	</table>
 	</fieldset>

@@ -1,6 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ include file="/top_bar.jsp"%> 
-<h3 class="Header">Phiếu trưng cầu Giám định - 15B/KNTC</h3>
+<h3 class="Header">Phiếu trưng cầu Giám định - 13/KN</h3>
 <html:form action="/kntc_xm_phieu_yc.do?method=tcgd">
 	<html:hidden property="maHoSo" />
 	<html:hidden property="ma" styleId="ma" />
@@ -128,7 +128,7 @@ function ghi(){
 	}	
 }
 function print(){
-   document.forms[0].action="kntc_xm_phieu_yc.do?method=in&type=15B/KTNB&action="+'<%=request.getParameter("action")%>';
+   document.forms[0].action="kntc_xm_phieu_yc.do?method=in&type=13/KN&action="+'<%=request.getParameter("action")%>';
 		document.forms[0].submit();
 }
 function xem(){

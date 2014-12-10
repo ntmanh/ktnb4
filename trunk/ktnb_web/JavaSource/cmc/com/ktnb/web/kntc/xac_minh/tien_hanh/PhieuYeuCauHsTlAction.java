@@ -802,11 +802,11 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 					}
 				}
 			}
-		} else if (type.equals("14/KTNB")) {
+		} else if (type.equals("KN11A")) {
 			if (!Formater.isNull(maQd)) {
 				su = "kntc14";
-				fileIn = request.getRealPath("/docin") + "\\KNTC14.doc";
-				fileOut = request.getRealPath("/docout") + "\\KNTC14_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+				fileIn = request.getRealPath("/docin") + "\\KN11A.doc";
+				fileOut = request.getRealPath("/docout") + "\\KN11A_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
 				try {
 					word = new MsWordUtils(fileIn, fileOut);
@@ -851,7 +851,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 					word.put("[truong_doan]", s.getTenTruongDoanXmByHs(appContext, cnForm.getMaHoSo()));
 					// parameters.put("chuc_vu", cnForm.getNguoiNhanBcChucVu());
 					word.saveAndClose();
-					word.downloadFile(fileOut, "Mau KNTC14", ".doc", response);
+					word.downloadFile(fileOut, "Mau KN11A", ".doc", response);
 				} catch (Exception ex) {
 					// ex.printStackTrace();
 					System.out.println("Download Error: " + ex.getMessage());
@@ -900,11 +900,11 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 					System.out.println("Download Error: " + ex.getMessage());
 				}
 			}
-		} else if (type.equals("15B/KTNB")) {
+		} else if (type.equals("13/KN")) {
 			if (!Formater.isNull(maQd)) {
 				su = "kntc15b";
-				fileIn = request.getRealPath("/docin") + "\\KNTC15B.doc";
-				fileOut = request.getRealPath("/docout") + "\\KNTC15B_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+				fileIn = request.getRealPath("/docin") + "\\KN13.doc";
+				fileOut = request.getRealPath("/docout") + "\\KN13_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
 				try {
 					word = new MsWordUtils(fileIn, fileOut);
@@ -952,7 +952,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 					// word.put("[ten_thu_truong]",
 					// appContext.getTenThuTruong());
 					word.saveAndClose();
-					word.downloadFile(fileOut, "Mau KNTC15", ".doc", response);
+					word.downloadFile(fileOut, "Mau KN13", ".doc", response);
 				} catch (Exception ex) {
 					// ex.printStackTrace();
 					System.out.println("Download Error: " + ex.getMessage());
