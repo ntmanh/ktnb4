@@ -412,9 +412,9 @@ public class SoTiepDanAction extends BaseDispatchAction {
 	 */
 	public ActionForward inGbn(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if (!"HEAD".equals(request.getMethod().toString().toUpperCase())) {
-			String fileIn = request.getRealPath("/docin") + "\\KNTC01.doc";
+			String fileIn = request.getRealPath("/docin") + "\\TCD01.doc";
 			// String abc = request.getSession().getId();
-			String fileOut = request.getRealPath("/docout") + "\\KNTC01_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+			String fileOut = request.getRealPath("/docout") + "\\TCD01_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
 			ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 			SoTiepDanForm cbForm = (SoTiepDanForm) form;
@@ -543,7 +543,7 @@ public class SoTiepDanAction extends BaseDispatchAction {
 					word.put("[can_bo_lap_giay_bien_nhan]", aCb.getTen());
 				}
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau KNTC01", ".doc", response);
+				word.downloadFile(fileOut, "Mau TCD01", ".doc", response);
 			} catch (Exception e) {
 				e.printStackTrace();
 			} finally {

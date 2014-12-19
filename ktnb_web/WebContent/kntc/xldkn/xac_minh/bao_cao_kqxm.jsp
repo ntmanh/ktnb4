@@ -15,11 +15,11 @@
 		</tr>
 		<tr>
 			<td align="right">File mẫu</td>
-			<td colspan="3"><A href="filemau/KNTC17.doc"> <font color=blue>Download File</font> </A></td>
+			<td colspan="3"><A href="filemau/KN15.doc"> <font color=blue>Download File</font> </A></td>
 		</tr>
 		<tr>
 			<td align="right">File lưu trữ</td>
-			<td><A href="#" onclick="openUploadFile_17(maHoSo);">Báo cáo kết quả xác minh mẫu số 17/KNTC</A></td>
+			<td><A href="#" onclick="openUploadFile_17(maHoSo);">Báo cáo kết quả xác minh mẫu số 15KN</A></td>
 			<td align="right">Kết thúc xác minh</td>
 			<td><html:checkbox property="cbKetThuc" value="1"/></td>
 		</tr>
