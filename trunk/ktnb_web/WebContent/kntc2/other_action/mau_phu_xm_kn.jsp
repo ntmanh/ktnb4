@@ -3,7 +3,7 @@
 	<table width="100%">
 		<tr>
 			<td width="50%"><a href="#" onclick="openBm2('kntc_khxm.do?method=bb&action=bbxmkn&id=');">Biên bản công bố quyết định xác minh Khiếu Nại - Mẫu 12/KNTC</a></td>
-			<td><a href="#" onclick="openBm2('kntc_xm_phieu_yc.do?method=ycgt&action=phieuYcGtKN&id=');">Phiếu yêu cầu giải trình - Mẫu 14A/KNTC</a></td>
+			<td><a href="#" onclick="openBm2('kntc_xm_phieu_yc.do?method=ycgt&action=phieuYcGtKN&id=');">Phiếu yêu cầu giải trình - Mẫu 11A/KNTC</a></td>
 		</tr>
 		<tr>
 			<td><a href="#" onclick="openBm2('kntc_khxm.do?method=bb&action=bbLamViecNguoiKN&id=');">Biên bản làm việc với người Khiếu Nại - Mẫu 12/KNTC</a></td>
