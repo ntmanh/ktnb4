@@ -193,16 +193,16 @@ public class PhieuHenAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 	public ActionForward inPhieuHen(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String fileIn = request.getRealPath("/docin") + "\\KNTC02.doc";
-		String fileOut = request.getRealPath("/docout") + "\\KNTC02_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+		String fileIn = request.getRealPath("/docin") + "\\TCD02.doc";
+		String fileOut = request.getRealPath("/docout") + "\\TCD02_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 
 		PhieuHenForm cbForm = (PhieuHenForm) form;
 
 		MsWordUtils word = new MsWordUtils(fileIn, fileOut);
 		try {
-			word.put("[CO_QUAN_THUE_TRUC_TIEP]", appContext.getTenCqt().toUpperCase());
-			word.put("[DON_VI_VIET_PHIEU_HEN]", appContext.getTenPhong().toUpperCase());
+			word.put("[CO_QUAN_CAP_TREN_TRUC_TIEP]", appContext.getTenCqt().toUpperCase());
+			word.put("[DON_VI_CONG_TAC]", appContext.getTenPhong().toUpperCase());
 			word.put("[thoi_diem_lap_phieu_hen]", Formater.getDateTimeForPrint(cbForm.getNgayLapPhieu()));
 			if (Formater.isNull(cbForm.getDiaDiemHen())) {
 				word.put("[dia_chi_don_vi_lap_phieu_hen]", KtnbUtil.inFieldNull(16));
@@ -232,7 +232,7 @@ public class PhieuHenAction extends BaseDispatchAction {
 			word.put("[nguoi_nhan_phieu_hen]", cbForm.getNguoiNhanPhieuTen());
 			word.put("[can_bo_lap_phieu_hen]", cbForm.getCanBoLapPhieuTen());
 			word.saveAndClose();
-			word.downloadFile(fileOut, "Mau KNTC02", ".doc", response);
+			word.downloadFile(fileOut, "Mau TCD02", ".doc", response);
 		} catch (Exception ex) {
 			// ex.printStackTrace();
 			System.out.println("Download Error: " + ex.getMessage());
