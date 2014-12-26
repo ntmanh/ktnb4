@@ -1,6 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ include file="/top_bar.jsp"%> 
-<h3 class="Header">Phiếu yêu cầu giải trình - 11A/KN</h3>
+<h3 class="Header">Phiếu yêu cầu giải trình - 12/TC</h3>
 <html:form action="/kntc_xm_phieu_yc.do?method=ycgt">
 	<html:hidden property="maHoSo" />
 	<html:hidden property="ma" styleId="ma" />
@@ -121,7 +121,7 @@ function ghi(){
 	//}
 }
 function print(){
-    document.forms[0].action="kntc_xm_phieu_yc.do?method=in&type=KN11A&action="+'<%=request.getParameter("action")%>';
+    document.forms[0].action="kntc_xm_phieu_yc.do?method=in&type=TC12&action="+'<%=request.getParameter("action")%>';
 		document.forms[0].submit();
 }
 function xem(){

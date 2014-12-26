@@ -19,7 +19,6 @@ import org.apache.struts.util.LabelValueBean;
 import org.json.JSONObject;
 
 import cmc.com.ktnb.exception.KtnbException;
-import cmc.com.ktnb.pl.hb.entity.KntcBienBan;
 import cmc.com.ktnb.pl.hb.entity.KntcCanBoRls;
 import cmc.com.ktnb.pl.hb.entity.KntcDeXuatXly;
 import cmc.com.ktnb.pl.hb.entity.KntcQdinhXm;
@@ -265,7 +264,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		ycgtForm.setThoiDiemYcgt(Formater.date2strDateTimeForNV(new Date()));
 		ycgtForm.setNgayLap(Formater.date2strDateTimeForNV(new Date()));
 		saveToken(request);
-		return map.findForward("ycgt");
+		return ReturnDefaultYcgt(map, form, request, response);
 	}
 
 	// Xem Yeu cau giai trinh 14A
@@ -283,7 +282,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			e.printStackTrace();
 			throw new Exception(e);
 		}
-		return map.findForward("ycgt");
+		return ReturnDefaultYcgt(map, form, request, response);
 	}
 
 	// Xoa Yeu cau giai trinh 14A
@@ -298,7 +297,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			e.printStackTrace();
 			throw new Exception(e);
 		}
-		return map.findForward("ycgt");
+		return ReturnDefaultYcgt(map, form, request, response);
 	}
 
 	// Tao moi Yeu cau giai trinh 14A
@@ -323,7 +322,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		ycgtForm.setDiaDiemYcgt(appContext.getDiaBan());
 		ycgtForm.setMa(null);
 
-		return map.findForward("ycgt");
+		return ReturnDefaultYcgt(map, form, request, response);
 	}
 
 	// Save yeu cau giai trinh 14A
@@ -344,7 +343,18 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			throw new Exception(e);
 		}
 		// }
-		return map.findForward("ycgt");
+		return ReturnDefaultYcgt(map, form, request, response);
+	}
+
+	public ActionForward ReturnDefaultYcgt(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
+		String loaiYcgt = request.getParameter("action");
+		System.out.println("Loai yeu cau giai thich :  " + loaiYcgt);
+		if ("phieuYcGtTC".equals(loaiYcgt))
+			return map.findForward("ycgtTC");
+		else if ("phieuYcGtKN".equals(loaiYcgt))
+			return map.findForward("ycgtKN");
+		else
+			return map.findForward("ycgt");
 	}
 
 	// Show y kien tu van 15A
@@ -383,7 +393,16 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		ycgtForm.setNgayLap(Formater.date2str(new Date()));
 		ycgtForm.setDiaDiem(appContext.getDiaBan());
 		saveToken(request);
-		return map.findForward("yktv");
+		return returnDefaultYktv(map, form, request, response);
+	}
+
+	public ActionForward returnDefaultYktv(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String loaiYktv = request.getParameter("action");
+		System.out.println(loaiYktv);
+		if ("yktvTC".equals(loaiYktv))
+			return map.findForward("yktvTC");
+		else
+			return map.findForward("yktv");
 	}
 
 	// Save Y kien tu van 15A
@@ -403,7 +422,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			throw new Exception(e);
 		}
 		// }
-		return map.findForward("yktv");
+		return returnDefaultYktv(map, form, request, response);
 	}
 
 	// Xem Y kien tu van 15A
@@ -423,7 +442,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			e.printStackTrace();
 			throw new Exception(e);
 		}
-		return map.findForward("yktv");
+		return returnDefaultYktv(map, form, request, response);
 	}
 
 	// Xoa Y kien tu van 15A
@@ -438,7 +457,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			e.printStackTrace();
 			throw new Exception(e);
 		}
-		return map.findForward("yktv");
+		return returnDefaultYktv(map, form, request, response);
 	}
 
 	// Tao moi Y kien tu van 15A
@@ -462,7 +481,15 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		ycgtForm.setYeuCauYcgt("");
 		ycgtForm.setMa(null);
 
-		return map.findForward("yktv");
+		return returnDefaultYktv(map, form, request, response);
+	}
+
+	public ActionForward returndDefaultTcgd(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String loaiTcgd = request.getParameter("action");
+		if ("ycgdTC".equals(loaiTcgd))
+			return map.findForward("tcgdTC");
+		else
+			return map.findForward("tcgd");
 	}
 
 	// Show trung cau giam dinh 15B
@@ -496,7 +523,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		cnForm.setNgayLap(Formater.date2str(new Date()));
 		cnForm.setDiaDiem(appContext.getDiaBan());
 		saveToken(request);
-		return map.findForward("tcgd");
+		return returndDefaultTcgd(map, form, request, response);
 	}
 
 	// Xem trung cau giam dinh 15B
@@ -514,7 +541,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			e.printStackTrace();
 			throw new Exception(e);
 		}
-		return map.findForward("tcgd");
+		return returndDefaultTcgd(map, form, request, response);
 	}
 
 	// Tao trung cau giam dinh 15B
@@ -538,7 +565,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		ycgtForm.setThoiGianNhanPhieu("");
 		ycgtForm.setMa(null);
 
-		return map.findForward("tcgd");
+		return returndDefaultTcgd(map, form, request, response);
 	}
 
 	// Save trung cau giam dinh 15B
@@ -559,7 +586,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			throw new Exception(e);
 		}
 		// }
-		return map.findForward("tcgd");
+		return returndDefaultTcgd(map, form, request, response);
 	}
 
 	// Xoa Y kien tu van 15A
@@ -574,7 +601,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			e.printStackTrace();
 			throw new Exception(e);
 		}
-		return map.findForward("tcgd");
+		return returndDefaultTcgd(map, form, request, response);
 	}
 
 	// Get list phieu yeu cau
@@ -857,6 +884,58 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 					System.out.println("Download Error: " + ex.getMessage());
 				}
 			}
+		} else if (type.equals("TC12")) {
+			System.out.println("Chay vao mau giai trinh TC12");
+			if (!Formater.isNull(maQd)) {
+				su = "kntc14";
+				fileIn = request.getRealPath("/docin") + "\\TC12.doc";
+				fileOut = request.getRealPath("/docout") + "\\TC12_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+
+				try {
+					word = new MsWordUtils(fileIn, fileOut);
+					word.put("[co_quan_ra_QD_xac_minh]", appContext.getTenCqt().toUpperCase());
+					word.put("[doan_to_xac_minh_qd_so]", cnForm.getKntcQdinhXm().toUpperCase());
+					// word.put("[ngay_lap_phieu]", cnForm.getDiaDiem() + ", " +
+					// Formater.getDateForPrint(cnForm.getNgayLap()));
+					if (Formater.isNull(cnForm.getDiaDiem())) {
+						word.put("[ngay_lap_phieu]", "........, " + Formater.getDateForPrintFromDateTime(cnForm.getNgayLap()));
+					} else
+						word.put("[ngay_lap_phieu]", cnForm.getDiaDiem() + ", " + Formater.getDateForPrintFromDateTime(cnForm.getNgayLap()));
+					word.put("[so_quyet_dinh_xac_minh]", maQd);
+					if (qd != null) {
+						word.put("[ngay_ra_quyet_dinh]", Formater.getDateForPrint(Formater.date2str(qd.getNgayLap())));
+						word.put("[chuc_danh_thu_truong_co_quan]", KtnbUtil.getTenThuTruongCqtForMauin(appContext));
+						word.put("[noi_dung_xac_minh]", stdS.getNoiDungDonForXm(appContext, qd.getMaHs()));
+					} else {
+						word.put("[ngay_ra_quyet_dinh]", "  ");
+						word.put("[chuc_danh_thu_truong_co_quan]", KtnbUtil.getTenThuTruongCqtForMauin(appContext));
+						word.put("[noi_dung_xac_minh]", "Chua co QDXM!");
+					}
+					if (Formater.isNull(cnForm.getDonViYcgt()))
+						word.put("[nguoi_co_quan_don_vi_duoc_yeu_cau_giai_trinh]", ".........");
+					else
+						word.put("[nguoi_co_quan_don_vi_duoc_yeu_cau_giai_trinh]", cnForm.getDonViYcgt());
+					word.put("[yeu_cau_giai_trinh]", cnForm.getYeuCauYcgt());
+					word.put("[thoi_gian_cung_cap_giai_trinh]", Formater.getDateTimeForPrint(cnForm.getThoiDiemYcgt()));
+					if (Formater.isNull(cnForm.getDiaDiemYcgt()))
+						word.put("[dia_diem_cung_cap_giai_trinh]", ".......");
+					else
+						word.put("[dia_diem_cung_cap_giai_trinh]", cnForm.getDiaDiemYcgt());
+					if (Formater.isNull(cnForm.getDonViYcgt()))
+						word.put("[nguoi_co_quan_don_vi_duoc_yeu_cau_giai_trinh]", ".........");
+					else
+						word.put("[nguoi_co_quan_don_vi_duoc_yeu_cau_giai_trinh]", cnForm.getDonViYcgt());
+					word.put("[thoi_gian_lap_phieu]", Formater.getDateTimeForPrint(cnForm.getNgayLap()));
+					word.put("[nguoi_nhan]", cnForm.getNguoiNhanBc());
+					word.put("[truong_doan]", s.getTenTruongDoanXmByHs(appContext, cnForm.getMaHoSo()));
+					// parameters.put("chuc_vu", cnForm.getNguoiNhanBcChucVu());
+					word.saveAndClose();
+					word.downloadFile(fileOut, "Mau TC12", ".doc", response);
+				} catch (Exception ex) {
+					// ex.printStackTrace();
+					System.out.println("Download Error: " + ex.getMessage());
+				}
+			}
 		} else if (type.equals("15/KTNB")) {
 			if (!Formater.isNull(maQd)) {
 				su = "kntc15";
@@ -895,6 +974,49 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 					// appContext.getTenThuTruong());
 					word.saveAndClose();
 					word.downloadFile(fileOut, "Mau KNTC15", ".doc", response);
+				} catch (Exception ex) {
+					// ex.printStackTrace();
+					System.out.println("Download Error: " + ex.getMessage());
+				}
+			}
+		} else if (type.equals("14TC")) {
+			if (!Formater.isNull(maQd)) {
+				su = "kntc15";
+				fileIn = request.getRealPath("/docin") + "\\TC14.doc";
+				fileOut = request.getRealPath("/docout") + "\\TC14_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+
+				try {
+					word = new MsWordUtils(fileIn, fileOut);
+					word.put("[co_quan_cap_tren_truc_tiep]", KtnbUtil.getTenCqtCapTrenTt4P(appContext).toUpperCase());
+					word.put("[co_quan_thue_don_vi_lay_y_kien]", appContext.getTenCqt().toUpperCase());
+					// parameters.put("ngay_lap_phieu", cnForm.getDiaDiem()+", "
+					// +Formater.getDateForPrint(cnForm.getNgayLap()));
+					String cq_donvi_thamgia = null;
+					if (Formater.isNull(cnForm.getDonViYkien()))
+						cq_donvi_thamgia = ".......";
+					else
+						cq_donvi_thamgia = cnForm.getDonViYkien();
+					word.put("[so]", cnForm.getMaPhieu());
+					if (Formater.isNull(cnForm.getDiaDiem())) {
+						word.put("[ngay_lap_phieu]", "........, " + ngayLap);
+					} else
+						word.put("[ngay_lap_phieu]", cnForm.getDiaDiem() + ", " + Formater.getDateForPrint(cnForm.getNgayLap()));
+					// word.put("[co_quan_don_vi_tham_gia_y_kien]",
+					// cnForm.getDonViYkien());
+					word.put("[co_quan_don_vi_tham_gia_y_kien]", cq_donvi_thamgia);
+					if (Formater.isNull(cnForm.getYeuCauYcgt())) {
+						String defaultNull = KtnbUtil.inFieldNull(115);
+						word.put("[noi_dung]", defaultNull + "\n" + defaultNull + "\n" + defaultNull + "\n" + defaultNull);
+					} else
+						word.put("[noi_dung]", cnForm.getYeuCauYcgt());
+					word.put("[co_quan_don_vi_tham_gia_y_kien]", cq_donvi_thamgia);
+					word.put("[thoi_han_xin_y_kien]", Formater.getDateForPrint(cnForm.getThoiDiemYcgt()));
+					word.put("[co_quan_don_vi_tham_gia_y_kien]", cq_donvi_thamgia);
+					word.put("[tt_cqt]", KtnbUtil.getChucVuThuTruongByMaCqt(appContext.getMaCqt()).toUpperCase());
+					// word.put("[ten_thu_truong]",
+					// appContext.getTenThuTruong());
+					word.saveAndClose();
+					word.downloadFile(fileOut, "Mau 14/TC", ".doc", response);
 				} catch (Exception ex) {
 					// ex.printStackTrace();
 					System.out.println("Download Error: " + ex.getMessage());
@@ -959,6 +1081,65 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 				}
 			}
 		}
+		else if (type.equals("15TC")) {
+			if (!Formater.isNull(maQd)) {
+				su = "kntc15b";
+				fileIn = request.getRealPath("/docin") + "\\TC15.doc";
+				fileOut = request.getRealPath("/docout") + "\\TC15_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+
+				try {
+					word = new MsWordUtils(fileIn, fileOut);
+					word.put("[co_quan_cap_tren_truc_tiep]", KtnbUtil.getTenCqtCapTrenTt4P(appContext).toUpperCase());
+					word.put("[co_quan_thue_ra_van_ban]", appContext.getTenCqt().toUpperCase());
+					word.put("[so_phieu]", cnForm.getMaPhieu());
+					// word.put("ngay_lap_phieu", cnForm.getDiaDiem()+",
+					// "+Formater.getDateForPrint(cnForm.getNgayLap()));
+					if (Formater.isNull(cnForm.getDiaDiem())) {
+						word.put("[ngay_lap_phieu]", "........, " + ngayLap);
+					} else
+						word.put("[ngay_lap_phieu]", cnForm.getDiaDiem() + ", " + Formater.getDateForPrint(cnForm.getNgayLap()));
+					if (Formater.isNull(cnForm.getDonViYcgt()))
+						word.put("[ten_co_quan_giam_dinh]", "..........");
+					else
+						word.put("[ten_co_quan_giam_dinh]", cnForm.getDonViYcgt());
+					word.put("[quyet_dinh_xac_minh_so]", cnForm.getKntcQdinhXm());
+					word.put("[ngay_ra_quyet_dinh]", Formater.getDateForPrint(Formater.date2str(qd.getNgayLap())));
+					word.put("[chuc_danh_thu_truong_co_quan_thue]", KtnbUtil.getTenThuTruongCqtForMauin(appContext));
+					if (Formater.isNull(cnForm.getYeuCauYcgt()))
+						word.put("[noi_dung_quyet_dinh_xac_minh]", ".......");
+					else
+						word.put("[noi_dung_quyet_dinh_xac_minh]", cnForm.getYeuCauYcgt());
+					word.put("[co_quan_thue_de_nghi_giam_dinh]", appContext.getTenCqt());
+					word.put("[ten_co_quan_giam_dinh]", cnForm.getDonViYcgt());
+					word.put("[noi_dung_quyet_dinh_xac_minh]", cnForm.getYeuCauYcgt());
+					word.put("[co_quan_thue_de_nghi_giam_dinh]", appContext.getTenCqt());
+					word.put("[ten_co_quan_giam_dinh]", cnForm.getDonViYcgt());
+					if (Formater.isNull(cnForm.getThoiDiemYcgt()))
+						word.put("[thoi_gian_ban_giao_ho_so]", "....gi\u1EDD......ng\u00E0y....th\u00E1ng....n\u0103m...........");
+					else
+						word.put("[thoi_gian_ban_giao_ho_so]", Formater.getDateTimeForPrint(cnForm.getThoiDiemYcgt()));
+					if (Formater.isNull(cnForm.getDiaDiemYcgt()))
+						word.put("[dia_diem]", "...........");
+					else
+						word.put("[dia_diem]", cnForm.getDiaDiemYcgt());
+					word.put("[co_quan_thue_de_nghi_giam_dinh]", appContext.getTenCqt());
+					word.put("[ten_co_quan_giam_dinh]", cnForm.getDonViYcgt());
+					word.put("[co_quan_thue_de_nghi_giam_dinh]", appContext.getTenCqt());
+					if (Formater.isNull(cnForm.getThoiGianNhanPhieu()))
+						word.put("[thoi_diem_cung_cap_ket_qua]", "ng\u00E0y...th\u00E1ng....n\u0103m.........");
+					else
+						word.put("[thoi_diem_cung_cap_ket_qua]", Formater.getDateTimeForPrint(cnForm.getThoiGianNhanPhieu()));
+					word.put("[tt_cqt]", KtnbUtil.getChucVuThuTruongByMaCqt(appContext.getMaCqt()).toUpperCase());
+					// word.put("[ten_thu_truong]",
+					// appContext.getTenThuTruong());
+					word.saveAndClose();
+					word.downloadFile(fileOut, "Mau 15/TC", ".doc", response);
+				} catch (Exception ex) {
+					// ex.printStackTrace();
+					System.out.println("Download Error: " + ex.getMessage());
+				}
+			}
+		}
 		// InputStream inputStream =
 		// getServlet().getServletContext().getResourceAsStream("/report/" + su
 		// + ".jasper");
@@ -966,5 +1147,4 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		// null);
 		return null;
 	}
-
 }
