@@ -178,7 +178,7 @@ function validForm(){
 	return true;
 }
 function print(){		
-		document.forms[0].action="kntc_dxxl.do?method=in";
+		document.forms[0].action="kntc_dxxl.do?method=in&type=TC03";
 		document.forms[0].submit();
 }
 </script>
