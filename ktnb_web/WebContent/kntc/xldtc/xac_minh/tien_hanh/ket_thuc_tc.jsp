@@ -15,8 +15,8 @@
 	<div id="super-tab2">	
 	<div id="tab_xac_minh" style="background-color: transparent; float: left;">
 	<ul>
-		<li><a href="#tab_bcxm" class="tabTitle">Kết luận nội dung TC - Mẫu 24/KNTC</a></li>
-		<li><a href="#tab_qdgq" class="tabTitle">Thông báo kết quả giải quyết TC - Mẫu 26/KNTC</a></li>
+		<li><a href="#tab_bcxm" class="tabTitle">Kết luận nội dung TC - Mẫu 18/TC</a></li>
+		<li><a href="#tab_qdgq" class="tabTitle">Thông báo kết quả giải quyết TC - Mẫu 21/TC</a></li>
 		<li><a href="#tab_bckq" class="tabTitle">Báo cáo kết quả thực hiện giải quyết TC</a></li>
 	</ul> 
 	<div id="tab_bcxm"><jsp:include page="ket_luan_noi_dung_tc.jsp"></jsp:include></div>

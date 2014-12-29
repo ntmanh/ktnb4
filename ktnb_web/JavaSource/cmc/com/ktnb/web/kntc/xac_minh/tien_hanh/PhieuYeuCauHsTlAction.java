@@ -939,8 +939,8 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		} else if (type.equals("15/KTNB")) {
 			if (!Formater.isNull(maQd)) {
 				su = "kntc15";
-				fileIn = request.getRealPath("/docin") + "\\KNTC15.doc";
-				fileOut = request.getRealPath("/docout") + "\\KNTC15_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+				fileIn = request.getRealPath("/docin") + "\\KN12A.doc";
+				fileOut = request.getRealPath("/docout") + "\\KN12A_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
 				try {
 					word = new MsWordUtils(fileIn, fileOut);
@@ -960,7 +960,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 						word.put("[ngay_lap_phieu]", cnForm.getDiaDiem() + ", " + Formater.getDateForPrint(cnForm.getNgayLap()));
 					// word.put("[co_quan_don_vi_tham_gia_y_kien]",
 					// cnForm.getDonViYkien());
-					word.put("[co_quan_don_vi_tham_gia_y_kien]", cq_donvi_thamgia);
+					//word.put("[co_quan_don_vi_tham_gia_y_kien]", cq_donvi_thamgia);
 					if (Formater.isNull(cnForm.getYeuCauYcgt())) {
 						String defaultNull = KtnbUtil.inFieldNull(115);
 						word.put("[noi_dung]", defaultNull + "\n" + defaultNull + "\n" + defaultNull + "\n" + defaultNull);
@@ -973,7 +973,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 					// word.put("[ten_thu_truong]",
 					// appContext.getTenThuTruong());
 					word.saveAndClose();
-					word.downloadFile(fileOut, "Mau KNTC15", ".doc", response);
+					word.downloadFile(fileOut, "Mau 12/KN", ".doc", response);
 				} catch (Exception ex) {
 					// ex.printStackTrace();
 					System.out.println("Download Error: " + ex.getMessage());

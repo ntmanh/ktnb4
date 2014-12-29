@@ -15,7 +15,7 @@
 	<ul>
 		<li><a href="#tab_qdxm" class="tabTitle">Quyết định xác minh - Mẫu 22/KNTC</a></li>
 		<li><a href="#tab_khxm" class="tabTitle">Kế hoạch xác minh - Mẫu 11/KNTC</a></li>
-		<li><a href="#tab_kqxm" class="tabTitle">Báo cáo kết quả xác minh - Mẫu 23/KNTC</a></li>
+		<li><a href="#tab_kqxm" class="tabTitle">Báo cáo kết quả xác minh - Mẫu 17/TC</a></li>
 	</ul>
 	<div id="tab_qdxm"><jsp:include page="xm_quyet_dinh.jsp"></jsp:include></div>
 	<div id="tab_khxm"><jsp:include page="ke_hoach.jsp"></jsp:include></div>
