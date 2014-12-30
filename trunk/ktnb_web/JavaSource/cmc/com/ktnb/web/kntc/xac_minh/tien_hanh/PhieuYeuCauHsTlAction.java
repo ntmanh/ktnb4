@@ -98,7 +98,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			}
 			request.setAttribute("dmcb", list);
 		}
-		return map.findForward("success");
+		return ReturnDefaultPycHsTl(map, form, request, response);
 	}
 
 	// Xem phieu yeu cau 13
@@ -129,7 +129,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			e.printStackTrace();
 			throw new Exception(e);
 		}
-		return map.findForward("success");
+		return ReturnDefaultPycHsTl(map, form, request, response);
 	}
 
 	// Xoa phieu yeu cau 13
@@ -161,7 +161,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			}
 		}
 		request.setAttribute("dmcb", list);
-		return map.findForward("success");
+		return ReturnDefaultPycHsTl(map, form, request, response);
 	}
 
 	// Tao moi phieu yeu cau 13
@@ -209,9 +209,17 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			}
 			request.setAttribute("dmcb", list);
 		}
-		return map.findForward("success");
+		return ReturnDefaultPycHsTl(map, form, request, response);
 	}
 
+	// Return default Pychstl
+	public ActionForward ReturnDefaultPycHsTl(ActionMapping map,ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		if("phieuYcHsTlTC".equals(request.getParameter("action")))
+			return map.findForward("phieuYcHsTlTC");
+		else
+		return map.findForward("success");
+	}
 	// Save phieu yeu cau hstl 13
 	public ActionForward savePyc(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
@@ -829,7 +837,72 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 					}
 				}
 			}
-		} else if (type.equals("KN11A")) {
+		} 
+		if (type.equals("TC10")) {
+			if (!Formater.isNull(maQd)) {
+				su = "tc10";
+				fileIn = request.getRealPath("/docin") + "\\TC10.doc";
+				fileOut = request.getRealPath("/docout") + "\\TC10_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+
+				word = new MsWordUtils(fileIn, fileOut);
+				try {
+					word.put("[co_quan_ra_QD_xac_minh]", appContext.getTenCqt().toUpperCase());
+					word.put("[doan_to_xac_minh_qd_so]", cnForm.getKntcQdinhXm().toUpperCase());
+					if (Formater.isNull(cnForm.getDiaDiem())) {
+						word.put("[ngay_lap_phieu]", "........, " + Formater.getDateForPrint(cnForm.getNgayLap()));
+					} else
+						word.put("[ngay_lap_phieu]", cnForm.getDiaDiem() + ", " + Formater.getDateForPrint(cnForm.getNgayLap()));
+					if (Formater.isNull(cnForm.getLanYc()))
+						word.put("[lan_thu]", ".......");
+					else
+						word.put("[lan_thu]", cnForm.getLanYc());
+//					if (Formater.isNull(cnForm.getDonViYcgt()))
+//						word.put("[nguoi_co_quan_don_vi_duoc_yeu_cau_cung_cap]", ".......");
+//					else
+//						word.put("[nguoi_co_quan_don_vi_duoc_yeu_cau_cung_cap]", cnForm.getDonViYcgt());
+					word.put("[doan_to_xac_minh_qd_so]", cnForm.getKntcQdinhXm());
+					word.put("[ngay_ra_quyet_dinh]", Formater.getDateForPrint(Formater.date2str(qd.getNgayLap())));
+					word.put("[chuc_danh_thu_truong_co_quan_thue]", KtnbUtil.getTenThuTruongCqtForMauin(appContext));
+					if (qd != null)
+						word.put("[xac_minh_ve_viec]", qd.getNoiDungXm());
+					else
+						word.put("[xac_minh_ve_viec]", " ");
+					if (Formater.isNull(cnForm.getDonViYcgt()))
+						word.put("[nguoi_co_quan_don_vi_duoc_yeu_cau_cung_cap]", KtnbUtil.inFieldNull(100));
+					else
+						word.put("[nguoi_co_quan_don_vi_duoc_yeu_cau_cung_cap]", cnForm.getDonViYcgt());
+					word.put("[bao_cao_can_cung_cap]", cnForm.getYcBaoCao());
+					word.put("[ho_so_tai_lieu_can_cung_cap]", cnForm.getYcHoSo());
+					word.put("[thoi_gian_cung_cap_tai_lieu]", Formater.getDateTimeForPrint(cnForm.getThoiDiemYcgt()));
+					if (Formater.isNull(cnForm.getDiaDiemYcgt()))
+						word.put("[dia_diem_cung_cap]", KtnbUtil.inFieldNull(90));
+					else
+						word.put("[dia_diem_cung_cap]", cnForm.getDiaDiemYcgt());
+					word.put("[nguoi_nhan_hstl]", cnForm.getNguoiNhanBc());
+					if (Formater.isNull(cnForm.getNguoiNhanPhieu()))
+						word.put("[nguoi_nhan_phieu_yeu_cau]", "......");
+					else
+						word.put("[nguoi_nhan_phieu_yeu_cau]", cnForm.getNguoiNhanPhieu());
+					if (Formater.isNull(cnForm.getNguoiNhanPhieuChucVu()))
+						word.put("[chuc_vu_nguoi_nhan]", "......");
+					else
+						word.put("[chuc_vu_nguoi_nhan]", cnForm.getNguoiNhanPhieuChucVu());
+					word.put("[thoi_gian_giao_phieu]", Formater.getDateTimeForPrint(cnForm.getThoiGianNhanPhieu()));
+					word.put("[nguoi_nhan_phieu_yeu_cau]", cnForm.getNguoiNhanPhieu());
+					word.put("[nguoi_nhan_hstl_ten]", cnForm.getNguoiNhanBc().split(",")[0]);
+					word.saveAndClose();
+					word.downloadFile(fileOut, "Mau TC10", ".doc", response);
+				} catch (Exception ex) {
+					// ex.printStackTrace();
+					System.out.println("Download Error: " + ex.getMessage());
+				} finally {
+					try {
+						word.saveAndClose();
+					} catch (Exception ex) {
+					}
+				}
+			}
+		}else if (type.equals("KN11A")) {
 			if (!Formater.isNull(maQd)) {
 				su = "kntc14";
 				fileIn = request.getRealPath("/docin") + "\\KN11A.doc";
