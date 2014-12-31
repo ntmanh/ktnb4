@@ -1011,7 +1011,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			}
 		} else if (type.equals("15/KTNB")) {
 			if (!Formater.isNull(maQd)) {
-				su = "kntc15";
+				su = "kntc12a";
 				fileIn = request.getRealPath("/docin") + "\\KN12A.doc";
 				fileOut = request.getRealPath("/docout") + "\\KN12A_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
@@ -1041,6 +1041,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 						word.put("[noi_dung]", cnForm.getYeuCauYcgt());
 					word.put("[co_quan_don_vi_tham_gia_y_kien]", cq_donvi_thamgia);
 					word.put("[thoi_han_xin_y_kien]", Formater.getDateForPrint(cnForm.getThoiDiemYcgt()));
+					word.put("[co_quan_don_vi_tham_gia_y_kien]", cq_donvi_thamgia);
 					word.put("[co_quan_don_vi_tham_gia_y_kien]", cq_donvi_thamgia);
 					word.put("[tt_cqt]", KtnbUtil.getChucVuThuTruongByMaCqt(appContext.getMaCqt()).toUpperCase());
 					// word.put("[ten_thu_truong]",
