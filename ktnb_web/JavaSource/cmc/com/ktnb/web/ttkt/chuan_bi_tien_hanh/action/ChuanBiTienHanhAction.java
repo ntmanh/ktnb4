@@ -607,10 +607,10 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 
 			// -------------Bieu mau in Quyet Dinh TTKT --------------------//
 		} else if ("qd".equals(request.getParameter("type"))) {
-			fileIn = request.getRealPath("/docin") + "\\TTNB05.doc";
-			fileOut = request.getRealPath("/docout") + "\\TTNB05_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+			fileIn = request.getRealPath("/docin") + "\\KTNB05.doc";
+			fileOut = request.getRealPath("/docout") + "\\KTNB05_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
-			fileTemplate = "ttnb05";
+			fileTemplate = "ktnb05";
 			// ------------------------------------//
 			String idCuocTtkt = cbForm.getIdCuocTtkt();
 			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtkTrongQd(appConText, idCuocTtkt);
@@ -644,8 +644,14 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 					word.put("[ngay_ra_qd]", Formater.getDateForPrint(cbForm.getNgayRaQuyetDnh()));
 				}
 
-				word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
 				word.put("[thu_truong_ban_hanhqd]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
+				
+				// Default field
+				word.put("[luat_so]", "So 7");
+				word.put("[quyet_dinh_so]",cbForm.getSoQuyetDinh());
+				word.put("[thoi_gian_ra_quyet_dinh]", "22/12/2014");
+				
 				word.put("[van_ban_quy_dinh]", CatalogService.getTenDanhMucById(cbForm.getVanBanQuyDinhCnangNvuQd()));
 				if (Formater.isNull(cbForm.getVanBanKeHoach())) {
 					// word.put("[van_ban_ke_hoach]", "C\u0103n c\u1EE9 k\u1EBF ho\u1EA1ch Thanh tra ki\u1EC3m tra n\u1ED9i b\u1ED9 n\u0103m " + getNamTienHanh(cuocTtkt.getMa()) + " c\u1EE7a "+
@@ -658,23 +664,23 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 					word.put("[van_ban_ke_hoach]", sbVanBanKeHoach.toString());
 				}
 				word.put("[nguoi_de_nghi]", KtnbUtil.getTenTruongBoPhan(appConText));				
-				word.put("[ten_bo_phan]", KtnbUtil.getTenBoPhan(appConText));
-				word.put("[cqt_ra_qd]", cuocTtkt.getTenDonViTh());
-				word.put("[ttkt1]", sb_ht1.toString());
+				//word.put("[ten_bo_phan]", KtnbUtil.getTenBoPhan(appConText));
+				//word.put("[cqt_ra_qd]", cuocTtkt.getTenDonViTh());
+				//word.put("[ttkt1]", sb_ht1.toString());
 				if (KtnbUtil.isChiCuc(cuocTtkt.getIdDonViTh())) {
 					String dvPhuthuoc = CuocTtktService.searchDvPhuthuoc(cuocTtkt.getId());
 					if (dvPhuthuoc != null)
 						cuocTtkt.setTenDonViBi(dvPhuthuoc);
 				}
 				word.put("[don_vi_dc_ttkt]", cuocTtkt.getTenDonViBi());				
-				word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
 				word.put("[ngay_lv]", cuocTtkt.getThoiGianDuKien().toString());
-				word.put("[ttkt]", sb_ht.toString());
-				word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
 				// Loai (dot xuat hay dinh ky)
 				String loai = (cuocTtkt.getLoai().booleanValue()) ? "\u0111\u1ED9t xu\u1EA5t" : "theo k\u1EBF ho\u1EA1ch";
 				word.put("[hinh_thuc]", loai);
-				word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
 				// --------------------- danh sach thanh vien doan
 				// ------------------------//
 				Dispatch table = word.openTable(3);
@@ -689,13 +695,13 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 					for (int k = tenTv.length(); k < 28; k++)
 						tenTv += " ";
 					sbdstvd.append(tenTv);
-					word.addCellTable(table, i + 1, 1, tenTv);
+					//word.addCellTable(table, i + 1, 1, tenTv);
 					// chuc vu
 					String chucvuCongTac = Formater.isNull(chiTietDsTvDoan.getChucVu()) ? "" : chiTietDsTvDoan.getChucVu();
 					for (int k = chucvuCongTac.length(); k < 10; k++)
 						chucvuCongTac += " ";
 					sbdstvd.append("- Ch\u1EE9c v\u1EE5: " + chucvuCongTac);
-					word.addCellTable(table, i + 1, 2, "- Ch\u1EE9c v\u1EE5: " + chucvuCongTac);
+					//word.addCellTable(table, i + 1, 2, "- Ch\u1EE9c v\u1EE5: " + chucvuCongTac);
 					// chuc vu trong doan
 					String chucVuTrongDoan = chiTietDsTvDoan.getChucVuTrongDoan();
 					if ("Truong doan".equals(chucVuTrongDoan))
@@ -706,17 +712,17 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 						chucVuTrongDoan = "- Th\u00E0nh vi\u00EAn \u0111o\u00E0n";
 					sbdstvd.append(" " + chucVuTrongDoan);
 					sbdstvd.append("\n");
-					word.addCellTable(table, i + 1, 3, chucVuTrongDoan);
-					word.addRowTable(table, chiTietDsTvd.size());
+					//word.addCellTable(table, i + 1, 3, chucVuTrongDoan);
+					//word.addRowTable(table, chiTietDsTvd.size());
 					i++;
 				}
-				// word.put("[ds_thanh_vien]", sbdstvd.toString().substring(0, sbdstvd.toString().length() - 1));
+				word.put("[ds_thanh_vien]", sbdstvd.toString().substring(0, sbdstvd.toString().length() - 1));
 
-				word.put("[ttkt]", sb_ht.toString());
-				word.put("[ttkt1]", sb_ht1.toString());
+				//word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt1]", sb_ht1.toString());
 				word.put("[noi_dung_ttkt]", TtktService.getNoiDungTtkt(cuocTtkt));
 				// word.put("[noi_dung_ttkt]", cbForm.getNoiDung());
-				word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
 				// Ngay bat dau ttkt
 				word.put("[tu_ngay]", Formater.getDateForPrint(Formater.date2str(cuocTtkt.getNienDoTuNgay())));
 				// Ngay ket thuc ttkt
@@ -736,7 +742,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 					word.put("[chuc_danh]", sbcv.toString());
 				}
 				
-				word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
 //				if (Formater.isNull(cbForm.getThuTruongCacDvLienQuan())) {
 //					word.put("[truong_dv_lien_quan]", " C\u00E1c");
 //				} else {
@@ -763,7 +769,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				word.put("[chuc_danh_thu_truong]", KtnbUtil.getChucVuThuTruongByMaCqt(appConText.getMaCqt()).toUpperCase());
 				//word.put("[ten_thu_truong_cqt]", appConText.getTenThuTruong());
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau TTNB05", ".doc", reponse);
+				word.downloadFile(fileOut, "Mau KTNB05", ".doc", reponse);
 			} catch (Exception ex) {
 				 ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());

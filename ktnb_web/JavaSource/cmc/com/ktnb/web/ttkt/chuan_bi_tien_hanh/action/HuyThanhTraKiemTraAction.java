@@ -63,8 +63,8 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 	private void inQuyetDinhHuy(HttpServletRequest request, HttpServletResponse response, HuyThanhTraKiemTraForm huyThanhTraKiemTraForm, ApplicationContext appConText) throws Exception {
-		String fileIn = request.getRealPath("/docin") + "\\TTNB06.doc";
-		String fileOut = request.getRealPath("/docout") + "\\TTNB06_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+		String fileIn = request.getRealPath("/docin") + "\\KTNB06.doc";
+		String fileOut = request.getRealPath("/docout") + "\\KTNB06_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 		HashMap[] reportRows = null;
 		Map parameters = new HashMap();
 		String fileTemplate = null;
@@ -95,7 +95,7 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 				word.put("[noi_qd]", huyThanhTraKiemTraForm.getNoiRaQd());
 				word.put("[ngay_ttkt]", "ng\u00E0y " + arrngay[0] + " th\u00E1ng " + arrngay[1] + " n\u0103m " + arrngay[2]);
 			}
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			word.put("[so_qd_huy]", cbQd.getSoQuyetDinh());
 			String ngayttkt1 = Formater.date2str(cbQd.getNgayRaQuyetDnh());
 			String[] arrngayttkt1 = ngayttkt1.split("/");
@@ -105,23 +105,26 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 																													// danh
 																													// thu
 																													// truong
+			word.put("[luat_so]","7");																									
 			word.put("[can_cu]", CatalogService.getTenDanhMucById(huyThanhTraKiemTraForm.getVbQd()));
-			word.put("[ttkt]", sb.toString());
+			word.put("[quyet_dinh_so]","8");
+			word.put("[quyet_dinh_ngay]","22/12/2013");
+			//word.put("[ttkt]", sb.toString());
 			word.put("[so_qd]", cbQd.getSoQuyetDinh());
 			word.put("[ngay_ra_qd]", "ng\u00E0y " + arrngayttkt1[0] + " th\u00E1ng " + arrngayttkt1[1] + " n\u0103m " + arrngayttkt1[2]);
 			word.put("[chuc_danh_thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 			if (!Formater.isNull(huyThanhTraKiemTraForm.getChucVuNguoiDnHuy())) {
 				word.put("[chuc_danh_nguoi_de_nghi_bo_qd]", huyThanhTraKiemTraForm.getChucVuNguoiDnHuy());
 			} else {
 				word.put("[chuc_danh_nguoi_de_nghi_bo_qd]", KtnbUtil.inFieldNull(94));
 			}
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			word.put("[so_qd_huy]", cbQd.getSoQuyetDinh());
 			word.put("[ngay_ra_qd]", "ng\u00E0y " + arrngayttkt1[0] + " th\u00E1ng " + arrngayttkt1[1] + " n\u0103m " + arrngayttkt1[2]);
 			word.put("[chuc_danh_thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 			// ------------Ngay hieu luc--------------------//
 			String ngayraqd = huyThanhTraKiemTraForm.getNgayHieuLuc();
@@ -140,7 +143,7 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 			// word.put("[ngay_qd]", "ng\u00E0y " + arrngayttkt[0] + "
 			// th\u00E1ng " + arrngayttkt[1] + " n\u0103m " + arrngayttkt[2]);
 			word.saveAndClose();
-			word.downloadFile(fileOut, "Mau TTN06", ".doc", response);
+			word.downloadFile(fileOut, "Mau KTNB06", ".doc", response);
 		} catch (Exception ex) {
 			// ex.printStackTrace();
 			System.out.println("Download Error: " + ex.getMessage());

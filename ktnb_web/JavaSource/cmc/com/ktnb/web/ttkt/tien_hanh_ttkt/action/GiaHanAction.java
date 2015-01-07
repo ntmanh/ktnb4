@@ -260,10 +260,12 @@ public class GiaHanAction extends BaseDispatchAction {
 			}
 			word.put("[doan_ttkt_so]", sb.toString().toUpperCase());
 
-			word.put("[ttkt]", hinhThuc);
+			//word.put("[ttkt]", hinhThuc);
 			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 			word.put("[thu_truong_cqt_ra_qd]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
-			word.put("[ttkt]", hinhThuc);
+			//word.put("[ttkt]", hinhThuc);
+			word.put("[quyet_dinh_so]", "7");
+			word.put("[quyet_dinh_ngay]", "09/04/2014");
 			if (Formater.isNull(cbQd.getSoQuyetDinh())) {
 				word.put("[qd_so]", "............");
 			} else {
@@ -274,10 +276,10 @@ public class GiaHanAction extends BaseDispatchAction {
 			String[] arrngayxet = ngayxet.split("/");
 			word.put("[ngay_qd]", "ng\u00E0y " + arrngayxet[0] + " th\u00E1ng " + arrngayxet[1] + " n\u0103m " + arrngayxet[2]);
 			word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-			word.put("[ttkt]", hinhThuc);
+			//word.put("[ttkt]", hinhThuc);
 			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 
-			word.put("[ttkt]", hinhThuc);
+			//word.put("[ttkt]", hinhThuc);
 			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi().toString());
 			word.put("[ngay_lv]", giaHanForm.getSoNgayRaHan());
 			String tungay = giaHanForm.getRaHanTuNgay();
@@ -303,9 +305,10 @@ public class GiaHanAction extends BaseDispatchAction {
 			if (arrngaylaptotrinh.length >= 2) {
 				word.put("[ngay_lap_to_trinh]", "ng\u00E0y " + arrngaylaptotrinh[0] + " th\u00E1ng " + arrngaylaptotrinh[1] + " n\u0103m " + arrngaylaptotrinh[2]);
 			}
-			word.put("[ttkt]", hinhThuc);
+			//word.put("[ttkt]", hinhThuc);
 			word.put("[y_kien_phe_duyet]", giaHanForm.getKienPheDuyet());
 			word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
+			//word.put("[chuc_danh_thu_truong]", "ABC");
 			word.put("[chuc_danh_thu_truong]", KtnbUtil.getChucVuThuTruongByMaCqt(appConText.getMaCqt()).toUpperCase());
 			// if (Formater.isNull(appConText.getTenThuTruong())) {
 			// word.put("[ten_thu_truong]", "");
