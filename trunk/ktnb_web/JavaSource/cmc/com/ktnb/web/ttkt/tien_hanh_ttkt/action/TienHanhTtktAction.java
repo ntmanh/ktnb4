@@ -252,15 +252,15 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			word = new MsWordUtils(fileIn, fileOut);
 
 			StringBuffer sb = new StringBuffer(hinhThuc);
-			word.put("[ttkt]", hinhThuc.toUpperCase());
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", hinhThuc.toUpperCase());
+			//word.put("[ttkt]", sb.toString());
 			if (Formater.isNull(cuocTtkt.getTenDonViTh())) {
 				word.put("[ten_cqt_tien_hanh]", "-  \n\t- \n\t" + KtnbUtil.inFieldNull(114));
 			} else {
 				word.put("[ten_cqt_tien_hanh]", cuocTtkt.getTenDonViTh());
 			}
-			word.put("[ttkt]", sb.toString());
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			TtktCbQd cbQd = TtktService.getQuyetDinh(idCuocTtkt, appContext);
 			word.put("[so_qd]", cbQd.getSoQuyetDinh());
 			word.put("[ngay_qd]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())));
@@ -271,7 +271,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			} else {
 				word.put("[cac_quyet_dinh_thay_doi_thanh_vien_doan]", "\n" + cac_qd_td_tvd.substring(0, cac_qd_td_tvd.length() - 1));
 			}
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			StringBuffer sb1 = new StringBuffer("\u00D4ng (b\u00E0): " + cuocTtkt.getTenTruongDoan());
 			word.put("[ten_truong_doan]", sb1.toString());
 			String chucvu_truongdoan = null;
@@ -285,7 +285,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 				}
 			}
 			word.put("[chuc_vu_truong_doan]", chucvu_truongdoan);
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			int j = 0; // dem so luong thanh vien
 			StringBuffer ds_thanhviendoan = new StringBuffer(""); // danh sach thanh vien doan
 			// mo table trong Jacob Word
@@ -307,9 +307,9 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 				}
 			}
 			// word.put("[ten_thanh_vien]",sb1.toString());
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
-			word.put("[ttkt]", sb.toString().toUpperCase());
+			//word.put("[ttkt]", sb.toString().toUpperCase());
 
 			StringBuffer noiDungNk = new StringBuffer("");
 			TtktThNhatKy[] arrNhatKy = tienHanhTtktForm.getArrNhatKy();
@@ -327,8 +327,8 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 				word.put("[noi_dung_khac]", defaultNull + "\n" + defaultNull + "\n" + defaultNull);
 			} else
 				word.put("[noi_dung_khac]", tienHanhTtktForm.getNdKhac());
-			word.put("[ttkt]", sb.toString().toUpperCase());
-			word.put("[ttkt]", sb.toString().toUpperCase());
+			//word.put("[ttkt]", sb.toString().toUpperCase());
+			//word.put("[ttkt]", sb.toString().toUpperCase());
 			word.put("[ds_thanhvien]", ds_thanhviendoan.toString());
 			word.put("[truong_doan]", cuocTtkt.getTenTruongDoan());
 
