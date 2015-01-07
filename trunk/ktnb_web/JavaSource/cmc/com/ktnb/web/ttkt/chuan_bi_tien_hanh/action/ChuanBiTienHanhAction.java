@@ -1065,7 +1065,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				if (Formater.isNull(cbForm.getNhungVanDeKhac())) {
 					word.put("[van_de_khac]", "3.  Nh\u1EEFng v\u1EA5n \u0111\u1EC1 kh\u00E1c li\u00EAn quan (n\u1EBFu c\u00F3) ");
 				} else {
-					word.put("[van_de_khac]", "3.  Nh\u1EEFng v\u1EA5n \u0111\u1EC1 kh\u00E1c li\u00EAn quan: " + cbForm.getNhungVanDeKhac());
+					word.put("[van_de_khac]", "3.  Nh\u1EEFng v\u1EA5n \u0111\u1EC1 kh\u00E1c li\u00EAn quan: \n " + cbForm.getNhungVanDeKhac());
 				}
 				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
@@ -1092,10 +1092,10 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 			}
 			// hop doan trien khai (ngon, chuan) mau 14 ttnb
 		} else if ("hdtk".equals(request.getParameter("type"))) {
-			fileIn = request.getRealPath("/docin") + "\\HDTK.doc";
-			fileOut = request.getRealPath("/docout") + "\\HDTK_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+			fileIn = request.getRealPath("/docin") + "\\TTNB14.doc";
+			fileOut = request.getRealPath("/docout") + "\\TTNB14_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
-			fileTemplate = "hdtk";
+			fileTemplate = "ttnb14";
 			String idCuocTtkt = cbForm.getIdCuocTtkt();
 			// doan ttkt so
 			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appConText, idCuocTtkt);
@@ -1116,13 +1116,13 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				}
 				word.put("[so_ttkt]", sb.toString());
 				sb = new StringBuffer(hinhThuc);
-				word.put("[ttkt]", sb.toString().toUpperCase());
+				//word.put("[ttkt]", sb.toString().toUpperCase());
 
 				// ngay gio bat dau
 				word.put("[thoi_gian_hop]", KtnbUtil.getHour(cbForm.getThoiDiemBatDau()));
 				word.put("[dia_diem]", cbForm.getDiaDiemHop());
-				word.put("[ttkt]", sb.toString());
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[noi_dung_tt]", cbForm.getVeViec());
 
 				// danh sach thanh vien doan
@@ -1148,17 +1148,17 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				word.put("[noi_dung]", cbForm.getNoiDungHopDoanTrienKhai());
 				// ngay gio ket thuc
 				word.put("[time_ket_thuc]", KtnbUtil.getHour(cbForm.getThoiDiemKetThuc()));
-				word.put("[ttkt]", hinhthuc_inT.toUpperCase());
+				//word.put("[ttkt]", hinhthuc_inT.toUpperCase());
 				if(tptd.toString().length()==0)
 					word.put("[ds_thanh_vien]", "");
 				else
 					word.put("[ds_thanh_vien]", tptd.toString().substring(0, tptd.toString().length() - 1));
-				word.put("[ttkt]", sb.toString().toUpperCase());
+				//word.put("[ttkt]", sb.toString().toUpperCase());
 				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
 				// word.put("[chuc_danh_thu_truong]", KtnbUtil.getChucVuThuTruongByMaCqt(appConText.getMaCqt()).toUpperCase());
 				// word.put("[ten_thu_truong]", appConText.getTenThuTruong());
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau HDTK", ".doc", reponse);
+				word.downloadFile(fileOut, "Mau TTNB14", ".doc", reponse);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
