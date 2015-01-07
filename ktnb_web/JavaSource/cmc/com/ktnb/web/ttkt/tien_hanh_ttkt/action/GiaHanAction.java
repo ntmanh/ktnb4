@@ -174,7 +174,7 @@ public class GiaHanAction extends BaseDispatchAction {
 				word.put("[noi_ra_qd]", giaHanForm.getNoiRaQd());
 				word.put("[ngay_ra_qd]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
 			}
-			word.put("[ttkt]", hinhThuc);
+			//word.put("[ttkt]", hinhThuc);
 			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 			word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
 			if (CatalogService.getTenDanhMucById(giaHanForm.getVbQdCnNv()).equals("N/A")) {
@@ -182,21 +182,21 @@ public class GiaHanAction extends BaseDispatchAction {
 			} else {
 				word.put("[van_ban_quy_dinh]", CatalogService.getTenDanhMucById(giaHanForm.getVbQdCnNv()));
 			}
-			word.put("[ttkt]", hinhThuc);
-			word.put("[ttkt]", hinhThuc);
+			//word.put("[ttkt]", hinhThuc);
+			//word.put("[ttkt]", hinhThuc);
 			word.put("[qd_so]", cbQd.getSoQuyetDinh());
 			String ngayxet = Formater.date2str(cbQd.getNgayRaQuyetDnh());
 			String[] arrngayxet = ngayxet.split("/");
 			word.put("[ngay_qd]", "ng\u00E0y " + arrngayxet[0] + " th\u00E1ng " + arrngayxet[1] + " n\u0103m " + arrngayxet[2]);
 			word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-			word.put("[ttkt]", hinhThuc);
+			//word.put("[ttkt]", hinhThuc);
 			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi().toString());
-			word.put("[ttkt]", hinhThuc);
-			word.put("[ttkt]", hinhThuc);
+			//word.put("[ttkt]", hinhThuc);
+			//word.put("[ttkt]", hinhThuc);
 			word.put("[qd_so]", cbQd.getSoQuyetDinh());
 			word.put("[ngay_qd]", "ng\u00E0y " + arrngayxet[0] + " th\u00E1ng " + arrngayxet[1] + " n\u0103m " + arrngayxet[2]);
 			word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-			word.put("[ttkt1]", hinhThuc);
+			//word.put("[ttkt1]", hinhThuc);
 			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi().toString());
 			word.put("[ngay_lv]", giaHanForm.getSoNgayRaHan());
 			// tu ngay
@@ -207,7 +207,7 @@ public class GiaHanAction extends BaseDispatchAction {
 			String denngay = giaHanForm.getRaHanDenNgay();
 			String[] arrdenngay = denngay.split("/");
 			word.put("[den_ngay]", "ng\u00E0y " + arrdenngay[0] + " th\u00E1ng " + arrdenngay[1] + " n\u0103m " + arrdenngay[2]);
-			word.put("[ttkt]", hinhThuc);
+			//word.put("[ttkt]", hinhThuc);
 			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi().toString());
 			if (Formater.isNull(giaHanForm.getDvCaNhanLq())) {
 				word.put("[dv_lien_quan]", "");
