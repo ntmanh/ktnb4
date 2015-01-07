@@ -810,7 +810,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				}
 				word.put("[so_ttkt]", sb.toString());
 				StringBuffer sb_ht = new StringBuffer(hinhThuc);
-				word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
 
 				// Ten don vi bi Ttkt
 				sb = new StringBuffer("");
@@ -818,7 +818,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				word.put("[dv_duoc_ttkt]", sb.toString());
 				// Thu truong cqt trinh duyet
 				word.put("[tt_cq_thue_trinh_duyet]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-				word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
 				if (Formater.isNull(cbForm.getSoQuyetDinh())) {
 					word.put("[so_qd]", "......");
 				} else {
@@ -827,12 +827,12 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				// Ngay ra quyet dinh
 				word.put("[ngay_ra_quyet_dinh]", Formater.getDateForPrint(cbForm.getNgayRaQuyetDnh()));
 				word.put("[thu_truong_co_quan_thue_ra_quyet_dinh]", KtnbUtil.getTenThuTruongCqt(appConText));
-				word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
 				word.put("[dv_duoc_ttkt]", sb.toString());
-				word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
 				word.put("[dv_duoc_ttkt]", sb.toString());
-				word.put("[ttkt]", sb_ht.toString());
-				word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
 				if (Formater.isNull(cbForm.getMucDich())) {
 					word.put("[muc_dich]", KtnbUtil.inFieldNull(98));
 				} else {
@@ -843,18 +843,19 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				} else {
 					word.put("[yeu_cau]", cbForm.getYeuCau());
 				}
-				word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
 				if (Formater.isNull(cbForm.getNoiDung())) {
 					word.put("[noi_dung]", "- " + KtnbUtil.inFieldNull(116));
 				} else {
 					word.put("[noi_dung]", "- " + cbForm.getNoiDung());
 				}
-				word.put("[ttkt]", sb_ht.toString());
+				//word.put("[ttkt]", sb_ht.toString());
 				if (Formater.isNull(cbForm.getPhuongPhapTienHanh())) {
 					word.put("[phuong_phap_tien_hanh]", "- " + KtnbUtil.inFieldNull(116));
 				} else {
 					word.put("[phuong_phap_tien_hanh]", "- " + cbForm.getPhuongPhapTienHanh());
 				}
+				/*
 				// --------------- tien do thuc hien -------------------//
 				if (Formater.isNull(cbForm.getToChucThucHien())) {
 					word.put("[tien_do_thuc_hien]", "- Ti\u1EBFn \u0111\u1ED9 th\u1EF1c hi\u1EC7n");
@@ -888,6 +889,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 					sb.append(cbForm.getNhungDieuKienKhac());
 					word.put("[van_de_khac]", sb.toString());
 				}
+				*/
 				// Thu truong cqt trinh duyet
 				word.put("[tt_cq_thue_trinh_duyet]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
 				// ngay duyet
@@ -911,7 +913,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				} else {
 					word.put("[y_kien_phe_duyet]", cbForm.getYkienPheDuyetKh());
 				}
-				word.put("[ttkt]", sb_ht.toString().toUpperCase());
+				//word.put("[ttkt]", sb_ht.toString().toUpperCase());
 				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
 				word.put("[chuc_danh_thu_truong]", KtnbUtil.getChucVuThuTruongByMaCqt(appConText.getMaCqt()).toUpperCase());
 				//word.put("[ten_thu_truong]", appConText.getTenThuTruong());
