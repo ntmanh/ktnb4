@@ -220,8 +220,8 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 
 		// bo sung thanh vien doan (ngon, chuan)
 		if ("boSungTv".equals(type)) {
-			fileIn = request.getRealPath("/docin") + "\\TTNB09.doc";
-			fileOut = request.getRealPath("/docout") + "\\TTNB09_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+			fileIn = request.getRealPath("/docin") + "\\KTNB09.doc";
+			fileOut = request.getRealPath("/docout") + "\\KTNB09_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
 			fileTemplate = "ttnb09";
 			String idCuocTtkt = thayDoiThanhVienDoanForm.getIdCuocTtkt();
@@ -255,27 +255,30 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 					word.put("[noi_ra_qd]", thayDoiThanhVienDoanForm.getNoiRaQd());
 					word.put("[ngay_ra_qd]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
 				}
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
+				word.put("[luat_so]", "7");
 				if (CatalogService.getTenDanhMucById(thayDoiThanhVienDoanForm.getVbanQdinhCnangNvu()).equals("N/A")) {
 					word.put("[van_ban_quy_dinh]", KtnbUtil.inFieldNull(108) + ";");
 				} else {
 					word.put("[van_ban_quy_dinh]", CatalogService.getTenDanhMucById(thayDoiThanhVienDoanForm.getVbanQdinhCnangNvu()));
 				}
-				word.put("[ttkt]", sb.toString());
+				word.put("[quyet_dinh_so]", "22");
+				word.put("[quyet_dinh_ngay]", "09/04/2014");
+				//word.put("[ttkt]", sb.toString());
 				word.put("[so_qdinh]", cbQd.getSoQuyetDinh());
 				String ngayraqd1 = Formater.date2str(cbQd.getNgayRaQuyetDnh());
 				String[] arrngayraqd1 = ngayraqd1.split("/");
 				word.put("[ngay_ra_qd_cu]", "ng\u00E0y " + arrngayraqd1[0] + " th\u00E1ng " + arrngayraqd1[1] + " n\u0103m " + arrngayraqd1[2]);
 				//
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				word.put("[nguoi_de_nghi]", thayDoiThanhVienDoanForm.getChucVuNguoiDeNghi());
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[so_qdinh]", cbQd.getSoQuyetDinh());
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				// ngay bat dau ttkt
 				String ngayttkt = Formater.date2str(cuocTtkt.getThoiGianDuKienTuNgay());
@@ -294,7 +297,7 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 					System.out.println(tptd.toString());
 					word.put("[thanh_vien_moi]", tptd.toString().substring(0, tptd.toString().length() - 1));
 				}
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				if (Formater.isNull(thayDoiThanhVienDoanForm.getDvCnCoLquan())) {
 					word.put("[don_vi_lien_quan]", "");
@@ -310,7 +313,7 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 				// word.put("[ngay_qdinh]", "ng\u00E0y " + arrngqd[0] + " th\u00E1ng " + arrngqd[1] + " n\u0103m " + arrngqd[2]);
 
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau TTNB09", ".doc", reponse);
+				word.downloadFile(fileOut, "Mau KTNB09", ".doc", reponse);
 			} catch (Exception ex) {
 				// ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
@@ -427,8 +430,8 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 			}
 
 		} else {
-			fileIn = request.getRealPath("/docin") + "\\TTNB08.doc";
-			fileOut = request.getRealPath("/docout") + "\\TTNB08_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+			fileIn = request.getRealPath("/docin") + "\\KTNB08.doc";
+			fileOut = request.getRealPath("/docout") + "\\KTNB08_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
 			fileTemplate = "ttnb08";
 			// Loc sua lai sau
@@ -466,28 +469,32 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 					word.put("[noi_ra_qd]", thayDoiThanhVienDoanForm.getNoiRaQd());
 					word.put("[ngay_ra_qd]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
 				}
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
+				word.put("[luat_so]", "7");
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
 				if (CatalogService.getTenDanhMucById(thayDoiThanhVienDoanForm.getVbanQdinhCnangNvu()).equals("N/A")) {
 					word.put("[van_ban_quy_dinh]", KtnbUtil.inFieldNull(108) + ";");
 				} else {
 					word.put("[van_ban_quy_dinh]", CatalogService.getTenDanhMucById(thayDoiThanhVienDoanForm.getVbanQdinhCnangNvu()));
 				}
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
+				word.put("[quyet_dinh_so]", "22");
+				word.put("[quyet_dinh_ngay]", "09/02/2014");
 				word.put("[so_qdinh]", cbQd.getSoQuyetDinh());
 				String ngayraqd1 = Formater.date2str(cbQd.getNgayRaQuyetDnh());
 				String[] arrngayraqd1 = ngayraqd1.split("/");
 				word.put("[ngay_ra_qd_cu]", "ng\u00E0y " + arrngayraqd1[0] + " th\u00E1ng " + arrngayraqd1[1] + " n\u0103m " + arrngayraqd1[2]);
 				//
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				word.put("[nguoi_de_nghi]", thayDoiThanhVienDoanForm.getChucVuNguoiDeNghi());
-				word.put("[ttkt]", sb.toString());
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[so_qdinh]", cbQd.getSoQuyetDinh());
+				word.put("[ngay_ra_qd1]", "Chua co");
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				// ngay bat dau ttkt
 				String ngayttkt = Formater.date2str(cuocTtkt.getThoiGianDuKienTuNgay());
@@ -506,8 +513,8 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 					System.out.println(tptd.toString());
 					word.put("[thanh_vien_moi]", tptd.toString().substring(0, tptd.toString().length() - 1));
 				}
-				word.put("[ttkt]", sb.toString());
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				if (Formater.isNull(thayDoiThanhVienDoanForm.getSoQd())) {
 					word.put("[so_qd1]", "......");
 				} else {
@@ -519,9 +526,9 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 					word.put("[ngay_ra_qd]", "ng\u00E0y " + arrraqd[0] + " th\u00E1ng " + arrraqd[1] + " n\u0103m " + arrraqd[2]);
 				}
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				// ngay thoi tham gia
 				String ngaythoi = thayDoiThanhVienDoanForm.getNgayThoiThamGia();
 				String[] arrngaythoi = ngaythoi.split("/");
@@ -540,13 +547,13 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 					System.out.println(tptd.toString());
 					word.put("[thanh_vien_cu]", tvd.toString().substring(0, tvd.toString().length() - 1));
 				}
-				word.put("[ttkt]", sb.toString());
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				// ngay ban giao cong viec
 				String ngaybangiao = thayDoiThanhVienDoanForm.getNgayBanGiao();
 				String[] arrngaybg = ngaybangiao.split("/");
 				word.put("[ngay_ban_giao]", "ng\u00E0y " + arrngaybg[0] + " th\u00E1ng " + arrngaybg[1] + " n\u0103m " + arrngaybg[2]);
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				System.out.println("don vi dc ttkt :" + cuocTtkt.getTenDonViBi());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				if (Formater.isNull(thayDoiThanhVienDoanForm.getDvCnCoLquan())) {
@@ -563,7 +570,7 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 				// word.put("ngay_qdinh", "ng\u00E0y " + arrngqd[0] + " th\u00E1ng " + arrngqd[1] + " n\u0103m " + arrngqd[2]);
 
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau TTNB08", ".doc", reponse);
+				word.downloadFile(fileOut, "Mau 08/KTNB", ".doc", reponse);
 			} catch (Exception ex) {
 				// ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
