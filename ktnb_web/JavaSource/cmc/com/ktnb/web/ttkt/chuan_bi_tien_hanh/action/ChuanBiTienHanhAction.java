@@ -855,7 +855,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				} else {
 					word.put("[phuong_phap_tien_hanh]", "- " + cbForm.getPhuongPhapTienHanh());
 				}
-				/*
+				/**
 				// --------------- tien do thuc hien -------------------//
 				if (Formater.isNull(cbForm.getToChucThucHien())) {
 					word.put("[tien_do_thuc_hien]", "- Ti\u1EBFn \u0111\u1ED9 th\u1EF1c hi\u1EC7n");
@@ -958,7 +958,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				word.put("[ten_bc]", "\u0110\u1EC0 C\u01AF\u01A0NG");
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				sb = new StringBuffer(hinhThuc);
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				if (Formater.isNull(cbForm.getSoQuyetDinh())) {
 					word.put("[so_quyet_dinh]", "......");
 				} else {
@@ -966,12 +966,12 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				}
 				word.put("[ngay_quyet_dinh]", Formater.getDateForPrint(cbForm.getNgayRaQuyetDnh()));
 				word.put("[chuc_danh_thu_truong_co_quan_thue_ra_quyet_dinh]", KtnbUtil.getTenThuTruongCqt(appConText));
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 			 	word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
-				word.put("[ttkt]", sb.toString());
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				
 				/**-------------------SUA DOI CHUC NANG, IN LAY DU LIEU TREN TEXTBOX----------
 				// ---------------danh sach bao cao---------------//
@@ -1063,11 +1063,11 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				word.put("[bao_cao]", cbForm.getBcPhaiCbiCungCap());
 				word.put("[ho_so]",cbForm.getHsPhaiCbiCungCap());
 				if (Formater.isNull(cbForm.getNhungVanDeKhac())) {
-					word.put("[van_de_khac]", "3. Nh\u1EEFng v\u1EA5n \u0111\u1EC1 kh\u00E1c li\u00EAn quan (n\u1EBFu c\u00F3) ");
+					word.put("[van_de_khac]", "3.  Nh\u1EEFng v\u1EA5n \u0111\u1EC1 kh\u00E1c li\u00EAn quan (n\u1EBFu c\u00F3) ");
 				} else {
-					word.put("[van_de_khac]", "3. Nh\u1EEFng v\u1EA5n \u0111\u1EC1 kh\u00E1c li\u00EAn quan: " + cbForm.getNhungVanDeKhac());
+					word.put("[van_de_khac]", "3.  Nh\u1EEFng v\u1EA5n \u0111\u1EC1 kh\u00E1c li\u00EAn quan: " + cbForm.getNhungVanDeKhac());
 				}
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				// -----------------------------------------------------------//
 				if (!Formater.isNull(cbForm.getNoiLapDeCuong()))
@@ -1075,7 +1075,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				if (!Formater.isNull(cbForm.getNgayLapDeCuong())) {
 					word.put("[ngay_lap]", Formater.getDateForPrint(cbForm.getNgayLapDeCuong()));
 				}
-				word.put("[ttkt]", sb.toString().toUpperCase());
+				//word.put("[ttkt]", sb.toString().toUpperCase());
 				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
 				word.saveAndClose();
 
