@@ -149,6 +149,7 @@
 </html:form>
 <script language="javascript">
 function IntoTrinh(){   
+	alert("Sao khong chay vao day nhi ?");
 	if(!validateThanhVienDoan())     
 			return;
 	//window.open('report.do?rp=ttnb04'); 

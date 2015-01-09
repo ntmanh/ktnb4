@@ -174,6 +174,103 @@ public class GiaHanAction extends BaseDispatchAction {
 				word.put("[noi_ra_qd]", giaHanForm.getNoiRaQd());
 				word.put("[ngay_ra_qd]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
 			}
+			word.put("[ttkt]", hinhThuc);
+			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+			word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
+			if (CatalogService.getTenDanhMucById(giaHanForm.getVbQdCnNv()).equals("N/A")) {
+				word.put("[van_ban_quy_dinh]", KtnbUtil.inFieldNull(104) + ";");
+			} else {
+				word.put("[van_ban_quy_dinh]", CatalogService.getTenDanhMucById(giaHanForm.getVbQdCnNv()));
+			}
+			word.put("[ttkt]", hinhThuc);
+			word.put("[ttkt]", hinhThuc);
+			word.put("[qd_so]", cbQd.getSoQuyetDinh());
+			String ngayxet = Formater.date2str(cbQd.getNgayRaQuyetDnh());
+			String[] arrngayxet = ngayxet.split("/");
+			word.put("[ngay_qd]", "ng\u00E0y " + arrngayxet[0] + " th\u00E1ng " + arrngayxet[1] + " n\u0103m " + arrngayxet[2]);
+			word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
+			word.put("[ttkt]", hinhThuc);
+			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi().toString());
+			word.put("[ttkt]", hinhThuc);
+			word.put("[ttkt]", hinhThuc);
+			word.put("[qd_so]", cbQd.getSoQuyetDinh());
+			word.put("[ngay_qd]", "ng\u00E0y " + arrngayxet[0] + " th\u00E1ng " + arrngayxet[1] + " n\u0103m " + arrngayxet[2]);
+			word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
+			word.put("[ttkt1]", hinhThuc);
+			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi().toString());
+			word.put("[ngay_lv]", giaHanForm.getSoNgayRaHan());
+			// tu ngay
+			String tungay = giaHanForm.getRaHanTuNgay();
+			String[] arrtungay = tungay.split("/");
+			word.put("[tu_ngay]", "ng\u00E0y " + arrtungay[0] + " th\u00E1ng " + arrtungay[1] + " n\u0103m " + arrtungay[2]);
+			// den ngay
+			String denngay = giaHanForm.getRaHanDenNgay();
+			String[] arrdenngay = denngay.split("/");
+			word.put("[den_ngay]", "ng\u00E0y " + arrdenngay[0] + " th\u00E1ng " + arrdenngay[1] + " n\u0103m " + arrdenngay[2]);
+			word.put("[ttkt]", hinhThuc);
+			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi().toString());
+			if (Formater.isNull(giaHanForm.getDvCaNhanLq())) {
+				word.put("[dv_lien_quan]", "");
+			} else {
+				word.put("[dv_lien_quan]", ", " + giaHanForm.getDvCaNhanLq());
+			}
+			word.put("[ten_cqt]", KtnbUtil.getTenCqtCapTrenTt(appConText));
+			word.put("[chuc_danh_thu_truong]", KtnbUtil.getChucVuThuTruongByMaCqt(appConText.getMaCqt()).toUpperCase());
+			// if (Formater.isNull(appConText.getTenThuTruong())) {
+			// word.put("[ten_thu_truong]", "");
+			// } else {
+			// word.put("[ten_thu_truong]", appConText.getTenThuTruong());
+			// }
+			word.saveAndClose();
+			word.downloadFile(fileOut, "Mau TTNB11", ".doc", reponse);
+		} catch (Exception ex) {
+			// ex.printStackTrace();
+			System.out.println("Download Error: " + ex.getMessage());
+		} finally {
+			try {
+				word.saveAndClose();
+			} catch (Exception e) {
+
+			}
+		}
+	}
+	private void inQuyetDinhV4(HttpServletRequest request, HttpServletResponse reponse, GiaHanForm giaHanForm, ApplicationContext appConText) throws Exception {
+		String fileIn = request.getRealPath("/docin/v4") + "\\TTNB11.doc";
+		String fileOut = request.getRealPath("/docout") + "\\TTNB11_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+
+		String fileTemplate = null;
+		fileTemplate = "ttnb11"; // (ngon, chuan)
+		String idCuocTtkt = giaHanForm.getIdCuocTtKt();
+		TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appConText, idCuocTtkt);
+
+		TtktCbQd cbQd = TtktService.getQuyetDinh(idCuocTtkt, appConText);
+		String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
+		StringBuffer sb = new StringBuffer(hinhThuc);
+
+		MsWordUtils word = new MsWordUtils(fileIn, fileOut);
+		try {
+			word.put("[ten_cqt]", KtnbUtil.getTenCqtCapTrenTt(appConText).toUpperCase());
+			word.put("[cqt_ra_quyet_dinh]", cuocTtkt.getTenDonViTh().toUpperCase());
+			if (Formater.isNull(giaHanForm.getSoQd())) {
+				word.put("[so_qd]", "....../Q\u0110-.......");
+			} else {
+				word.put("[so_qd]", giaHanForm.getSoQd().toString());
+			}
+			String ngaylap = giaHanForm.getNgayRaQd();
+			String[] arrngaylap = ngaylap.split("/");
+			if (giaHanForm.getNoiRaQd().equals("") && giaHanForm.getNgayRaQd().equals("")) {
+				word.put("[noi_ra_qd]", ".....");
+				word.put("[ngay_ra_qd]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
+			} else if (!giaHanForm.getNoiRaQd().equals("") && !giaHanForm.getNgayRaQd().equals("")) {
+				word.put("[noi_ra_qd]", giaHanForm.getNoiRaQd());
+				word.put("[ngay_ra_qd]", "ng\u00E0y " + arrngaylap[0] + " th\u00E1ng " + arrngaylap[1] + " n\u0103m " + arrngaylap[2]);
+			} else if (giaHanForm.getNoiRaQd().equals("") && !giaHanForm.getNgayRaQd().equals("")) {
+				word.put("[noi_ra_qd]", ".....");
+				word.put("[ngay_ra_qd]", "ng\u00E0y " + arrngaylap[0] + " th\u00E1ng " + arrngaylap[1] + " n\u0103m " + arrngaylap[2]);
+			} else if (!giaHanForm.getNoiRaQd().equals("") && giaHanForm.getNgayRaQd().equals("")) {
+				word.put("[noi_ra_qd]", giaHanForm.getNoiRaQd());
+				word.put("[ngay_ra_qd]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
+			}
 			//word.put("[ttkt]", hinhThuc);
 			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 			word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
@@ -238,6 +335,96 @@ public class GiaHanAction extends BaseDispatchAction {
 	private void inToTrinh(HttpServletRequest request, HttpServletResponse reponse, GiaHanForm giaHanForm, ApplicationContext appConText) throws Exception {
 
 		String fileIn = request.getRealPath("/docin") + "\\TTNB10.doc";
+		String fileOut = request.getRealPath("/docout") + "\\TTNB10_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+
+		String fileTemplate = null;
+		fileTemplate = "ttnb10"; // (ngon, chuan)
+		String idCuocTtkt = giaHanForm.getIdCuocTtKt();
+		TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appConText, idCuocTtkt);
+
+		TtktCbQd cbQd = TtktService.getQuyetDinh(idCuocTtkt, appConText);
+		String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
+		StringBuffer sb = new StringBuffer(hinhThuc);
+
+		MsWordUtils word = new MsWordUtils(fileIn, fileOut);
+		try {
+			word.put("[ten_cqt]", KtnbUtil.getTenCqtCapTrenTt(appConText).toUpperCase());
+			// hinh thuc thanh tra kiem tra
+			if (Formater.isNull(giaHanForm.getSoQd())) {
+				sb.append(" Q\u0110 S\u1ED0......");
+			} else {
+				sb.append(" Q\u0110 S\u1ED0 " + giaHanForm.getSoQd());
+			}
+			word.put("[doan_ttkt_so]", sb.toString().toUpperCase());
+
+			word.put("[ttkt]", hinhThuc);
+			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+			word.put("[thu_truong_cqt_ra_qd]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
+			word.put("[ttkt]", hinhThuc);
+			if (Formater.isNull(cbQd.getSoQuyetDinh())) {
+				word.put("[qd_so]", "............");
+			} else {
+				word.put("[qd_so]", cbQd.getSoQuyetDinh());
+			}
+
+			String ngayxet = Formater.date2str(cbQd.getNgayRaQuyetDnh());
+			String[] arrngayxet = ngayxet.split("/");
+			word.put("[ngay_qd]", "ng\u00E0y " + arrngayxet[0] + " th\u00E1ng " + arrngayxet[1] + " n\u0103m " + arrngayxet[2]);
+			word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
+			word.put("[ttkt]", hinhThuc);
+			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+
+			word.put("[ttkt]", hinhThuc);
+			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi().toString());
+			word.put("[ngay_lv]", giaHanForm.getSoNgayRaHan());
+			String tungay = giaHanForm.getRaHanTuNgay();
+			String[] arrtungay = tungay.split("/");
+			word.put("[tu_ngay]", "ng\u00E0y " + arrtungay[0] + " th\u00E1ng " + arrtungay[1] + " n\u0103m " + arrtungay[2]);
+			// den ngay
+			String denngay = giaHanForm.getRaHanDenNgay();
+			String[] arrdenngay = denngay.split("/");
+			word.put("[den_ngay]", "ng\u00E0y " + arrdenngay[0] + " th\u00E1ng " + arrdenngay[1] + " n\u0103m " + arrdenngay[2]);
+			word.put("[ly_do]", giaHanForm.getLyDoRaHan());
+			word.put("[thu_truong_cqt_ra_qd]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
+			word.put("[noi_duyet]", giaHanForm.getNoiPheDuyet());
+			// ngay duyet
+			String ngayduyet = giaHanForm.getNgayPheDuyet();
+			String[] arrngayduyet = ngayduyet.split("/");
+			if (arrngayduyet.length >= 2) {
+				word.put("[ngay_duyet]", "ng\u00E0y " + arrngayduyet[0] + " th\u00E1ng " + arrngayduyet[1] + " n\u0103m " + arrngayduyet[2]);
+			}
+			word.put("[noi_lap]", giaHanForm.getNoiTrinh());
+			// ngay lap to trinh
+			String ngaylaptotrinh = giaHanForm.getNgayTrinh();
+			String[] arrngaylaptotrinh = ngaylaptotrinh.split("/");
+			if (arrngaylaptotrinh.length >= 2) {
+				word.put("[ngay_lap_to_trinh]", "ng\u00E0y " + arrngaylaptotrinh[0] + " th\u00E1ng " + arrngaylaptotrinh[1] + " n\u0103m " + arrngaylaptotrinh[2]);
+			}
+			word.put("[ttkt]", hinhThuc);
+			word.put("[y_kien_phe_duyet]", giaHanForm.getKienPheDuyet());
+			word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
+			word.put("[chuc_danh_thu_truong]", KtnbUtil.getChucVuThuTruongByMaCqt(appConText.getMaCqt()).toUpperCase());
+			// if (Formater.isNull(appConText.getTenThuTruong())) {
+			// word.put("[ten_thu_truong]", "");
+			// } else {
+			// word.put("[ten_thu_truong]", appConText.getTenThuTruong());
+			// }
+			word.saveAndClose();
+			word.downloadFile(fileOut, "Mau TTNB10", ".doc", reponse);
+		} catch (Exception ex) {
+			// ex.printStackTrace();
+			System.out.println("Download Error: " + ex.getMessage());
+		} finally {
+			try {
+				word.saveAndClose();
+			} catch (Exception e) {
+
+			}
+		}
+	}
+	private void inToTrinhV4(HttpServletRequest request, HttpServletResponse reponse, GiaHanForm giaHanForm, ApplicationContext appConText) throws Exception {
+
+		String fileIn = request.getRealPath("/docin/v4") + "\\TTNB10.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TTNB10_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
 		String fileTemplate = null;

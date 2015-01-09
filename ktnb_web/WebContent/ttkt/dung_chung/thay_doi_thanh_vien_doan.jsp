@@ -1,4 +1,4 @@
-z<%@page pageEncoding="UTF-8" %>
+<%@page pageEncoding="UTF-8" %>
 <%@ include file="/top_bar.jsp"%>
 <%@page import="cmc.com.ktnb.util.Formater"%>
 <%@page import="jxl.write.DateTime"%>

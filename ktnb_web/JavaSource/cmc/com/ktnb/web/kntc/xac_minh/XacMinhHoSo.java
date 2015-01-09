@@ -408,8 +408,8 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	public ActionForward returnDefaultGiaHan(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		String loaiGiaHan=request.getParameter("action");
-		if("giahanTC".equals(loaiGiaHan))
-			return map.findForward("giahanTC");
+//		if("giahanTC".equals(loaiGiaHan))
+//			return map.findForward("giahanTC");
 		return map.findForward("giahan");
 	}
 	/**
