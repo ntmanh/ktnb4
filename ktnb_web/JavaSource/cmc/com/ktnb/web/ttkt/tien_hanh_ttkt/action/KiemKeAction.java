@@ -485,7 +485,7 @@ public class KiemKeAction extends BaseDispatchAction {
 					word.put("[noi_ra_qd]", kiemkeForm.getNoiRaQd());
 					word.put("[ngay_lap]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
 				}
-				word.put("[ttkt]", sb.toString().toUpperCase());
+				//word.put("[ttkt]", sb.toString().toUpperCase());
 				word.put("[so_qd]", cbQd.getSoQuyetDinh());
 				String ngayttkt = Formater.date2str(cbQd.getNgayRaQuyetDnh());
 				String[] arrngayttkt = ngayttkt.split("/");
@@ -495,7 +495,7 @@ public class KiemKeAction extends BaseDispatchAction {
 				word.put("[so_qd]", cbQd.getSoQuyetDinh());
 				word.put("[ngay_ra_qd]",ngay_ra_qd);
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				word.put("[tai_san]", kiemkeForm.getTaiSanCanKiemKe());
 				word.put("[dv_quan_ly_tai_san]", kiemkeForm.getDonViDangBaoQuan());
@@ -514,7 +514,7 @@ public class KiemKeAction extends BaseDispatchAction {
 					word.put("[dv_lien_quan]", "");
 				else
 					word.put("[dv_lien_quan]",", v\u00E0 "+ kiemkeForm.getDonViCoLienQuan());
-				word.put("[ttkt]", sb.toString().toUpperCase());
+				//word.put("[ttkt]", sb.toString().toUpperCase());
 				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
 
 				
