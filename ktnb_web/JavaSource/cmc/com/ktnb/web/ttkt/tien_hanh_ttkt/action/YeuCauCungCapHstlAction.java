@@ -710,11 +710,11 @@ public class YeuCauCungCapHstlAction extends BaseDispatchAction {
 				word.put("[doan_ttkt_so]", sbT.toString());
 				word.put("[thoi_diem_bat_dau]", KtnbUtil.getHour(hstlForm.getThoiDiemBatDauBanGiaoHoSo()));
 				word.put("[dia_diem]", hstlForm.getDiaDiemBBGT());
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[so_quyet_dinh]", cbQd.getSoQuyetDinh());
 				word.put("[ngay_quyet]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())));
 				word.put("[chuc_danh_thu_truong]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				//dai dien ben giao
 				Dispatch table = word.openTable(2);
@@ -757,7 +757,7 @@ public class YeuCauCungCapHstlAction extends BaseDispatchAction {
 					//word.put("[thanh_vien_ben_nhan]", KtnbUtil.inFieldNull(106));
 				//}
 				//
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				if(Formater.isNull(hstlForm.getBaoCaoHoSoTra())){
 					word.put("[bao_cao]", printDefaultNull);
 				}else{
