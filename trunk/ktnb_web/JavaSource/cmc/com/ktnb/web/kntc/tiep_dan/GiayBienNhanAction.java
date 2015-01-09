@@ -189,6 +189,44 @@ public class GiayBienNhanAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 	public ActionForward inCghs(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String fileIn = request.getRealPath("/docin") + "\\KNTC03.doc";
+		String fileOut = request.getRealPath("/docout") + "\\KNTC03_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		PhieuForm cbForm = (PhieuForm) form;
+
+		MsWordUtils word = new MsWordUtils(fileIn, fileOut);
+		try {
+			word.put("[CO_QUAN_THUE_TRUC_TIEP]", appContext.getTenCqt().toUpperCase());
+			word.put("[DON_VI_TIEP_NHAN]", appContext.getTenPhong().toUpperCase());
+			word.put("[thoi_diem_lap_phieu_giao_nhan]", Formater.getDateTimeForPrint(cbForm.getNgay()));
+			word.put("[dia_chi_don_vi_lap_phieu_giao_nhan]", cbForm.getDiaDiem());
+
+			word.put("[ho_ten_nguoi_nhan_ho_so]", cbForm.getNguoiNhanTen());
+			word.put("[chuc_vu_nguoi_nhan_ho_so]", cbForm.getNguoiNhanCV());
+			word.put("[don_vi_nguoi_nhan_ho_so]", cbForm.getNguoiNhanDV());
+
+			word.put("[ho_ten_nguoi_giao_ho_so]", cbForm.getNguoiGiaoTen());
+			word.put("[chuc_vu_nguoi_giao_ho_so]", cbForm.getNguoiGiaoCV());
+			word.put("[don_vi_nguoi_giao_ho_so]", cbForm.getNguoiGiaoDV());
+
+			word.put("[ho_so_tai_lieu]", cbForm.getNoiDungBG());
+			word.put("[ho_ten_nguoi_giao_ho_so]", cbForm.getNguoiGiaoTen());
+			word.put("[ho_ten_nguoi_nhan_ho_so]", cbForm.getNguoiNhanTen());
+			word.saveAndClose();
+			word.downloadFile(fileOut, "Mau KNTC03", ".doc", response);
+		} catch (Exception ex) {
+			// ex.printStackTrace();
+			System.out.println("Download Error: " + ex.getMessage());
+		} finally {
+			try{
+			word.saveAndClose();
+			}catch(Exception ex){}
+		}
+
+		return null;
+	}
+	public ActionForward inCghsV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String fileIn = request.getRealPath("/docin") + "\\TCD03.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TCD03_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 

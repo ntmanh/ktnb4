@@ -63,7 +63,97 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 	private void inQuyetDinhHuy(HttpServletRequest request, HttpServletResponse response, HuyThanhTraKiemTraForm huyThanhTraKiemTraForm, ApplicationContext appConText) throws Exception {
-		String fileIn = request.getRealPath("/docin") + "\\KTNB06.doc";
+		String fileIn = request.getRealPath("/docin") + "\\TTNB06.doc";
+		String fileOut = request.getRealPath("/docout") + "\\TTNB06_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+		HashMap[] reportRows = null;
+		Map parameters = new HashMap();
+		String fileTemplate = null;
+		fileTemplate = "ttnb06";
+		String idCuocTtkt = huyThanhTraKiemTraForm.getIdCuocTtKt();
+		TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appConText, idCuocTtkt);
+		// --------------------------------------------------//
+		TtktCbQd cbQd = TtktService.getQuyetDinh(idCuocTtkt, appConText);
+		String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
+		StringBuffer sb = new StringBuffer(hinhThuc);
+
+		MsWordUtils word = new MsWordUtils(fileIn, fileOut);
+		try {
+			word.put("[ten_cqt]", KtnbUtil.getTenCqtCapTrenTt(appConText).toUpperCase());
+			word.put("[co_quan_thue_ra_quyet_dinh]", cuocTtkt.getTenDonViTh().toUpperCase());
+			if (Formater.isNull(huyThanhTraKiemTraForm.getSoQd()))
+				word.put("[so_ttkt]", ".........../Q\u0110-.......");
+			else
+				word.put("[so_ttkt]", huyThanhTraKiemTraForm.getSoQd());
+			// noi lap qd, ngay
+			String ngay = huyThanhTraKiemTraForm.getNgayRaQd();
+			String[] arrngay = ngay.split("/");
+
+			if (huyThanhTraKiemTraForm.getNoiRaQd().equals("") || huyThanhTraKiemTraForm.getNgayRaQd().equals("")) {
+				word.put("[noi_qd]", ".....");
+				word.put("[ngay_ttkt]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
+			} else {
+				word.put("[noi_qd]", huyThanhTraKiemTraForm.getNoiRaQd());
+				word.put("[ngay_ttkt]", "ng\u00E0y " + arrngay[0] + " th\u00E1ng " + arrngay[1] + " n\u0103m " + arrngay[2]);
+			}
+			word.put("[ttkt]", sb.toString());
+			word.put("[so_qd_huy]", cbQd.getSoQuyetDinh());
+			String ngayttkt1 = Formater.date2str(cbQd.getNgayRaQuyetDnh());
+			String[] arrngayttkt1 = ngayttkt1.split("/");
+			word.put("[ngay_ra_qd]", "ng\u00E0y " + arrngayttkt1[0] + " th\u00E1ng " + arrngayttkt1[1] + " n\u0103m " + arrngayttkt1[2]);
+			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+			word.put("[chuc_danh_thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase()); // chuc
+																													// danh
+																													// thu
+																													// truong
+			word.put("[can_cu]", CatalogService.getTenDanhMucById(huyThanhTraKiemTraForm.getVbQd()));
+			word.put("[ttkt]", sb.toString());
+			word.put("[so_qd]", cbQd.getSoQuyetDinh());
+			word.put("[ngay_ra_qd]", "ng\u00E0y " + arrngayttkt1[0] + " th\u00E1ng " + arrngayttkt1[1] + " n\u0103m " + arrngayttkt1[2]);
+			word.put("[chuc_danh_thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
+			word.put("[ttkt]", sb.toString());
+			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+			if (!Formater.isNull(huyThanhTraKiemTraForm.getChucVuNguoiDnHuy())) {
+				word.put("[chuc_danh_nguoi_de_nghi_bo_qd]", huyThanhTraKiemTraForm.getChucVuNguoiDnHuy());
+			} else {
+				word.put("[chuc_danh_nguoi_de_nghi_bo_qd]", KtnbUtil.inFieldNull(94));
+			}
+			word.put("[ttkt]", sb.toString());
+			word.put("[so_qd_huy]", cbQd.getSoQuyetDinh());
+			word.put("[ngay_ra_qd]", "ng\u00E0y " + arrngayttkt1[0] + " th\u00E1ng " + arrngayttkt1[1] + " n\u0103m " + arrngayttkt1[2]);
+			word.put("[chuc_danh_thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
+			word.put("[ttkt]", sb.toString());
+			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+			// ------------Ngay hieu luc--------------------//
+			String ngayraqd = huyThanhTraKiemTraForm.getNgayHieuLuc();
+			String[] arrNgayqd = ngayraqd.split("/");
+			word.put("[ngay_qd_huy]", Formater.getDateForPrint(huyThanhTraKiemTraForm.getNgayHieuLuc()));
+			word.put("[ttkt]", sb.toString());
+			word.put("[ten_cqt]", KtnbUtil.getTenCqtCapTrenTt(appConText));
+			word.put("[chuc_danh_thu_truong]", KtnbUtil.getChucVuThuTruongByMaCqt(appConText.getMaCqt()).toUpperCase());
+			// if (Formater.isNull(appConText.getTenThuTruong())) {
+			// word.put("[ten_thu_truong]", "");
+			// } else {
+			// word.put("[ten_thu_truong]", appConText.getTenThuTruong());
+			// }
+			// String ngayttkt = Formater.date2str(cbQd.getNgayRaQuyetDnh());
+			// String[] arrngayttkt = ngayttkt.split("/");
+			// word.put("[ngay_qd]", "ng\u00E0y " + arrngayttkt[0] + "
+			// th\u00E1ng " + arrngayttkt[1] + " n\u0103m " + arrngayttkt[2]);
+			word.saveAndClose();
+			word.downloadFile(fileOut, "Mau TTN06", ".doc", response);
+		} catch (Exception ex) {
+			// ex.printStackTrace();
+			System.out.println("Download Error: " + ex.getMessage());
+		} finally {
+			try {
+				word.saveAndClose();
+			} catch (Exception e) {
+
+			}
+		}
+	}
+	private void inQuyetDinhHuyV4(HttpServletRequest request, HttpServletResponse response, HuyThanhTraKiemTraForm huyThanhTraKiemTraForm, ApplicationContext appConText) throws Exception {
+		String fileIn = request.getRealPath("/docin/v4") + "\\KTNB06.doc";
 		String fileOut = request.getRealPath("/docout") + "\\KTNB06_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 		HashMap[] reportRows = null;
 		Map parameters = new HashMap();

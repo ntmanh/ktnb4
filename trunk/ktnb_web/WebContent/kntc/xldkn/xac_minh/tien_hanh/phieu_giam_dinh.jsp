@@ -128,7 +128,7 @@ function ghi(){
 	}	
 }
 function print(){
-   document.forms[0].action="kntc_xm_phieu_yc.do?method=in&type=13/KN&action="+'<%=request.getParameter("action")%>';
+   document.forms[0].action="kntc_xm_phieu_yc.do?method=in&type=15B/KTNB&action="+'<%=request.getParameter("action")%>';
 		document.forms[0].submit();
 }
 function xem(){

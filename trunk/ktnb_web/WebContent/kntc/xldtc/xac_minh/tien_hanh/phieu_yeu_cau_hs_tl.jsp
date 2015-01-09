@@ -154,7 +154,7 @@ function ghi(){
 }
 
 function print(){
-	document.forms[0].action="kntc_xm_phieu_yc.do?method=in&type=TC10&action="+'<%=request.getParameter("action")%>';
+	document.forms[0].action="kntc_xm_phieu_yc.do?method=in&type=13/KTNB&action="+'<%=request.getParameter("action")%>';
 	document.forms[0].submit();
 }
 
