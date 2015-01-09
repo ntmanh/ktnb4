@@ -1012,7 +1012,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		//
 		word.put("[dia_diem]", tienHanhTtktForm.getDiaDiem());
 		sb = new StringBuffer(hinhThuc);
-		word.put("[ttkt]", sb.toString());
+		//word.put("[ttkt]", sb.toString());
 		word.put("[so_quyet_dinh]", qdTtkt.getSoQuyetDinh());
 		String ngayqd = Formater.date2str(qdTtkt.getNgayRaQuyetDnh());
 		String[] arrngayqd = ngayqd.split("/");
@@ -1024,9 +1024,9 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
-		word.put("[ttkt]", sb.toString());
+		//word.put("[ttkt]", sb.toString());
 		word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
-		word.put("[ttkt]", sb.toString());
+		//word.put("[ttkt]", sb.toString());
 		Dispatch table = new Dispatch();
 		StringBuffer tptd = new StringBuffer("");
 		TtktCmThanhPhanThamDu[] arrdaidiencoquanthue = tienHanhTtktForm.getArrDaiDienCqtBanHanhQD();
@@ -1035,7 +1035,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		TtktCmThanhPhanThamDu[] arrdonvittkt = tienHanhTtktForm.getArrDaiDienDonViDuocTtkt();
 		switch (type) {
 		case 0:
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			// dai dien co quan thue ra quyet dinh
 			table = word.openTable(3);
 			
@@ -1053,7 +1053,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			}
 			break;
 		case 2:
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			// dai dien co quan thue ra quyet dinh
 			table = word.openTable(3);
 			if (arrdaidiencoquanthue != null && arrdaidiencoquanthue.length > 0) {
@@ -1074,7 +1074,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		}
 		switch (type) {
 		case 0:
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			// dai dien co quan quan ly cap tren
 			table = word.openTable(4);
 			tptd = new StringBuffer("");
@@ -1092,7 +1092,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			}
 			break;
 		case 1:
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			// dai dien co quan quan ly cap tren
 			table = word.openTable(3);
 			tptd = new StringBuffer("");
@@ -1123,7 +1123,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		//
 		switch (type) {
 		case 0:
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			// dai dien doan ttkt
 			table = word.openTable(5);
 			tptd = new StringBuffer("");
@@ -1141,7 +1141,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			}
 			break;
 		case 1:
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			// dai dien doan ttkt
 			table = word.openTable(4);
 			tptd = new StringBuffer("");
@@ -1159,7 +1159,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			}
 			break;	
 		case 2:
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			// dai dien doan ttkt
 			table = word.openTable(4);
 			tptd = new StringBuffer("");
@@ -1177,7 +1177,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			}
 			break;	
 		case 3:
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			// dai dien doan ttkt
 			table = word.openTable(3);
 			tptd = new StringBuffer("");
@@ -1199,7 +1199,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		}
 		switch (type) {
 		case 0:
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			// dai dien don vi dc ttkt
 			table = word.openTable(6);
 			tptd = new StringBuffer("");
@@ -1219,7 +1219,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			}
 			break;
 		case 1:
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			// dai dien don vi dc ttkt
 			table = word.openTable(5);
 			tptd = new StringBuffer("");
@@ -1239,7 +1239,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			}
 			break;	
 		case 2:
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			// dai dien don vi dc ttkt
 			table = word.openTable(5);
 			tptd = new StringBuffer("");
@@ -1259,7 +1259,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			}
 			break;
 		case 3:
-			word.put("[ttkt]", sb.toString());
+			//word.put("[ttkt]", sb.toString());
 			// dai dien don vi dc ttkt
 			table = word.openTable(4);
 			tptd = new StringBuffer("");
@@ -1282,8 +1282,8 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			break;
 		}
 		//
-		word.put("[ttkt]", sb.toString());
-		word.put("[ttkt]", sb.toString());
+		//word.put("[ttkt]", sb.toString());
+		//word.put("[ttkt]", sb.toString());
 		word.put("[so_quyet_dinh]", qdTtkt.getSoQuyetDinh());
 		word.put("[ngay_quyet]", "ng\u00E0y " + arrngayqd[0] + " th\u00E1ng " + arrngayqd[1] + " n\u0103m " + arrngayqd[2]);
 		try {
@@ -1292,13 +1292,13 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		word.put("[ttkt]", sb.toString());
+		//word.put("[ttkt]", sb.toString());
 		word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
-		word.put("[ttkt]", sb.toString());
-		word.put("[ttkt]", sb.toString());
-		word.put("[ttkt]", sb.toString());
-		word.put("[ttkt]", sb.toString());
-		word.put("[ttkt]", sb.toString());
+		//word.put("[ttkt]", sb.toString());
+		//word.put("[ttkt]", sb.toString());
+		//word.put("[ttkt]", sb.toString());
+		//word.put("[ttkt]", sb.toString());
+		//word.put("[ttkt]", sb.toString());
 		StringBuffer sb1 = new StringBuffer("\u00DD ki\u1EBFn ph\u00E1t bi\u1EC3u: ");
 		if (Formater.isNull(tienHanhTtktForm.getYkienPhatBieu())) {
 			sb1.append("\n\t" + KtnbUtil.inFieldNull(115));
@@ -1306,7 +1306,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			sb1.append("\n\t" + tienHanhTtktForm.getYkienPhatBieu());
 		}
 		word.put("[y_kien]", sb1.toString());
-		word.put("[ttkt]", sb.toString());
+		//word.put("[ttkt]", sb.toString());
 
 		//
 		String ngayGioKT = tienHanhTtktForm.getThoiDiemCbDen();
@@ -1319,11 +1319,11 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		phut = gioPhutKT.split(":")[1];
 		gio = gioPhutKT.split(":")[0];
 		word.put("[thoi_gian_ket_thuc]", gio + " gi\u1EDD " + phut + " ph\u00FAt, ng\u00E0y " + ngay + " th\u00E1ng " + thang + " n\u0103m " + nam);
-		word.put("[ttkt]", sb.toString());
-		word.put("[ttkt]", sb.toString());
+		//word.put("[ttkt]", sb.toString());
+		//word.put("[ttkt]", sb.toString());
 		word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
-		word.put("[ttkt]", sb.toString().toUpperCase());
-		word.put("[ttkt]", sb.toString().toUpperCase());
+		//word.put("[ttkt]", sb.toString().toUpperCase());
+		//word.put("[ttkt]", sb.toString().toUpperCase());
 		word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
 	}
 
