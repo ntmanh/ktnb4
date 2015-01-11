@@ -559,10 +559,10 @@ public class KiemKeAction extends BaseDispatchAction {
 				word.put("[doan_ttkt_so]", sbT.toString());
 				// ngay kiem ke
 				word.put("[ngay_kiem_ke]", Formater.getDateForPrint(kiemkeForm.getNgayRaQd()));
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[so_qd]", cbQd.getSoQuyetDinh());
 				word.put("[thu_truong_qd]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				word.put("[thoi_gian_lap_bien_ban]", Formater.getDateTimeForPrint(kiemkeForm.getThoiDiemLapBb()));
 				if (Formater.isNull(kiemkeForm.getNoiRaQd())) {
@@ -570,7 +570,7 @@ public class KiemKeAction extends BaseDispatchAction {
 				} else {
 					word.put("[dia_diem]", kiemkeForm.getNoiRaQd());
 				}
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				//dai dien doan ttkt
 				//khoi tao table trong Msword
 				Dispatch table = word.openTable(2);
@@ -623,8 +623,8 @@ public class KiemKeAction extends BaseDispatchAction {
 				} else {
 					word.put("[dv_bao_quan]", kiemkeForm.getDvDuocGiaoBQTS());
 				}
-				word.put("[ttkt]", sb.toString());
-				word.put("[ttkt]", sb.toString().toUpperCase());
+				//word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString().toUpperCase());
 				// TODO: chua co truong dia diem lap bien ban tren form
 				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
 				word.saveAndClose();
