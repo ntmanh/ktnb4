@@ -1056,7 +1056,7 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 				System.out.println("Download Error: " + ex.getMessage());
 			}
 		} else if ("inBienBanMo".equals(type)) {
-			fileIn = request.getRealPath("/docin") + "\\TTNB25.doc";
+			fileIn = request.getRealPath("/docin/v4") + "\\TTNB25.doc";
 			fileOut = request.getRealPath("/docout") + "\\TTNB25_Out" + System.currentTimeMillis()+request.getSession().getId() + ".doc";
 			fileTemplate = "ttnb25";
 			try {
@@ -1067,16 +1067,16 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 				// word.put("so_qd_niem_phong", sb.toString());
 				word.put("[ngay_qd_niem_phong]", Formater.getDateForPrint(form.getNgayRaQDMoNP()));
 				//word.put("ngay_qd_niem_phong", Formater.getDateForPrint(form.getNgayRaQDMoNP()));
-				word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[so_qd]", cbQd.getSoQuyetDinh());
 				word.put("[ngay_qd]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())));
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(app));
-				word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				word.put("[thoi_gian_mo_niem_phong]", KtnbUtil.getHour(form.getVaoLucBienBanMoNP()));
 				word.put("[dia_diem_mo_niem_phong]", form.getDiaDiemBienBanMoNP());
 				//word.put("[dia_diem_niem_phong]", form.getDiaDiemBienBanMoNP());
-				word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				//doan thanh tra kiem tra
 				Dispatch table = word.openTable(2);
 				TtktCmThanhPhanThamDu[] arrthanhphanbg = form.getDsTVD2();
