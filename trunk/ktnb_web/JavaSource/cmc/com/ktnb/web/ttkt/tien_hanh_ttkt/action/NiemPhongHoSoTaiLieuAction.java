@@ -1131,7 +1131,7 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 			}
 			
 		} else if ("inBienBan".equals(type)) {
-			fileIn = request.getRealPath("/docin") + "\\TTNB23.doc";
+			fileIn = request.getRealPath("/docin/v4") + "\\TTNB23.doc";
 			fileOut = request.getRealPath("/docout") + "\\TTNB23_Out" + System.currentTimeMillis()+request.getSession().getId() + ".doc";
 			fileTemplate = "ttnb23";
 			try {
@@ -1140,16 +1140,16 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 				word.put("[doan_ttkt_so]", sbT.toString().toUpperCase());
 				//word.put("[ten_bc]", sb.toString());
 				word.put("[ngay_niem_phong]", Formater.getDateForPrint(form.getNgayRaQDNP()));
-				word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[so_qd]", cbQd.getSoQuyetDinh());
 				word.put("[ngay_qdinh]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())));
 				word.put("[thu_truong_qd]", KtnbUtil.getTenThuTruongCqtForMauin(app));
-				word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				//word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqt(app));
 				word.put("[thoi_gian_lap_bien_ban]", Formater.getDateTimeForPrint(form.getVaoLucBienBanNP()));
 				word.put("[dia_diem]", form.getTaiDiaDiemNP());
-				word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				//doan thanh tra kiem tra
 				//khoi tao table trong Msword
 				Dispatch table = word.openTable(2);
@@ -1189,7 +1189,7 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 				word.put("[dv_quan_ly]", form.getDinViCaNhanBaoQuanBbNp());
 				word.put("[thoi_gian_ket_thuc]", Formater.getDateTimeForPrint(form.getThoiGianHoanThanhNP()));
 				//word.put("[thu_truong_qd]", KtnbUtil.getTenThuTruongCqt(app));
-				word.put("[ttkt]", hinhThuc.toUpperCase());
+				//word.put("[ttkt]", hinhThuc.toUpperCase());
 				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
 				word.saveAndClose();
 				word.downloadFile(fileOut, "Mau TTNB23", ".doc", reponse);
