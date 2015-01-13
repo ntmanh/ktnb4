@@ -439,7 +439,9 @@ public class KiemKeAction extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
-	private void inKiemke(HttpServletRequest request, HttpServletResponse reponse, KiemKeForm kiemkeForm, ApplicationContext appConText) throws Exception {
+	
+	//v3
+	private void inKiemkev3(HttpServletRequest request, HttpServletResponse reponse, KiemKeForm kiemkeForm, ApplicationContext appConText) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
@@ -450,6 +452,206 @@ public class KiemKeAction extends BaseDispatchAction {
 		String fileTemplate = null;
 		if ("qdkk".equals(type)) {
 			fileIn = request.getRealPath("/docin") + "\\TTNB20.doc";
+			fileOut = request.getRealPath("/docout") + "\\TTNB20_Out" + System.currentTimeMillis()+request.getSession().getId() + ".doc";
+			
+			fileTemplate = "ttnb20";
+			// Loc sua lai sau
+			String idCuocTtkt = kiemkeForm.getIdCuocTtkt();
+			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appConText, idCuocTtkt);
+
+			TtktCbQd cbQd = TtktService.getQuyetDinh(cuocTtkt.getId(), appConText);
+			String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
+			String hinhthuc_in = (cuocTtkt.getHinhThuc().booleanValue()) ? "KI\u1EC2M TRA" : "THANH TRA";
+			String hinhthuc_inT = (cuocTtkt.getHinhThuc().booleanValue()) ? "KT" : "TT";
+			StringBuffer sb = new StringBuffer(hinhThuc);
+			try {
+				word = new MsWordUtils(fileIn, fileOut);
+				word.put("[ten_cqt]", appConText.getTenCqt().toUpperCase());
+				StringBuffer sbT = new StringBuffer("\u0110O\u00C0N ");
+				sbT.append(hinhthuc_inT);
+				sbT.append(" Q\u0110 S\u1ED0 ");
+				sbT.append(cbQd.getSoQuyetDinh());
+				word.put("[doan_ttkt_so]", sbT.toString());
+				String ngaylap = kiemkeForm.getNgayRaQd();
+				String[] arrngaylap = ngaylap.split("/");
+				if (kiemkeForm.getNoiRaQd().equals("") && kiemkeForm.getNgayRaQd().equals("")) {
+					word.put("[noi_ra_qd]", ".....");
+					word.put("[ngay_lap]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
+				}else if (!kiemkeForm.getNoiRaQd().equals("") && !kiemkeForm.getNgayRaQd().equals("")) {
+					word.put("[noi_ra_qd]", kiemkeForm.getNoiRaQd());
+					word.put("[ngay_lap]", "ng\u00E0y " + arrngaylap[0] + " th\u00E1ng " + arrngaylap[1] + " n\u0103m " + arrngaylap[2]);
+				}else if (kiemkeForm.getNoiRaQd().equals("") && !kiemkeForm.getNgayRaQd().equals("")) {
+					word.put("[noi_ra_qd]", ".....");
+					word.put("[ngay_lap]", "ng\u00E0y " + arrngaylap[0] + " th\u00E1ng " + arrngaylap[1] + " n\u0103m " + arrngaylap[2]);
+				}else if (!kiemkeForm.getNoiRaQd().equals("") && kiemkeForm.getNgayRaQd().equals("")) {
+					word.put("[noi_ra_qd]", kiemkeForm.getNoiRaQd());
+					word.put("[ngay_lap]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
+				}
+				word.put("[ttkt]", sb.toString().toUpperCase());
+				word.put("[so_qd]", cbQd.getSoQuyetDinh());
+				String ngayttkt = Formater.date2str(cbQd.getNgayRaQuyetDnh());
+				String[] arrngayttkt = ngayttkt.split("/");
+				String ngay_ra_qd = "ng\u00E0y " + arrngayttkt[0] + " th\u00E1ng " + arrngayttkt[1] + " n\u0103m " + arrngayttkt[2];
+				word.put("[ngay_ra_qd]",ngay_ra_qd.toUpperCase());
+				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
+				word.put("[so_qd]", cbQd.getSoQuyetDinh());
+				word.put("[ngay_ra_qd]",ngay_ra_qd);
+				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
+				word.put("[ttkt]", sb.toString());
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				word.put("[tai_san]", kiemkeForm.getTaiSanCanKiemKe());
+				word.put("[dv_quan_ly_tai_san]", kiemkeForm.getDonViDangBaoQuan());
+				word.put("[dia_diem_noi_co_tai_san_kiem_ke]", kiemkeForm.getDiaDiemCoTsKk());
+				word.put("[thoi_gian_kiem_ke]", Formater.getDateTimeForPrint(kiemkeForm.getThoiGianKk()));
+				word.put("[dv_dc_kiem_ke]", kiemkeForm.getDonViCaNhanDuocKk());
+				word.put("[dv_bao_quan]", kiemkeForm.getDonViCaNhanBaoQuan());
+				word.put("[dv_quan_ly_tai_san]", kiemkeForm.getDonViDangBaoQuan());
+				word.put("[dv_dc_kiem_ke]", kiemkeForm.getDonViCaNhanDuocKk());
+				word.put("[dv_bao_quan]", kiemkeForm.getDonViCaNhanBaoQuan());
+				if(Formater.isNull(kiemkeForm.getThuTruongDonViCoTSKK()))
+					word.put("[thu_truong_dv_co_tai_san_kiem_ke]", "");
+				else
+					word.put("[thu_truong_dv_co_tai_san_kiem_ke]", ", "+kiemkeForm.getThuTruongDonViCoTSKK());
+				if(Formater.isNull(kiemkeForm.getDonViCoLienQuan()))
+					word.put("[dv_lien_quan]", "");
+				else
+					word.put("[dv_lien_quan]",", v\u00E0 "+ kiemkeForm.getDonViCoLienQuan());
+				word.put("[ttkt]", sb.toString().toUpperCase());
+				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
+
+				
+				//
+				word.saveAndClose();
+				word.downloadFile(fileOut, "Mau TTNB20", ".doc", reponse);
+			} catch (Exception ex) {
+				// ex.printStackTrace();
+				System.out.println("Download Error: " + ex.getMessage());
+			}finally {				
+				try { 
+					word.saveAndClose();
+				} catch (Exception e) {
+					
+				}
+			}
+			
+			//
+		} else if (type.equals("bbkk")) {
+			fileIn = request.getRealPath("/docin") + "\\TTNB21.doc";
+			fileOut = request.getRealPath("/docout") + "\\TTNB21_Out" + System.currentTimeMillis()+request.getSession().getId() + ".doc";
+			
+			fileTemplate = "ttnb21"; // (ngon, chuan)
+			// Loc sua lai sau
+			String idCuocTtkt = kiemkeForm.getIdCuocTtkt();
+			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appConText, idCuocTtkt);
+			TtktCbQd cbQd = TtktService.getQuyetDinh(cuocTtkt.getId(), appConText);
+			StringBuffer defaultPrint = new StringBuffer("\u00D4ng (B\u00E0)................             Ch\u1EE9c v\u1EE5:...............");
+			defaultPrint.append("\n\u00D4ng (B\u00E0)................             Ch\u1EE9c v\u1EE5:...............");
+			defaultPrint.append("\n......................................................................................");
+			String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
+			String hinhthuc_in = (cuocTtkt.getHinhThuc().booleanValue()) ? "KI\u1EC2M TRA" : "THANH TRA";
+			String hinhthuc_inT = (cuocTtkt.getHinhThuc().booleanValue()) ? "KT" : "TT";
+			StringBuffer sb = new StringBuffer(hinhThuc);
+			try {
+				word = new MsWordUtils(fileIn, fileOut);
+				word.put("[ten_cqt]", appConText.getTenCqt().toUpperCase());
+				StringBuffer sbT = new StringBuffer("\u0110O\u00C0N ");
+				sbT.append(hinhthuc_inT);
+				sbT.append(" Q\u0110 S\u1ED0 ");
+				sbT.append(cbQd.getSoQuyetDinh());
+				word.put("[doan_ttkt_so]", sbT.toString());
+				// ngay kiem ke
+				word.put("[ngay_kiem_ke]", Formater.getDateForPrint(kiemkeForm.getNgayRaQd()));
+				word.put("[ttkt]", sb.toString());
+				word.put("[so_qd]", cbQd.getSoQuyetDinh());
+				word.put("[thu_truong_qd]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
+				word.put("[ttkt]", sb.toString());
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				word.put("[thoi_gian_lap_bien_ban]", Formater.getDateTimeForPrint(kiemkeForm.getThoiDiemLapBb()));
+				if (Formater.isNull(kiemkeForm.getNoiRaQd())) {
+					word.put("[dia_diem]", "..........");
+				} else {
+					word.put("[dia_diem]", kiemkeForm.getNoiRaQd());
+				}
+				word.put("[ttkt]", sb.toString());
+				//dai dien doan ttkt
+				//khoi tao table trong Msword
+				Dispatch table = word.openTable(2);
+				TtktCmThanhPhanThamDu[] arrthanhphanbg = kiemkeForm.getDonViTtKt();
+				StringBuffer tptd = new StringBuffer("");
+				if (arrthanhphanbg != null && arrthanhphanbg.length > 0) {
+					for (int i = 0; i < arrthanhphanbg.length; i++) {
+						tptd.append(KtnbUtil.layoutTableHoTen(arrthanhphanbg[i].getHoTen()));
+						tptd.append(KtnbUtil.layoutTableChucVu(arrthanhphanbg[i].getChucVu()));
+						tptd.append("\n");
+						word.addCellTable(table, i+1, 1, "- \u00D4ng (b\u00E0): " + arrthanhphanbg[i].getHoTen());
+						word.addCellTable(table, i+1, 2, "- Ch\u1EE9c v\u1EE5: " + arrthanhphanbg[i].getChucVu());
+						word.addRowTable(table,arrthanhphanbg.length);
+					}
+					System.out.println(tptd.toString());
+					word.put("[thanh_vien]", tptd.toString().substring(0, tptd.toString().length() - 1));
+				} 
+				//else {
+					word.put("[thanh_vien]", defaultPrint.toString());
+				//}
+				// dai dien dv co tai san dc kiem ke
+				word.put("[dv_co_tai_san_kk]", kiemkeForm.getDonViDangBaoQuan());
+				table = word.openTable(3);
+				TtktCmThanhPhanThamDu[] arrthanhphankk = kiemkeForm.getDonViCoTaiSanDuocKK();
+				StringBuffer kk = new StringBuffer("");
+				// if (arrthanhphanbg != null && arrthanhphanbg.length > 0) { //code cu
+				if (arrthanhphankk != null && arrthanhphankk.length > 0) {
+					for (int i = 0; i < arrthanhphankk.length; i++) {
+						kk.append(KtnbUtil.layoutTableHoTen(arrthanhphankk[i].getHoTen()));
+						kk.append(KtnbUtil.layoutTableChucVu(arrthanhphankk[i].getChucVu()));
+						kk.append("\n");
+						word.addCellTable(table, i+1, 1, "- \u00D4ng (b\u00E0): " + arrthanhphankk[i].getHoTen());
+						word.addCellTable(table, i+1, 2, "- Ch\u1EE9c v\u1EE5: " + arrthanhphankk[i].getChucVu());
+						word.addRowTable(table,arrthanhphankk.length);
+					}
+					System.out.println(kk.toString());
+					word.put("[thanh_vien_dv]", kk.toString().substring(0, kk.toString().length() - 1));
+				} 
+				//else {
+					word.put("[thanh_vien_dv]", defaultPrint.toString());
+				//}
+				word.put("[dv_co_tai_san_kiem_ke]", cuocTtkt.getTenDonViBi());
+				word.put("[gom]", kiemkeForm.getSoluongChungloaiXs());
+				//thoi diem kiem ke
+				word.put("[thoi_diem_kiem_ke]", Formater.getDateTimeForPrint(kiemkeForm.getThoiDiemKk()));
+				word.put("[time_tu]", Formater.getDateTimeForPrint(kiemkeForm.getThoiGianBatDau()));
+				word.put("[time_den]", Formater.getDateTimeForPrint(kiemkeForm.getThoiGianKetThuc()));
+				if (Formater.isNull(kiemkeForm.getDvDuocGiaoBQTS())) {
+					word.put("[dv_bao_quan]", "...............");
+				} else {
+					word.put("[dv_bao_quan]", kiemkeForm.getDvDuocGiaoBQTS());
+				}
+				word.put("[ttkt]", sb.toString());
+				word.put("[ttkt]", sb.toString().toUpperCase());
+				// TODO: chua co truong dia diem lap bien ban tren form
+				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
+				word.saveAndClose();
+				word.downloadFile(fileOut, "Mau TTNB21", ".doc", reponse);
+			} catch (Exception ex) {
+				// ex.printStackTrace();
+				System.out.println("Download Error: " + ex.getMessage());
+			}
+			
+		}
+	}
+	
+	//v4
+	
+	private void inKiemke(HttpServletRequest request, HttpServletResponse reponse, KiemKeForm kiemkeForm, ApplicationContext appConText) throws Exception {
+		String fileIn = null;
+		String fileOut = null;
+		MsWordUtils word = null;
+		
+		String type = request.getParameter("type");
+		HashMap[] reportRows = null;
+		Map parameters = new HashMap();
+		String fileTemplate = null;
+		if ("qdkk".equals(type)) {
+			fileIn = request.getRealPath("/docin/v4") + "\\TTNB20.doc";
 			fileOut = request.getRealPath("/docout") + "\\TTNB20_Out" + System.currentTimeMillis()+request.getSession().getId() + ".doc";
 			
 			fileTemplate = "ttnb20";
@@ -534,7 +736,7 @@ public class KiemKeAction extends BaseDispatchAction {
 			
 			//
 		} else if (type.equals("bbkk")) {
-			fileIn = request.getRealPath("/docin") + "\\TTNB21.doc";
+			fileIn = request.getRealPath("/docin/v4") + "\\TTNB21.doc";
 			fileOut = request.getRealPath("/docout") + "\\TTNB21_Out" + System.currentTimeMillis()+request.getSession().getId() + ".doc";
 			
 			fileTemplate = "ttnb21"; // (ngon, chuan)
