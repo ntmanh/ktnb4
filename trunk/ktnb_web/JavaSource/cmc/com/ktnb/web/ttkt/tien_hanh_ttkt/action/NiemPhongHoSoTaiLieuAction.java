@@ -1016,24 +1016,25 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 			
 		} else if ("inQDMoNP".equals(type)) {
 			// in quyet dinh mo niem phong
-			fileIn = request.getRealPath("/docin") + "\\TTNB24.doc";
+			
+			fileIn = request.getRealPath("/docin/v4") + "\\TTNB24.doc";
 			fileOut = request.getRealPath("/docout") + "\\TTNB24_Out" + System.currentTimeMillis()+request.getSession().getId() + ".doc";
 			fileTemplate = "ttnb24";
 			try {
 				word = new MsWordUtils(fileIn, fileOut);
 				word.put("[ten_cqt]", app.getTenCqt().toUpperCase());
 				word.put("[doan_ttkt_so]", sbT.toString().toUpperCase());
-				word.put("[ttkt]", sb.toString().toUpperCase());
+				//word.put("[ttkt]", sb.toString().toUpperCase());
 				word.put("[so_qd]", cbQd.getSoQuyetDinh());
 				word.put("[ngay_qd]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())).toUpperCase());
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(app).toUpperCase());
 				word.put("[so_qd]", cbQd.getSoQuyetDinh());
 				word.put("[ngay_qd]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())));
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(app));
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				word.put("[dv_dc_bao_quan_tai_lieu]", form.getDonViBaoQuanSauNP());
-				word.put("[ttkt]", sb.toString());
+				//word.put("[ttkt]", sb.toString());
 				word.put("[thoi_gian_quyet_dinh]", Formater.getDateForPrint(form.getNgayRaQDNP()));
 				word.put("[dv_dc_giao_nhiem_vu_mo]", form.getTenNguoiMoNp());
 				word.put("[dv_bao_quan_sau_khi_mo]", form.getDonViBaoQuanSauNP());
@@ -1044,7 +1045,7 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 					word.put("[dv_dc_giao_nhiem_vu_mo]", form.getTenNguoiMoNp()+",");
 				word.put("[dv_bao_quan_sau_khi_mo]", form.getDonViBaoQuanSauNP());
 				word.put("[dv_co_tai_lieu_niem_phong]", KtnbUtil.getChucVuThuTruongByMaCqt(cuocTtkt.getIdDonViBi()) + " " + cuocTtkt.getTenDonViBi());
-				word.put("[ttkt]", hinhThuc.toUpperCase());
+				//word.put("[ttkt]", hinhThuc.toUpperCase());
 				//word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqt(app).toUpperCase());
 				//word.put("[so_qd]", cbQd.getSoQuyetDinh());
 				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
