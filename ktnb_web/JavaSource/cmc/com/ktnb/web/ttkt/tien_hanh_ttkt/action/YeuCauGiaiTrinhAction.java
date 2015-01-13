@@ -479,29 +479,29 @@ public class YeuCauGiaiTrinhAction extends BaseDispatchAction {
 			
 		} else if ("inBaoCaoGT".equals(type)) {
 			//in quyet dinh niem phong
-			fileIn = request.getRealPath("/docin") + "\\TTNB29.doc";
-			fileOut = request.getRealPath("/docout") + "\\TTNB29_Out" + System.currentTimeMillis()+request.getSession().getId() + ".doc";
-			fileTemplate = "ttnb29";
+			fileIn = request.getRealPath("/docin/v4") + "\\TTNB28.doc";
+			fileOut = request.getRealPath("/docout") + "\\TTNB28_Out" + System.currentTimeMillis()+request.getSession().getId() + ".doc";
+			fileTemplate = "ttnb28";
 			try {
 				word = new MsWordUtils(fileIn, fileOut);
 				//word.put("[ten_cqt]", KtnbUtil.getTenCqtCapTrenTt(app).toUpperCase());
 				//word.put("[doan_ttkt_so]", sb.toString().toUpperCase());
-				word.put("[ttkt]", hinhThuc);
-				word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[so_qd]", cbQd.getSoQuyetDinh());
 				word.put("[ngay_qd]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())));
 				word.put("[nguoi_giai_trinh]", form.getTenNguoiGT());
 				word.put("[ngay_sinh]", form.getNsNguoiGT());
 				word.put("[chuc_vu]", form.getCvNguoiLapPhieu());
 				word.put("[dv_cong_tac]", form.getDvNguoiGT());
-				word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[ngay_lap_phieu_yeu_cau_giai_trinh]", Formater.getDateForPrint(form.getNgaylapPhieu()));
 				word.put("[noi_dung]", form.getNoidungBCGT());
 				word.put("[noi_lap]", form.getNoiLapPhieu());
 				word.put("[ngay_giai_trinh]", KtnbUtil.getDay(form.getTgBCGT()));
 				word.put("[nguoi_giai_trinh]", form.getTenNguoiGT());
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau TTNB29", ".doc", reponse);
+				word.downloadFile(fileOut, "Mau TTNB28", ".doc", reponse);
 			} catch (Exception ex) {
 				// ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
