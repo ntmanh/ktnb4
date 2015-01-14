@@ -358,7 +358,8 @@ public class KiemTraXacMinhAction extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
-	public void inKiemTraXacMinh(HttpServletRequest request, HttpServletResponse reponse, KiemTraXacMinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
+	//v3
+	public void inKiemTraXacMinhv3(HttpServletRequest request, HttpServletResponse reponse, KiemTraXacMinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
 		// String type = request.getParameter("type");
 		String fileIn = request.getRealPath("/docin") + "\\TTNB31.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TTNB31_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
@@ -438,6 +439,99 @@ public class KiemTraXacMinhAction extends BaseDispatchAction {
 			word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
 			word.saveAndClose();
 			word.downloadFile(fileOut, "Mau TTNB31", ".doc", reponse);
+		} catch (Exception ex) {
+			// ex.printStackTrace();
+			System.out.println("Download Error: " + ex.getMessage());
+		} finally {
+			try {
+				word.saveAndClose();
+			} catch (Exception e) {
+
+			}
+		}
+	}
+	//v4
+	
+	public void inKiemTraXacMinh(HttpServletRequest request, HttpServletResponse reponse, KiemTraXacMinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
+		// String type = request.getParameter("type");
+		String fileIn = request.getRealPath("/docin/v4") + "\\TTNB30.doc";
+		String fileOut = request.getRealPath("/docout") + "\\TTNB30_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+
+		HashMap[] reportRows = null;
+		Map parameters = new HashMap();
+		String fileTemplate = "ttnb31";
+		TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(app, idCuocTtKt);
+		String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
+		String hinhThucT = (cuocTtkt.getHinhThuc().booleanValue()) ? "KT" : "TT";
+		TtktCbQd cbQd = TtktService.getQuyetDinh(idCuocTtKt, app);
+		StringBuffer sb = new StringBuffer(hinhThuc);
+		sb = new StringBuffer("\u0110o\u00E0n ");
+		sb.append(hinhThucT);
+		sb.append(" s\u1ED1 ");
+		sb.append(cbQd.getSoQuyetDinh());
+
+		MsWordUtils word = new MsWordUtils(fileIn, fileOut);
+		try {
+			word.put("[ten_cqt]", app.getTenCqt().toUpperCase());
+			word.put("[doan_ttkt_so]", sb.toString().toUpperCase());
+			word.put("[su_viec_dc_kiem_tra_xac_minh]", form.getSkDuocKtXm());
+			// word.put("[ten_bc]",app.getTenCqt());
+			//word.put("[ttkt]", hinhThuc);
+			word.put("[ngay_qd]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())));
+			word.put("[so_qd]", cbQd.getSoQuyetDinh());
+			word.put("[thu_truong_qd]", KtnbUtil.getTenThuTruongCqtForMauin(app));
+			//word.put("[ttkt]", hinhThuc);
+			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+			word.put("[thoi_gian_lap_bien_ban]", KtnbUtil.getHour(form.getThoiGian()));
+			word.put("[dia_diem]", form.getDiaDiem());
+			//word.put("[ttkt]", hinhThuc);
+			word.put("[su_viec_dc_kiem_tra_xac_minh]", form.getSkDuocKtXm());
+			//word.put("[ttkt]", hinhThuc);
+			// word.put("[so_qdinh]",app.getTenCqt());
+
+			// word.put("[noi_ra_qd]",app.getTenCqt());
+			// word.put("[ngay_ra_qd]",app.getTenCqt());
+			// word.put("[ngay_kiem_ke]",app.getTenCqt());
+
+			// doan thanh tra kiem tra
+			Dispatch table = word.openTable(2);
+			TtktCmThanhPhanThamDu[] arrthanhphanbg = form.getDsTpTdDoanTtKt();
+			StringBuffer tptd = new StringBuffer("");
+			if (arrthanhphanbg != null && arrthanhphanbg.length > 0) {
+				for (int i = 0; i < arrthanhphanbg.length; i++) {
+					tptd.append(KtnbUtil.layoutTableHoTen(arrthanhphanbg[i].getHoTen()));
+					tptd.append(KtnbUtil.layoutTableChucVu(arrthanhphanbg[i].getChucVu()));
+					tptd.append("\n");
+					word.addCellTable(table, i + 1, 1, "- \u00D4ng (b\u00E0): " + arrthanhphanbg[i].getHoTen());
+					word.addCellTable(table, i + 1, 2, "- Ch\u1EE9c v\u1EE5: " + arrthanhphanbg[i].getChucVu());
+					word.addRowTable(table, arrthanhphanbg.length);
+				}
+				System.out.println(tptd.toString());
+				// word.put("[thanh_vien]", tptd.toString());
+			}
+			// don vi duoc kiem tra xac minh
+			word.put("[ten_don_vi_xac_minh]", cuocTtkt.getTenDonViBi());
+			table = word.openTable(3);
+			TtktCmThanhPhanThamDu[] arr = form.getDsTpTdDuocKtXm();
+			StringBuffer tptd1 = new StringBuffer("");
+			if (arr != null && arr.length > 0) {
+				for (int i = 0; i < arr.length; i++) {
+					tptd1.append(KtnbUtil.layoutTableHoTen(arr[i].getHoTen()));
+					tptd1.append(KtnbUtil.layoutTableChucVu(arr[i].getChucVu()));
+					tptd1.append("\n");
+					word.addCellTable(table, i + 1, 1, "- \u00D4ng (b\u00E0): " + arr[i].getHoTen());
+					word.addCellTable(table, i + 1, 2, "- Ch\u1EE9c v\u1EE5: " + arr[i].getChucVu());
+					word.addRowTable(table, arr.length);
+				}
+				System.out.println(tptd1.toString());
+				// word.put("[thanh_vien_dv]", tptd1.toString());
+			}
+
+			word.put("[noi_dung_xac_minh]", form.getNoiDung());
+			//word.put("[ttkt]", hinhThuc.toUpperCase());
+			word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
+			word.saveAndClose();
+			word.downloadFile(fileOut, "Mau TTNB30", ".doc", reponse);
 		} catch (Exception ex) {
 			// ex.printStackTrace();
 			System.out.println("Download Error: " + ex.getMessage());
