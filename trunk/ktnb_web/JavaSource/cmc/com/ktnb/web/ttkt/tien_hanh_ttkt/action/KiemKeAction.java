@@ -794,7 +794,7 @@ public class KiemKeAction extends BaseDispatchAction {
 				//	word.put("[thanh_vien]", defaultPrint.toString());
 				//}
 				// dai dien dv co tai san dc kiem ke
-				//word.put("[dv_co_tai_san_kk]", kiemkeForm.getDonViDangBaoQuan());
+				word.put("[dv_co_tai_san_kiem_ke]", cuocTtkt.getTenDonViBi());
 				table = word.openTable(3);
 				TtktCmThanhPhanThamDu[] arrthanhphankk = kiemkeForm.getDonViCoTaiSanDuocKK();
 				StringBuffer kk = new StringBuffer("");
