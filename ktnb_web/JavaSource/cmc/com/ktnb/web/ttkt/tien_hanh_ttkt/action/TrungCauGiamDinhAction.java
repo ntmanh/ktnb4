@@ -208,7 +208,9 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
-	public void inTrungCauGD(HttpServletRequest request, HttpServletResponse reponse, TrungCauGiamDinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
+	//v3
+	
+	public void inTrungCauGDv3(HttpServletRequest request, HttpServletResponse reponse, TrungCauGiamDinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
 		String fileIn = request.getRealPath("/docin") + "\\TTNB32.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TTNB32_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
@@ -272,6 +274,83 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 
 			word.saveAndClose();
 			word.downloadFile(fileOut, "Mau TTNB32", ".doc", reponse);
+		} catch (Exception ex) {
+			// ex.printStackTrace();
+			System.out.println("Download Error: " + ex.getMessage());
+		} finally {
+			try {
+				word.saveAndClose();
+			} catch (Exception e) {
+
+			}
+		}
+	}
+	//v4
+	
+	public void inTrungCauGD(HttpServletRequest request, HttpServletResponse reponse, TrungCauGiamDinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
+		String fileIn = request.getRealPath("/docin/v4") + "\\TTNB31.doc";
+		String fileOut = request.getRealPath("/docout") + "\\TTNB31_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+
+		HashMap[] reportRows = null;
+		Map parameters = new HashMap();
+		String fileTemplate = null;
+		fileTemplate = "ttnb31";
+		String idCuocTtkt = form.getIdCuocTtKt();
+		TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(app, idCuocTtkt);
+
+		TtktCbQd cbQd = TtktService.getQuyetDinh(idCuocTtkt, app);
+		String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
+
+		MsWordUtils word = new MsWordUtils(fileIn, fileOut);
+		try {
+			word.put("[ten_cqt]", KtnbUtil.getTenCqtCapTrenTt(app).toUpperCase());
+			word.put("[cqt_ra_van_ban]", cuocTtkt.getTenDonViTh().toUpperCase());
+			// word.put("[doan_ttkt_so]", cbQd.getSoQuyetDinh());
+			word.put("[doan_ttkt_so]", "........../TCG\u0110-......."); // dang
+																		// thieu
+																		// truong
+																		// nay
+																		// tren
+																		// form
+			if (form.getNoiLap().equals("") || form.getNgayLap().equals("")) {
+				word.put("[noi_lap]", ".....");
+				word.put("[ngay_lap]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
+			} else {
+				word.put("[noi_lap]", form.getNoiLap());
+				word.put("[ngay_lap]", Formater.getDateForPrint(form.getNgayLap()));
+			}
+			String cq_giamdinh = null;
+			if (Formater.isNull(form.getTenCqtGd()))
+				cq_giamdinh = "...........";
+			else
+				cq_giamdinh = form.getTenCqtGd();
+			word.put("[co_quan_giam_dinh]", cq_giamdinh);
+			//word.put("[ttkt]", hinhThuc);
+			word.put("[so_qd]", cbQd.getSoQuyetDinh());
+			word.put("[ngay_qd]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())));
+			word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqt(app));
+			//word.put("[ttkt]", hinhThuc);
+			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+			//word.put("[ttkt]", hinhThuc);
+			String ten_cq_giamdinh = null;
+			if (Formater.isNull(form.getTenCqtTc()))
+				ten_cq_giamdinh = "......";
+			else
+				ten_cq_giamdinh = form.getTenCqtTc();
+			word.put("[ten_co_quan_yeu_giam_dinh]", ten_cq_giamdinh);
+			word.put("[co_quan_giam_dinh]", cq_giamdinh);
+			word.put("[noi_dung]", form.getNoiDung());
+			word.put("[ten_co_quan_yeu_giam_dinh]", ten_cq_giamdinh);
+			word.put("[ten_co_quan_yeu_giam_dinh]", ten_cq_giamdinh);
+			word.put("[truoc_ngay]", Formater.getDateForPrint(form.getNgayCcKq()));
+			word.put("[chuc_danh_thu_truong]", KtnbUtil.getChucVuThuTruongByMaCqt(app.getMaCqt()).toUpperCase());
+			// --word.put("noi_lap", form.getNoiLap());
+			// --word.put("ngay_lap",
+			// Formater.getDateForPrint(form.getNgayLap()) );
+			// word.put("[ten_thu_truong]", app.getTenThuTruong());
+
+			word.saveAndClose();
+			word.downloadFile(fileOut, "Mau TTNB31", ".doc", reponse);
 		} catch (Exception ex) {
 			// ex.printStackTrace();
 			System.out.println("Download Error: " + ex.getMessage());
