@@ -84,7 +84,8 @@ public class BienBanChiTietAction extends BaseDispatchAction {
 		}
 		return mapping.findForward("success");
 	}
-	private void downLoadMau(HttpServletRequest request, HttpServletResponse response){
+	//v3
+	private void downLoadMauv3(HttpServletRequest request, HttpServletResponse response){
 		InputStream inputStream;
 		try {
 			inputStream = new FileInputStream(request.getRealPath("/docin") + "\\TTNB33.doc");
@@ -94,6 +95,35 @@ public class BienBanChiTietAction extends BaseDispatchAction {
 			response.setContentType("application/msword");
 			response.setHeader("Cache-Control", "max-age=0");
 			response.setHeader("Content-Disposition", "attachment;filename=" + "TTNB33.doc");
+			try {
+				OutputStream outputStream = response.getOutputStream();
+				while ((nbytes = inputStream.read(buffer)) != -1)
+					outputStream.write(buffer, 0, nbytes);
+				outputStream.flush();
+				outputStream.close();
+				inputStream.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+	
+	//v4
+	private void downLoadMau(HttpServletRequest request, HttpServletResponse response){
+		InputStream inputStream;
+		try {
+			inputStream = new FileInputStream(request.getRealPath("/docin/v4") + "\\TTNB32.doc");
+			byte[] buffer = new byte[1024];
+			int nbytes = 0;
+			response.reset();
+			response.setContentType("application/msword");
+			response.setHeader("Cache-Control", "max-age=0");
+			response.setHeader("Content-Disposition", "attachment;filename=" + "TTNB32.doc");
 			try {
 				OutputStream outputStream = response.getOutputStream();
 				while ((nbytes = inputStream.read(buffer)) != -1)
