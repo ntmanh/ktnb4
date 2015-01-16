@@ -22,7 +22,7 @@ public class TrungCauGiamDinhForm extends BaseActionForm {
 	private String noiDung;
 	private String ngayCcKq;
 	private String idDsTvd;
-
+	private String soQd;
 
 
 
@@ -183,4 +183,13 @@ public class TrungCauGiamDinhForm extends BaseActionForm {
 		ngayLap = string;
 	}
 
+	public String getSoQd() {
+		return soQd;
+	}
+
+	public void setSoQd(String soQd) {
+		this.soQd = soQd;
+	}
+
+	
  }

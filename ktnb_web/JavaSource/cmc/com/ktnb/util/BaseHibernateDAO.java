@@ -302,7 +302,7 @@ public class BaseHibernateDAO implements IBaseHibernateDAO {
 			if (queryDetails != null) {
 				criteria.setFirstResult(queryDetails.getBeginIndex());
 				criteria.setMaxResults(queryDetails.getLastIndex());
-				// criteria.setMaxResults(51);
+				// criteria.setMaxResults(51);  
 			}
 			if (forceCache)
 				criteria.setCacheable(true);

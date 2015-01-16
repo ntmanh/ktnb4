@@ -112,6 +112,7 @@ public class YeuCauGiaiTrinhAction extends BaseDispatchAction {
 	 */
 	private void loadDataToForm(HttpServletRequest request, ApplicationContext app, YeuCauGiaiTrinhForm giaiTrinhForm, TtktThYeuCauGiaiTrinh yeuCauGT) {
 		giaiTrinhForm.setId(yeuCauGT.getId());  
+		giaiTrinhForm.setNsNguoiGT(Formater.date2str(yeuCauGT.getNamSinhNguoiGiaiTrinh()));
 		giaiTrinhForm.setIdCuocTtKt(yeuCauGT.getIdCuocTtkt());
 		giaiTrinhForm.setNgaylapPhieu(Formater.date2str(yeuCauGT.getNgayLapPhieu()));
 		giaiTrinhForm.setNoiLapPhieu(yeuCauGT.getNoiLapPhieu());
@@ -188,6 +189,7 @@ public class YeuCauGiaiTrinhAction extends BaseDispatchAction {
 		ycGT.setId(form.getId());
 		ycGT.setIdCuocTtkt(form.getIdCuocTtKt());
 		ycGT.setNgayLapPhieu(Formater.str2SQLdate(form.getNgaylapPhieu()));
+		ycGT.setNamSinhNguoiGiaiTrinh(Formater.str2SQLdate(form.getNsNguoiGT()));
 		ycGT.setNoiLapPhieu(form.getNoiLapPhieu());
 		ycGT.setIdNguoiGiaiTrinh(form.getIdNGuoiGT());
 		ycGT.setTenNguoiGiaiTrinh(form.getTenNguoiGT());

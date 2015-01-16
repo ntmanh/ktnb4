@@ -24,7 +24,7 @@ public class TtktThTrungCauGiamDinh extends PersistentObject implements java.io.
 	private String noiDung;
 	private Date ngayCungCapKq;
 	private String tenCqtGiamDinh;
-	
+	private String soQuyetDinh;
 	
 	public static String IdCuocTtkt = "idCuocTtkt";
 	public static String Id = "id";
@@ -144,8 +144,12 @@ public class TtktThTrungCauGiamDinh extends PersistentObject implements java.io.
 		this.tenCqtGiamDinh = tenCqtGiamDinh;
 	}
 
+	public String getSoQuyetDinh() {
+		return soQuyetDinh;
+	}
 
-
-	
+	public void setSoQuyetDinh(String soQuyetDinh) {
+		this.soQuyetDinh = soQuyetDinh;
+	}
 
 }

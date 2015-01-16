@@ -56,7 +56,7 @@
 </html:form>
 <script language="javascript">
 	var x = document.getElementById('tenCanBoDvCnTh').value;
-	
+	ngayraQDNP=document.getElementById('ngayRaQDNP').value; 
 	function onLoadQdNiemPhong(){
 		
 		

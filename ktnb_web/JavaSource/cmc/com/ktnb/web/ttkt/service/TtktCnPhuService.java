@@ -809,14 +809,17 @@ public class TtktCnPhuService {
 
 			} catch (Exception e) {
 				e.printStackTrace();
-			}
-			try {
+			} 
+			try {       
 				conn = DataSourceConfiguration.getConnection();
-				sql = "update TTKT_TH_YEU_CAU_GIAI_TRINH set " + "ID_CUOC_TTKT= '" + ycBcGt.getIdCuocTtkt() + "',NGAY_LAP_PHIEU=" + "to_date('" + ycBcGt.getNgayLapPhieu() + "','yyyy_mm_dd')" + ",NOI_LAP_PHIEU='" + ycBcGt.getNoiLapPhieu() + "',ID_NGUOI_GIAI_TRINH='" + ycBcGt.getIdNguoiGiaiTrinh()
-						+ "',TEN_NGUOI_GIAI_TRINH='" + ycBcGt.getTenNguoiGiaiTrinh() + "',DV_CONG_TAC_NGUOI_GIAI_TRINH='" + ycBcGt.getDvCongTacNguoiGiaiTrinh() + "',NOI_DUNG_GIAI_TRINH='"
-						+ ycBcGt.getNoiDungGiaiTrinh() + "', THOI_GIAN_GUI_GIAI_TRINH =to_date('" + ngayGuiGT + "','hh24:mi dd/mm/yyyy' ),NOI_GUI_GIAI_TRINH='" + ycBcGt.getNoiGuiGiaiTrinh() + "',  DIA_DIEM_BAO_CAO_GIAI_TRINH='" + ycBcGt.getDiaDiemBaoCaoGiaiTrinh()
-						+ "',  THOI_GIAN_BAO_CAO_GIAI_TRINH=to_date('" + form.getTgBCGT() + "','hh24:mi dd/mm/yyyy'),NOI_DUNG_BAO_CAO_GIAI_TRINH='" + ycBcGt.getNoiDungBaoCaoGiaiTrinh() + "',FILE_BAO_CAO_GIAI_TRINH= " + "BFILENAME('"+uploadF+"','" + ycBcGt.getId() + "')," 
-						+ " HSTL_BC= '"+ form.getHoSoTaiLieuBC() + "', CHUC_VU_NG_GT='" + form.getCvNguoiLapPhieu() + "', LOAI_FILE='"+loaiFile+"',TEN_FILE='"+tenFile+"' where ID = '" + ycBcGt.getId() + "'";
+				sql = "update TTKT_TH_YEU_CAU_GIAI_TRINH set " + "ID_CUOC_TTKT= '" + ycBcGt.getIdCuocTtkt() + "',NGAY_LAP_PHIEU=" + "to_date('" + ycBcGt.getNgayLapPhieu() + "','yyyy_mm_dd')"
+						+ ",NAM_SINH_NGUOI_GIAI_TRINH=" + "to_date('" + ycBcGt.getNamSinhNguoiGiaiTrinh() + "','yyyy_mm_dd')"
+						+ ",NOI_LAP_PHIEU='" + ycBcGt.getNoiLapPhieu() + "',ID_NGUOI_GIAI_TRINH='" + ycBcGt.getIdNguoiGiaiTrinh() + "',TEN_NGUOI_GIAI_TRINH='" + ycBcGt.getTenNguoiGiaiTrinh()
+						+ "',DV_CONG_TAC_NGUOI_GIAI_TRINH='" + ycBcGt.getDvCongTacNguoiGiaiTrinh() + "',NOI_DUNG_GIAI_TRINH='" + ycBcGt.getNoiDungGiaiTrinh()
+						+ "', THOI_GIAN_GUI_GIAI_TRINH =to_date('" + ngayGuiGT + "','hh24:mi dd/mm/yyyy' ),NOI_GUI_GIAI_TRINH='" + ycBcGt.getNoiGuiGiaiTrinh() + "',  DIA_DIEM_BAO_CAO_GIAI_TRINH='"
+						+ ycBcGt.getDiaDiemBaoCaoGiaiTrinh() + "',  THOI_GIAN_BAO_CAO_GIAI_TRINH=to_date('" + form.getTgBCGT() + "','hh24:mi dd/mm/yyyy'),NOI_DUNG_BAO_CAO_GIAI_TRINH='"
+						+ ycBcGt.getNoiDungBaoCaoGiaiTrinh() + "',FILE_BAO_CAO_GIAI_TRINH= " + "BFILENAME('" + uploadF + "','" + ycBcGt.getId() + "')," + " HSTL_BC= '" + form.getHoSoTaiLieuBC()
+						+ "', CHUC_VU_NG_GT='" + form.getCvNguoiLapPhieu() + "', LOAI_FILE='" + loaiFile + "',TEN_FILE='" + tenFile + "' where ID = '" + ycBcGt.getId() + "'";
 				statement = conn.createStatement();
 				statement.executeUpdate(sql);
 				conn.commit();
@@ -840,20 +843,17 @@ public class TtktCnPhuService {
 				fileOutputStream.close();
 			} catch (Exception err) {
 				err.printStackTrace();
-			}
+			}  
 			try {
-				String sqlInsertFile = "insert into TTKT_TH_YEU_CAU_GIAI_TRINH (ID,ID_CUOC_TTKT,NGAY_LAP_PHIEU,NOI_LAP_PHIEU,ID_NGUOI_GIAI_TRINH,TEN_NGUOI_GIAI_TRINH" + ", DV_CONG_TAC_NGUOI_GIAI_TRINH,NOI_DUNG_GIAI_TRINH,THOI_GIAN_GUI_GIAI_TRINH,NOI_GUI_GIAI_TRINH "
+				String sqlInsertFile = "insert into TTKT_TH_YEU_CAU_GIAI_TRINH (ID,ID_CUOC_TTKT,NGAY_LAP_PHIEU,NAM_SINH_NGUOI_GIAI_TRINH,NOI_LAP_PHIEU,ID_NGUOI_GIAI_TRINH,TEN_NGUOI_GIAI_TRINH"
+						+ ", DV_CONG_TAC_NGUOI_GIAI_TRINH,NOI_DUNG_GIAI_TRINH,THOI_GIAN_GUI_GIAI_TRINH,NOI_GUI_GIAI_TRINH "
 						+ ",DIA_DIEM_BAO_CAO_GIAI_TRINH,THOI_GIAN_BAO_CAO_GIAI_TRINH,NOI_DUNG_BAO_CAO_GIAI_TRINH,FILE_BAO_CAO_GIAI_TRINH,HSTL_BC,CHUC_VU_NG_GT,LOAI_FILE,TEN_FILE" + " )values ('"
-						+ ycBcGt.getId()+ "','"
-						+ ycBcGt.getIdCuocTtkt()+ "',to_date('"+ ycBcGt.getNgayLapPhieu()+ "','yyyy-mm-dd'),'"+ ycBcGt.getNoiLapPhieu()+ "','"
-						+ ycBcGt.getIdNguoiGiaiTrinh()+ "','"+ ycBcGt.getTenNguoiGiaiTrinh()+ "','"
-						+ ycBcGt.getDvCongTacNguoiGiaiTrinh()+ "','"
-						+ ycBcGt.getNoiDungGiaiTrinh()+ "',to_date('"+ ngayGuiGT+ "','hh24:mi dd/mm/yyyy'),'"
-						+ ycBcGt.getNoiGuiGiaiTrinh()+ "','"
-						+ ycBcGt.getDiaDiemBaoCaoGiaiTrinh()
-						+ "',to_date('"+ form.getTgBCGT()+ "','hh24:mi dd/mm/yyyy'),'"+ ycBcGt.getNoiDungBaoCaoGiaiTrinh()+"',"
-						+ "BFILENAME('"+uploadF+"','"+ ycBcGt.getId()+ "'),'" 
-						+ form.getHoSoTaiLieuBC() + "','" + form.getCvNguoiLapPhieu() + "','"+loaiFile+"','"+tenFile+"')";
+						+ ycBcGt.getId() + "','" + ycBcGt.getIdCuocTtkt() + "',to_date('" + ycBcGt.getNgayLapPhieu() + "','yyyy-mm-dd'),"+"to_date('" + ycBcGt.getNgayLapPhieu() + "','yyyy-mm-dd'),'" + ycBcGt.getNoiLapPhieu() + "','"
+						+ ycBcGt.getIdNguoiGiaiTrinh() + "','" + ycBcGt.getTenNguoiGiaiTrinh() + "','" + ycBcGt.getDvCongTacNguoiGiaiTrinh() + "','" + ycBcGt.getNoiDungGiaiTrinh() + "',to_date('"
+						+ ngayGuiGT + "','hh24:mi dd/mm/yyyy'),'" + ycBcGt.getNoiGuiGiaiTrinh() + "','" + ycBcGt.getDiaDiemBaoCaoGiaiTrinh() + "',to_date('" + form.getTgBCGT()
+						+ "','hh24:mi dd/mm/yyyy'),'" + ycBcGt.getNoiDungBaoCaoGiaiTrinh() + "'," + "BFILENAME('" + uploadF + "','" + ycBcGt.getId() + "'),'" + form.getHoSoTaiLieuBC() + "','"
+						+ form.getCvNguoiLapPhieu() + "','" + loaiFile + "','" + tenFile + "')";
+				System.out.println("SQL :"+sqlInsertFile);
 				statement.addBatch(sqlInsertFile);
 				statement.executeBatch();
 				statement.close();
