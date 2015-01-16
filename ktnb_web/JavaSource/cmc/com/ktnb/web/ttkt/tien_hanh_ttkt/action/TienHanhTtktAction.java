@@ -439,7 +439,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		if ("downloadMau33".equals(type)) {
 			fileIn = request.getRealPath("/docin/v4") + "\\TTNB33.doc";
 			fileOut = request.getRealPath("/docout") + "\\TTNB33_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
-			System.out.println("Day chay vao day");
+			System.out.println("Day chay vao ver4");
 			fileTemplate = "ttnb33";
 			String idCuocTtkt = tienHanhTtktForm.getIdCuocTtkt();
 			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appContext, idCuocTtkt);
@@ -1282,6 +1282,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 			tienHanhTtktForm.setTenFile(bbTongHop.getTenFile());
 		}
 	}
+	
 	private void inMau16(HttpServletRequest request, ApplicationContext appContext, TienHanhTtktForm tienHanhTtktForm, HttpServletResponse response, MsWordUtils word, String fileIn, String fileOut,int type)
 	{
 		String idCuocTtkt = tienHanhTtktForm.getIdCuocTtkt();

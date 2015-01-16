@@ -529,14 +529,14 @@ public class YeuCauCungCapHstlAction extends BaseDispatchAction {
 				sbT.append(cbQd.getSoQuyetDinh());
 				word.put("[doan_ttkt_so]", sbT.toString());
 				word.put("[lan_thu]", hstlForm.getLanYeuCau());
-				//word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
-				//word.put("[ttkt]", sb.toString());
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				word.put("[ttkt]", sb.toString());
 				word.put("[so_quyet_dinh]", cbQd.getSoQuyetDinh());
 				String ngayqd = Formater.date2str(cbQd.getNgayRaQuyetDnh());
 				String[] arrngayqd = ngayqd.split("/");
 				word.put("[ngay_quyet]", "ng\u00E0y " + arrngayqd[0] + " th\u00E1ng " + arrngayqd[1] + " n\u0103m " + arrngayqd[2]);
 				word.put("[chuc_danh_thu_truong]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-				//word.put("[ttkt]", sb.toString());
+				word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				//word.put("[ttkt]", sb.toString());
@@ -555,7 +555,7 @@ public class YeuCauCungCapHstlAction extends BaseDispatchAction {
 				word.put("[dia_diem]", hstlForm.getDiaDiemCungCap());
 				word.put("[nguoi_nhan]", hstlForm.getTenCbNhanBc());
 				word.put("[chuc_vu]", hstlForm.getChucVuNgNhanBc());
-				//word.put("[ttkt]", sb.toString());
+				word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				word.put("[nguoi_nhan_phieu]", hstlForm.getTenNgNhanPhieuYc());
 				word.put("[chuc_vu_ng_nhan_phieu]", hstlForm.getChucVuNgNhanPhieuYc());
@@ -619,11 +619,11 @@ public class YeuCauCungCapHstlAction extends BaseDispatchAction {
 				word.put("[doan_ttkt_so]", sbT.toString());
 				word.put("[thoi_diem_bat_dau]", KtnbUtil.getHour(hstlForm.getThoiDiemBatDauBanGianHoSoLuuTru()));
 				word.put("[dia_diem]", hstlForm.getDiaDiemBBGN());
-				//word.put("[ttkt]", sb.toString());
+				word.put("[ttkt]", sb.toString());
 				word.put("[so_quyet_dinh]", cbQd.getSoQuyetDinh());
 				word.put("[ngay_quyet]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())));
 				word.put("[chuc_danh_thu_truong]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
-				//word.put("[ttkt]", sb.toString());
+				word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				//dai dien ben giao
 				Dispatch table = word.openTable(2);
