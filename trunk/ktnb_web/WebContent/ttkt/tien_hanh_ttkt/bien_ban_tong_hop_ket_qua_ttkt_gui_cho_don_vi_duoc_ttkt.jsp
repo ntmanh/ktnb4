@@ -11,7 +11,8 @@
 			<tr>
 				<td align="right" width="49%">Download biểu mẫu</td>
 				<td style="width: 2%; min-width: 5px;"></td>
-				<td align="left" width="49%"><A href="#" onclick="downLoadBieuMau()"> <font color=blue>Mẫu số 34/TTNB</font> </A></td>
+				<td align="left" width="49%"><A href="#" onclick="downLoadBieuMau()"> <font color=blue>Mẫu số 33/TTNB</font> </A></td>
+				<!-- <td align="left" width="49%"><A href="#" onclick="downLoadBieuMau()"> <font color=blue>Mẫu số 33/TTNB</font> </A></td> -->
 			</tr>
 			<logic:present name="TienHanhTtktForm" property="idBbTongHopGuiDonViDuocTtkt">
 				<tr>
@@ -128,7 +129,7 @@ function downLoadBieuMau(){
 	//downLoadWinDow = window.open('UploadAction.do?method=downLoadFileById&ma_file=ttnb34');
 	//downLoadWinDow.focus();
 	var printfForm = findForm('/' + contextRoot + '/tien_hanh_ttkt.do?method=save&type=bienBanTongHopKetQuaGuiDvDuocTtkt');	
-	printfForm.action = 'tien_hanh_ttkt.do?method=in&type=downloadMau34&idCuocTtkt=' + document.getElementsByName('idCuocTtkt')[0].value;
+	printfForm.action = 'tien_hanh_ttkt.do?method=in&type=downloadMau33&idCuocTtkt=' + document.getElementsByName('idCuocTtkt')[0].value;
 	printfForm.submit();
 	printfForm.action = '/' + contextRoot + '/tien_hanh_ttkt.do?method=save&type=bienBanTongHopKetQuaGuiDvDuocTtkt';
 }

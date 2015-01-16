@@ -1,5 +1,5 @@
 <%@page import="cmc.com.ktnb.util.Constants"%>   
-<%@page import="cmc.com.ktnb.util.ApplicationContext"%>   
+<%@page import="cmc.com.ktnb.util.ApplicationContext"%>                
 <script language="javascript">              
 	var tenCqt = "<%=((ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT)).getTenCqt()%>";
 </script>
