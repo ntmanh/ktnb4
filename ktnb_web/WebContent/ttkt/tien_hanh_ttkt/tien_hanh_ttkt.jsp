@@ -19,7 +19,7 @@
 	<li><a href="#tabBbChiTiet">Biên bản chi tiết</a></li>
 	<li><a href="#tabBanGiaoHstlChoTd">Bàn giao HSTL cho trưởng đoàn</a></li>     
 	<li><a href="#level2Tab">Biên bản tổng hợp</a></li>       
-</ul>      
+</ul>        
 <DIV id="tabCBQD">
 <div style="width: 100%;"><%@ include file="/ttkt/tien_hanh_ttkt/cong_bo_quyet_dinh.jsp"%></div>   
 </DIV>   

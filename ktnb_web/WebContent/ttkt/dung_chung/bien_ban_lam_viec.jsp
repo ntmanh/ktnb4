@@ -1,4 +1,4 @@
-<%@page pageEncoding="UTF-8"  %>
+<%@page pageEncoding="UTF-8"  %>  
 <%@ include file="/top_bar.jsp"%>
 <script>
 	function selfClose(){
