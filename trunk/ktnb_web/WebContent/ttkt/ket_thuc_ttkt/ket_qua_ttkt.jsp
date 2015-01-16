@@ -8,7 +8,8 @@
 			<tr>
 				<td align="right" width="49%">Download bi&#7875;u m&#7851;u</td>
 				<td style="width: 2%; min-width: 5px;"></td>
-				<td align="left" width="49%"><A href="#" onclick="downLoadBieuMau37()"> <font color=blue>M&#7851;u s&#7889; 37/TTNB</font> </A></td>
+				<td align="left" width="49%"><A href="#" onclick="downLoadBieuMau36()"> <font color=blue>M&#7851;u s&#7889; 36/TTNB</font> </A></td>
+				<!-- <td align="left" width="49%"><A href="#" onclick="downLoadBieuMau37()"> <font color=blue>M&#7851;u s&#7889; 37/TTNB</font> </A></td> -->
 			</tr>
 			<tr id='colTitleKq'>
 				<td align="right" width="49%">File &#x111;&#xED;nh k&#xE8;m</td>
@@ -16,7 +17,7 @@
 				<td align="left" width="49%"><!-- <A href="#" onclick="downLoadBienBan(document.getElementsByName('idKetQua')[0].value);"><font color=blue>K&#x1EBF;t qu&#x1EA3; Thanh tra Ki&#x1EC3;m tra</font></A> --> <A href="#" onclick="downLoadBienBan(document.getElementsByName('idKetQua')[0].value);"><font
 					color=blue>K&#x1EBF;t qu&#x1EA3; Ki&#x1EC3;m tra</font></A></td>
 			</tr>
-			<tr>
+			<tr> 
 				<td align="right" width="49%" id="tileFileDinhKemKetQua"></td>
 				<td style="width: 2%; min-width: 5px;"></td>
 				<td align="left" width="49%"><html:file property="fileKetQua" /></td>
