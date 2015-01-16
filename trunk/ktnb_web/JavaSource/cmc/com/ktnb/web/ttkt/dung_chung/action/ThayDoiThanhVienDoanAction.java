@@ -208,6 +208,10 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
+	
+	/**
+	 * Des : ktnb v3
+	 * */
 	private void inThayDoiThanhVien(HttpServletRequest request, HttpServletResponse reponse, ThayDoiThanhVienDoanForm thayDoiThanhVienDoanForm, ApplicationContext appConText) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
@@ -571,7 +575,14 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 
 		}
 	}
+	
+	/**
+	 * Edit : ntmanh
+	 * Method : inThayDoiThanhVien
+	 * Des : ktnb v4
+	 * */
 	private void inThayDoiThanhVienV4(HttpServletRequest request, HttpServletResponse reponse, ThayDoiThanhVienDoanForm thayDoiThanhVienDoanForm, ApplicationContext appConText) throws Exception {
+		System.out.println("This is ktnb v4");
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;

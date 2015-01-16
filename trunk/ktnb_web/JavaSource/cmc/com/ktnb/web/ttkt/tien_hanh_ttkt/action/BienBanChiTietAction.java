@@ -34,7 +34,7 @@ import cmc.com.ktnb.web.ttkt.tien_hanh_ttkt.form.BienBanChiTietForm;
  * @author
  */
 public class BienBanChiTietAction extends BaseDispatchAction {
-	
+
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception {
 
 		BienBanChiTietForm bienBanChiTietForm = (BienBanChiTietForm) form;
@@ -50,15 +50,14 @@ public class BienBanChiTietAction extends BaseDispatchAction {
 				request.setAttribute("updateType", "insert");
 				bienBanChiTietForm.setId(id);
 			} else {
-				
+
 				request.setAttribute("updateType", "update");
 			}
 
-			
-		} else if("downLoadMau".equals(method)){
-			downLoadMau(request,reponse);
+		} else if ("downLoadMau".equals(method)) {
+			downLoadMau(request, reponse);
 			return null;
-		}else {
+		} else {
 			String cuocTtktId = request.getParameter("idCuocTtkt");
 			if (Formater.isNull(cuocTtktId)) { // Truong hop sua
 				String idBienBan = request.getParameter("id");
@@ -84,8 +83,11 @@ public class BienBanChiTietAction extends BaseDispatchAction {
 		}
 		return mapping.findForward("success");
 	}
-	//v3
-	private void downLoadMauv3(HttpServletRequest request, HttpServletResponse response){
+
+	/**
+	 * Des : ktnb v3
+	 * */
+	private void downLoadMauv3(HttpServletRequest request, HttpServletResponse response) {
 		InputStream inputStream;
 		try {
 			inputStream = new FileInputStream(request.getRealPath("/docin") + "\\TTNB33.doc");
@@ -110,11 +112,15 @@ public class BienBanChiTietAction extends BaseDispatchAction {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
-	
-	//v4
-	private void downLoadMau(HttpServletRequest request, HttpServletResponse response){
+
+	/**
+	 * Edit : ntmanh
+	 * Method: downLoadMau
+	 * Des : ktnb v4
+	 * */
+	private void downLoadMau(HttpServletRequest request, HttpServletResponse response) {
 		InputStream inputStream;
 		try {
 			inputStream = new FileInputStream(request.getRealPath("/docin/v4") + "\\TTNB32.doc");
@@ -139,8 +145,9 @@ public class BienBanChiTietAction extends BaseDispatchAction {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 	}
+
 	/**
 	 * @param appContext
 	 * @param bienBanChiTietForm
@@ -161,6 +168,7 @@ public class BienBanChiTietAction extends BaseDispatchAction {
 		bbChiTiet.setFileDinhKem(bienBanChiTietForm.getFileDinhKem());
 		return bbChiTiet;
 	}
+
 	/**
 	 * @param appContext
 	 * @param request
@@ -180,15 +188,15 @@ public class BienBanChiTietAction extends BaseDispatchAction {
 		bienBanChiTietForm.setThoiDiemLapBb(Formater.date2strDateTimeForNV(bbChiTiet.getThoiDiemLapBb()));
 		bienBanChiTietForm.setTtktTai(bbChiTiet.getTtktTai());
 		bienBanChiTietForm.setThoiDiemThongQua(Formater.date2strDateTimeForNV(bbChiTiet.getThoiDiemThongQua()));
-		
+
 		//bienBanChiTietForm.set
 
 	}
 
 	/**
-		 * @param cuocTtktId
-		 * @param request
-		 */
+	 * @param cuocTtktId
+	 * @param request
+	 */
 	private void loadDsTvDoan(String cuocTtktId, HttpServletRequest request) {
 		Collection dsThanhVienDoan = TtktService.getDanhSachThanhVienDoan(cuocTtktId);
 		String cbDsThanhVienDoan = "<option value = \"\">"; // Combo danh sach thanh vien doan
@@ -212,7 +220,7 @@ public class BienBanChiTietAction extends BaseDispatchAction {
 		//thoiDiemCongBo
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		try {
-			TtktCbQd qd= TtktService.getQuyetDinh(cuocTtktId, appContext);
+			TtktCbQd qd = TtktService.getQuyetDinh(cuocTtktId, appContext);
 			TtktThCongBoQd cbqd = TtktService.getCongBoQd(appContext, cuocTtktId);
 			request.setAttribute("ngayRaQuyetDinh", Formater.objectDate2Str(qd.getNgayRaQuyetDnh()));
 			request.setAttribute("thoiDiemCongBo", Formater.objectDate2Str(cbqd.getThoiDiemCbTu()));

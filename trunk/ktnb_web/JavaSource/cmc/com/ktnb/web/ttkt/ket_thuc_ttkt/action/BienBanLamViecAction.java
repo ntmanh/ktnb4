@@ -199,7 +199,10 @@ public class BienBanLamViecAction extends Action {
 		return bienban;
 
 	}
-	//v3
+	
+	/**
+	 * Des : ktnb v3
+	 * */
 	private void inYeuCauGTv3(HttpServletRequest request, HttpServletResponse reponse, BienBanLamViecForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
@@ -311,7 +314,11 @@ public class BienBanLamViecAction extends Action {
 		}
 	}
 	
-	//v4
+	/**
+	 * Edit : ntmanh
+	 * Method : inYeuCauGT
+	 * Des : ktnb v4
+	 * */
 	private void inYeuCauGT(HttpServletRequest request, HttpServletResponse reponse, BienBanLamViecForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
 		System.out.println("This is KTNBv4");
 		String fileIn = null;
