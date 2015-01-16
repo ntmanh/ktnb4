@@ -746,7 +746,11 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		return null;
 	}
 
+	/*
+	 * This is KTNB v3
+	 * */
 	public ActionForward in(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("KTNB v3");
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
@@ -1001,6 +1005,12 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		// null);
 		return null;
 	}
+	
+	/**
+	 * Edit : ntmanh
+	 * Method : in
+	 * Des : ktnb v4
+	 * */
 	public ActionForward inV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String fileIn = null;
 		String fileOut = null;

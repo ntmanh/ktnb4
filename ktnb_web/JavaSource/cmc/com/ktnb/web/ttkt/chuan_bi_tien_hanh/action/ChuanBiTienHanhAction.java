@@ -459,8 +459,11 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 	
-	// Ver3
+	/**
+	 * Des : ktnb v3
+	 * */
 	private void inCbthv3(HttpServletRequest request, ApplicationContext appConText, ChuanBiTienHanhForm cbForm, HttpServletResponse reponse) throws Exception {
+		System.out.println("This is ktnb v3");
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
@@ -1181,9 +1184,13 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 		}
 	}
 	
-	// Ver4
+	/**
+	 * Edit : ntmanh
+	 * Method : inCbth
+	 * Des : ktnb v4
+	 * */
 	private void inCbth(HttpServletRequest request, ApplicationContext appConText, ChuanBiTienHanhForm cbForm, HttpServletResponse reponse) throws Exception {
-		System.out.println("This is KTNBv4");
+		System.out.println("This is KTNB v4");
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;

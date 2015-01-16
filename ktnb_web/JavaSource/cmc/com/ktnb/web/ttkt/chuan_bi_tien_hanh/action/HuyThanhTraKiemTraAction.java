@@ -62,6 +62,10 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
+	
+	/**
+	 * Des : ktnb v3
+	 * */
 	private void inQuyetDinhHuy(HttpServletRequest request, HttpServletResponse response, HuyThanhTraKiemTraForm huyThanhTraKiemTraForm, ApplicationContext appConText) throws Exception {
 		String fileIn = request.getRealPath("/docin") + "\\TTNB06.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TTNB06_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
@@ -152,7 +156,14 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 			}
 		}
 	}
+	
+	/**
+	 * Edit : ntmanh
+	 * Method : inQuyetDinhHuy
+	 * Des : ktnb v4
+	 * */
 	private void inQuyetDinhHuyV4(HttpServletRequest request, HttpServletResponse response, HuyThanhTraKiemTraForm huyThanhTraKiemTraForm, ApplicationContext appConText) throws Exception {
+		System.out.println("This is ktnb v4");
 		String fileIn = request.getRealPath("/docin/v4") + "\\KTNB06.doc";
 		String fileOut = request.getRealPath("/docout") + "\\KTNB06_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 		HashMap[] reportRows = null;

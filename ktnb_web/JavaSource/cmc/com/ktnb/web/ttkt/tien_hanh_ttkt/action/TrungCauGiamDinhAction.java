@@ -113,7 +113,7 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 		tcGiamDinhForm.setNoiDung(trungCauGiamDinh.getNoiDung());
 		tcGiamDinhForm.setTenCqtGd(trungCauGiamDinh.getTenCqtGiamDinh());
 		tcGiamDinhForm.setTenCqtTc(trungCauGiamDinh.getTenCqtTrungCau());
-
+		tcGiamDinhForm.setSoQd(trungCauGiamDinh.getSoQuyetDinh());
 	}
 
 	private void addNew(HttpServletRequest request, ApplicationContext app, TrungCauGiamDinhForm tcGiamDinhForm, String cuocTtktId) {
@@ -133,6 +133,7 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 			form.setNoiDung(trungCauGiamDinh.getNoiDung());
 			form.setTenCqtGd(trungCauGiamDinh.getTenCqtGiamDinh());
 			form.setTenCqtTc(trungCauGiamDinh.getTenCqtTrungCau());
+			form.setSoQd(trungCauGiamDinh.getSoQuyetDinh());
 		} else
 			form.setNgayCcKq(Formater.date2str(new Date()));
 		form.setNgayLap(Formater.date2str(new Date()));
@@ -155,6 +156,8 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 		tcgd.setTenCqtTrungCau(form.getTenCqtTc());
 		tcgd.setIdNguoiCapNat(app.getMaCanbo());
 		tcgd.setTenNguoiCapNhat(app.getTenCanbo());
+		tcgd.setSoQuyetDinh(form.getSoQd());
+		;
 		TtktCnPhuService.saveTrungCauGiamDinh(tcgd, app);
 	}
 
@@ -209,7 +212,6 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 	//v3
-	
 	public void inTrungCauGDv3(HttpServletRequest request, HttpServletResponse reponse, TrungCauGiamDinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
 		String fileIn = request.getRealPath("/docin") + "\\TTNB32.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TTNB32_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
@@ -230,11 +232,11 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 			word.put("[cqt_ra_van_ban]", cuocTtkt.getTenDonViTh().toUpperCase());
 			// word.put("[doan_ttkt_so]", cbQd.getSoQuyetDinh());
 			word.put("[doan_ttkt_so]", "........../TCG\u0110-......."); // dang
-																		// thieu
-																		// truong
-																		// nay
-																		// tren
-																		// form
+			// thieu
+			// truong
+			// nay
+			// tren
+			// form
 			if (form.getNoiLap().equals("") || form.getNgayLap().equals("")) {
 				word.put("[noi_lap]", ".....");
 				word.put("[ngay_lap]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
@@ -285,8 +287,13 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 			}
 		}
 	}
-	//v4
-	
+
+	/**
+	 * Edit : ntmanh	
+	 * Method : inTrungCauGD
+	 * Des : ktnb v4
+	 * */
+
 	public void inTrungCauGD(HttpServletRequest request, HttpServletResponse reponse, TrungCauGiamDinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
 		System.out.println("This is KTNBv4");
 		String fileIn = request.getRealPath("/docin/v4") + "\\TTNB31.doc";
@@ -306,13 +313,13 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 		try {
 			word.put("[ten_cqt]", KtnbUtil.getTenCqtCapTrenTt(app).toUpperCase());
 			word.put("[cqt_ra_van_ban]", cuocTtkt.getTenDonViTh().toUpperCase());
-			// word.put("[doan_ttkt_so]", cbQd.getSoQuyetDinh());
-			word.put("[doan_ttkt_so]", "........../TCG\u0110-......."); // dang
-																		// thieu
-																		// truong
-																		// nay
-																		// tren
-																		// form
+			word.put("[doan_ttkt_so]", form.getSoQd());
+			//word.put("[doan_ttkt_so]", "........../TCG\u0110-......."); // dang
+			// thieu
+			// truong
+			// nay
+			// tren
+			// form
 			if (form.getNoiLap().equals("") || form.getNgayLap().equals("")) {
 				word.put("[noi_lap]", ".....");
 				word.put("[ngay_lap]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
