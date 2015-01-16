@@ -497,9 +497,9 @@ public class KetThucTtktAction extends BaseDispatchAction {
 					
 				}
 			}
-		} else if ("downloadMau38".equals(type)) {
-			fileIn = request.getRealPath("/docin") + "\\TTNB38.doc";
-			fileOut = request.getRealPath("/docout") + "\\TTNB38_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+		} else if ("downloadMau37".equals(type)) {
+			fileIn = request.getRealPath("/docin/v4") + "\\TTNB37.doc";
+			fileOut = request.getRealPath("/docout") + "\\TTNB37_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 			String idCuocTtkt = ketThucTtktForm.getIdCuocTtkt();
 			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appContext, idCuocTtkt);
 
@@ -513,32 +513,32 @@ public class KetThucTtktAction extends BaseDispatchAction {
 				word.put("[ten_viet_tat_cqt]", "...../KL-.........");
 				word.put("[noi_lap]", ".....");
 				word.put("[ngay_lap]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
-				word.put("[ttkt]", hinhThuc.toUpperCase());
-				word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc.toUpperCase());
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
-				word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[so_qd]", cbQd.getSoQuyetDinh());
 				String ngayqd = Formater.date2str(cbQd.getNgayRaQuyetDnh());
 				word.put("[ngay_qd]", Formater.getDateForPrint(ngayqd));
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appContext));
-				word.put("[ttkt]", hinhThuc);
-				word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
-				word.put("[ttkt]", hinhThuc);
-				word.put("[ttkt]", hinhThuc);
-				word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[ten_cqt_dua_ra_ket_luan]", "..........");
-				word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
-				for (int i = 0; i < 5; i++)
-					word.put("[ttkt]", hinhThuc);
+				//for (int i = 0; i < 5; i++)
+					//word.put("[ttkt]", hinhThuc);
 				word.put("[ten_cqt]", appContext.getTenCqt());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
-				word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[chuc_danh_thu_truong]", KtnbUtil.getChucVuThuTruongByMaCqt(appContext.getMaCqt()).toUpperCase());
 				//word.put("[ten_thu_truong_cqt]", appContext.getTenThuTruong());
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau TTNB38", ".doc", response);
+				word.downloadFile(fileOut, "Mau TTNB37", ".doc", response);
 			} catch (Exception ex) {
 				// ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
