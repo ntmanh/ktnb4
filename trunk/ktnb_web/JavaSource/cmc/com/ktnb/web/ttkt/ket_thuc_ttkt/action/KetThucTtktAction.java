@@ -78,7 +78,9 @@ public class KetThucTtktAction extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
-	private void inKetThucTtkt(ApplicationContext appContext, KetThucTtktForm ketThucTtktForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	
+	//v3
+	private void inKetThucTtktv3(ApplicationContext appContext, KetThucTtktForm ketThucTtktForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
@@ -415,6 +417,363 @@ public class KetThucTtktAction extends BaseDispatchAction {
 					}
 				}
 				word.put("[ttkt]", hinhThuc);
+				word.put("[bao_cao]", ketThucTtktForm.getBaoCaoBanGianHoSoLuuTru());
+				word.put("[ho_so_tai_lieu]", ketThucTtktForm.getHoSoBanGianHoSoLuuTru());
+				word.put("[thoi_diem_giao_nhan]", KtnbUtil.getHour(ketThucTtktForm.getThoiDiemKetThucBanGianHoSoLuuTru()));
+				word.saveAndClose();
+				word.downloadFile(fileOut, "Mau TTNB18A", ".doc", response);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				System.out.println("Download Error: " + ex.getMessage());
+			} finally {				
+				try { 
+					word.saveAndClose();
+				} catch (Exception e) {
+					
+				}
+			}
+		}
+	}
+	
+	//v4
+
+	private void inKetThucTtkt(ApplicationContext appContext, KetThucTtktForm ketThucTtktForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String fileIn = null;
+		String fileOut = null;
+		MsWordUtils word = null;
+		String type = request.getParameter("type");
+		if ("downloadMau37".equals(type)) {
+			fileIn = request.getRealPath("/docin") + "\\TTNB37.doc";
+			fileOut = request.getRealPath("/docout") + "\\TTNB37_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+			String idCuocTtkt = ketThucTtktForm.getIdCuocTtkt();
+			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appContext, idCuocTtkt);
+
+			String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
+			String hinhthuc_in = (cuocTtkt.getHinhThuc().booleanValue()) ? "KT" : "TT";
+
+			TtktCbQd cbQd = TtktService.getQuyetDinh(cuocTtkt.getId(), appContext);
+
+			try {
+				word = new MsWordUtils(fileIn, fileOut);
+				word.put("[ten_cqt]", appContext.getTenCqt().toUpperCase());
+				StringBuffer sb = new StringBuffer("\u0110O\u00C0N ");
+				sb.append(hinhthuc_in);
+				sb.append(" Q\u0110 S\u1ED0 ");
+				sb.append(cbQd.getSoQuyetDinh());
+				word.put("[doan_ttkt_so]", sb.toString().toUpperCase());
+				word.put("[noi_lap]", ".....");
+				word.put("[ngay_lap]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
+				word.put("[ttkt]", hinhThuc);
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				word.put("[chuc_danh_nguoi_ra_qd_ttkt]", "..........");
+				word.put("[ttkt]", hinhThuc);
+				word.put("[so_qd]", cbQd.getSoQuyetDinh());
+				String ngayqd = Formater.date2str(cbQd.getNgayRaQuyetDnh());
+				word.put("[ngay_qd]", Formater.getDateForPrint(ngayqd));
+				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appContext));
+				word.put("[ttkt]", hinhThuc);
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				for (int i = 0; i < 4; i++)
+					word.put("[ttkt]", hinhThuc);
+				word.put("[ten_dv_da_lam_viec]", "..........");
+				word.put("[ten_dv_da_kt_xacminh]", "..........");
+				for (int i = 0; i < 13; i++)
+					word.put("[ttkt]", hinhThuc);
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				word.put("[ttkt]", hinhThuc);
+				word.put("[chuc_danh_nguoi_ra_qd_ttkt]", "..........");
+				word.put("[ttkt]", hinhThuc.toUpperCase());
+				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
+
+				word.saveAndClose();
+				word.downloadFile(fileOut, "Mau TTNB37", ".doc", response);
+			} catch (Exception ex) {
+				// ex.printStackTrace();
+				System.out.println("Download Error: " + ex.getMessage());
+			} finally {				
+				try { 
+					word.saveAndClose();
+				} catch (Exception e) {
+					
+				}
+			}
+		} else if ("downloadMau38".equals(type)) {
+			fileIn = request.getRealPath("/docin") + "\\TTNB38.doc";
+			fileOut = request.getRealPath("/docout") + "\\TTNB38_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+			String idCuocTtkt = ketThucTtktForm.getIdCuocTtkt();
+			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appContext, idCuocTtkt);
+
+			String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
+			TtktCbQd cbQd = TtktService.getQuyetDinh(cuocTtkt.getId(), appContext);
+
+			try {
+				word = new MsWordUtils(fileIn, fileOut);
+				word.put("[ten_cqt]", appContext.getTenCqt().toUpperCase());
+				word.put("[cqt_ra_ket_luan]", "T\u00CAN C\u01A0 QUAN THU\u1EBE RA Q\u0110");
+				word.put("[ten_viet_tat_cqt]", "...../KL-.........");
+				word.put("[noi_lap]", ".....");
+				word.put("[ngay_lap]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
+				word.put("[ttkt]", hinhThuc.toUpperCase());
+				word.put("[ttkt]", hinhThuc);
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				word.put("[ttkt]", hinhThuc);
+				word.put("[so_qd]", cbQd.getSoQuyetDinh());
+				String ngayqd = Formater.date2str(cbQd.getNgayRaQuyetDnh());
+				word.put("[ngay_qd]", Formater.getDateForPrint(ngayqd));
+				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appContext));
+				word.put("[ttkt]", hinhThuc);
+				word.put("[ttkt]", hinhThuc);
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				word.put("[ttkt]", hinhThuc);
+				word.put("[ttkt]", hinhThuc);
+				word.put("[ttkt]", hinhThuc);
+				word.put("[ten_cqt_dua_ra_ket_luan]", "..........");
+				word.put("[ttkt]", hinhThuc);
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				for (int i = 0; i < 5; i++)
+					word.put("[ttkt]", hinhThuc);
+				word.put("[ten_cqt]", appContext.getTenCqt());
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				word.put("[ttkt]", hinhThuc);
+				word.put("[chuc_danh_thu_truong]", KtnbUtil.getChucVuThuTruongByMaCqt(appContext.getMaCqt()).toUpperCase());
+				//word.put("[ten_thu_truong_cqt]", appContext.getTenThuTruong());
+				word.saveAndClose();
+				word.downloadFile(fileOut, "Mau TTNB38", ".doc", response);
+			} catch (Exception ex) {
+				// ex.printStackTrace();
+				System.out.println("Download Error: " + ex.getMessage());
+			} finally {				
+				try { 
+					word.saveAndClose();
+				} catch (Exception e) {
+					
+				}
+			}
+		} else if ("thongBaoKetThuc".equals(type)) { // thong bao ket thuc
+			// (ngon,chuan)
+			fileIn = request.getRealPath("/docin/v4") + "\\TTNB34.doc";
+			fileOut = request.getRealPath("/docout") + "\\TTNB34_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+
+			// Loc sua lai sau
+			String idCuocTtkt = ketThucTtktForm.getIdCuocTtkt();
+
+			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appContext, idCuocTtkt);
+
+			KtnbUtil.getChucVuThuTruongByMaCqt(cuocTtkt.getIdDonViBi());
+			String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
+			String hinhthuc_in = (cuocTtkt.getHinhThuc().booleanValue()) ? "KT" : "TT";
+
+			StringBuffer sb = new StringBuffer("\u0110O\u00C0N ");
+			sb.append(hinhthuc_in);
+			sb.append(" Q\u0110 S\u1ED0 ");
+			TtktCbQd cbQd = TtktService.getQuyetDinh(cuocTtkt.getId(), appContext);
+			TtktThCongBoQd cbKl= TtktService.getCongBoQd(appContext, cuocTtkt.getId());
+			sb.append(cbQd.getSoQuyetDinh());
+
+			try {
+				word = new MsWordUtils(fileIn, fileOut);
+				word.put("[ten_cqt]", appContext.getTenCqt().toUpperCase());
+				word.put("[doan_ttkt_so]", sb.toString().toUpperCase());
+				String ngaythongbao = ketThucTtktForm.getNgayRaThongBaoKetThuc();
+				String[] arrngaythongbao = ngaythongbao.split("/");
+				if (ketThucTtktForm.getNoiRaThongBaoKetThuc().equals("") || ketThucTtktForm.getNgayRaThongBaoKetThuc().equals("")) {
+					word.put("[noi_ra_thong_bao]", ".....");
+					word.put("[ngay_thong_bao]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
+				} else {
+					word.put("[noi_ra_thong_bao]", ketThucTtktForm.getNoiRaThongBaoKetThuc());
+					word.put("[ngay_thong_bao]", "Ng\u00E0y " + arrngaythongbao[0] + " th\u00E1ng " + arrngaythongbao[1] + " n\u0103m " + arrngaythongbao[2]);
+				}
+				word.put("[ten_bc]", "TH\u00D4NG B\u00C1O");
+				//word.put("[ttkt]", hinhThuc);
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				//word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				//word.put("[ttkt]", hinhThuc);
+				word.put("[so_qd]", cbQd.getSoQuyetDinh());
+				// ngay ra qd
+				word.put("[ngay_qd]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())));
+				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqt(appContext));
+				//word.put("[ttkt]", hinhThuc);
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				//word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
+				// thanh tra, kiem tra tu ngay
+				word.put("[ngay_ttkt]", Formater.getDateForPrint(Formater.date2str(cbKl.getThoiDiemCbTu())));
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				//word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
+				// ngay ket thuc
+				word.put("[thong_bao_ket_thuc]", Formater.getDateForPrint(ketThucTtktForm.getNgayKetThuc()));
+				//word.put("[ttkt]", hinhThuc);
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+
+				//word.put("[ttkt]", hinhThuc.toUpperCase());
+				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
+				// sb = new StringBuffer("V\u1EC1 vi\u1EC7c k\u1EBFt th\u00FAc
+				// ");
+				// sb.append(hinhThuc);
+				// word.put("[thong_bao]", sb.toString());
+				// word.put("[kinh_gui]", appContext.getTenCqtTat());
+				word.saveAndClose();
+				word.downloadFile(fileOut, "Mau TTNB34", ".doc", response);
+			} catch (Exception ex) {
+				// ex.printStackTrace();
+				System.out.println("Download Error: " + ex.getMessage());
+			} finally {				
+				try { 
+					word.saveAndClose();
+				} catch (Exception e) {
+					
+				}
+			}
+
+			// hop rut kinh nghiem doan (ngon, chuan)
+		} else if ("hopRutKinhNghiemDoan".equals(type)) {
+			fileIn = request.getRealPath("/docin/v4") + "\\TTNB14.doc";
+			fileOut = request.getRealPath("/docout") + "\\TTNB14_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+
+			// Loc sua lai sau
+			String idCuocTtkt = ketThucTtktForm.getIdCuocTtkt();
+
+			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appContext, idCuocTtkt);
+
+			KtnbUtil.getChucVuThuTruongByMaCqt(cuocTtkt.getIdDonViBi());
+			String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
+			String hinhthuc_in = (cuocTtkt.getHinhThuc().booleanValue()) ? "KT" : "TT";
+
+			StringBuffer sb = new StringBuffer("\u0110O\u00C0N ");
+			sb.append(hinhthuc_in);
+			sb.append(" Q\u0110 S\u1ED0 ");
+			TtktCbQd cbQd = TtktService.getQuyetDinh(cuocTtkt.getId(), appContext);
+			sb.append(cbQd.getSoQuyetDinh());
+
+			try {
+				word = new MsWordUtils(fileIn, fileOut);
+				word.put("[ten_cqt]", appContext.getTenCqt().toUpperCase());
+				word.put("[doan_ttkt_so]", sb.toString().toUpperCase());
+				word.put("[ten_bc]", "BI\u00CAN B\u1EA2N");
+				//word.put("[ttkt]", hinhThuc.toUpperCase());
+				word.put("[thoi_diem_bat_dau]", KtnbUtil.getHour(ketThucTtktForm.getThoiDiemBatDauHopRutKinhNghiem()));
+				word.put("[dia_diem]", ketThucTtktForm.getDiaDiemHopRutKinhNghiem());
+				//word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
+				word.put("[noi_dung_tom_tat]", ketThucTtktForm.getVeViecHopRutKinhNghiem());
+				// thanh phan tham du
+				Dispatch table = word.openTable(2);
+				TtktCmThanhPhanThamDu[] arrthanhphantd = ketThucTtktForm.getThanhPhanThamDuHopRutKinhNghiem();
+				StringBuffer tptd = new StringBuffer("");
+				int j = 0; // dem so luong thanh vien doan , bo qua truong doan
+				// ttkt
+				if (arrthanhphantd != null && arrthanhphantd.length > 0) {
+					for (int i = 0; i < arrthanhphantd.length; i++) {
+						if (!cuocTtkt.getTenTruongDoan().equals(arrthanhphantd[i].getHoTen())) {
+							tptd.append((j + 1) + ". " + arrthanhphantd[i].getHoTen() + "\n");// in
+							// danh
+							// sach
+							// thanh
+							// vien
+							// ki
+							// duyet
+							j++;
+						}
+						String tenTv = (i + 1) + "." + " \u00D4ng(b\u00E0): " + arrthanhphantd[i].getHoTen();
+						String chucvu = "- Ch\u1EE9c v\u1EE5: " + arrthanhphantd[i].getChucVu();
+						word.addCellTable(table, i + 1, 1, (i + 1) + "." + " \u00D4ng(b\u00E0): " + arrthanhphantd[i].getHoTen());
+						word.addCellTable(table, i + 1, 2, "- Ch\u1EE9c v\u1EE5: " + arrthanhphantd[i].getChucVu());
+						word.addRowTable(table, arrthanhphantd.length);
+					}
+					System.out.println(tptd.toString());
+					// word.put("thanh_vien", tptd.toString());
+				}
+				//
+				word.put("[noi_dung]", ketThucTtktForm.getNoiDungHopRutKinhNghiem());
+				word.put("[thoi_gian_ket_thuc]", KtnbUtil.getHour(ketThucTtktForm.getThoiDiemKetThucHopRutKinhNghiem()));
+				//word.put("[ttkt]", hinhThuc.toUpperCase());
+				//word.put("[ttkt]", hinhThuc.toUpperCase());
+				if (tptd.toString().length() == 0)
+					word.put("[ds_thanh_vien]", "");
+				else
+					word.put("[ds_thanh_vien]", tptd.toString());
+				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
+				word.saveAndClose();
+				word.downloadFile(fileOut, "Mau TTNB14", ".doc", response);
+			} catch (Exception ex) {
+				ex.printStackTrace();
+				System.out.println("Download Error: " + ex.getMessage());
+			} finally {				
+				try { 
+					word.saveAndClose();
+				} catch (Exception e) {
+					
+				}
+			}
+
+			// ban giao hs (xem lai)
+		} else if ("banGiaoHoSoLuuTru".equals(type)) {
+			fileIn = request.getRealPath("/docin/v4") + "\\TTNB18.doc";
+			fileOut = request.getRealPath("/docout") + "\\TTNB18_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+
+			String idCuocTtkt = ketThucTtktForm.getIdCuocTtkt();
+
+			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appContext, idCuocTtkt);
+
+			TtktCbQd cbQd = TtktService.getQuyetDinh(cuocTtkt.getId(), appContext);
+			String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
+			String hinhthuc_in = (cuocTtkt.getHinhThuc().booleanValue()) ? "KT" : "TT";
+
+			try {
+				word = new MsWordUtils(fileIn, fileOut);
+				word.put("[ten_cqt]", appContext.getTenCqt().toUpperCase());
+				StringBuffer sb = new StringBuffer("\u0110O\u00C0N ");
+				sb.append(hinhthuc_in);
+				sb.append(" Q\u0110 S\u1ED0 ");
+				sb.append(cbQd.getSoQuyetDinh());
+				word.put("[doan_ttkt_so]", sb.toString().toUpperCase());
+				word.put("[ten_bc]", "BI\u00CAN B\u1EA2N");
+				word.put("[thoi_diem_bat_dau]", KtnbUtil.getHour(ketThucTtktForm.getThoiDiemBatDauBanGianHoSoLuuTru()));
+				word.put("[dia_diem]", ketThucTtktForm.getDiaDiemBanGiaoHoSoLuuTru());
+				//word.put("[ttkt]", hinhThuc);
+				word.put("[so_quyet_dinh]", cbQd.getSoQuyetDinh());
+				String ngayqd = Formater.date2str(cbQd.getNgayRaQuyetDnh());
+				String[] arrngayquyet = ngayqd.split("/");
+				word.put("[ngay_quyet]", "ng\u00E0y " + arrngayquyet[0] + " th\u00E1ng " + arrngayquyet[1] + " n\u0103m " + arrngayquyet[2]);
+				word.put("[chuc_danh_thu_truong]", KtnbUtil.getTenThuTruongCqt(appContext));
+				//word.put("[ttkt]", hinhThuc);
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+
+				// dai dien ben giao
+				Dispatch table = word.openTable(2);
+				TtktCmThanhPhanThamDu[] arrbengiao = ketThucTtktForm.getArrDaiDienBenGiaoHstlLuuTru();
+				StringBuffer bengiao = new StringBuffer("");
+				String nguoiGiao = "";
+				if (arrbengiao != null && arrbengiao.length > 0) {
+					for (int i = 0; i < arrbengiao.length; i++) {
+						bengiao.append("- \u00D4ng(b\u00E0): " + arrbengiao[i].getHoTen());
+						bengiao.append("   - Ch\u1EE9c v\u1EE5: " + arrbengiao[i].getChucVu());
+						bengiao.append("\n");
+						word.addCellTable(table, i + 1, 1, "- \u00D4ng (b\u00E0): " + arrbengiao[i].getHoTen());
+						word.addCellTable(table, i + 1, 2, "- Ch\u1EE9c v\u1EE5: " + arrbengiao[i].getChucVu());
+						word.addRowTable(table, arrbengiao.length);
+						nguoiGiao = arrbengiao[i].getHoTen();
+					}
+				}
+				// dai dien ben nhan
+				table = word.openTable(3);
+				TtktCmThanhPhanThamDu[] arrbennhan = ketThucTtktForm.getArrDaiDienBenNhanHstlLuuTru();
+				StringBuffer bennhan = new StringBuffer("");
+				String nguoiNhan = "";
+				if (arrbennhan != null && arrbennhan.length > 0) {
+					// for (int i = 0; i < arrbengiao.length; i++) {
+					for (int i = 0; i < arrbennhan.length; i++) {
+						bennhan.append("- \u00D4ng(b\u00E0): " + arrbennhan[i].getHoTen());
+						bennhan.append("    - Ch\u1EE9c v\u1EE5: " + arrbennhan[i].getChucVu());
+						bennhan.append("\n");
+						word.addCellTable(table, i + 1, 1, "- \u00D4ng (b\u00E0): " + arrbennhan[i].getHoTen());
+						word.addCellTable(table, i + 1, 2, "- Ch\u1EE9c v\u1EE5: " + arrbennhan[i].getChucVu());
+						word.addRowTable(table, arrbennhan.length);
+						nguoiNhan = arrbennhan[i].getHoTen();
+					}
+				}
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[bao_cao]", ketThucTtktForm.getBaoCaoBanGianHoSoLuuTru());
 				word.put("[ho_so_tai_lieu]", ketThucTtktForm.getHoSoBanGianHoSoLuuTru());
 				word.put("[thoi_diem_giao_nhan]", KtnbUtil.getHour(ketThucTtktForm.getThoiDiemKetThucBanGianHoSoLuuTru()));

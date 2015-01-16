@@ -288,6 +288,7 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 	//v4
 	
 	public void inTrungCauGD(HttpServletRequest request, HttpServletResponse reponse, TrungCauGiamDinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
+		System.out.println("This is KTNBv4");
 		String fileIn = request.getRealPath("/docin/v4") + "\\TTNB31.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TTNB31_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
