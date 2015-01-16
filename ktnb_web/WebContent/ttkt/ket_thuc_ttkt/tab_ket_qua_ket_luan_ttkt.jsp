@@ -1,6 +1,6 @@
-<%@ page pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%> 
 <%@page import="cmc.com.ktnb.util.Constants"%>
-<%@page import="cmc.com.ktnb.util.ApplicationContext"%>   
+<%@page import="cmc.com.ktnb.util.ApplicationContext"%>     
 <script language="javascript">              
 	var tenCqt = "<%=((ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT)).getTenCqt()%>";                            
 </script>
@@ -9,7 +9,7 @@
 	<li><a href="#tabDuThaoKetQua"><b>Dự thảo báo cáo kết quả</b></a></li>       
 	<li><a href="#tabBaoCaoKetQua"><b>Báo cáo kết quả</b></a></li>
 	<li><a href="#tabDuThaoKetLuan"><b>Dự thảo kết luận</b></a></li>              
-	<li><a href="#tabKetLuan"><b>Kết luận</b></a></li>
+	<li><a href="#tabKetLuan"><b>Kết luận</b></a></li>   
 	<li><a href="#tabChuyenKetluanSangBaoCao"><b>Nhập dữ liệu trên kết luận</b></a></li>          
 </ul>
 </DIV>                
