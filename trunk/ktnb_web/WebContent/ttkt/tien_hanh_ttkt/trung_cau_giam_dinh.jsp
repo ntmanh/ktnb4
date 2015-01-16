@@ -23,6 +23,17 @@
 	<TABLE width="100%" align="center">
 		<TBODY>
 			<tr>
+				<td align="right" style="width: 19%">Số quyết định <font
+					color=red>*</font></td>
+				<td style="width: 1%"></td>
+				<td align="left" style="width: 30%"><html:text
+					styleClass="text" property="soQd"></html:text></td>
+				<td align="right" style="width: 19%"> <font
+					color=red></font></td>
+				<td style="width: 1%"></td>
+				<td align="left" style="width: 30%"></td>
+			</tr>
+			<tr>
 				<td align="right" style="width: 19%">Nơi lập <font
 					color=red>*</font></td>
 				<td style="width: 1%"></td>

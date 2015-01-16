@@ -1,8 +1,8 @@
-<%@ include file="/top_bar.jsp"%>
+<%@ include file="/top_bar.jsp"%>      
 <h3 class="Header">Ni&#234;m phong h&#7891; s&#417; t&#224;i li&#7879;u</h3>
 <script type="text/javascript" src="<html:rewrite page='/include/js/ttkt/ttkt.js'/>"></script>
 <%@page import="cmc.com.ktnb.util.Constants"%>     
-<%@page import="cmc.com.ktnb.util.ApplicationContext"%>  
+<%@page import="cmc.com.ktnb.util.ApplicationContext"%>             
 <div id="tab">
 <ul>
 	<li><a href="#tabQuyetDinhNiemPhong"><b>Quy&#7871;t &#273;&#7883;nh ni&#234;m phong</b></a></li>
@@ -34,14 +34,15 @@
 <html:form action="niem_phong_ho_so_tai_lieu.do" method="POST">
 	<html:hidden property="idCuocTtkt" />
 	<html:hidden property="idCqtBi" />
-	<html:hidden property="optionTag" />
+	<html:hidden property="optionTag" />  
 </html:form>
 <%@ include file="/bottom.jsp"%>
 <script language="javascript">   
-var contextRoot = document.forms[0].action.split('/')[1];      
+var contextRoot = document.forms[0].action.split('/')[1];            
 var activeTab;
 var numOfTab = 4;
-var url;
+var url;   
+var ngayraQDNP;
 function saveActiveTab(){
 	if(activeTab==0){
 		if(!validateQdNp()) 

@@ -1035,7 +1035,9 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				word.put("[dv_dc_bao_quan_tai_lieu]", form.getDonViBaoQuanSauNP());
 				//word.put("[ttkt]", sb.toString());
-				word.put("[thoi_gian_quyet_dinh]", Formater.getDateForPrint(form.getNgayRaQDNP()));
+				//ngayQDNP=ngayraQDNP
+				System.out.println("Ngay ra qd niem phong : "+request.getParameter("ngayQDNP"));
+				word.put("[thoi_gian_quyet_dinh]", Formater.getDateForPrint(request.getParameter("ngayQDNP")));
 				word.put("[dv_dc_giao_nhiem_vu_mo]", form.getTenNguoiMoNp());
 				word.put("[dv_bao_quan_sau_khi_mo]", form.getDonViBaoQuanSauNP());
 				word.put("[dv_dc_bao_quan_tai_lieu]", form.getDonViBaoQuanSauNP());

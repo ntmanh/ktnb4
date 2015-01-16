@@ -1,8 +1,8 @@
-<%@page pageEncoding="UTF-8" %>
-<%@ include file="/top_bar.jsp"%>
+<%@page pageEncoding="UTF-8" %>                     
+<%@ include file="/top_bar.jsp"%>       
 <h3 class="Header">Yêu cầu giải trình</h3>
-<script language="javascript">
-	function selfClose(){   
+<script language="javascript">   
+	function selfClose(){              
 		var currentTab = jQuery.fn.readCookie("TABYCGT");    
 		if(currentTab=="1")
 		{

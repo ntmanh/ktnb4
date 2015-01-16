@@ -642,6 +642,7 @@ public class KiemKeAction extends BaseDispatchAction {
 	//v4
 	
 	private void inKiemke(HttpServletRequest request, HttpServletResponse reponse, KiemKeForm kiemkeForm, ApplicationContext appConText) throws Exception {
+		System.out.println("Begin start ktnbv4");
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;

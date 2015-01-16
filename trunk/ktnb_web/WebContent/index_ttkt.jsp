@@ -1,4 +1,4 @@
-<%@page pageEncoding="UTF-8"%>    
+<%@page pageEncoding="UTF-8"%>      
 <%@ include file="/top_bar.jsp"%>
 <%@ page import="cmc.com.ktnb.util.KtnbUtil" %> 
 <TABLE align="left" width="100%" cellpadding="10">  

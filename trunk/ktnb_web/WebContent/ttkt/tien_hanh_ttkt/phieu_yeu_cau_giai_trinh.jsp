@@ -29,16 +29,16 @@
 						</html:text></td>
 					</tr>
 					<tr>
-						<td align="right">Đơn vị công tác <font color=red>*</font></td>
-						<td></td>
-						<td align="left" colspan="4"><html:text styleClass="text" property="dvNguoiGT">
+						<td style="width: 18%" align="right">Đơn vị công tác <font color=red>*</font></td>
+						<td style="width: 1%"></td>
+						<td style="width: 31%" align="left"><html:text styleClass="text" property="dvNguoiGT">
 						</html:text></td>
-						<!--  <td align="right">Năm sinh</td>
-						<td></td>
-						<td align="left"><html:text styleClass="text" property="nsNguoiGT" onblur="isYear(this)" onkeypress="return formatNumber(event, this)">
-						</html:text></td> -->
+						<td style="width: 20%" align="right">Năm sinh <font color=red>*</font></td>
+						<td style="width: 1%"></td>
+						<td style="width: 29%" align="left"><html:text styleClass="text" property="nsNguoiGT" onblur="if(!isDate(this)) return;"  onkeypress="return formatDate(event, this)">
+						</html:text></td>
 					</tr>
-				</TBODY>
+					</TBODY>
 			</TABLE>
 			</fieldset>
 			</td>

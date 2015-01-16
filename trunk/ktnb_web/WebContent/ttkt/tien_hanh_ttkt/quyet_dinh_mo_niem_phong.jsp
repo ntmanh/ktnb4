@@ -52,9 +52,8 @@
 </html:form>
 <script language="javascript">
 var y = document.getElementById('tenNguoiMoNp').value; 
-	 	
 function selectTenNguoiMoNp(cbDsCanbo){
-	document.getElementsByName('tenNguoiMoNp')[0].value = cbDsCanbo[cbDsCanbo.selectedIndex].text;
+	document.getElementsByName('tenNguoiMoNp')[0].value = cbDsCanbo[cbDsCanbo.selectedIndex].text;	
 }
 function validateQdMoNp(){
 	if(isEmpty(document.getElementsByName('idBbNiemPhong')[0].value)){
@@ -101,6 +100,8 @@ function setChucVu(cbThanhVienDoan){
 		document.getElementsByName('chucVuNguoiMoNP')[0].value = '';		
 		return;
 	}
+	selectTenNguoiMoNp(cbThanhVienDoan);
+	alert($("#tenNguoiMoNp").val());
 		cbDsTvdQdMoNiemPhong123 = document.getElementById('cbDsTvdQdNiemPhong');
 		for(var i = 0; i< cbDsTvdQdMoNiemPhong123.length; i++){
 			if(cbDsTvdQdMoNiemPhong123[i].value == document.getElementsByName('nguoiMoNP')[0].value){
@@ -110,10 +111,6 @@ function setChucVu(cbThanhVienDoan){
 			}
 		}
 		setTenDvCaNhaThucHien(cbThanhVienDoan);
-
-		selectTenNguoiMoNp(cbThanhVienDoan);
-		
-		
 	}
 function inQDMoNP(){
 	if(!validateQdMoNp())  return false;
@@ -121,7 +118,7 @@ function inQDMoNP(){
 	//document.forms[0].submit();
 	//document.forms[0].action = 'niem_phong_ho_so_tai_lieu.do';
 	var printfForm = findForm('/' + contextRoot + '/niem_phong_ho_so_tai_lieu.do?method=save&type=qdMoNiemPhong'); 	   
-	printfForm.action = 'niem_phong_ho_so_tai_lieu.do?method=in&type=inQDMoNP&idCuocTtkt='+document.getElementsByName('idCuocTtkt')[0].value;
+	printfForm.action = 'niem_phong_ho_so_tai_lieu.do?method=in&type=inQDMoNP&ngayQDNP='+ngayraQDNP+'&idCuocTtkt='+document.getElementsByName('idCuocTtkt')[0].value;
 	printfForm.submit();                                  
 	printfForm.action = '/' + contextRoot + '/niem_phong_ho_so_tai_lieu.do?method=save&type=qdMoNiemPhong';    
 }
