@@ -113,7 +113,9 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 	 * @param tienHanhTtktForm
 	 */
 	
-	// this is KTNBv3
+	/**
+	 * Des : ktnb v3
+	 * */
 	private void inTienHanhTtktv3(HttpServletRequest request, ApplicationContext appContext, TienHanhTtktForm tienHanhTtktForm, HttpServletResponse response) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
@@ -427,8 +429,13 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		}
 	}
 	
-	//v4
+	/**
+	 * Edit : ntmanh
+	 * Method : inTienHanhTtkt
+	 * Des : ktnb v4
+	 * */
 	private void inTienHanhTtkt(HttpServletRequest request, ApplicationContext appContext, TienHanhTtktForm tienHanhTtktForm, HttpServletResponse response) throws Exception {
+		System.out.println("This is ktnb v4");
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
@@ -439,7 +446,6 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		if ("downloadMau33".equals(type)) {
 			fileIn = request.getRealPath("/docin/v4") + "\\TTNB33.doc";
 			fileOut = request.getRealPath("/docout") + "\\TTNB33_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
-			System.out.println("Day chay vao ver4");
 			fileTemplate = "ttnb33";
 			String idCuocTtkt = tienHanhTtktForm.getIdCuocTtkt();
 			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appContext, idCuocTtkt);

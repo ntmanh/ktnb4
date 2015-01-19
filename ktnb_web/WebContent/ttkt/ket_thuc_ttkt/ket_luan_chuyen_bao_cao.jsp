@@ -6,7 +6,7 @@
 <html:form action="ket_thuc_ttkt.do?method=save&type=ketLuanSangBaoCao" method="post">
 	<div class="content_base">
 	    <div style="margin-left:20px;margin-top:10px;margin-right:30px;float:left">Download biểu mẫu</div>
-	    <div style="margin-top:10px;float:left"><a href="#" onclick="downLoadBieuMau()" ><font color="blue">Mẫu 38/TTNB</font></a></div>	      			
+	    <div style="margin-top:10px;float:left"><a href="#" onclick="downLoadBieuMau()" ><font color="blue">Mẫu 37/TTNB</font></a></div>	      			
 	<table style="width:100%;">
 	<tr>
 		<td colspan="4" style="background-color:#CCC"><b>Số liệu chuyển sang báo cáo</b></td>

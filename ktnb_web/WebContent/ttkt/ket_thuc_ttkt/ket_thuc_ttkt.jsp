@@ -1,4 +1,4 @@
-<%@ page pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%>    
 <%@ include file="/top_bar.jsp"%>                             
 <script type="text/javascript" src="<html:rewrite page='/include/js/ttkt/ttkt.js'/>"></script>
 <%@page import="cmc.com.ktnb.util.Constants"%> 
@@ -394,7 +394,7 @@ function xuLySaveKhongThanhCongCuaTungForm(maLoi){
 			break; 
 	}	
 }	                      
-function validateDateRequired(dateElement){  
+function validateDateRequired(dateElement){     
 	if(dateElement.value!=null&&dateElement.value!=""){
 		switch(dateElement.name){
 		case "thoiDiemBatDauHopRutKinhNghiem":

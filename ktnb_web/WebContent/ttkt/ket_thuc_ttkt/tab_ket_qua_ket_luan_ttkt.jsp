@@ -8,8 +8,8 @@
 <ul>
 	<li><a href="#tabDuThaoKetQua"><b>Dự thảo báo cáo kết quả</b></a></li>       
 	<li><a href="#tabBaoCaoKetQua"><b>Báo cáo kết quả</b></a></li>
-	<li><a href="#tabDuThaoKetLuan"><b>Dự thảo kết luận</b></a></li>              
-	<li><a href="#tabKetLuan"><b>Kết luận</b></a></li>    
+	<li><a href="#tabDuThaoKetLuan"><b>Dự thảo kết luận</b></a></li>                  
+	<li><a href="#tabKetLuan"><b>Kết luận</b></a></li>     
 	<li><a href="#tabChuyenKetluanSangBaoCao"><b>Nhập dữ liệu trên kết luận</b></a></li>          
 </ul>
 </DIV>                

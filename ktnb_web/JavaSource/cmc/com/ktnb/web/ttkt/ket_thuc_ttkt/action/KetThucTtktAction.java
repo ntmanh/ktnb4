@@ -1,4 +1,3 @@
-
 package cmc.com.ktnb.web.ttkt.ket_thuc_ttkt.action;
 
 import java.text.SimpleDateFormat;
@@ -78,8 +77,10 @@ public class KetThucTtktAction extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
-	
-	//v3
+
+	/**
+	 * Des : ktnb v3
+	 * */
 	private void inKetThucTtktv3(ApplicationContext appContext, KetThucTtktForm ketThucTtktForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
@@ -133,11 +134,11 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			} catch (Exception ex) {
 				// ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
-			} finally {				
-				try { 
+			} finally {
+				try {
 					word.saveAndClose();
 				} catch (Exception e) {
-					
+
 				}
 			}
 		} else if ("downloadMau38".equals(type)) {
@@ -185,11 +186,11 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			} catch (Exception ex) {
 				// ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
-			} finally {				
-				try { 
+			} finally {
+				try {
 					word.saveAndClose();
 				} catch (Exception e) {
-					
+
 				}
 			}
 		} else if ("thongBaoKetThuc".equals(type)) { // thong bao ket thuc
@@ -210,7 +211,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			sb.append(hinhthuc_in);
 			sb.append(" Q\u0110 S\u1ED0 ");
 			TtktCbQd cbQd = TtktService.getQuyetDinh(cuocTtkt.getId(), appContext);
-			TtktThCongBoQd cbKl= TtktService.getCongBoQd(appContext, cuocTtkt.getId());
+			TtktThCongBoQd cbKl = TtktService.getCongBoQd(appContext, cuocTtkt.getId());
 			sb.append(cbQd.getSoQuyetDinh());
 
 			try {
@@ -261,11 +262,11 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			} catch (Exception ex) {
 				// ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
-			} finally {				
-				try { 
+			} finally {
+				try {
 					word.saveAndClose();
 				} catch (Exception e) {
-					
+
 				}
 			}
 
@@ -342,11 +343,11 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
-			} finally {				
-				try { 
+			} finally {
+				try {
 					word.saveAndClose();
 				} catch (Exception e) {
-					
+
 				}
 			}
 
@@ -425,25 +426,64 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
-			} finally {				
-				try { 
+			} finally {
+				try {
 					word.saveAndClose();
 				} catch (Exception e) {
-					
+
 				}
 			}
 		}
 	}
-	
-	//v4
 
+	/**
+	 * Edit : tmtuan
+	 * Method : inKetThucTtkt
+	 * Des : ktnb v4
+	 * */
 	private void inKetThucTtkt(ApplicationContext appContext, KetThucTtktForm ketThucTtktForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("This is ktnb v4");
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
 		String type = request.getParameter("type");
+		if ("downloadMau35".equals(type)) {
+			fileIn = request.getRealPath("/docin/v4/ttkt") + "\\KTNB35.doc";
+			fileOut = request.getRealPath("/docout") + "\\KTNB35_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+			String idCuocTtkt = ketThucTtktForm.getIdCuocTtkt();
+			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appContext, idCuocTtkt);
+
+			String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
+			String hinhthuc_in = (cuocTtkt.getHinhThuc().booleanValue()) ? "KT" : "TT";
+
+			TtktCbQd cbQd = TtktService.getQuyetDinh(cuocTtkt.getId(), appContext);
+
+			try {
+				word = new MsWordUtils(fileIn, fileOut);
+				TtktCbQd qdTtkt = TtktService.getQuyetDinh(idCuocTtkt, appContext);
+				word.put("[so_qd]", qdTtkt.getSoQuyetDinh());
+				String ngayqd = Formater.date2str(qdTtkt.getNgayRaQuyetDnh());
+				word.put("[ngay_qd]", Formater.getDateForPrint(ngayqd));
+				word.put("[so_qd]", qdTtkt.getSoQuyetDinh());
+				word.put("[ngay_qd]", Formater.getDateForPrint(ngayqd));
+				word.put("[thu_truong_qd]", KtnbUtil.getTenThuTruongCqtForMauin(appContext));
+				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+
+				word.saveAndClose();
+				word.downloadFile(fileOut, "Mau 35/KTNB", ".doc", response);
+			} catch (Exception ex) {
+				// ex.printStackTrace();
+				System.out.println("Download Error: " + ex.getMessage());
+			} finally {
+				try {
+					word.saveAndClose();
+				} catch (Exception e) {
+
+				}
+			}
+		}
 		if ("downloadMau36".equals(type)) {
-			fileIn = request.getRealPath("/docin/v4") + "\\TTNB36.doc";
+			fileIn = request.getRealPath("/docin/v4/ttkt") + "\\KTNB36.doc";
 			fileOut = request.getRealPath("/docout") + "\\TTNB36_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 			String idCuocTtkt = ketThucTtktForm.getIdCuocTtkt();
 			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appContext, idCuocTtkt);
@@ -474,11 +514,11 @@ public class KetThucTtktAction extends BaseDispatchAction {
 				//word.put("[ttkt]", hinhThuc);
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				//for (int i = 0; i < 4; i++)
-					//word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[ten_dv_da_lam_viec]", "..........");
 				word.put("[ten_dv_da_kt_xacminh]", "..........");
 				//for (int i = 0; i < 13; i++)
-					//word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				//word.put("[ttkt]", hinhThuc);
 				word.put("[chuc_danh_nguoi_ra_qd_ttkt]", "..........");
@@ -486,19 +526,19 @@ public class KetThucTtktAction extends BaseDispatchAction {
 				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
 
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau TTNB36", ".doc", response);
+				word.downloadFile(fileOut, "Mau 36/KTNB", ".doc", response);
 			} catch (Exception ex) {
 				// ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
-			} finally {				
-				try { 
+			} finally {
+				try {
 					word.saveAndClose();
 				} catch (Exception e) {
-					
+
 				}
 			}
 		} else if ("downloadMau37".equals(type)) {
-			fileIn = request.getRealPath("/docin/v4") + "\\TTNB37.doc";
+			fileIn = request.getRealPath("/docin/v4/ttkt") + "\\KTNB37.doc";
 			fileOut = request.getRealPath("/docout") + "\\TTNB37_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 			String idCuocTtkt = ketThucTtktForm.getIdCuocTtkt();
 			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appContext, idCuocTtkt);
@@ -531,22 +571,22 @@ public class KetThucTtktAction extends BaseDispatchAction {
 				//word.put("[ttkt]", hinhThuc);
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				//for (int i = 0; i < 5; i++)
-					//word.put("[ttkt]", hinhThuc);
+				//word.put("[ttkt]", hinhThuc);
 				word.put("[ten_cqt]", appContext.getTenCqt());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				//word.put("[ttkt]", hinhThuc);
 				word.put("[chuc_danh_thu_truong]", KtnbUtil.getChucVuThuTruongByMaCqt(appContext.getMaCqt()).toUpperCase());
 				//word.put("[ten_thu_truong_cqt]", appContext.getTenThuTruong());
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau TTNB37", ".doc", response);
+				word.downloadFile(fileOut, "Mau 37/KTNB", ".doc", response);
 			} catch (Exception ex) {
 				// ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
-			} finally {				
-				try { 
+			} finally {
+				try {
 					word.saveAndClose();
 				} catch (Exception e) {
-					
+
 				}
 			}
 		} else if ("thongBaoKetThuc".equals(type)) { // thong bao ket thuc
@@ -567,7 +607,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			sb.append(hinhthuc_in);
 			sb.append(" Q\u0110 S\u1ED0 ");
 			TtktCbQd cbQd = TtktService.getQuyetDinh(cuocTtkt.getId(), appContext);
-			TtktThCongBoQd cbKl= TtktService.getCongBoQd(appContext, cuocTtkt.getId());
+			TtktThCongBoQd cbKl = TtktService.getCongBoQd(appContext, cuocTtkt.getId());
 			sb.append(cbQd.getSoQuyetDinh());
 
 			try {
@@ -618,11 +658,11 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			} catch (Exception ex) {
 				// ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
-			} finally {				
-				try { 
+			} finally {
+				try {
 					word.saveAndClose();
 				} catch (Exception e) {
-					
+
 				}
 			}
 
@@ -699,11 +739,11 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
-			} finally {				
-				try { 
+			} finally {
+				try {
 					word.saveAndClose();
 				} catch (Exception e) {
-					
+
 				}
 			}
 
@@ -782,11 +822,11 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
-			} finally {				
-				try { 
+			} finally {
+				try {
 					word.saveAndClose();
 				} catch (Exception e) {
-					
+
 				}
 			}
 		}
@@ -815,7 +855,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 				maLoi = "1";
 			} else {
 				TtktThBbChitietvatonghop bbChitietvatonghop = this.createKetQua(appContext, ketThucTtktForm);
-				TtktService.saveBienBan(appContext, bbChitietvatonghop, Constants.TT_TTKT_KQ);				
+				TtktService.saveBienBan(appContext, bbChitietvatonghop, Constants.TT_TTKT_KQ);
 			}
 
 		} else if ("duThaoKetLuan".equals(type)) {
@@ -830,7 +870,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 				maLoi = "2";
 			} else {
 				TtktThBbChitietvatonghop bbChitietvatonghop = this.createKetLuan(appContext, ketThucTtktForm);
-				TtktService.saveBienBan(appContext, bbChitietvatonghop, Constants.TT_TTKT_KL);				
+				TtktService.saveBienBan(appContext, bbChitietvatonghop, Constants.TT_TTKT_KL);
 			}
 		} else if ("ketLuanSangBaoCao".equals(type)) {
 			if (TtktService.getIndexOfTrangThai(appContext.getTrangThaiCuocTtkt(ketThucTtktForm.getIdCuocTtkt())) < TtktService.getIndexOfTrangThai(Constants.TT_TTKT_KQ)) {
@@ -929,7 +969,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 	 */
 	private TtktKtBcKqThucHienKL createKqThucHienKL(ApplicationContext appContext, KetThucTtktForm form) throws Exception {
 		TtktKtBcKqThucHienKL obj = null;
-		if(Formater.isNull(form.getIdKqThucHienKl()))
+		if (Formater.isNull(form.getIdKqThucHienKl()))
 			obj = new TtktKtBcKqThucHienKL();
 		else
 			obj = TtktService.getKqThucHienKl(appContext, form.getIdCuocTtkt());
@@ -951,20 +991,20 @@ public class KetThucTtktAction extends BaseDispatchAction {
 		obj.setSoSdbsQtqc(Formater.isNull(form.getSoSdbsQtqc()) ? new Long(0) : new Long(form.getSoSdbsQtqc()));
 		obj.setSoSdbsVbpq(Formater.isNull(form.getSoSdbsVbpq()) ? new Long(0) : new Long(form.getSoSdbsVbpq()));
 		obj.setSoThoiViec(Formater.isNull(form.getSoThoiViec()) ? new Long(0) : new Long(form.getSoThoiViec()));
-		if(!Formater.isNull(form.getSoTienThuHtraSpKhac()))
+		if (!Formater.isNull(form.getSoTienThuHtraSpKhac()))
 			obj.setSoTienThuHtraSpKhac(new Double(Formater.toDouble(form.getSoTienThuHtraSpKhac())));
 		obj.setSoTtktThue(Formater.isNull(form.getSoTtktThue()) ? new Long(0) : new Long(form.getSoTtktThue()));
-		if(!Formater.isNull(form.getTienHoanTraCongChucThue()))
+		if (!Formater.isNull(form.getTienHoanTraCongChucThue()))
 			obj.setTienHoanTraCongChucThue(new Double(Formater.toDouble(form.getTienHoanTraCongChucThue())));
-		if(!Formater.isNull(form.getTienHoanTraNguoiNopThue()))
+		if (!Formater.isNull(form.getTienHoanTraNguoiNopThue()))
 			obj.setTienHoanTraNguoiNopThue(new Double(Formater.toDouble(form.getTienHoanTraNguoiNopThue())));
-		if(!Formater.isNull(form.getTienHoanTraTtktThue()))
+		if (!Formater.isNull(form.getTienHoanTraTtktThue()))
 			obj.setTienHoanTraTtktThue(new Double(Formater.toDouble(form.getTienHoanTraTtktThue())));
-		if(!Formater.isNull(form.getTienPhaiThuCongChucThue()))
+		if (!Formater.isNull(form.getTienPhaiThuCongChucThue()))
 			obj.setTienPhaiThuCongChucThue(new Double(Formater.toDouble(form.getTienPhaiThuCongChucThue())));
-		if(!Formater.isNull(form.getTienPhaiThuNguoiNopThue()))
+		if (!Formater.isNull(form.getTienPhaiThuNguoiNopThue()))
 			obj.setTienPhaiThuNguoiNopThue(new Double(Formater.toDouble(form.getTienPhaiThuNguoiNopThue())));
-		if(!Formater.isNull(form.getTienPhaiThuTtktThue()))
+		if (!Formater.isNull(form.getTienPhaiThuTtktThue()))
 			obj.setTienPhaiThuTtktThue(new Double(Formater.toDouble(form.getTienPhaiThuTtktThue())));
 		obj.setSoXlhsCoAn(Formater.isNull(form.getSoXlhsCoAn()) ? new Long(0) : new Long(form.getSoXlhsCoAn()));
 
@@ -1103,7 +1143,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 		kqkl.setDcKiemTraSauTTKT(ktTtktForm.getDcKiemTraSauTTKT());
 		kqkl.setDcTsKlTtktQdxlDaKtra(ktTtktForm.getDcTsKlTtktQdxlDaKtra());
 		kqkl.setSoTienDaThuHauKiem(ktTtktForm.getSoTienDaThuHauKiem());
-		
+
 		kqkl.setDcKienNghiKhac(ktTtktForm.getDcKienNghiKhac());
 		kqkl.setDcMoTa(ktTtktForm.getDcMoTa());
 		kqkl.setDcSoDonViSaiPham(ktTtktForm.getDcSoDonViSaiPham());
@@ -1117,8 +1157,8 @@ public class KetThucTtktAction extends BaseDispatchAction {
 		kqkl.setDcTSTienThuCongChucThue(ktTtktForm.getDcTSTienThuCongChucThue());
 		kqkl.setDcTSTienThuNguoiNopThue(ktTtktForm.getDcTSTienThuNguoiNopThue());
 		kqkl.setDcTSTienTraCongChucThue(ktTtktForm.getDcTSTienTraCongChucThue());
-		kqkl.setDcTSTienTraNguoiNopThue(ktTtktForm.getDcTSTienTraNguoiNopThue());		
-		
+		kqkl.setDcTSTienTraNguoiNopThue(ktTtktForm.getDcTSTienTraNguoiNopThue());
+
 		kqkl.setDcTsTienThuHtraSpKhac(ktTtktForm.getDcTsTienThuHtraSpKhac());
 		kqkl.setDcSoTienKnghiThuHtraSpKhac(ktTtktForm.getDcSoTienKnghiThuHtraSpKhac());
 		kqkl.setDcXuLiHanhChinhCongVienChucThue(ktTtktForm.getDcXuLiHanhChinhCongVienChucThue());
@@ -1237,7 +1277,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 		ketThucTtktForm.setIdCuocTtkt(cuocTtkt.getId());
 		ketThucTtktForm.setMaCuocTtkt(cuocTtkt.getMa());
 		appContext.setTrangThaiCuocTtkt(cuocTtkt.getId(), cuocTtkt.getTrangThai());
-		
+
 		if (appContext.getTrangThaiCuocTtkt(cuocTtktId).equals(Constants.TT_TTKT_KT))
 			request.setAttribute("readOnly", "true");
 		if (cuocTtkt.getIdTruongDoan().equals(appContext.getMaCanbo()))
@@ -1287,11 +1327,11 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			// Thoi han ket thuc lam viec tai don vi
 			int thoiHanKt = cuocTtkt.getThoiGianDuKien().intValue();
 			// Kiem tra xem co gia han khong
-			try{
-			TtktThGiaHan giaHan = (TtktThGiaHan)TtktCnPhuService.getGiaHanTtKtByIdCuocttkt(appContext, cuocTtktId).toArray()[0];
-			if (giaHan != null)
-				thoiHanKt += giaHan.getSoNgayGiaHan().intValue();
-			}catch (Exception e) {
+			try {
+				TtktThGiaHan giaHan = (TtktThGiaHan) TtktCnPhuService.getGiaHanTtKtByIdCuocttkt(appContext, cuocTtktId).toArray()[0];
+				if (giaHan != null)
+					thoiHanKt += giaHan.getSoNgayGiaHan().intValue();
+			} catch (Exception e) {
 				// TODO: handle exception
 			}
 			request.setAttribute("thoiHanKt", Formater.num2str(thoiHanKt));
@@ -1471,7 +1511,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 				ketThucTtktForm.setDcSoTienThuDoiTuongKhac(obj.getSoTienThuDoiTuongKhac() == null ? "" : Formater.number2StringIgnorePre(obj.getSoTienThuDoiTuongKhac().doubleValue()));
 				ketThucTtktForm.setDcSoTienNopDoiTuongKhac(obj.getSoTienNopDoiTuongKhac() == null ? "" : Formater.number2StringIgnorePre(obj.getSoTienNopDoiTuongKhac().doubleValue()));
 				//ketThucTtktForm.setSoKetLuan(obj.getSoKetLuan());
-			}else{
+			} else {
 				ketThucTtktForm.setDcSoDonViTTKT(TtktService.getSoDonViDuocTtKt(appContext, cuocTtktId));
 			}
 		} catch (Exception e) {
@@ -1486,15 +1526,14 @@ public class KetThucTtktAction extends BaseDispatchAction {
 	 */
 	private void loadThongBaoKetThuc(HttpServletRequest request, ApplicationContext appContext, KetThucTtktForm ketThucTtktForm, String cuocTtktId) throws Exception {
 		TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appContext, cuocTtktId);
-		if(cuocTtkt!=null)
-		{		
-		if(Formater.isNull(cuocTtkt.getNoiRaThongBaoKetThuc()))
-			ketThucTtktForm.setNoiRaThongBaoKetThuc(KtnbUtil.getTenTinhByMaCqt(appContext, CuocTtktService.getCuocTtkt(appContext, cuocTtktId).getIdDonViBi()));
-		else
-			ketThucTtktForm.setNoiRaThongBaoKetThuc(cuocTtkt.getNoiRaThongBaoKetThuc());
-		ketThucTtktForm.setNgayRaThongBaoKetThuc(Formater.date2str(cuocTtkt.getNgayRaThongBaoKetThuc()));
-		ketThucTtktForm.setNgayKetThuc(Formater.date2str(cuocTtkt.getNgayKetThuc()));
-		ketThucTtktForm.setIdDonViTienHanh(cuocTtkt.getIdDonViTh());
+		if (cuocTtkt != null) {
+			if (Formater.isNull(cuocTtkt.getNoiRaThongBaoKetThuc()))
+				ketThucTtktForm.setNoiRaThongBaoKetThuc(KtnbUtil.getTenTinhByMaCqt(appContext, CuocTtktService.getCuocTtkt(appContext, cuocTtktId).getIdDonViBi()));
+			else
+				ketThucTtktForm.setNoiRaThongBaoKetThuc(cuocTtkt.getNoiRaThongBaoKetThuc());
+			ketThucTtktForm.setNgayRaThongBaoKetThuc(Formater.date2str(cuocTtkt.getNgayRaThongBaoKetThuc()));
+			ketThucTtktForm.setNgayKetThuc(Formater.date2str(cuocTtkt.getNgayKetThuc()));
+			ketThucTtktForm.setIdDonViTienHanh(cuocTtkt.getIdDonViTh());
 		}
 
 	}
@@ -1509,7 +1548,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 
 			SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 			form.setNgayNhanBckq(obj.getNgayNhanBckq() == null ? "" : sdf.format(obj.getNgayNhanBckq()));
-			form.setNgayCapNhat(obj.getNgayCapNhat()==null?"":sdf.format(obj.getNgayCapNhat()));
+			form.setNgayCapNhat(obj.getNgayCapNhat() == null ? "" : sdf.format(obj.getNgayCapNhat()));
 			form.setSoCachChuc(obj.getSoCachChuc() == null ? "" : obj.getSoCachChuc().toString());
 			form.setSoCanhCao(obj.getSoCanhCao() == null ? "" : obj.getSoCanhCao().toString());
 			form.setSoDviDuocTtkt(obj.getSoDviDuocTtkt() == null ? "" : obj.getSoDviDuocTtkt().toString());
@@ -1531,8 +1570,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			form.setTienPhaiThuNguoiNopThue(obj.getTienPhaiThuNguoiNopThue() == null ? "" : Formater.num2str(obj.getTienPhaiThuNguoiNopThue().doubleValue()));
 			form.setTienPhaiThuTtktThue(obj.getTienPhaiThuTtktThue() == null ? "" : Formater.num2str(obj.getTienPhaiThuTtktThue().doubleValue()));
 			form.setSoXlhsCoAn(obj.getSoXlhsCoAn() == null ? "" : obj.getSoXlhsCoAn().toString());
-		}
-		else {
+		} else {
 			form.setSoDviDuocTtkt(TtktService.getSoDonViDuocTtKt(appContext, cuocTtktId));
 		}
 	}
