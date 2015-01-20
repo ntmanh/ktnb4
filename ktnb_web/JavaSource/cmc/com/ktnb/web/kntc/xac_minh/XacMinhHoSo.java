@@ -1146,6 +1146,71 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	}
 
 	// In Bien ban lam viec!
+	
+	//v3
+	/**
+	public ActionForward inBbQdxm(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String fileIn = null;
+		String fileOut = null;
+		MsWordUtils word = null;
+
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+
+		KeHoachForm xmForm = (KeHoachForm) form;
+		String maHs = xmForm.getMaHoSo();
+		if (!Formater.isNull(maHs)) {
+			fileIn = request.getRealPath("/docin") + "\\KNTC12.doc";
+			fileOut = request.getRealPath("/docout") + "\\KNTC12_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+
+			word = new MsWordUtils(fileIn, fileOut);
+			try {
+				String gioHop = "";
+				if (Formater.isNull(xmForm.getThoiDiem())) {
+					gioHop = ".....gi\u1EDD.....ph\u00FAt ng\u00E0y.....th\u00E1ng....n\u0103m....";
+				} else
+					gioHop = Formater.getDateForPrint(xmForm.getThoiDiem());
+				word.put("[Gio_hop]", gioHop);
+
+				if (Formater.isNull(xmForm.getDiaDiem()))
+					word.put("[Dia_diem_hop]", "...");
+				else
+					word.put("[Dia_diem_hop]", xmForm.getDiaDiem());
+
+				if (Formater.isNull(xmForm.getThanhPhan())) {
+					word.put("[Dai_dien]", "\t...");
+				} else {
+					String thanhPhanStr = "\t" + xmForm.getThanhPhan().replaceAll("\n", "\n\t");
+					word.put("[Dai_dien]", thanhPhanStr);
+				}
+
+				if (Formater.isNull(xmForm.getNoiDung())) {
+					word.put("[Noi_dung_lam_viec]", "...");
+				} else {
+					String noiDungLamViec = "\t" + xmForm.getNoiDung().replaceAll("\n", "\n\t");
+					word.put("[Noi_dung_lam_viec]", noiDungLamViec);
+				}
+
+				if (Formater.isNull(xmForm.getSoBanIn()))
+					word.put("[So_ban_in_ra]", "...");
+				else
+					word.put("[So_ban_in_ra]", xmForm.getSoBanIn());
+
+				word.saveAndClose();
+				word.downloadFile(fileOut, "Mau KNTC12", ".doc", response);
+			} catch (Exception ex) {
+				// ex.printStackTrace();
+				System.out.println("Download Error: " + ex.getMessage());
+			} finally {
+				try {
+					word.saveAndClose();
+				} catch (Exception ex) {
+				}
+			}
+		}
+		return null;
+	}*/
+	
+	//v4
 	public ActionForward inBbQdxm(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
