@@ -28,11 +28,16 @@
 		</tr>
 		<tr>
 			<td style="text-align: right;">Căn cứ văn bản</td>
-			<td colspan="3"><html:select property="canCuVanBan"
+			<td colspan="3"><html:select property="canCuVanBan" 
 				styleClass="combobox" style="width:100%">
 				<html:options collection="dmtly" property="value"
 					labelProperty="label" />
 			</html:select></td>
+		</tr>
+		<tr>
+			<td style="text-align: right;">Chức danh của người có thẩm quyền ban hành quyết định xác minh nội dung khiếu nại</td>
+			<td colspan="3"><html:text property="chucDanhCanBoTqXm"
+				style="width: 100%" name="xacMinhForm" /></td>
 		</tr>
 		<tr>
 			<td style="text-align: right;">Xét đề nghị của</td>
@@ -54,7 +59,7 @@
 			<table cellpadding="0" cellspacing="0" border="0" id="tbl_listCBXL"
 				class="display">
 				<thead>
-					<tr>
+					<tr> 
 						<th>Thành viên</th>
 						<th>Đơn vị</th>
 						<th>Chức vụ</th>
@@ -111,7 +116,7 @@
 				style="width:100%;height:80px" /></td>
 		</tr>
 		<tr>
-			<td style="text-align: right;">Cá nhân,cơ quan,tổ chức liên quan</td>
+			<td style="text-align: right;">Người đứng đầu cơ quan Thuế chịu trách nhiệm thi hành quyết định</td>
 			<td colspan="3"><html:textarea property="benLienQuan"
 				onkeypress="imposeMaxLength(this);" name="xacMinhForm"
 				style="width:100%;height:80px" /></td>
