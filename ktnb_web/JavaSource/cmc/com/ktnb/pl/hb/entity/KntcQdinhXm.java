@@ -66,8 +66,6 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 	private Date denNgayXm;
 
 	private String canCuNvu;
-	
-	private String chucDanhCanBoTqXm;
 
 	private String deNghiTruongBoPhan;
 
@@ -83,8 +81,7 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 		this.maHs = maHs;
 	}
 
-	/** full constructor 
-	 * @param */
+	/** full constructor */
 	public KntcQdinhXm(String maQd, String diaDiem, String canCuPly,
 			String benLienQuan, Date ngayTrinhKy, Date ngayKy,
 			String YKienTrinh, Date ngayTrinhDuyet, Date ngayDuyet,
@@ -93,7 +90,7 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 			String phuongTien, Long trangThai, String soVanBan, Long soNgayXm,
 			String noiDungXm, String benLienQuanTt, String nguoiBiTcMa,
 			String nguoiBiTcTen, String nguoiBiTcHanhVi, Date tuNgayXm,
-			Date denNgayXm, String canCuNvu, String deNghiTruongBoPhan, String chucDanhCanBoTqXm) {
+			Date denNgayXm, String canCuNvu, String deNghiTruongBoPhan) {
 		this.maQd = maQd;
 		this.diaDiem = diaDiem;
 		this.canCuPly = canCuPly;
@@ -122,13 +119,12 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 		this.tuNgayXm = tuNgayXm;
 		this.denNgayXm = denNgayXm;
 		this.canCuNvu = canCuNvu;
-		this.chucDanhCanBoTqXm = chucDanhCanBoTqXm;
 		this.deNghiTruongBoPhan = deNghiTruongBoPhan;
 	}
 
 	// Property accessors
 
-	public String getMaQd() { 
+	public String getMaQd() {
 		return this.maQd;
 	}
 
@@ -351,7 +347,7 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 	public void setCanCuNvu(String canCuNvu) {
 		this.canCuNvu = canCuNvu;
 	}
-	
+
 	public String getDeNghiTruongBoPhan() {
 		return this.deNghiTruongBoPhan;
 	}
@@ -366,14 +362,6 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 
 	public void setMa(String ma) {
 		this.ma = ma;
-	}
-
-	public String getChucDanhCanBoTqXm() {
-		return this.chucDanhCanBoTqXm;
-	}
-	
-	public void setChucDanhCanBoTqXm(String chucDanhCanBoTqXm) {
-		this.chucDanhCanBoTqXm = chucDanhCanBoTqXm; 
 	}
 
 }
