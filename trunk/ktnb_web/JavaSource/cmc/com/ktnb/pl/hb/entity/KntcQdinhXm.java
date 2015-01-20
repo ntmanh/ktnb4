@@ -10,7 +10,7 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 		implements java.io.Serializable {
 
 	// Fields
-	private String ma;
+	private String ma; 
 	private String maQd;
 
 	private String diaDiem;
