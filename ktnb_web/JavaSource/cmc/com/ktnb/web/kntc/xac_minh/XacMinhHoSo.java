@@ -975,7 +975,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 				}
 
 			} else if (hdr.getLoaiKntc().intValue() == 1) {
-				fileTemplate = "kntc10";
+				fileTemplate = "kn06";
 				fileIn = request.getRealPath("/docin/v4/kntc") + "\\KN06.doc";
 				fileOut = request.getRealPath("/docout") + "\\KN06_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
@@ -994,10 +994,10 @@ public class XacMinhHoSo extends BaseDispatchAction {
 					word.put("[chuc_danh_can_bo_tq_xm]", xmForm.getChucDanhCanBoTqXm());
 					word.put("[van_ban_quy_dinh_chuc_nang_nhiem_vu]", CatalogService.getTenDanhMucById(xmForm.getCanCuVanBan()));
 					word.put("[truong_bo_phan]", KtnbUtil.getTenTruongBoPhan(appContext) + " " + appContext.getTenPhong());
-					word.put("[tom_tat_noi_dung_khieu_nai]", "khi\u1EBFu n\u1EA1i");
-					word.put("[don_de_ngay]", Formater.getDateForPrint(Formater.date2str(hdr.getDonDeNgay())));
+					//word.put("[tom_tat_noi_dung_khieu_nai]", "khi\u1EBFu n\u1EA1i");
+					//word.put("[don_de_ngay]", Formater.getDateForPrint(Formater.date2str(hdr.getDonDeNgay())));
 					word.put("[nguoi_co_quan_don_vi_khieu_nai]", dx.getNguoiKNTC());
-					word.put("[hanh_vi_hanh_chinh]", xmForm.getNguoiBiTcHanhVi());
+					//word.put("[hanh_vi_hanh_chinh]", xmForm.getNguoiBiTcHanhVi());
 					word.put("[noi_dung_xac_minh]", xmForm.getNoiDung());
 					word.put("[thoi_gian_xac_minh]", xmForm.getSoNgayXm());
 					StringBuffer sb = new StringBuffer();
@@ -1023,10 +1023,10 @@ public class XacMinhHoSo extends BaseDispatchAction {
 						word.put("[thu_truong_co_quan_lien_quan]", "..........");
 					else
 						word.put("[thu_truong_co_quan_lien_quan]", xmForm.getBenLienQuanThuTruong());
-					if (Formater.isNull(xmForm.getBenLienQuan()))
-						word.put("[nguoi_co_quan_don_vi_co_lien_quan]", "..........");
-					else
-						word.put("[nguoi_co_quan_don_vi_co_lien_quan]", xmForm.getBenLienQuan());
+					//if (Formater.isNull(xmForm.getBenLienQuan()))
+						//word.put("[nguoi_co_quan_don_vi_co_lien_quan]", "..........");
+					//else
+						//word.put("[nguoi_co_quan_don_vi_co_lien_quan]", xmForm.getBenLienQuan());
 					word.put("[tt_cqt]", KtnbUtil.getChucVuThuTruongByMaCqt(appContext.getMaCqt()).toUpperCase());
 					// word.put("[ten_thu_truong]",
 					// appContext.getTenThuTruong());
@@ -1045,7 +1045,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 					// word.put("[ngay_thu_truong_phe_duyet]",
 					// Formater.getDateForPrint(xmForm.getNgayDuyet()));
 					word.saveAndClose();
-					word.downloadFile(fileOut, "Mau KNTC10", ".doc", response);
+					word.downloadFile(fileOut, "Mau KN06", ".doc", response);
 				} catch (Exception ex) {
 					// ex.printStackTrace();
 					System.out.println("Download Error: " + ex.getMessage());
