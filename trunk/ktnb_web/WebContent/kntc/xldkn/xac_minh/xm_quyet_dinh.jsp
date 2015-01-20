@@ -124,7 +124,7 @@
 		<tr>
 			<td style="text-align: right;">File lưu trữ</td>
 			<td colspan="3"><A href="#" onclick="openUploadFile(maHoSo);">Quyết
-			định xác minh mẫu 10/KNTC</A></td>
+			định xác minh mẫu 06/KN</A></td>
 		</tr>
 	</table>
 	</fieldset>
