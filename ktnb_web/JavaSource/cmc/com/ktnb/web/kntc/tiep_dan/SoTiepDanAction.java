@@ -414,7 +414,7 @@ public class SoTiepDanAction extends BaseDispatchAction {
 	/**
 	 * Des : ktnb v3
 	 * */
-	public ActionForward inGbnv3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward inGbn(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if (!"HEAD".equals(request.getMethod().toString().toUpperCase())) {
 			String fileIn = request.getRealPath("/docin") + "\\KNTC01.doc";
 			// String abc = request.getSession().getId();
@@ -566,7 +566,7 @@ public class SoTiepDanAction extends BaseDispatchAction {
 	 * Method : inGbn
 	 * Des : ktnb v4
 	 * */
-	public ActionForward inGbn(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward inGbnV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if (!"HEAD".equals(request.getMethod().toString().toUpperCase())) {
 			String fileIn = request.getRealPath("/docin/v4") + "\\TCD01.doc";
 			// String abc = request.getSession().getId();
