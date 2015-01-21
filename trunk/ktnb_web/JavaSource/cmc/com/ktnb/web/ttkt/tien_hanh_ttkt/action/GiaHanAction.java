@@ -42,7 +42,7 @@ public class GiaHanAction extends BaseDispatchAction {
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		GiaHanForm giaHanForm = (GiaHanForm) form;
-		if ("save".equals(request.getParameter("method"))) { 
+		if ("save".equals(request.getParameter("method"))) {
 			saveGiaHan(giaHanForm, appContext);
 			request.setAttribute("saveStatus", "ok");
 		} else if ("in".equals(request.getParameter("method"))) {
@@ -331,8 +331,8 @@ public class GiaHanAction extends BaseDispatchAction {
 			}
 		}
 	}
-	//v3
-	private void inToTrinhv3(HttpServletRequest request, HttpServletResponse reponse, GiaHanForm giaHanForm, ApplicationContext appConText) throws Exception {
+
+	private void inToTrinh(HttpServletRequest request, HttpServletResponse reponse, GiaHanForm giaHanForm, ApplicationContext appConText) throws Exception {
 
 		String fileIn = request.getRealPath("/docin") + "\\TTNB10.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TTNB10_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
@@ -422,8 +422,7 @@ public class GiaHanAction extends BaseDispatchAction {
 			}
 		}
 	}
-	//v4
-	private void inToTrinh(HttpServletRequest request, HttpServletResponse reponse, GiaHanForm giaHanForm, ApplicationContext appConText) throws Exception {
+	private void inToTrinhV4(HttpServletRequest request, HttpServletResponse reponse, GiaHanForm giaHanForm, ApplicationContext appConText) throws Exception {
 
 		String fileIn = request.getRealPath("/docin/v4") + "\\TTNB10.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TTNB10_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
