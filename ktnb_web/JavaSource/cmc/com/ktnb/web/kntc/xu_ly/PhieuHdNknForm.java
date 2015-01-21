@@ -37,6 +37,8 @@ public class PhieuHdNknForm extends XacNhanForm {
 	private String congVanDenSo;
 
 	private String loaiPhieu;
+	
+	private String canCuQuyetDinh;
 
 	private String lyDo; // Ly do khong thu ly don
 
@@ -68,6 +70,7 @@ public class PhieuHdNknForm extends XacNhanForm {
 		p.setDauHieuToiPham(this.dauHieuToiPham);
 		p.setNoiNhanPhieu(this.noiNhan);
 		p.setNoiDungDon(this.getNoiDungDon());
+		p.setCanCuQuyetDinh(this.canCuQuyetDinh);
 		return p;
 	}
 
@@ -94,6 +97,7 @@ public class PhieuHdNknForm extends XacNhanForm {
 		if (kq.getSoNguoiLquan() != null)
 			this.soNguoiLienQuan = kq.getSoNguoiLquan().toString();
 		this.setNoiDungDon(kq.getNoiDungDon());
+		this.setCanCuQuyetDinh(kq.getCanCuQuyetDinh());
 	}
 
 	/**
@@ -346,6 +350,14 @@ public class PhieuHdNknForm extends XacNhanForm {
 	 */
 	public void setSoNguoiLienQuan(String string) {
 		soNguoiLienQuan = string;
+	}
+
+	public String getCanCuQuyetDinh() {
+		return canCuQuyetDinh;
+	}
+
+	public void setCanCuQuyetDinh(String canCuQuyetDinh) {
+		this.canCuQuyetDinh = canCuQuyetDinh;
 	}
 
 }
