@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
 
 <%@ include file="/top_bar.jsp"%> 
-<h3 class="Header">Quyết định gia hạn thời gian xác minh - 16/KNTC</h3>
+<h3 class="Header">Quyết định gia hạn thời gian xác minh - 14/KN</h3> 
 <html:form action="/kntc_xm_gia_han.do?method=giahan">
 	<html:hidden property="maHoSo" />
 	<html:hidden property="ma" styleId="ma" />
@@ -14,7 +14,7 @@
 		<thead>
 			<tr>
 				<th>Mã</th>
-				<th>Số QĐ gia hạn</th>
+				<th>Số QĐ gia hạn</th> 
 				<th>Ngày ban hành</th>
 				<th>Người lập</th>
 			</tr>
