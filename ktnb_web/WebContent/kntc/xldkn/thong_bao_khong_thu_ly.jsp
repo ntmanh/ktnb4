@@ -1,5 +1,5 @@
 <%@ include file="/top_bar.jsp"%> 
-<h3 class="Header">L&#7852;P TH&#212;NG B&#193;O KH&#212;NG TH&#7908; L&#221; KHI&#7870;U N&#7840;I - M&#7850;U S&#7888; 07/KNTC</h3>
+<h3 class="Header">L&#7852;P TH&#212;NG B&#193;O KH&#212;NG TH&#7908; L&#221; KHI&#7870;U N&#7840;I - M&#7850;U S&#7888; 04/KN</h3>
 <html:form action="/kntc_dxxl.do?method=thongBaoKThuLy">
 	<html:hidden property="maHidden" />
 	<html:hidden property="loaiPhieu" />
@@ -18,6 +18,10 @@
 			<td><html:text property="maPhieu" style="width: 100%" /></td>
 			<td style="text-align: right;">C&#417; quan, t&#7893; ch&#7913;c chuy&#7875;n &#273;&#417;n &#273;&#7871;n</td>
 			<td><html:text property="cqtGqTen" style="width: 100%" /></td>
+		</tr>
+		<tr>
+			<td style="text-align: right;">L&#253; do kh&#244;ng th&#7909; l&#253; gi&#7843;i quy&#7871;t</td>
+			<td colspan="3"><html:textarea property="canCuQuyetDinh" onkeypress="imposeMaxLength(this);" style="width: 100%" /></td>
 		</tr>
 		<tr>
 			<td style="text-align: right;">L&#253; do kh&#244;ng th&#7909; l&#253; gi&#7843;i quy&#7871;t</td>
