@@ -1370,7 +1370,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 			PhanLoaiXuLyService plService = new PhanLoaiXuLyService();
 			KntcDeXuatXly dx = plService.getDeXuatXly(appContext, maHs);
 			KntcSoTiepDan std = stdService.getSoTiepDan(appContext, maHs, true);
-			// KntcHoSoHdr hdr = std.getHdr();
+			KntcHoSoHdr hdr = std.getHdr();
 			String fileTemplate = "kntc11";
 			// String arrDms = xmForm.getArrDm();
 			// String[] arr = arrDms.split(",");
@@ -1392,6 +1392,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 			parameters.put("co_quan_cap_tren_truc_tiep", appContext.getTenCqt());
 			parameters.put("bo_phan_duoc_giao_xu_ly", appContext.getTenPhong());
 			parameters.put("nguoi_co_quan_don_vi_khieu_nai", dx.getNguoiKNTC());
+			parameters.put("dia_chi_nguoi_khieu_nai]", hdr.getNndDiaChi());
 			if (!Formater.isNull(dx.getDcNguoiKNTC()))
 				parameters.put("dia_chi_nguoi_co_quan_don_vi_khieu_nai", "\u0110\u1ECBa ch\u1EC9: " + dx.getDcNguoiKNTC());
 			// KntcNdungDon don = std.getNoiDungDon();
@@ -1873,9 +1874,6 @@ public class XacMinhHoSo extends BaseDispatchAction {
 			ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 			HashMap[] reportRows = null;
 			Map parameters = new HashMap();
-			SoTiepDanService stdService = new SoTiepDanService();
-			KntcSoTiepDan std = stdService.getSoTiepDan(appContext, fileOut, true);
-			KntcHoSoHdr hdr = std.getHdr();
 			GiaHanXmForm xmForm = (GiaHanXmForm) form;
 			String maQdXm = xmForm.getCanCuQd();
 			XacMinhService s = new XacMinhService();
@@ -1883,12 +1881,13 @@ public class XacMinhHoSo extends BaseDispatchAction {
 			if (!Formater.isNull(maQdXm)) {
 				XacMinhService xmService = new XacMinhService();
 				KntcQdinhXm qdXm = xmService.getKntcQdinhXmByHoSo(appContext, xmForm.getMaHoSo());
-				// SoTiepDanService stdService = new SoTiepDanService();
+				SoTiepDanService stdService = new SoTiepDanService();
 				PhanLoaiXuLyService plService = new PhanLoaiXuLyService();
 				KntcDeXuatXly dx = plService.getDeXuatXly(appContext, qdXm.getMaHs());
-				// KntcSoTiepDan std = stdService.getSoTiepDan(appContext,
-				// qdXm.getMaHs(), true);
-				String fileTemplate = "kntc16";
+				KntcSoTiepDan std = stdService.getSoTiepDan(appContext, qdXm.getMaHs (), true);		
+				//KntcSoTiepDan std = stdService.getSoTiepDan(appContext, maHs, true);
+				KntcHoSoHdr hdr = std.getHdr();
+				String fileTemplate = "kn14";
 
 				MsWordUtils word = new MsWordUtils(fileIn, fileOut);
 				try {
@@ -1904,8 +1903,8 @@ public class XacMinhHoSo extends BaseDispatchAction {
 					word.put("[van_ban_quy_dinh_chuc_nang_nhiem_vu]", CatalogService.getTenDanhMucById(xmForm.getCanCuVb()));
 					word.put("[so_quyet_dinh_xm]", xmForm.getCanCuQd());
 					word.put("[ngay_ra_quyet_dinh]", Formater.getDateForPrint(xmForm.getNgayKThucXM()));
-					word.put("[ten_nguoi_khieu_nai]", dx.getNguoiKNTC());
-					//word.put("[dia_chi_nguoi_khieu_nai]", hdr.getNndDiaChi());
+					word.put("[ten_nguoi_khieu_nai]", dx.getNguoiKNTC()); 
+					word.put("[dia_chi_nguoi_khieu_nai]", hdr.getNndDiaChi()); 
 					if (Formater.isNull(dx.getNguoiBiKNTC())) {
 						word.put("[ten_nguoi_bi_khieu_nai]", "");
 					} else {
