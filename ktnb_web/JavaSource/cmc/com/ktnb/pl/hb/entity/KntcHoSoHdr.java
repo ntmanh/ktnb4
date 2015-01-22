@@ -12,7 +12,7 @@ public class KntcHoSoHdr extends cmc.com.ktnb.pl.hb.entity.PersistentObject impl
 
 	// Fields
 
-	private String ma, duongDayNong;
+	private String ma, duongDayNong; 
 
 	private String maHs;
 
@@ -82,7 +82,7 @@ public class KntcHoSoHdr extends cmc.com.ktnb.pl.hb.entity.PersistentObject impl
 
 	private String nndChucVu;
 
-	private String nndDiaChi;
+	private String nndDiaChi; 
 
 	private String nndDienThoai;
 
