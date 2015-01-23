@@ -2,6 +2,10 @@ package cmc.com.ktnb.web;
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.struts.actions.DispatchAction;
+
+import cmc.com.ktnb.service.kntc.KntcSoTiepDan;
+import cmc.com.ktnb.service.kntc.SoTiepDanService;
+import cmc.com.ktnb.util.ApplicationContext;
 public class BaseDispatchAction extends DispatchAction {
 	
 	public BaseDispatchAction() {

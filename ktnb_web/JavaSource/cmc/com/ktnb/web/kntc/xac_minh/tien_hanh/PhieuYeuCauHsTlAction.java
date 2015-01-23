@@ -745,11 +745,20 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		KtnbUtil.printf(reportRows, su, response, inputStream, parameters, null);
 		return null;
 	}
+	public ActionForward in(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext= (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		if("4".equals(appContext.getDonVer()))
+			inV4(map, form, request, response);
+		else 
+			inv3(map, form, request, response);
+		return null;
+	}
+	
 
 	/*
-	 * This is KTNB v3
+	 * Des : ktnb v3
 	 * */
-	public ActionForward in(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward inv3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println("KTNB v3");
 		String fileIn = null;
 		String fileOut = null;

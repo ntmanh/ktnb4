@@ -32,6 +32,7 @@ import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.util.StringUtil;
 import cmc.com.ktnb.web.BaseDispatchAction;
+import cmc.com.ktnb.web.dung_chung.DungChungService;
 
 /**
  * Xử lý phiếu hẹn
@@ -42,6 +43,7 @@ public class PhieuHenAction extends BaseDispatchAction {
 
 	public ActionForward show(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		System.out.println("Ver :"+appContext.getDonVer());
 		PhieuHenForm cnForm = (PhieuHenForm) form;
 		String maHs = request.getParameter("id");
 		if (!Formater.isNull(maHs)) {
@@ -192,7 +194,28 @@ public class PhieuHenAction extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
+	
 	public ActionForward inPhieuHen(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext=(ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		SoTiepDanForm cnForm = (SoTiepDanForm) form;
+		String maHs = cnForm.getMaHoSo();
+		if (!Formater.isNull(maHs)) {
+			DungChungService service = new DungChungService();
+			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+				inPhieuHenv3(map, form, request, response);
+			else
+				inPhieuHenV4(map, form, request, response);
+			System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
+		} else
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inPhieuHenV4(map, form, request, response);
+			else 
+				inPhieuHenv3(map, form, request, response);
+		return null;
+	}
+	
+	public ActionForward inPhieuHenv3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("This is v3");
 		String fileIn = request.getRealPath("/docin") + "\\KNTC02.doc";
 		String fileOut = request.getRealPath("/docout") + "\\KNTC02_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);

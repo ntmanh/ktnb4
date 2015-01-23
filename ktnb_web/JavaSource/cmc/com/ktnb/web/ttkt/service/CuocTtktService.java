@@ -408,6 +408,7 @@ public class CuocTtktService {
 			throws Exception {
 		if (Formater.isNull(cuocTtkt.getId())) { // Truong hop them moi
 			cuocTtkt.setId(KeyManagement.getGUID());
+			cuocTtkt.setDonVer("4");
 			insertCuocTtkt(cuocTtkt, appContext, request, false);
 			if (!Formater.isNull(cuocTtkt.getIdCuocQdCu())) {
 				// chinh lai link cua bao cao khao sat va quyet dinh neu co
@@ -818,6 +819,7 @@ public class CuocTtktService {
 			}
 			session = HibernateSessionFactory.currentSession();
 			cuocTtkt.setId(KeyManagement.getGUID());
+			cuocTtkt.setDonVer("4");
 			dao.saveObject(appContext, cuocTtkt, Boolean.TRUE);
 			Collection dsCqtTrucThuoc = cuocTtkt.getDsTtktCqtTrucThuoc();
 			for (Iterator iter = dsCqtTrucThuoc.iterator(); iter.hasNext();) {

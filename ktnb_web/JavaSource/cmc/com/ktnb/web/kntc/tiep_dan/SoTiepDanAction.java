@@ -41,6 +41,7 @@ import cmc.com.ktnb.util.URLUTF8Encoder;
 import cmc.com.ktnb.vo.CategoryVO;
 import cmc.com.ktnb.web.BaseDispatchAction;
 import cmc.com.ktnb.web.catalog.CatalogService;
+import cmc.com.ktnb.web.dung_chung.DungChungService;
 
 /**
  * Form xử lý sổ tiếp dân
@@ -411,10 +412,29 @@ public class SoTiepDanAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 
+	
+	public ActionForward inGbn(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		SoTiepDanForm cnForm = (SoTiepDanForm) form;
+		String maHs = cnForm.getMaHoSo();
+		if (!Formater.isNull(maHs)) {
+			DungChungService service = new DungChungService();
+			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+				inGbnV4(map, form, request, response);
+			else
+				inGbnv3(map, form, request, response);
+			System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
+		} else
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inGbnV4(map, form, request, response);
+			else 
+				inGbnv3(map, form, request, response);
+		return null;
+	}
 	/**
 	 * Des : ktnb v3
 	 * */
-	public ActionForward inGbn(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward inGbnv3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		if (!"HEAD".equals(request.getMethod().toString().toUpperCase())) {
 			String fileIn = request.getRealPath("/docin") + "\\KNTC01.doc";
 			// String abc = request.getSession().getId();

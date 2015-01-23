@@ -625,7 +625,7 @@ public class KtnbDAOImpl implements KtnbDAO {
 			
 			DataSourceConfiguration.releaseSqlResources(rs, ps);		
 			//Lay phien ban App
-			sql = "select ten from ktnb_dm where ma ='"+Constants.VERSION_APP+"'";			
+			sql = "select ten from ktnb_dm where ma ='"+Constants.ID_VERSION_APP+"'";			
 			ps = conn.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {

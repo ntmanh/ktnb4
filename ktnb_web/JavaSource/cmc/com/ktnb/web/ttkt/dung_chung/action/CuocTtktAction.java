@@ -705,8 +705,8 @@ public class CuocTtktAction extends TimKiemAction {
 	}
 
 	public ActionForward save(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-
 		CuocTtktForm cuocTtktForm = (CuocTtktForm) form;
+		System.out.println("ID cuoc ttkt : "+cuocTtktForm.getId());
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		if (!Formater.isNull(cuocTtktForm.getId())) {
 			save(appContext, cuocTtktForm, request);
