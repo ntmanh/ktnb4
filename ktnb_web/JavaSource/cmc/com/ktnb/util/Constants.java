@@ -2,7 +2,7 @@ package cmc.com.ktnb.util;
 
 public class Constants {
 	//Version APP =>>> dung de check mau in
-	public static final String APP_DEP_VERSION = "4";//=1 Dùng BTC, =0 Dùng KTNB
+	public static final String APP_DEP_VERSION = "4";//=4 Don version 4, else Don version 3
 	//Dùng BTC hay KTNB
 	public static final String USE_BTC = "0";//=1 Dùng BTC, =0 Dùng KTNB
 	// Loại kết thúc hồ sơ

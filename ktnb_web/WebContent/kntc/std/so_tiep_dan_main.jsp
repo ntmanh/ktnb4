@@ -13,7 +13,6 @@
 		<html:hidden property="maHidden" />
 		<html:hidden property="first" value="1" />
 		<html:hidden property="arrTenTl" styleId="arrTenTl" />
-		<html:hidden property="donVer" styleId="donVer" />
 		<h3 class="Header">Sổ tiếp dân</h3>
 		<div id="tabs" style="float: left; width: 776px;">
 		<ul>

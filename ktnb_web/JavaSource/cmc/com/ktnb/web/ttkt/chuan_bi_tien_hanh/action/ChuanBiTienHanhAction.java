@@ -46,6 +46,7 @@ import cmc.com.ktnb.util.StringUtil;
 import cmc.com.ktnb.web.BaseDispatchAction;
 import cmc.com.ktnb.web.catalog.CatalogService;
 import cmc.com.ktnb.web.ttkt.chuan_bi_tien_hanh.form.ChuanBiTienHanhForm;
+import cmc.com.ktnb.web.ttkt.dung_chung.form.CuocTtktForm;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktCnPhuService;
 import cmc.com.ktnb.web.ttkt.service.TtktService;
@@ -459,6 +460,25 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
+	private void inCbth(HttpServletRequest request, ApplicationContext appConText, ChuanBiTienHanhForm cbForm, HttpServletResponse reponse) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=cbForm.getIdCuocTtkt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				inCbthv4(request, appConText, cbForm, reponse);
+			}
+			else inCbthv3(request, appConText, cbForm, reponse);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inCbthv4(request, appConText, cbForm, reponse);
+			else inCbthv3(request, appConText, cbForm, reponse);
+		}
+	}
 	
 	/**
 	 * Des : ktnb v3
@@ -1190,7 +1210,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 	 * Method : inCbth
 	 * Des : ktnb v4
 	 * */
-	private void inCbth(HttpServletRequest request, ApplicationContext appConText, ChuanBiTienHanhForm cbForm, HttpServletResponse reponse) throws Exception {
+	private void inCbthv4(HttpServletRequest request, ApplicationContext appConText, ChuanBiTienHanhForm cbForm, HttpServletResponse reponse) throws Exception {
 		System.out.println("This is KTNB v4");
 		String fileIn = null;
 		String fileOut = null;
