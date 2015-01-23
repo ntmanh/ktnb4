@@ -54,6 +54,8 @@ import cmc.com.ktnb.util.URLUTF8Encoder;
 import cmc.com.ktnb.web.BaseActionForm;
 import cmc.com.ktnb.web.BaseDispatchAction;
 import cmc.com.ktnb.web.catalog.CatalogService;
+import cmc.com.ktnb.web.dung_chung.DungChungService;
+import cmc.com.ktnb.web.kntc.tiep_dan.SoTiepDanForm;
 import cmc.com.ktnb.web.kntc.xac_minh.tien_hanh.GiaHanXmForm;
 
 /**
@@ -679,16 +681,42 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		}
 		return null;
 	}
+	
+	/** 
+	 * Des : in
+	 * 
+	 */
+	
+	public ActionForward in(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		SoTiepDanForm cnForm = (SoTiepDanForm) form;
+		String maHs = cnForm.getMaHoSo();
+		if (!Formater.isNull(maHs)) {
+			DungChungService service = new DungChungService();
+			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+				inv4(map, form, request, response);
+			else
+				inv3(map, form, request, response);
+			System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
+		} else
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inv4(map, form, request, response);
+			else 
+				inv3(map, form, request, response);
+		return null;
+	}
 
 	/**
 	 * Download file mẫu KNTC10,KNTC22
+	 * 
+	 * Des: ktnbv3
 	 * 
 	 * @throws Exception
 	 */
 	
 	//v3
-	/**
-	public ActionForward in(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	
+	public ActionForward inv3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
@@ -869,10 +897,16 @@ public class XacMinhHoSo extends BaseDispatchAction {
 			}
 		}
 		return null;
-	} */
+	} 
+	
+	/**
+	 * 
+	 * Des: ktnbv4
+	 * @throws Exception
+	 */
 	
 	//v4
-	public ActionForward in(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward inv4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
