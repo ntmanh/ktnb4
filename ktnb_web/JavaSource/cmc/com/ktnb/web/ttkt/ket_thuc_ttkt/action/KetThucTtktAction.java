@@ -81,6 +81,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 	/**
 	 * Des : ktnb v3
 	 * */
+	
 	private void inKetThucTtktv3(ApplicationContext appContext, KetThucTtktForm ketThucTtktForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
@@ -569,7 +570,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 				//word.put("[ttkt]", hinhThuc);
 				word.put("[ten_cqt_dua_ra_ket_luan]", "..........");
 				//word.put("[ttkt]", hinhThuc);
-				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
+				//word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 				//for (int i = 0; i < 5; i++)
 				//word.put("[ttkt]", hinhThuc);
 				word.put("[ten_cqt]", appContext.getTenCqt());
