@@ -95,11 +95,6 @@ public class DeXuatXuLyKNAction extends BaseDispatchAction {
 		SoTiepDanService s = new SoTiepDanService();
 		KntcSoTiepDan hs = s.getSoTiepDan(appContext, maHs, true);
 		KntcHoSoHdr hdr = hs.getHdr();
-//		if("4".equals(hdr.getDonVer()))
-//			appContext.setDonVer("4");
-//		else appContext.setDonVer("3");
-		setAppContextDonVer(appContext, maHs, true);
-		System.out.println("Ver don : "+appContext.getDonVer());
 		int loaiKntc = hdr.getLoaiKntc().intValue();
 		//Nếu là đơn lưu
 		if(Constants.LIEN_KET_GOP.equals(hdr.getLoaiQh())){

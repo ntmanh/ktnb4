@@ -54,7 +54,6 @@ public class SoTiepDanForm extends BaseSoTiepDanForm {
 	private String ngayNhanXL;
 	private String luotTiep;
 	private String trangThaiText;
-	private String donVer;
 	
 	
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
@@ -646,13 +645,4 @@ public class SoTiepDanForm extends BaseSoTiepDanForm {
 	public void setTrangThaiText(String trangThai) {
 		this.trangThaiText = trangThai;
 	}
-
-	public String getDonVer() {
-		return donVer;
-	}
-
-	public void setDonVer(String donVer) {
-		this.donVer = donVer;
-	}
-	
 }

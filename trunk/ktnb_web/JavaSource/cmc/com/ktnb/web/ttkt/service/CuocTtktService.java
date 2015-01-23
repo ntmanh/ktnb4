@@ -408,7 +408,7 @@ public class CuocTtktService {
 			throws Exception {
 		if (Formater.isNull(cuocTtkt.getId())) { // Truong hop them moi
 			cuocTtkt.setId(KeyManagement.getGUID());
-			cuocTtkt.setDonVer("4");
+			cuocTtkt.setDonVer(Constants.APP_DEP_VERSION);
 			insertCuocTtkt(cuocTtkt, appContext, request, false);
 			if (!Formater.isNull(cuocTtkt.getIdCuocQdCu())) {
 				// chinh lai link cua bao cao khao sat va quyet dinh neu co
@@ -486,6 +486,14 @@ public class CuocTtktService {
 				TtktKhCuocTtkt.class, cuocTtktId);
 	}
 
+	public String getDonVerionTtkt(ApplicationContext appConText, String cuocTtktId) throws Exception {
+		TtktKhCuocTtkt cuocTtkt = (TtktKhCuocTtkt) dao.retrieveObject(appConText, TtktKhCuocTtkt.class, cuocTtktId);
+		if ("4".equals(cuocTtkt.getDonVer()))
+			return "4";
+		else
+			return "3";
+	}
+	
 	public static TtktKhCuocTtkt getCuocTtktTrongQdWithoutNoiDung(
 			ApplicationContext appConText, String cuocTtktId) throws Exception {
 		TtktKhCuocTtkt cuocTtktKh = getCuocTtktWithoutNoiDung(appConText,
