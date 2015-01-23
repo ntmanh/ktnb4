@@ -135,6 +135,7 @@
 		id="duyet" value="Duyệt" onclick="duyetKeHoachNam()"> <INPUT type="button" class="button" id="suaKH" value="Sửa kế hoạch năm" onclick="suaKHNam()"> <INPUT type="button" class="button" value="Đóng"
 		onclick="window.location = 'ttkt_index.do';"></div>
 	<html:hidden property="loai" />
+    <html:hidden property="donVer" styleId="donVer" />
 </html:form>
 <%@ include file="/bottom.jsp"%>
 <script language="javascript">

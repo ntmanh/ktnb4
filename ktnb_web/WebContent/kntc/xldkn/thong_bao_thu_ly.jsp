@@ -23,6 +23,12 @@
 			<td style="text-align: right">T&#243;m t&#7855;t n&#7897;i dung v&#7909; vi&#7879;c</td>
 			<td colspan="3"><html:textarea property="noiDungDon" onkeypress="imposeMaxLength(this);" rows="5" style="width: 100%" /></td>
 		</tr>
+		<tr>
+			<td style="text-align: right">&#272;&#417;n v&#7883;, c&#225; nh&#226;n c&#243; th&#226;m quy&#7873;n chuy&#7875;n khi&#7871;u n&#7841;i &#273;&#7871;n</td>
+			<td><html:text property="donViCoThamQuyenChuyenDen" style="width: 100%" /></td>
+			<td></td>
+			<td></td>
+		</tr>
 	</table>
 	</fieldset>
 	<jsp:include page="../../button_bar_kntc_mau_phu.jsp" />

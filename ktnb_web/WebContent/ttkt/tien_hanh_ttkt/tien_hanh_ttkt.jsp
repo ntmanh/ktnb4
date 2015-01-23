@@ -1,5 +1,5 @@
 <%@page pageEncoding="UTF-8"%>       
-<%@ include file="/top_bar.jsp"%>
+<%@ include file="/top_bar.jsp"%> 
 <script type="text/javascript" src="<html:rewrite page='/include/js/ttkt/ttkt.js'/>"></script>
 <%@page import="cmc.com.ktnb.util.Constants"%>
 <%@page import="cmc.com.ktnb.util.ApplicationContext"%>            
@@ -7,7 +7,7 @@
 	var tenCqt = "<%=((ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT)).getTenCqt()%>";
 	var maCqt = '<%=((ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT)).getMaCqt()%>'                      
 </script>    
-<!-- <h3 class="Header">Tiến hành Thanh tra Kiểm tra</h3>  -->
+<!-- <h3 class="Header">Tiến hành Thanh tra Kiểm tra</h3>  --> 
 <h3 class="Header">Tiến hành - Mã cuộc <bean:write name="TienHanhTtktForm" property="maCuocTtkt"/></h3>
 <DIV style="padding-bottom: 5px"><B><a href="#" onclick="xemThongTinChung();">Thông tin chung</a> |</B> <B><a href="#" onclick="xemLichTrinhDuKien();">Lịch trình dự kiến</a></B></DIV>
 <div id="level1Tab">

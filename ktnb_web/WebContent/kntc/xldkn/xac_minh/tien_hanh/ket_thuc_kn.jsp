@@ -43,7 +43,7 @@ $(function(){
   
   //Disable tab giai quyet ngay, neu ho so khong phai xac minh
   if(document.forms[0].isGiaiQuyetNgay.value == "true"){
-  	$("#super-tabs").tabs("option", "disabled", [1])	
+  	$("#super-tabs").tabs("option", "disabled", [1])	 
   } 
 });
 function openBm(link){
