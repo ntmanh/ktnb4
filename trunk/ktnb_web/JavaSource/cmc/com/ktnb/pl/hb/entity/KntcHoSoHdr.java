@@ -151,6 +151,8 @@ public class KntcHoSoHdr extends cmc.com.ktnb.pl.hb.entity.PersistentObject impl
 	private Date ngayTruongCQKy;
 
 	private String ykienTruongCQ;
+	
+	private String donVer;
 
 	// Constructors
 
@@ -854,6 +856,15 @@ public class KntcHoSoHdr extends cmc.com.ktnb.pl.hb.entity.PersistentObject impl
 
 	public void setLoaiQh(String loaiQh) {
 		this.loaiQh = loaiQh;
+	}
+
+	
+	public String getDonVer() {
+		return donVer;
+	}
+
+	public void setDonVer(String donVer) {
+		this.donVer = donVer;
 	}
 
 	public String getTrangThaiText() {

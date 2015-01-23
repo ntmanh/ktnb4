@@ -1,3 +1,4 @@
+
 package cmc.com.ktnb.entity.TTKT.dung_chung;
 
 import java.util.Collection;
@@ -93,6 +94,8 @@ public class TtktKhCuocTtkt extends PersistentObject implements java.io.Serializ
 	private String loaiCuocTtktQuyetDinh;
 
 	private String maTrangThai;
+	
+	private String donVer;
 
 	// Static field
 	public static final String IdCuocKhCu = "idCuocKhCu";
@@ -706,6 +709,14 @@ public class TtktKhCuocTtkt extends PersistentObject implements java.io.Serializ
 
 	public void setMaTrangThai(String maTrangThai) {
 		this.maTrangThai = maTrangThai;
+	}
+
+	public String getDonVer() {
+		return donVer;
+	}
+
+	public void setDonVer(String donVer) {
+		this.donVer = donVer;
 	}
 
 }

@@ -46,6 +46,7 @@ public class KntcPhieuChuyenDon extends PersistentObject implements java.io.Seri
 	private String noiNhanPhieu;
 	private String noiDungDon;
 	private String canCuQuyetDinh;
+	private String donViCoTqChuyenDonDen;
 	// Constructors
 
 	/** default constructor */
@@ -307,6 +308,14 @@ public class KntcPhieuChuyenDon extends PersistentObject implements java.io.Seri
 
 	public void setCanCuQuyetDinh(String canCuQuyetDinh) {
 		this.canCuQuyetDinh = canCuQuyetDinh;
+	}
+
+	public String getDonViCoTqChuyenDonDen() {
+		return donViCoTqChuyenDonDen;
+	}
+
+	public void setDonViCoTqChuyenDonDen(String donViCoTqChuyenDonDen) {
+		this.donViCoTqChuyenDonDen = donViCoTqChuyenDonDen;
 	}
 
 }

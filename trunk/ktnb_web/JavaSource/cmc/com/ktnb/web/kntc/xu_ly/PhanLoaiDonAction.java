@@ -52,6 +52,7 @@ public class PhanLoaiDonAction extends BaseDispatchAction {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(cmc.com.ktnb.util.Constants.APP_CONTEXT);
 		PhanLoaiXuLyService service = new PhanLoaiXuLyService();
 		CatalogService cService = new CatalogService();
+		System.out.println("Ver  :"+appContext.getDonVer());
 		String maHs = null;
 		if (request.getParameter("id") != null)
 			maHs = request.getParameter("id").toString();

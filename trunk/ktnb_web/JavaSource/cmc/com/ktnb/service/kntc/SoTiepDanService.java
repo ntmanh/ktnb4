@@ -65,6 +65,123 @@ public class SoTiepDanService {
 	 * @param isInTrans
 	 * @throws Exception
 	 */
+	
+	/**
+	 * Des : ktnb v3
+	 * */
+	public void saveSoTiepDanv3(ApplicationContext appContext, KntcSoTiepDan hoSo, boolean isInTrans) throws Exception {
+		UserTransaction tx = null;
+		Session session = null;
+		try {
+			KntcHoSoHdr hdr = hoSo.getHdr();
+			// KntcNdungDon hdr = hoSo.getNoiDungDon();
+			if (!isInTrans) {
+				// BaseHibernateDAO dao = new BaseHibernateDAO();
+				try {
+					tx = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
+					tx.begin();
+				} catch (Exception e1) {
+					e1.printStackTrace();
+				}
+			}
+			session = HibernateSessionFactory.currentSession();
+			if (hdr.getLoaiKntc() != null && hdr.getLoaiKntc().equals(new Long("4"))) // Hỏi chính sách
+			{
+				hdr.setTrangThai(Constants.TT_KNTC_KET_THUC);
+				hdr.setLoaiKetThuc(Constants.KNTC_KET_THUC_THUONG);
+			}
+			if (Formater.isNull(hdr.getMa())) { // Insert
+				String ma = KeyManagement.getGUID();
+				hdr.setMa(ma);
+				if (Formater.isNull(hdr.getMaHs())) {
+					int loai = hdr.getLoaiKntc().intValue();
+					String loaiKNTC = "";
+					if (loai == 1)
+						loaiKNTC = "KN";
+					else if (loai == 2)
+						loaiKNTC = "TC";
+					else if (loai == 3)
+						loaiKNTC = "KH";
+					else if (loai == 4)
+						loaiKNTC = "CS";
+					String kyBc;
+					try {
+						kyBc = Formater.date2str(hdr.getCongVanDenNgay()).split(Formater.date_separator)[2];
+					} catch (Exception e) {
+						kyBc = Formater.date2str(hdr.getNgayTiep()).split(Formater.date_separator)[2];
+					}
+					String loaiHs = "";
+					loai = hdr.getLoaiHs().intValue();
+					if (loai == 1)
+						loaiHs = "TD";
+					else if (loai == 2)
+						loaiHs = "VT";
+					String[] maHs = KtnbUtil.getMaHoSoByCqtBySeq(appContext, hdr.getMaCqt(), loaiKNTC, loaiHs, kyBc);
+					hdr.setMaHs(maHs[0]);
+					// Update max ma ho so
+					String sql = "update ktnb_ho_so_seq set ma_hs=? where ma=? and ky_bc=?";
+					Query q = session.createSQLQuery(sql);
+					q.setParameter(0, maHs[1]);
+					q.setParameter(1, hdr.getMaCqt());
+					q.setParameter(2, kyBc);
+					q.executeUpdate();
+				}
+				hdr.setNgayLap(new Date());
+				dao.saveObject(appContext, hdr, Boolean.TRUE);
+			} else
+				// Update
+				dao.updateObject(appContext, hdr, Boolean.TRUE);
+			// Luu thong tin tai lieu kem theo
+			ArrayList listTlkt = hoSo.getListTailieu();
+			if (listTlkt != null && listTlkt.size() > 0) {
+				String sql = "delete ktnb_tl_kem_theo where ma_ho_so=?";
+				Query q = session.createSQLQuery(sql);
+				q.setParameter(0, hdr.getMaHs());
+				q.executeUpdate();
+				for (Iterator iter = listTlkt.iterator(); iter.hasNext();) {
+					KtnbTlieuKemTheo aTl = (KtnbTlieuKemTheo) iter.next();
+					aTl.setMaTlieu(KeyManagement.getGUID());
+					aTl.setMaHoSo(hdr.getMaHs());
+					dao.saveObject(appContext, aTl, Boolean.TRUE);
+				}
+			}
+
+			KntcCanBoRls aCb = new KntcCanBoRls();
+			KntcCanBoRlsId aId = new KntcCanBoRlsId(hdr.getMaCanBo(), hdr.getMaHs(), new Long(0), KntcCanBoRls.KNTC_CB_XU_LY);
+			aCb.setId(aId);
+			aCb.setNgayCapNhat(new Date());
+			aCb.setNguoiCapNhat(appContext.getTenNsd());
+			CatalogService cs = new CatalogService();
+			KtnbDmCanbo cb = (KtnbDmCanbo) cs.retriveById(appContext, KtnbDmCanbo.class, hdr.getMaCanBo());
+			aCb.setTenCb(cb.getTen());
+			aCb.setChucVu(cb.getChucVu());
+			aCb.setDonVi(cb.getTenPhong());
+			// dao.saveOrUpdateObject(appContext, aCb, Boolean.TRUE);
+			KtnbService service = new KtnbService();
+			Collection listCb;
+			listCb = new ArrayList();
+			listCb.add(aCb);
+			service.saveTvd(appContext, hoSo.getHdr().getMaHs(), listCb, true);
+			if (!isInTrans) {
+				session.flush();
+				tx.commit();
+			}
+		} catch (Exception e) {
+			if (!isInTrans) {
+				tx.rollback();
+			}
+			e.printStackTrace();
+			throw new Exception(e);
+		} finally {
+			if (!isInTrans) {
+				HibernateSessionFactory.closeSession(session);
+			}
+		}
+	}
+	
+	/**
+	 * Des: ktnb v4
+	 * */ 
 	public void saveSoTiepDan(ApplicationContext appContext, KntcSoTiepDan hoSo, boolean isInTrans) throws Exception {
 		UserTransaction tx = null;
 		Session session = null;
@@ -89,6 +206,7 @@ public class SoTiepDanService {
 			if (Formater.isNull(hdr.getMa())) { // Insert
 				String ma = KeyManagement.getGUID();
 				hdr.setMa(ma);
+				hdr.setDonVer(Constants.APP_DEP_VERSION);
 				if (Formater.isNull(hdr.getMaHs())) {
 					int loai = hdr.getLoaiKntc().intValue();
 					String loaiKNTC = "";

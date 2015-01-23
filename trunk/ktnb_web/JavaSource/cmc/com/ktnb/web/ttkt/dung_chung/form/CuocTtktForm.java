@@ -57,6 +57,7 @@ public class CuocTtktForm extends NoiDungTtktForm {
 	private String thoiGianDuKienTuNgay;
 	private String thoiGianDuKienDenNgay;
 	private String type,namKh;
+	private String donVer;
 
 	/**
 	 * @return
@@ -649,6 +650,14 @@ public class CuocTtktForm extends NoiDungTtktForm {
 
 	public void setNamKh(String namKh) {
 		this.namKh = namKh;
+	}
+
+	public String getDonVer() {
+		return donVer;
+	}
+
+	public void setDonVer(String donVer) {
+		this.donVer = donVer;
 	}
 
 }

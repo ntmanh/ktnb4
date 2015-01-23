@@ -36,6 +36,8 @@ public class ApplicationContext {
 	private String tenChucvu;
 
 	private String tenCqtTat;
+	
+	private String donVer;
 
 	private String[] role;
 
@@ -313,6 +315,14 @@ public class ApplicationContext {
 
 	public void setVersionApp(String versionApp) {
 		this.versionApp = versionApp;
+	}
+
+	public String getDonVer() {
+		return donVer;
+	}
+
+	public void setDonVer(String donVer) {
+		this.donVer = donVer;
 	}
 	
 }

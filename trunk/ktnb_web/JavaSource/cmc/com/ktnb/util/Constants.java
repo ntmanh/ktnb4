@@ -1,6 +1,8 @@
 package cmc.com.ktnb.util;
 
 public class Constants {
+	//Version APP =>>> dung de check mau in
+	public static final String APP_DEP_VERSION = "4";//=1 Dùng BTC, =0 Dùng KTNB
 	//Dùng BTC hay KTNB
 	public static final String USE_BTC = "0";//=1 Dùng BTC, =0 Dùng KTNB
 	// Loại kết thúc hồ sơ
@@ -96,7 +98,7 @@ public class Constants {
 
 	public final static String APP_CONTEXT = "application_context";
 	
-	public final static int VERSION_APP = 69;
+	public final static int ID_VERSION_APP = 69;
 	
 	public final static String DBNAME = "jdbc/ktnbDS";
 	public final static String DBNAME_BTC = "jdbc/btcDS";

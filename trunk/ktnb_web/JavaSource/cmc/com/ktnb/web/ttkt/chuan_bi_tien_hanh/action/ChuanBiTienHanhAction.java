@@ -79,6 +79,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 			if (cuocTtkt.getLoai().booleanValue()) {// Neu la ttkt dot xuat
 				request.setAttribute("showVbChiDao", "true");
 			}
+			System.out.println("Ma cuoc ttkt : "+ cuocTtkt.getMa());    
 			appConText.setTrangThaiCuocTtkt(cuocTtktId, cuocTtkt.getTrangThai());
 
 			// Van ban quy dinh chuc nang nhiem vu

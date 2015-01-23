@@ -29,6 +29,7 @@ public class KeHoachNamForm extends NoiDungTtktForm {
 	private String loaiCuocTtktSuaKH;
 	private String namKeHoach;
 	private String sapXep;
+	private String donVer;
 	/**
 	 * @return
 	 */
@@ -217,6 +218,14 @@ public class KeHoachNamForm extends NoiDungTtktForm {
 
 	public void setSapXep(String sapXep) {
 		this.sapXep = sapXep;
+	}
+
+	public String getDonVer() {
+		return donVer;
+	}
+
+	public void setDonVer(String donVer) {
+		this.donVer = donVer;
 	}
 
 }
