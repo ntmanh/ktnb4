@@ -1180,10 +1180,38 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	}
 
 	// In Bien ban lam viec!
+	/**
+	 * Des: inBbQdxm
+	 */
+	
+	public ActionForward inBbQdxm (ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		SoTiepDanForm cnForm = (SoTiepDanForm) form;
+		String maHs = cnForm.getMaHoSo();
+		if (!Formater.isNull(maHs)) {
+			DungChungService service = new DungChungService();
+			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+				inBbQdxmv4(map, form, request, response);
+			else
+				inBbQdxmv3(map, form, request, response);
+			System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
+		} else
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inBbQdxmv4(map, form, request, response);
+			else 
+				inBbQdxmv3(map, form, request, response);
+		return null;
+	}
+	
+	/**
+	 * 
+	 * Des: ktnbv3
+	 * 
+	 */
 	
 	//v3
-	/**
-	public ActionForward inBbQdxm(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	
+	public ActionForward inBbQdxmv3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
@@ -1242,10 +1270,21 @@ public class XacMinhHoSo extends BaseDispatchAction {
 			}
 		}
 		return null;
-	}*/
+	}
+	
+	/**
+	 * Des: kntbv4
+	 * 
+	 * @param map
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	
 	//v4
-	public ActionForward inBbQdxm(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward inBbQdxmv4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
@@ -1568,14 +1607,37 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		}
 		return null;
 	}
+	
+	/**
+	 * Des: inGhXm
+	 */
+	
+	public ActionForward inGbXm(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		SoTiepDanForm cnForm = (SoTiepDanForm) form;
+		String maHs = cnForm.getMaHoSo();
+		if (!Formater.isNull(maHs)) {
+			DungChungService service = new DungChungService();
+			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+				inGhXmv4(map, form, request, response);
+			else
+				inGhXmv3(map, form, request, response);
+			System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
+		} else
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inGhXmv4(map, form, request, response);
+			else 
+				inGhXmv3(map, form, request, response);
+		return null;
+	}
 
 	/**
 	 * Download file mẫu KNTC16
-	 * 
+	 * Des: ktnbv3
 	 * @throws Exception
 	 */
-	/**
-	public ActionForward inGhXm(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	
+	public ActionForward inGhXmv3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println(request.getParameter("type"));
 		if("TC16".equals(request.getParameter("type")))
 		{
@@ -1785,10 +1847,21 @@ public class XacMinhHoSo extends BaseDispatchAction {
 			}
 			return null;
 		}
-	}*/
+	}
+	
+	/**
+	 * Des: ktnbv4
+	 * 
+	 * @param map
+	 * @param form
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	
 	//v4
-	public ActionForward inGhXm(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward inGhXmv4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		System.out.println(request.getParameter("type"));
 		if("TC16".equals(request.getParameter("type")))
 		{
