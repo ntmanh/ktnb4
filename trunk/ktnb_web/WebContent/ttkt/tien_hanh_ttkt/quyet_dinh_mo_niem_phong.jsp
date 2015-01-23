@@ -53,8 +53,7 @@
 <script language="javascript">
 var y = document.getElementById('tenNguoiMoNp').value; 
 function selectTenNguoiMoNp(cbDsCanbo){
-	document.getElementsByName('tenNguoiMoNp')[0].value = cbDsCanbo[cbDsCanbo.selectedIndex].text;	
-	alert("#tenNguoiMoNp").val();
+	document.getElementsByName('tenNguoiMoNp')[0].value = cbDsCanbo[cbDsCanbo.selectedIndex].text;
 }
 function validateQdMoNp(){
 	if(isEmpty(document.getElementsByName('idBbNiemPhong')[0].value)){
@@ -102,7 +101,6 @@ function setChucVu(cbThanhVienDoan){
 		return;
 	}
 	selectTenNguoiMoNp(cbThanhVienDoan);
-	alert($("#tenNguoiMoNp").val());
 		cbDsTvdQdMoNiemPhong123 = document.getElementById('cbDsTvdQdNiemPhong');
 		for(var i = 0; i< cbDsTvdQdMoNiemPhong123.length; i++){
 			if(cbDsTvdQdMoNiemPhong123[i].value == document.getElementsByName('nguoiMoNP')[0].value){
