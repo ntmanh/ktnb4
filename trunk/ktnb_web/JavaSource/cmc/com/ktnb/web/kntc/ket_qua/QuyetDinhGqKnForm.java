@@ -42,6 +42,8 @@ public class QuyetDinhGqKnForm extends XacNhanForm {
 	
 	private String knDungSai;
 	
+	private Long lanGiaiQuyet;
+	
 	public QuyetDinhGqKnForm() {
 		super();
 	}
@@ -349,4 +351,14 @@ public class QuyetDinhGqKnForm extends XacNhanForm {
 	public void setKnDungSai(String knDungSai) {
 		this.knDungSai = knDungSai;
 	}
+
+	public Long getLanGiaiQuyet() {
+		return lanGiaiQuyet;
+	}
+
+	public void setLanGiaiQuyet(Long lanGiaiQuyet) {
+		this.lanGiaiQuyet = lanGiaiQuyet;
+	}
+
+	
 }

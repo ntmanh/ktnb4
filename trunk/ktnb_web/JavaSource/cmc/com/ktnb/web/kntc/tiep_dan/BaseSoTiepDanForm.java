@@ -23,6 +23,7 @@ public class BaseSoTiepDanForm extends BaseActionForm {
 	protected String congdanCMTNgayCap;
 	protected String congdanMST;
 	protected String coLuatSu;
+	protected String coThemDaiDien;
 
 	protected String noiTiepDan; // Hoac don vi nhan cong van
 	protected String loaiKNTC;
@@ -39,6 +40,9 @@ public class BaseSoTiepDanForm extends BaseActionForm {
 	protected String luatsuHDMa;
 	protected String luatsuHDNoiDung;
 	protected String luatsuSoGiayGT;
+	
+	// Thong tin dai dien bo sung
+	protected String daiDienBsNoiDung;
 
 	protected String loaiDonKNTC;
 	protected String loaiThuLy;
@@ -762,6 +766,22 @@ public class BaseSoTiepDanForm extends BaseActionForm {
 
 	public void setNgayLap(String ngayLap) {
 		this.ngayLap = ngayLap;
+	}
+
+	public String getCoThemDaiDien() {
+		return coThemDaiDien;
+	}
+
+	public void setCoThemDaiDien(String coThemDaiDien) {
+		this.coThemDaiDien = coThemDaiDien;
+	}
+
+	public String getDaiDienBsNoiDung() {
+		return daiDienBsNoiDung;
+	}
+
+	public void setDaiDienBsNoiDung(String daiDienBsNoiDung) {
+		this.daiDienBsNoiDung = daiDienBsNoiDung;
 	}
 
 }
