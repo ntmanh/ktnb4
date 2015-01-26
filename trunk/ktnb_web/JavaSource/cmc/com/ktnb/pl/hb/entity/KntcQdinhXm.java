@@ -68,7 +68,6 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 	private String canCuNvu;
 
 	private String deNghiTruongBoPhan;
-	private String chucDanhCanBoTqXm;
 
 	// Constructors
 
@@ -91,7 +90,7 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 			String phuongTien, Long trangThai, String soVanBan, Long soNgayXm,
 			String noiDungXm, String benLienQuanTt, String nguoiBiTcMa,
 			String nguoiBiTcTen, String nguoiBiTcHanhVi, Date tuNgayXm,
-			Date denNgayXm, String canCuNvu, String deNghiTruongBoPhan, String chucDanhCanBoTqXm) {
+			Date denNgayXm, String canCuNvu, String deNghiTruongBoPhan) {
 		this.maQd = maQd;
 		this.diaDiem = diaDiem;
 		this.canCuPly = canCuPly;
@@ -365,12 +364,5 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 		this.ma = ma;
 	}
 
-	public String getChucDanhCanBoTqXm() {
-		return this.chucDanhCanBoTqXm;
-	}
-
-	public void setChucDanhCanBoTqXm (String chucDanhCanBoTqXm) {
-		this.chucDanhCanBoTqXm = chucDanhCanBoTqXm;
-	}
-
+	
 }

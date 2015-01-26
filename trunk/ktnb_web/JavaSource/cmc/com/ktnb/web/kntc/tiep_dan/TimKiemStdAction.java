@@ -457,6 +457,9 @@ public class TimKiemStdAction extends BaseDispatchAction {
 		String textSearch = request.getParameter("tSearch");
 		if (!Formater.isNull(textSearch))
 			tkForm.setTextSearch(textSearch);
+		String doanKNTC=request.getParameter("doanKNTC");
+		if(!Formater.isNull(doanKNTC))
+			tkForm.setDoanKNTC(doanKNTC);
 		String action = request.getParameter("action");
 
 		String[] arr = appContext.getRoleData();
@@ -465,13 +468,13 @@ public class TimKiemStdAction extends BaseDispatchAction {
 			isPP = true;
 
 		StringBuffer sql = new StringBuffer(
-				"select dtl.*,ktnb_pck_util.fnc_get_cqt_chuyen(dtl.ma_hs) as dvchuyen from  ( select * from (select rownum r, t.ma_hs,t.nnd_ten,t.nuq_ten,t.nguoi_bi_kntc_ten as nguoibikntc" +
+				"select dtl.*,ktnb_pck_util.fnc_get_cqt_chuyen(dtl.ma_hs) as dvchuyen from  ( select * from (select rownum r, t.ma_hs,t.doan_kntc_so_luong,t.nnd_ten,t.nuq_ten,t.nguoi_bi_kntc_ten as nguoibikntc" +
 				",t.ngay_tiep,t.cong_van_den_ngay as ngaycv,r.ma_canbo,t.ma_cqt,t.ten_cqt as tencqt" +
 				",t.trang_thai,t.loai_kntc,t.loai_hs " +				
 				"from kntc_ho_so_hdr t,kntc_can_bo_rls r");
 		if ((request.getParameter("thamQuyen") != null && !"0".equals(request.getParameter("thamQuyen")) )||(request.getParameter("thuLy") != null && !"0".equals(request.getParameter("thuLy")))) {
 			sql = new StringBuffer(
-			"select dtl.*,ktnb_pck_util.fnc_get_cqt_chuyen(dtl.ma_hs) as dvchuyen from  ( select * from (select rownum r, t.ma_hs,t.nnd_ten,t.nuq_ten,t.nguoi_bi_kntc_ten as nguoibikntc" +
+			"select dtl.*,ktnb_pck_util.fnc_get_cqt_chuyen(dtl.ma_hs) as dvchuyen from  ( select * from (select rownum r, t.ma_hs,t.doan_kntc_so_luong,t.nnd_ten,t.nuq_ten,t.nguoi_bi_kntc_ten as nguoibikntc" +
 			",t.ngay_tiep,t.cong_van_den_ngay as ngaycv,r.ma_canbo,t.ma_cqt,t.ten_cqt as tencqt" +
 			",t.trang_thai,t.loai_kntc,t.loai_hs " +
 			"from kntc_ho_so_hdr t,kntc_de_xuat_xly dx,kntc_can_bo_rls r");
@@ -582,6 +585,11 @@ public class TimKiemStdAction extends BaseDispatchAction {
 				sql.append(" And t.loai_kntc =" + tkForm.getLoaiHoSo());
 			if (!Formater.isNull(tkForm.getTrangThai()) && !tkForm.getTrangThai().equals(TimkiemForm.ALL))
 				sql.append(" And t.trang_thai in (" + tkForm.getTrangThai() + ")");
+			if(!Formater.isNull(tkForm.getDoanKNTC()))
+			{
+				System.out.println(tkForm.getDoanKNTC());
+				sql.append(" And t.doan_kntc =" + tkForm.getDoanKNTC().toString());
+			}
 			// if (!Formater.isNull(tkForm.getNguoiNopDon())) {
 			// sql.append(" And REGEXP_LIKE (lower(t.nnd_ten),
 			// N'*"+convertStringToSearch(tkForm.getNguoiNopDon().trim())+"*')");
@@ -738,6 +746,10 @@ public class TimKiemStdAction extends BaseDispatchAction {
 						ja.put("CS" + space5);
 					else if (rs.getString("loai_kntc").equals("3"))
 						ja.put("KH" + space5);
+					if(rs.getString("doan_kntc_so_luong")!=null)
+						ja.put(rs.getString("doan_kntc_so_luong").toString()+space10);
+					else
+						ja.put("abc"+space5+space5);
 					jsonArray.put(ja);
 				}
 			} else {

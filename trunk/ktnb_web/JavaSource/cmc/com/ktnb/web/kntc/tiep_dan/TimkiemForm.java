@@ -58,6 +58,8 @@ public class TimkiemForm extends BaseActionForm {
 	
 	private String tdDenNgay;
 	
+	private String doanKNTC;
+	
 	public static final String ALL = "0";
 
 	public ArrayList getThamQuyenList() {
@@ -300,6 +302,14 @@ public class TimkiemForm extends BaseActionForm {
 
 	public void setTdTuNgay(String tdTuNgay) {
 		this.tdTuNgay = tdTuNgay;
+	}
+
+	public String getDoanKNTC() {
+		return doanKNTC;
+	}
+
+	public void setDoanKNTC(String doanKNTC) {
+		this.doanKNTC = doanKNTC;
 	}
 	
 }
