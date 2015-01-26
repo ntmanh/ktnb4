@@ -31,6 +31,15 @@
 					<td><html:text styleId="nguoiUyQuyen" property="nguoiUyQuyen" style="width: 100%" onkeypress="searchKeyPress(event);" onchange="changeIDisplayStart();" /></td>
 				</tr>
 				<tr>
+				<td style="text-align: right;">Hình thức</td>
+					<td><html:select property="doanKNTC" style="width:100%" styleId="doanKNTC" onchange="changeIDisplayStart();">
+			<html:option value="">--- Chọn hình thức ---</html:option>
+			<html:option value="1">Một người</html:option>
+			<html:option value="2">Nhiều người có cử đại diện</html:option>
+			<html:option value="3">Nhiều người không cử đại diện</html:option>
+		</html:select></td>
+				</tr>
+				<tr>
 					<td style="text-align: right;">Loại hồ sơ</td>
 					<td><html:select property="loaiHoSo" styleId="loai" style="width: 100%" onchange="changeLoaiHs(this.value)">
 						<html:options collection="dmkntc" property="value" labelProperty="label" />
@@ -174,6 +183,9 @@
 			</th>
 			<th class="hideextra-x">
 			<div>Trạng thái</div>
+			</th>
+			<th class="hideextra-x">
+			<div>Số lượng người</div>
 			</th>
 			<th class="hideextra-x">
 			<div>Loại</div>
@@ -425,6 +437,7 @@ $(function(){
        { sClass: "hideextra" },
        { sClass: "hideextra" },
        { sClass: "hideextra" },
+       { sClass: "hideextra" },
        { sClass: "hideextra" }]
   	});      
  	//$('#hs_table tr td:nth-child(1)').addClass('hideextra');	   	
@@ -502,7 +515,7 @@ function filter(){
 	var act = '<%=request.getParameter("action")%>';	
 	
     var url=encodeURI('kntc_tim_kiem.do?method=search&maHs=%'+$('#ma').val()+'%&nnd='+$('#nguoiNopDon').val()
-    +'&trungDon='+trungDon+'&luuDon='+luuDon+'&cbxl='+$('#canBoXL').val()
+    +'&trungDon='+trungDon+'&doanKNTC='+$('#doanKNTC').val()+'&luuDon='+luuDon+'&cbxl='+$('#canBoXL').val()
     +'&nuq='+$('#nguoiUyQuyen').val()+'&tSearch='+$('#textSearch').val()
     +'&tdTuNgay='+$('#tdTuNgay').val()+'&tdDenNgay='+$('#tdDenNgay').val()
     +'&tt='+$('#tt').val()+'&loai='+$('#loai').val()+'&sDate='+$('#sDate').val()
