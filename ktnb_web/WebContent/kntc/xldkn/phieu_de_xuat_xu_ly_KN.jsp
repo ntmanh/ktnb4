@@ -250,7 +250,7 @@
 </html:form>
 <script language="javascript">
 	var oTable;
-	var giCount;
+	var giCount; 
 	//bkLib.onDomLoaded(function() {
 	//	new nicEditor({maxHeight : 200}).panelInstance('deXuatXLmce');
 	//});	

@@ -1,21 +1,30 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ include file="/top_bar_tab.jsp"%>
 <!-- Mẫu 19/KNTC. Tương tự mẫu 26/KNTC -->
-<html:form action="/kntc_qdgq.do">   
+<html:form action="/kntc_qdgq.do">
 	<html:hidden property="maHidden" />
 	<html:hidden property="maHoSo" />
+	<html:hidden property="lanGiaiQuyet" styleId="lanGiaiQuyet" />
 	<fieldset><legend>Thông tin quyết định</legend>
 	<table width="100%">
 		<tr>
-			<td width="15%" align="right">Số quyết định<font style="color:red">*</font></td>
+			<td width="15%" align="right">Số quyết định<font
+				style="color:red">*</font></td>
 			<td width="35%"><html:text property="soQd" style="width: 150px" /></td>
-			<td width="20%" align="right">Ngày ban hành<font style="color:red">*</font></td>
-			<td width="30%"><html:text property="thoiDiem" style="width: 150px" onkeypress="return formatDate(event, this)" maxlength="10" onblur="isDate(this)" /></td>
+			<td width="20%" align="right">Ngày ban hành<font
+				style="color:red">*</font></td>
+			<td width="30%"><html:text property="thoiDiem"
+				style="width: 150px" onkeypress="return formatDate(event, this)"
+				maxlength="10" onblur="isDate(this)" /></td>
 		</tr>
 		<tr>
 			<td align="right">File mẫu</td>
-			<td colspan="3"><A href="filemau/KNTC19.doc"> <font
-				color=blue>Download File</font> </A></td>
+			<!--  <td colspan="3"><A href="filemau/KNTC19.doc"> <font
+				color=blue>Download File</font> </A></td> -->
+			<td colspan="1" id="16a"><A href="docin/v4/filemau/KN16A.doc">
+			<font color=blue>Download File 16A/KN </font> </A></td>
+			<td colspan="1" id="16b"><A href="docin/v4/filemau/KN16B.doc">
+			<font color=blue>Download File 16B/KN </font> </A></td>
 		</tr>
 		<tr>
 			<td style="text-align: right;">File lưu trữ</td>
@@ -28,30 +37,30 @@
 		</tr>
 		<tr>
 			<td align="right">Phân tích kết quả</td>
-			<td colspan="3">
-				<html:radio property="knDungSai" value="1" />Đúng 
-				<html:radio property="knDungSai" value="0" />Sai 
-				<html:radio property="knDungSai" value="2" />Có đúng, có sai
-			</td>
+			<td colspan="3"><html:radio property="knDungSai" value="1" />Đúng
+			<html:radio property="knDungSai" value="0" />Sai <html:radio
+				property="knDungSai" value="2" />Có đúng, có sai</td>
 		</tr>
 		<tr>
 			<td align="right">Lý do chậm</td>
-			<td colspan="3"><html:textarea property="ghiChu" onkeypress="imposeMaxLength(this);" style="width:100%"/></td>
+			<td colspan="3"><html:textarea property="ghiChu"
+				onkeypress="imposeMaxLength(this);" style="width:100%" /></td>
 		</tr>
 	</table>
 	</fieldset>
 	<jsp:include page="../../../thong_tin_ky_duyet.jsp" />
 	<table width="100%">
 		<tr align="center">
-			<td align="center">
-			<input type="button" class="button" value='Lưu' name="saveQd" onclick="ghi_qd();"> 
-			<input type="button" id="btnClose2" class="button" value='Đóng' name="exit" onclick="goHomeKntc();">
-			</td>
+			<td align="center"><input type="button" class="button"
+				value='Lưu' name="saveQd" onclick="ghi_qd();"> <input
+				type="button" id="btnClose2" class="button" value='Đóng' name="exit"
+				onclick="goHomeKntc();"></td>
 		</tr>
 	</table>
 </html:form>
 <script type="text/javascript" charset="utf-8"> 
 $(document).ready(function() {
+	checkLanGiaiQuyet();
     var ghiTC = "";
 	 <logic:present name="ghiThanhcong">
 	     	ghiTC = '<%=request.getAttribute("ghiThanhcong")%>';
@@ -64,6 +73,14 @@ $(document).ready(function() {
 	 }  
 	 <%request.removeAttribute("ghiThanhcong");%>
 });
+function checkLanGiaiQuyet()
+{
+	var lanGq=$("#lanGiaiQuyet").val();
+	if(lanGq>=2)
+		$("#16b").show();
+	else 
+		$("#16b").hide();
+}
 function warningKt(){
  if(document.forms[1].ketThuc.value==1)
  	alert('Sau khi kết thúc, bạn không thể sửa thông tin tiến hành xác minh!');

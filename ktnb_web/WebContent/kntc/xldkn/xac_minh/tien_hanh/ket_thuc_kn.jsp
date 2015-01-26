@@ -1,6 +1,6 @@
-<%@ page pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%> 
 <%@ include file="/top_bar.jsp"%> 
-<html:form action="/kntc_kq_xm.do">
+<html:form action="/kntc_kq_xm.do">  
 	<h3 class="Header">Báo cáo/Kết quả giải quyết hồ sơ khiếu nại</h3>
 	<html:hidden property="maHidden" />
 	<html:hidden property="isGiaiQuyetNgay" />
@@ -27,14 +27,14 @@
 	<jsp:include page="/kntc2/other_action/mau_phu_gqn_kn.jsp"></jsp:include>
 	</div>
 	<jsp:include page="/kntc2/other_action/khieu_nai.jsp"></jsp:include>
-	</div>	
+	</div>	 
 </html:form>
-<script type="text/javascript" charset="utf-8"> 
+<script type="text/javascript" charset="utf-8">  
 var super_tab;
 $(function(){	
   super_tab=$("#super-tabs");
   super_tab.tabs();
-  super_tab.tabs("select" , 2);
+  super_tab.tabs("select" , 2);  
   var tab_select=jQuery.fn.readCookie("TABII");
   var tabOpts={selected:tab_select,select:function(event,tab){jQuery.fn.createCookie("TABII",tab.index);}}; 
   $("#tab_xac_minh").tabs(tabOpts);
