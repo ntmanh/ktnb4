@@ -27,19 +27,19 @@
 		<td width="30%"><html:radio property="gayRoi" value="0" />Không gây rối</td>
 		<td width="30%"><html:radio property="gayRoi" value="1" />Có gây rối</td>
 		<td width="25%"></td>
-	</tr>
+	</tr>  
 	<tr>
 		<td width="15%" style="text-align: right;">&nbsp;</td>
-		<td width="30%"><html:radio property="doanKNTC" value="1" onclick="changeDoanKntc(this.value);" />Một người</td>
+		<td width="30%"><html:radio property="doanKNTC" value="1" onclick="changeDoanKntc(this.value);"  />Một người</td>
 		<td width="30%"><html:radio property="doanKNTC" value="2" onclick="changeDoanKntc(this.value);" />Đông người có cử đại diện</td>
-		<td width="25%"><html:radio property="doanKNTC" value="3" onclick="changeDoanKntc(this.value);" />Đông người không cử đại diện <font color="red">(Xử lý từng người giống trường hợp một người)</font></td>
+		<td width="25%"><html:radio property="doanKNTC" value="3" onclick="changeDoanKntc(this.value);"  />Đông người không cử đại diện <font color="red">(Xử lý từng người giống trường hợp một người)</font></td>
 	</tr>
 </table>
 <DIV id="idDivSl" style="display: none">
 <table width="100%">
 	<tr>
 		<td width="15%" style="text-align: right;">Số lượng người</td>
-		<td width="35%"><html:text property="doanKNTCSoLuong" maxlength="5" /></td>
+		<td width="35%"><html:text property="doanKNTCSoLuong" maxlength="5" onblur="checkSln();"/></td>
 		<td width="15%" style="text-align: right;"></td>
 		<td width="35%"></td>
 	</tr>
@@ -113,10 +113,10 @@
 		<td><html:text property="congdanCMTNoiCap" style="width: 100%" /></td>
 	</tr>
 	<tr>
-		<td style="text-align: right;">Có luật sư đi cùng</td>
-		<td><html:checkbox property="coLuatSu" value="1" onclick="changeLuatSu();" /></td>
-		<td style="text-align: right;"></td>
-		<td></td>
+		<td style="text-align: right;">Có luật sư đi cùng</td> 
+		<td><html:checkbox property="coLuatSu" value="1" onclick="changeLuatSu();" /></td> 
+		<td style="text-align: right;display: none;" class="daiDienBs" >Thông tin nhiều người đại diện</td>
+		<td class="daiDienBs"  style="display: none"><html:checkbox property="coThemDaiDien" value="1" onclick="changeBoSungDd();" /></td> 
 	</tr>
 </table>
 </fieldset>
@@ -152,6 +152,17 @@
 	</tr>
 </table>
 </fieldset>
+</fieldset>
+</DIV>
+
+<!-- thong tin bo sung dai dien -->
+<DIV id="idDivDd" style="display: none">
+<fieldset><legend>Thông tin người đại diện bổ sung</legend>
+<table width="100%">
+	<tr>
+		<td><html:textarea property="daiDienBsNoiDung" onkeypress="imposeMaxLength(this);" style="width: 100%;height:100px" /></td>
+	</tr>
+</table>
 </fieldset>
 </DIV>
 <fieldset><legend>Thông tin cán bộ tiếp dân</legend>
