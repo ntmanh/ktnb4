@@ -35,6 +35,8 @@ import cmc.com.ktnb.util.KntcUtil;
 import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.BaseDispatchAction;
+import cmc.com.ktnb.web.dung_chung.DungChungService;
+import cmc.com.ktnb.web.kntc.tiep_dan.SoTiepDanForm;
 
 /**
  * Xử lý thông tin các phiếu trong quá trình xác minh
@@ -745,16 +747,26 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		KtnbUtil.printf(reportRows, su, response, inputStream, parameters, null);
 		return null;
 	}
+	
 	public ActionForward in(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ApplicationContext appContext= (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		if("4".equals(appContext.getDonVer()))
-			inV4(map, form, request, response);
-		else 
-			inv3(map, form, request, response);
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		SoTiepDanForm soTiepDanForm = (SoTiepDanForm) form;
+		String maHs = soTiepDanForm.getMaHoSo();
+		DungChungService service = new DungChungService();
+		if (!Formater.isNull(maHs)) {
+			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+				inV4(map, form, request, response);
+			else
+				inv3(map, form, request, response);
+		} else {
+			if ("4".equals(Constants.APP_DEP_VERSION))
+				inV4(map, form, request, response);
+			else
+				inv3(map, form, request, response);
+		}
 		return null;
 	}
 	
-
 	/*
 	 * Des : ktnb v3
 	 * */

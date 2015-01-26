@@ -655,12 +655,15 @@ public class BaoCaoKetQuaXacMinh extends BaseDispatchAction {
 
 	public ActionForward qdgq(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-
 		FormBeanConfig fbc = map.getModuleConfig().findFormBeanConfig("qdGqForm");
 		Class clazz = Class.forName(fbc.getType());
 		QuyetDinhGqKnForm qdgqForm = (QuyetDinhGqKnForm) clazz.newInstance();
 		// baoCaoKqThucHienForm
 		String maHs = request.getParameter("id");
+		PhanLoaiXuLyService plService=new PhanLoaiXuLyService();
+		KntcDeXuatXly dxxl=plService.getDeXuatXly(appContext, maHs);
+		qdgqForm.setLanGiaiQuyet(dxxl.getLanGui());
+		System.out.println("Lan gui la  : "+qdgqForm.getLanGiaiQuyet());
 		if (!Formater.isNull(maHs)) {
 			qdgqForm.setMaHoSo(maHs);
 			XuLyKNTCService s = new XuLyKNTCService();

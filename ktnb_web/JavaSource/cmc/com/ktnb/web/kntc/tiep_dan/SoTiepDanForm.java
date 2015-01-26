@@ -84,6 +84,8 @@ public class SoTiepDanForm extends BaseSoTiepDanForm {
 				hdr.setHinhThucDk(new Long(0));
 			}
 		}
+		hdr.setDaiDienBsNoiDung(this.daiDienBsNoiDung); // Thong tin dai dien bo sung
+		
 		hdr.setMaHs(this.maHoSo);
 		hdr.setNgayTiep(Formater.str2time(this.ngayTiep));
 		hdr.setDonDeNgay(Formater.str2time(this.donDeNgay));
@@ -229,6 +231,9 @@ public class SoTiepDanForm extends BaseSoTiepDanForm {
 		this.luatsuHDMa = hdr.getLsHdMa();
 		this.luatsuHDNoiDung = hdr.getLsHdNoiDung();
 		this.luatsuSoGiayGT = hdr.getLsGiayGthieu();
+		
+		// Thong tin dai dien bo sung
+		this.daiDienBsNoiDung=hdr.getDaiDienBsNoiDung();
 
 		this.ngayNhanVT = Formater.date2str(hdr.getCongVanDenNgayVT());
 		this.ngayNhanXL = Formater.date2str(hdr.getCongVanDenNgay());
