@@ -37,6 +37,7 @@ import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.BaseDispatchAction;
 import cmc.com.ktnb.web.dung_chung.DungChungService;
 import cmc.com.ktnb.web.kntc.tiep_dan.SoTiepDanForm;
+import cmc.com.ktnb.web.kntc.xac_minh.XacMinhForm;
 
 /**
  * Xử lý thông tin các phiếu trong quá trình xác minh
@@ -749,9 +750,10 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 	}
 	
 	public ActionForward in(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		System.out.println("Da chay vao day !");
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		SoTiepDanForm soTiepDanForm = (SoTiepDanForm) form;
-		String maHs = soTiepDanForm.getMaHoSo();
+		PhieuYeuCauForm xmForm = (PhieuYeuCauForm) form;
+		String maHs = xmForm.getMaHoSo();
 		DungChungService service = new DungChungService();
 		if (!Formater.isNull(maHs)) {
 			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
