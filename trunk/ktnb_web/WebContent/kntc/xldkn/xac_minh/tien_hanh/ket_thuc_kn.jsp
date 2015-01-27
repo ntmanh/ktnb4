@@ -16,11 +16,11 @@
 		<div id="super-tab2">	
 	<div id="tab_xac_minh" style="background-color: transparent; float: left;">
 	<ul>
-		<li><a href="#tab_bcxm" class="tabTitle">Báo cáo kết quả giải quyết KN - Mẫu 18/KNTC</a></li>
+		<!-- <li><a href="#tab_bcxm" class="tabTitle">Báo cáo kết quả giải quyết KN - Mẫu 18/KNTC</a></li>  -->
 		<li><a href="#tab_qdgq" class="tabTitle">Quyết định giải quyết KN - Mẫu 19/KNTC</a></li>
 		<li><a href="#tab_bckq" class="tabTitle">Báo cáo kết quả thực hiện khiếu nại</a></li>
 	</ul>
-	<div id="tab_bcxm"><jsp:include page="bao_cao_kq_gqkn.jsp"></jsp:include></div>
+	<!-- <div id="tab_bcxm"><jsp:include page="bao_cao_kq_gqkn.jsp"></jsp:include></div> --> 
 	<div id="tab_qdgq"><jsp:include page="quyet_dinh_gq_kn.jsp"></jsp:include></div>
 	<div id="tab_bckq"><jsp:include page="bao_cao_ket_qua_thuc_hien_khieu_nai.jsp"></jsp:include></div>
 	</div>	
