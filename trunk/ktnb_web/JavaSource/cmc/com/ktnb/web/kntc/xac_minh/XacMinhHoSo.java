@@ -104,6 +104,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 					xmForm.setNguoiBiTcTen(hdr.getNguoiBiKntcTen());
 					xmForm.setNguoiBiTcHanhVi(hdr.getNoiDung());
 				}
+				xmForm.setChucDanhCanBoTqXm(xmForm.getChucDanhCanBoTqXm());
 				xmForm.setSoQd(KtnbUtil.getMaNvu(appContext, "Q\u0110"));
 				//xmForm.setThoiDiem(Formater.date2str(new Date()));
 				xmForm.setDiaDiem(appContext.getDiaBan());
@@ -587,6 +588,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 			qd.setNguoiBiKntcTen(xmForm.getNguoiBiTcTen());
 			// if (!Formater.isNull(xmForm.getNguoiBiTcHanhVi()))
 			qd.setNguoiBiKntcHanhVi(xmForm.getNguoiBiTcHanhVi());
+			qd.setChucDanhCanBoTqXm(xmForm.getChucDanhCanBoTqXm());
 			qd.setDeNghiTruongBoPhan(xmForm.getDeNghiTruongBoPhan());
 			qd.setTrangThai(new Long(1));
 			// Luu xuong DB
@@ -1023,6 +1025,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 						word.put("[ngay_lap_quyet_dinh]", xmForm.getDiaDiem() + ", " + ngayLap);
 					} else
 						word.put("[ngay_lap_quyet_dinh]", xmForm.getDiaDiem() + ", " + Formater.getDateForPrint(xmForm.getThoiDiem()));
+					word.put("[chuc_danh_can_bo_tq_xm]", xmForm.getChucDanhCanBoTqXm());
 					word.put("[van_ban_quy_dinh_chuc_nang_nhiem_vu]", CatalogService.getTenDanhMucById(xmForm.getCanCuVanBan()));
 					word.put("[truong_bo_phan]", KtnbUtil.getTenTruongBoPhan(appContext) + " " + appContext.getTenPhong());
 					//word.put("[tom_tat_noi_dung_khieu_nai]", "khi\u1EBFu n\u1EA1i");
