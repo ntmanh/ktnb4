@@ -1,4 +1,4 @@
-<%@ page pageEncoding="UTF-8"%>
+<%@ page pageEncoding="UTF-8"%> 
 <%@ include file="/top_bar.jsp"%> 
 <h3 class="Header">PHIẾU CHUYỂN ĐƠN</h3>
 <html:form action="/kntc_dxxl.do?method=phieuCd">
