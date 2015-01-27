@@ -747,9 +747,9 @@ public class TimKiemStdAction extends BaseDispatchAction {
 					else if (rs.getString("loai_kntc").equals("3"))
 						ja.put("KH" + space5);
 					if(rs.getString("doan_kntc_so_luong")!=null)
-						ja.put(rs.getString("doan_kntc_so_luong").toString()+space10);
+						ja.put(rs.getString("doan_kntc_so_luong")+space5+space5+space5+"&nbsp;");
 					else
-						ja.put("abc"+space5+space5);
+						ja.put(space10 + space10);
 					jsonArray.put(ja);
 				}
 			} else {
