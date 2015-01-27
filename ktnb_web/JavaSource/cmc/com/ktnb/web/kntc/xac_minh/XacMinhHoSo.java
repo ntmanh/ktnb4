@@ -76,6 +76,22 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	 */
 	public ActionForward show(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		String maHs = request.getParameter("id");
+		if (!Formater.isNull(maHs)) {
+			DungChungService service = new DungChungService();
+			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+				return showV4(map, form, request, response);
+			else
+				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
+				return showV3(map, form, request, response);
+		} else
+			if("4".equals(Constants.APP_DEP_VERSION))
+				return showV4(map, form, request, response);
+			else 
+				return showV3(map, form, request, response);
+	}
+	public ActionForward showV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		FormBeanConfig fbc = map.getModuleConfig().findFormBeanConfig("xacMinhForm");
 		Class clazz = Class.forName(fbc.getType());
 		XacMinhForm xmForm = (XacMinhForm) clazz.newInstance();
@@ -130,9 +146,72 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		// saveToken(request);
 		return map.findForward(ret);
 	}
-
+	public ActionForward showV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		FormBeanConfig fbc = map.getModuleConfig().findFormBeanConfig("xacMinhForm");
+		Class clazz = Class.forName(fbc.getType());
+		XacMinhForm xmForm = (XacMinhForm) clazz.newInstance();
+		String maHs = request.getParameter("id");
+		String ret = "success";
+		boolean isKN = SoTiepDanService.isKN(appContext, maHs);
+		if (!Formater.isNull(maHs)) {
+			xmForm.setMaHoSo(maHs);
+			SoTiepDanService s = new SoTiepDanService();
+			KntcSoTiepDan hs = s.getSoTiepDan(appContext, maHs, true);
+			KntcHoSoHdr hdr = hs.getHdr();
+			ret = isKN ? "success" : "qdtc";
+			XacMinhService xmService = new XacMinhService();
+			KntcQdinhXm qd = xmService.getKntcQdinhXmByHoSo(appContext, maHs);
+			if (qd == null) // Tao moi
+			{
+				String readOnly = request.getParameter("r");
+				if (readOnly != null)
+					if (readOnly.equals("rol")) {
+						throw new KtnbException("Bi&#7875;u m&#7851;u n&#224;y kh&#244;ng c&#243; s&#7889; li&#7879;u!!!", "", "");
+					}
+				if (hdr.getLoaiKntc().intValue() == 1) // KN
+				{
+					xmForm.setDeNghiTruongBoPhan(appContext.getTenTruongPhong());
+				} else if (hdr.getLoaiKntc().intValue() == 2) // TC
+				{
+					xmForm.setNguoiBiTcTen(hdr.getNguoiBiKntcTen());
+					xmForm.setNguoiBiTcHanhVi(hdr.getNoiDung());
+					xmForm.setNoiDung(hdr.getNoiDung());
+					
+				}
+				xmForm.setSoQd(KtnbUtil.getMaNvu(appContext, "Q\u0110"));
+				//xmForm.setThoiDiem(Formater.date2str(new Date()));
+				xmForm.setDiaDiem(appContext.getDiaBan());
+				// Save can bo default
+				KntcCanBoRls cbRls = new KntcCanBoRls();
+				KntcCanBoRlsId cbId = new KntcCanBoRlsId();
+				cbId.setMaCanbo(appContext.getMaCanbo());
+				cbRls.setId(cbId);
+				cbRls.setTenCb(appContext.getTenCanbo());
+				cbRls.setChucVu(appContext.getTenChucvu());
+				cbRls.setDonVi(appContext.getTenPhong());
+				cbRls.setVaiTro("Th\u00E0nh vi\u00EAn \u0111o\u00E0n");
+				xmService.addCanBoXMDefault(maHs, cbRls);
+			} else // Update
+			{
+//				String maHsStd=request.getParameter("id");
+//				SoTiepDanService sv=new SoTiepDanService();
+//				KntcSoTiepDan std=sv.getSoTiepDan(appContext, maHsStd, true);
+//				System.out.println("Noi dung so tiep dan : "+std.getHdr().getNoiDung());
+				xmForm.fromEntity(qd);
+//				xmForm.setNoiDung(hdr.getNoiDung());
+			}
+		}
+		KtnbUtil.setVanBan(appContext, request);
+		KtnbUtil.cacheListHolidayDayForClient(request, Formater.date2str(new Date()).substring(6), Formater.date2str(new Date()).substring(6));
+		request.setAttribute("xacMinhForm", xmForm);
+		// saveToken(request);
+		return map.findForward(ret);
+	}
 	// Báo cáo kết quả xác minh mẫu 17/KNTC, 23/KNTC
 	public ActionForward bbKqXm(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	
+		
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		FormBeanConfig fbc = map.getModuleConfig().findFormBeanConfig("baoCaoKqXmForm");
 		Class clazz = Class.forName(fbc.getType());
@@ -926,9 +1005,9 @@ public class XacMinhHoSo extends BaseDispatchAction {
 			// KntcNdungDon don = std.getNoiDungDon();
 			String fileTemplate = "kntc10";
 			if (hdr.getLoaiKntc().intValue() == 2) {
-				fileTemplate = "kntc22";
-				fileIn = request.getRealPath("/docin") + "\\KNTC22.doc";
-				fileOut = request.getRealPath("/docout") + "\\KNTC22_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+				fileTemplate = "tc07";
+				fileIn = request.getRealPath("/docin/v4") + "\\TC07.doc";
+				fileOut = request.getRealPath("/docout") + "\\TC07_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
 				word = new MsWordUtils(fileIn, fileOut);
 				try {
@@ -944,19 +1023,16 @@ public class XacMinhHoSo extends BaseDispatchAction {
 						word.put("[ngay_lap_quyet_dinh]", xmForm.getDiaDiem() + ", " + Formater.getDateForPrint(xmForm.getThoiDiem()));
 					word.put("[chuc_danh_thu_truong_co_quan]", KtnbUtil.getTenThuTruongCqtForMauin(appContext).toUpperCase());
 					word.put("[van_ban_quy_dinh_chuc_nang_nhiem_vu]", CatalogService.getTenDanhMucById(xmForm.getCanCuVanBan()));
-					word.put("[giao_nhiem_vu_xac_minh]", xmForm.getCanCuNhiemVu());
-					word.put("[don_de_ngay]", Formater.getDateForPrint(Formater.date2str(hdr.getDonDeNgay())));
+					word.put("[truong_bo_phan]", KtnbUtil.getTenTruongBoPhan(appContext) + " " + appContext.getTenPhong());
+//					word.put("[giao_nhiem_vu_xac_minh]", xmForm.getCanCuNhiemVu());
+//					word.put("[don_de_ngay]", Formater.getDateForPrint(Formater.date2str(hdr.getDonDeNgay())));
 					word.put("[ten_nguoi_bi_to_cao]", dx.getNguoiBiKNTC());
 					if (!Formater.isNull(dx.getChuDanhNguoiBiKNTC()))
-						word.put("[chuc_vu_nguoi_bi_to_cao]", dx.getChuDanhNguoiBiKNTC());
+						word.put("[chuc_vu_nguoi_bi_to_cao]",", chức vụ " + dx.getChuDanhNguoiBiKNTC());
 					else
 						word.put("[chuc_vu_nguoi_bi_to_cao]", "");
 					word.put("[hanh_vi_cua_nguoi_bi_to_cao]", xmForm.getNguoiBiTcHanhVi());
 					word.put("[noi_dung_xac_minh]", xmForm.getNoiDung());
-					word.put("[thoi_gian_xac_minh]", xmForm.getSoNgayXm());
-					word.put("[tu_ngay]", Formater.getDateForPrint(xmForm.getTuNgayXm()));
-					word.put("[den_ngay]", Formater.getDateForPrint(xmForm.getDenNgayXm()));
-
 					StringBuffer sb = new StringBuffer();
 					String[] arrCb = xmForm.getArrCanBo().split("@@");
 					try {
@@ -975,15 +1051,23 @@ public class XacMinhHoSo extends BaseDispatchAction {
 						e.printStackTrace();
 					}
 					word.put("[thanh_vien_doan]", sb.toString());
+					word.put("[thoi_gian_xac_minh]", xmForm.getSoNgayXm());
+//					word.put("[tu_ngay]", Formater.getDateForPrint(xmForm.getTuNgayXm()));
+//					word.put("[den_ngay]", Formater.getDateForPrint(xmForm.getDenNgayXm()));
+
 					if (Formater.isNull(xmForm.getBenLienQuanThuTruong()))
 						word.put("[thu_truong_co_quan_lien_quan]", "..........");
 					else
 						word.put("[thu_truong_co_quan_lien_quan]", xmForm.getBenLienQuanThuTruong());
 					word.put("[ten_nguoi_bi_to_cao]", dx.getNguoiBiKNTC());
-					if (Formater.isNull(xmForm.getBenLienQuan()))
-						word.put("[nguoi_co_quan_don_vi_co_lien_quan]", "..........");
+					if (!Formater.isNull(dx.getChuDanhNguoiBiKNTC()))
+						word.put("[chuc_vu_nguoi_bi_to_cao]",", chức vụ " + dx.getChuDanhNguoiBiKNTC());
 					else
-						word.put("[nguoi_co_quan_don_vi_co_lien_quan]", xmForm.getBenLienQuan());
+						word.put("[chuc_vu_nguoi_bi_to_cao]", "");
+//					if (Formater.isNull(xmForm.getBenLienQuan()))
+//						word.put("[nguoi_co_quan_don_vi_co_lien_quan]", "..........");
+//					else
+//						word.put("[nguoi_co_quan_don_vi_co_lien_quan]", xmForm.getBenLienQuan());
 					word.put("[tt_cqt]", KtnbUtil.getChucVuThuTruongByMaCqt(appContext.getMaCqt()).toUpperCase());
 					// word.put("[ten_thu_truong]",
 					// appContext.getTenThuTruong());
@@ -998,7 +1082,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 					// word.put("[hanh_vi_hanh_chinh]",
 					// xmForm.getNguoiBiTcHanhVi());
 					word.saveAndClose();
-					word.downloadFile(fileOut, "Mau KNTC22", ".doc", response);
+					word.downloadFile(fileOut, "Mau TC07", ".doc", response);
 				} catch (Exception ex) {
 					// ex.printStackTrace();
 					System.out.println("Download Error: " + ex.getMessage());
