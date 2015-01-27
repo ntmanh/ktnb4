@@ -47,7 +47,7 @@ public class PhieuYeuCauForm extends BaseActionForm {
 
 	private String donViYkien;
 	
-	private String yKienVeViec;
+	private String layYkienVeViec;
 	
 	private String ma;
 
@@ -89,7 +89,7 @@ public class PhieuYeuCauForm extends BaseActionForm {
 		pYc.setYeuCauYcgt(this.yeuCauYcgt);
 		pYc.setMaPhieu(this.maPhieu);
 		pYc.setMa(this.ma);
-		pYc.setYKienVeViec(this.yKienVeViec);
+		pYc.setLayYkienVeViec(this.layYkienVeViec);
 		return pYc;
 	}
 
@@ -113,7 +113,7 @@ public class PhieuYeuCauForm extends BaseActionForm {
 		this.ycHoSo = p.getYcHoSo();
 		this.yeuCauYcgt = p.getYeuCauYcgt();
 		this.maPhieu = p.getMaPhieu();
-		this.yKienVeViec=p.getYKienVeViec();
+		this.layYkienVeViec=p.getLayYkienVeViec();
 		this.ma = p.getMa();
 	}
 	
@@ -134,7 +134,7 @@ public class PhieuYeuCauForm extends BaseActionForm {
 		pYc.setYeuCauYcgt(this.yeuCauYcgt);
 		pYc.setMaPhieu(this.maPhieu);
 		pYc.setMa(this.ma);
-		pYc.setYKienVeViec(this.yKienVeViec);
+		pYc.setLayYkienVeViec(this.layYkienVeViec);
 		return pYc;
 	}
 
@@ -387,12 +387,13 @@ public class PhieuYeuCauForm extends BaseActionForm {
 		yeuCauYcgt = string;
 	}
 
-	public String getYKienVeViec() {
-		return yKienVeViec;
+	public String getLayYkienVeViec() {
+		return layYkienVeViec;
 	}
 
-	public void setYKienVeViec(String kienVeViec) {
-		yKienVeViec = kienVeViec;
+	public void setLayYkienVeViec(String layYkienVeViec) {
+		this.layYkienVeViec = layYkienVeViec;
 	}
+
 	
 }

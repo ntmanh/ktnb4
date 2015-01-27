@@ -1321,13 +1321,13 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 					// word.put("[co_quan_don_vi_tham_gia_y_kien]",
 					// cnForm.getDonViYkien());
 					//word.put("[co_quan_don_vi_tham_gia_y_kien]", cq_donvi_thamgia);
-					if(Formater.isNull(cnForm.getYKienVeViec()))
+					if(Formater.isNull(cnForm.getLayYkienVeViec()))
 					{
 						String defaultNull = KtnbUtil.inFieldNull(115);
 						word.put("[y_kien_ve_viec]", defaultNull + "\n" + defaultNull + "\n" + defaultNull + "\n" + defaultNull);
 					}
 					else 
-						word.put("[y_kien_ve_viec]", cnForm.getYKienVeViec());
+						word.put("[y_kien_ve_viec]", cnForm.getLayYkienVeViec());
 					if (Formater.isNull(cnForm.getYeuCauYcgt())) {
 						String defaultNull = KtnbUtil.inFieldNull(115);
 						word.put("[noi_dung]", defaultNull + "\n" + defaultNull + "\n" + defaultNull + "\n" + defaultNull);
