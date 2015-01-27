@@ -47,6 +47,8 @@ public class PhieuYeuCauForm extends BaseActionForm {
 
 	private String donViYkien;
 	
+	private String yKienVeViec;
+	
 	private String ma;
 
 	public String getMa() {
@@ -87,6 +89,7 @@ public class PhieuYeuCauForm extends BaseActionForm {
 		pYc.setYeuCauYcgt(this.yeuCauYcgt);
 		pYc.setMaPhieu(this.maPhieu);
 		pYc.setMa(this.ma);
+		pYc.setYKienVeViec(this.yKienVeViec);
 		return pYc;
 	}
 
@@ -110,6 +113,7 @@ public class PhieuYeuCauForm extends BaseActionForm {
 		this.ycHoSo = p.getYcHoSo();
 		this.yeuCauYcgt = p.getYeuCauYcgt();
 		this.maPhieu = p.getMaPhieu();
+		this.yKienVeViec=p.getYKienVeViec();
 		this.ma = p.getMa();
 	}
 	
@@ -130,6 +134,7 @@ public class PhieuYeuCauForm extends BaseActionForm {
 		pYc.setYeuCauYcgt(this.yeuCauYcgt);
 		pYc.setMaPhieu(this.maPhieu);
 		pYc.setMa(this.ma);
+		pYc.setYKienVeViec(this.yKienVeViec);
 		return pYc;
 	}
 
@@ -381,4 +386,13 @@ public class PhieuYeuCauForm extends BaseActionForm {
 	public void setYeuCauYcgt(String string) {
 		yeuCauYcgt = string;
 	}
+
+	public String getYKienVeViec() {
+		return yKienVeViec;
+	}
+
+	public void setYKienVeViec(String kienVeViec) {
+		yKienVeViec = kienVeViec;
+	}
+	
 }

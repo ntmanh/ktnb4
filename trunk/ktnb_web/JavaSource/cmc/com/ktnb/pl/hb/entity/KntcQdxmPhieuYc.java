@@ -36,6 +36,7 @@ public class KntcQdxmPhieuYc extends cmc.com.ktnb.pl.hb.entity.PersistentObject 
      private String loaiPhieu;
      private String donViYkien;
 	 private Long lanTd;
+	 private String yKienVeViec;
 
     // Constructors
 
@@ -234,5 +235,16 @@ public class KntcQdxmPhieuYc extends cmc.com.ktnb.pl.hb.entity.PersistentObject 
 	public void setMa(String ma) {
 		this.ma = ma;
 	}
+
+
+	public String getYKienVeViec() {
+		return yKienVeViec;
+	}
+
+
+	public void setYKienVeViec(String kienVeViec) {
+		yKienVeViec = kienVeViec;
+	}
+	
 
 }

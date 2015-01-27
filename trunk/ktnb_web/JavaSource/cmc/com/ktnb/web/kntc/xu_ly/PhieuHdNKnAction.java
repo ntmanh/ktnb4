@@ -39,6 +39,8 @@ import cmc.com.ktnb.util.Formater;
 import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.BaseDispatchAction;
+import cmc.com.ktnb.web.dung_chung.DungChungService;
+import cmc.com.ktnb.web.kntc.tiep_dan.PhieuHenForm;
 import cmc.com.ktnb.web.kntc.xac_minh.KeHoachForm;
 
 /**
@@ -428,11 +430,21 @@ public class PhieuHdNKnAction extends BaseDispatchAction {
 
 	public ActionForward in(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		System.out.println("Ver : "+appContext.getDonVer());
-		if("4".equals(appContext.getDonVer()))
-			inv4(map, form, request, response);
-		else inv3(map, form, request, response);
-		System.out.println("Ver in phieu hd kn "+ appContext.getDonVer());
+		PhieuHenForm phForm=(PhieuHenForm) form;
+		DungChungService service=new DungChungService();
+		String maHs = phForm.getMaHoSo();
+		if(!Formater.isNull(maHs))
+		{
+			if("4".equals(service.getVersionDonKntc(appContext, maHs)))
+				inv4(map, form, request, response);
+			else inv3(map, form, request, response);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inv4(map, form, request, response);
+			else inv3(map, form, request, response);
+		}
 		return null;
 		
 	}

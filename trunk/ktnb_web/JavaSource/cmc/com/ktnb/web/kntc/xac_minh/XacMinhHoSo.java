@@ -1613,10 +1613,11 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	 * Des: inGhXm
 	 */
 	
-	public ActionForward inGbXm(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward inGhXm(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		SoTiepDanForm cnForm = (SoTiepDanForm) form;
-		String maHs = cnForm.getMaHoSo();
+		GiaHanXmForm xmForm=(GiaHanXmForm) form;
+		String maHs = xmForm.getMaHoSo();
+		System.out.println("Ma ho so  : "+maHs);
 		if (!Formater.isNull(maHs)) {
 			DungChungService service = new DungChungService();
 			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
