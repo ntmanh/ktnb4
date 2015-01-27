@@ -34,7 +34,11 @@
 					labelProperty="label" />
 			</html:select></td>
 		</tr>
-		
+		<tr>
+			<td style="text-align: right;">Chức danh của người có thẩm quyền ban hành quyết định xác minh nội dung khiếu nại</td>
+			<td colspan="3"><html:text property="chucDanhCanBoTqXm"
+				style="width: 100%" name="xacMinhForm" /></td> 
+		</tr>		
 		<tr>
 			<td style="text-align: right;">Xét đề nghị của</td>
 			<td colspan="3"><html:text property="deNghiTruongBoPhan"
