@@ -30,9 +30,14 @@
 			<td align="right" width="19%">Ngày ra quyết định</td>
 			<td style="width: 1%; min-width: 5px"></td>
 			<td align="left" width="30%"><html:text onkeypress="return formatDate(event, this)" onblur="if(!isDate(this)) return;validateDateRequired(this);"  styleClass="text" property="ngayRaQuyetDnh"></html:text></td>
-			<td></td>
-			<td></td>
-			<td></td>
+			<td align="right" width="19%">Căn cứ luật số</td>
+			<td style="width: 1%; min-width: 5px"></td>
+			<td align="left" width="30%"><html:textarea property="canCuLuatSo"></html:textarea></td>
+		</tr>
+		<tr> 
+			<td align="right">Căn cứ quyết định</td>
+			<td style="width: 1%; min-width: 5px"></td>
+			<td colspan="3"><html:textarea property="canCuQd" onkeypress="imposeMaxLength(this);" style="width: 30%" /></td>
 		</tr>
 		<tr>
 			<td align="right" width="19%">Văn bản quy định chức năng nhiệm vụ<font color=red>*</font></td>
