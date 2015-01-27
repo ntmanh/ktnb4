@@ -365,14 +365,14 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 	public void setMa(String ma) {
 		this.ma = ma;
 	}
-	
+
 	public String getChucDanhCanBoTqXm() {
-		return this.chucDanhCanBoTqXm;
+		return chucDanhCanBoTqXm;
 	}
 
-	public void setChucDanhCanBoTqXm (String chucDanhCanBoTqXm) {
+	public void setChucDanhCanBoTqXm(String chucDanhCanBoTqXm) {
 		this.chucDanhCanBoTqXm = chucDanhCanBoTqXm;
 	}
-
+	
 	
 }

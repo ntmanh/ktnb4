@@ -754,7 +754,7 @@ public class TimKiemStdAction extends BaseDispatchAction {
 				}
 			} else {
 				ja = new JSONArray();
-				for (int j = 0; j < 10; j++) {
+				for (int j = 0; j < 11; j++) {
 					ja.put(space10 + space10 + space10);
 				}
 				jsonArray.put(ja);
