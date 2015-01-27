@@ -49,11 +49,20 @@
 <fieldset><legend>Trường hợp đến KNTC</legend>
 <table width="100%">
 	<tr>
+		<td width="15%" style="text-align: right;">Phân loại đơn</td>
+		<td width="35%"><html:select property="thamQuyenDon" style="width:100%" styleId="thamQuyenDon" >
+			<html:option value="1">Thuộc thẩm giải quyết của CQT nhận đơn</html:option>
+			<html:option value="0">Không thuộc thẩm quyền của CQT nhận đơn</html:option>
+		</html:select></td>
+		<td width="15%" style="text-align: right;"></td>
+		<td width="35%"></td>
+	</tr>
+	<tr>
 		<td width="15%" style="text-align: right;">Trường hợp</td>
 		<td width="35%"><html:select property="loaiKNTC" style="width:100%" styleId="loaiKNTC" onchange="changeKNTC()">
 			<html:option value="1">Khiếu nại</html:option>
 			<html:option value="2">Tố cáo</html:option>
-			<html:option value="4">Hỏi chế độ chính sách</html:option>
+			<html:option value="4">Phản ánh,kiến nghị</html:option>
 			<html:option value="3">Trường hợp khác</html:option>
 		</html:select></td>
 		<td width="15%" style="text-align: right;"></td>

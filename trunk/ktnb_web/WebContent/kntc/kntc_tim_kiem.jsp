@@ -32,7 +32,7 @@
 				</tr>
 				<tr>
 				<td style="text-align: right;">Hình thức</td>
-					<td><html:select property="doanKNTC" style="width:100%" styleId="doanKNTC" onchange="changeIDisplayStart();">
+					<td><html:select property="doanKNTC" style="width:100%" styleId="doanKNTC" onkeypress="searchKeyPress(event);" onchange="changeIDisplayStart();">
 			<html:option value="">--- Chọn hình thức ---</html:option>
 			<html:option value="1">Một người</html:option>
 			<html:option value="2">Nhiều người có cử đại diện</html:option>
@@ -185,10 +185,10 @@
 			<div>Trạng thái</div>
 			</th>
 			<th class="hideextra-x">
-			<div>Số lượng người</div>
+			<div>Loại</div>
 			</th>
 			<th class="hideextra-x">
-			<div>Loại</div>
+			<div>Số lượng người</div>
 			</th>
 		</tr>
 	</thead>
