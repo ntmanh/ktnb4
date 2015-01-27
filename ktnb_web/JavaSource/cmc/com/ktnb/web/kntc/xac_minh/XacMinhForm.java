@@ -55,6 +55,8 @@ public class XacMinhForm extends XacNhanForm {
 	private String denNgayXm;
 
 	private String arrDm;
+	
+	private String chucDanhCanBoTqXm;
 
 	private String deNghiTruongBoPhan;
 
@@ -74,6 +76,7 @@ public class XacMinhForm extends XacNhanForm {
 		this.setMaHoSo(kq.getMaHs());
 		this.setDiaDiem(kq.getDiaDiem());
 		this.setThoiDiem(Formater.date2str(kq.getNgayLap()));
+		this.setChucDanhCanBoTqXm(kq.getChucDanhCanBoTqXm());
 		this.setDeNghiTruongBoPhan(kq.getDeNghiTruongBoPhan());
 		this.setSoQd(kq.getMaQd());
 		this.setCanCuVanBan(kq.getCanCuPly());
@@ -398,6 +401,20 @@ public class XacMinhForm extends XacNhanForm {
 	 */
 	public void setArrDm(String string) {
 		arrDm = string;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getChucDanhCanBoTqXm() {
+		return chucDanhCanBoTqXm;
+	}
+
+	/**
+	 * @param string
+	 */
+	public void setChucDanhCanBoTqXm(String string) {
+		chucDanhCanBoTqXm = string;
 	}
 
 	/**
