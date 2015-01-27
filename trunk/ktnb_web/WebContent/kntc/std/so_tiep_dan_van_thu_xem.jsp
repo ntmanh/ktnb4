@@ -33,7 +33,7 @@
 				<td width="35%"><html:select property="loaiKNTC" style="width:90%;" styleId="loaiKNTC" onchange="changeKNTC();">
 					<html:option value="1">Khiếu nại</html:option>
 					<html:option value="2">Tố cáo</html:option>
-					<html:option value="4">Hỏi chế độ chính sách</html:option>
+					<html:option value="4">Kiến nghị, phản ánh</html:option>
 					<html:option value="3">Trường hợp khác</html:option>
 				</html:select></td>
 				<td width="15%" style="text-align: right"></td>

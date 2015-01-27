@@ -45,6 +45,10 @@
 				<td></td>
 			</tr>
 			<tr>
+				<td style="text-align: right;">Ý kiến về việc<font color="red">*</font></td>
+				<td colspan="3"><html:text property="yKienVeViec" style="width:100%" /></td>
+			</tr>
+			<tr>
 				<td style="text-align: right;">Cơ quan,đơn vị tham gia ý kiến<font color="red">*</font></td>
 				<td colspan="3"><html:text property="donViYkien" style="width:100%" /></td>
 			</tr>
