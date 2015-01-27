@@ -759,6 +759,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 				inV4(map, form, request, response);
 			else
 				inv3(map, form, request, response);
+			System.out.println("Ver don : "+service.getVersionDonKntc(appContext, maHs));
 		} else {
 			if ("4".equals(Constants.APP_DEP_VERSION))
 				inV4(map, form, request, response);
@@ -1189,9 +1190,9 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 					}
 				}
 			}
-		}else if (type.equals("KN11A")) {
+		}else if (type.equals("14/KTNB")) {
 			if (!Formater.isNull(maQd)) {
-				su = "kntc14";
+				su = "kn11a";
 				fileIn = request.getRealPath("/docin") + "\\KN11A.doc";
 				fileOut = request.getRealPath("/docout") + "\\KN11A_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
@@ -1390,9 +1391,9 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 					System.out.println("Download Error: " + ex.getMessage());
 				}
 			}
-		} else if (type.equals("13/KN")) {
+		} else if (type.equals("15B/KTNB")) {
 			if (!Formater.isNull(maQd)) {
-				su = "kntc15b";
+				su = "kn13";
 				fileIn = request.getRealPath("/docin") + "\\KN13.doc";
 				fileOut = request.getRealPath("/docout") + "\\KN13_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
