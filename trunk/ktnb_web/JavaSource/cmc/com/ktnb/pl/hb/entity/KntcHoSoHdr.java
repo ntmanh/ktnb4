@@ -156,7 +156,7 @@ public class KntcHoSoHdr extends cmc.com.ktnb.pl.hb.entity.PersistentObject impl
 	
 	private String daiDienBsNoiDung;
 	
-	private String thamQuyenDon;
+	private String thamQuyenDon;  
 
 	// Constructors
 

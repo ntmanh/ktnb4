@@ -68,6 +68,10 @@ public class ChuanBiTienHanhForm extends BaseActionForm {
 	private String vanBanQuyDinhCnangNvuQdTvd;
 
 	// Quyet dinh
+	private String canCuQd;
+	
+	private String canCuLuatSo;
+	
 	private String idQuyetDinh;
 
 	private String soQuyetDinh;
@@ -262,6 +266,20 @@ public class ChuanBiTienHanhForm extends BaseActionForm {
 	public String getIdKeHoach() {
 		return idKeHoach;
 	}
+	
+	/**
+	 * @return
+	 */
+	public String getCanCuQd() {
+		return canCuQd;
+	}
+	
+	/**
+	 * @return
+	 */
+	public String getCanCuLuatSo() {
+		return canCuLuatSo;
+	}
 
 	/**
 	 * @return
@@ -443,6 +461,20 @@ public class ChuanBiTienHanhForm extends BaseActionForm {
 	 */
 	public void setIdKeHoach(String string) {
 		idKeHoach = string;
+	}
+
+	/**
+	 * @param string
+	 */
+	public void setCanCuQd(String string) {
+		canCuQd = string;
+	}
+	
+	/**
+	 * @param string
+	 */
+	public void setCanCuLuatSo(String string) {
+		canCuLuatSo = string;
 	}
 
 	/**

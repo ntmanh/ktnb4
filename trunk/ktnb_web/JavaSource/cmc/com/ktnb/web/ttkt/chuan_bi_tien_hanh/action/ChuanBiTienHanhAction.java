@@ -52,7 +52,7 @@ import cmc.com.ktnb.web.ttkt.service.TtktCnPhuService;
 import cmc.com.ktnb.web.ttkt.service.TtktService;
 
 /**
- * @author Nguyen Tien Dung
+ * @author Nguyen Tien Dung 
  * 
  * To change the template for this generated type comment go to Window&gt;Preferences&gt;Java&gt;Code Generation&gt;Code and Comments
  */
@@ -370,13 +370,15 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 			cbForm.setDiaDiemRaQuyetDinh(qdTtkt.getDiaDiemRaQuyetDinh());
 			cbForm.setThuTruongCacDvLienQuan(qdTtkt.getThuTruongCacDvLienQuan());
 			cbForm.setIdQuyetDinh(qdTtkt.getId());
-
+			
 			cbForm.setIdNguoiChiDaoGiamSat(qdTtkt.getIdNguoiChiDaoGiamSat());
 			cbForm.setTenNguoiChiDaoGiamSat(qdTtkt.getTenNguoiChiDaoGiamSat());
 			cbForm.setChucVuNguoiChiDaoGiamSat(qdTtkt.getChucVuNguoiChiDaoGiamSat());
 			cbForm.setVanBanQuyDinhCnangNvuQd(qdTtkt.getVanBanQuyDinhCnangNvuQd());
 			cbForm.getVanBanKeHoach(qdTtkt.getVanBanKeHoach());
 
+			cbForm.setCanCuLuatSo(qdTtkt.getCanCuLuatSo());
+			cbForm.setCanCuQd("C\u0103n c\u1EE9 Quy\u1EBFt \u0111\u1ECBnh s\u1ED1 1722/Q\u0110-TCT ng\u00E0y 08 th\u00E1ng 10 n\u0103m 2014");
 		}
 
 	}
@@ -1401,9 +1403,9 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				word.put("[thu_truong_ban_hanhqd]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
 				
 				// Default field
-				word.put("[luat_so]", "So 7");
-				word.put("[quyet_dinh_so]",cbForm.getSoQuyetDinh());
-				word.put("[thoi_gian_ra_quyet_dinh]", "22/12/2014");
+				word.put("[luat_so]", cbForm.getCanCuLuatSo());
+				word.put("[quyet_dinh_so]", cbForm.getSoQuyetDinh());
+				word.put("[thoi_gian_ra_quyet_dinh]", cbForm.getNgayRaQuyetDnh());
 				
 				word.put("[van_ban_quy_dinh]", CatalogService.getTenDanhMucById(cbForm.getVanBanQuyDinhCnangNvuQd()));
 				if (Formater.isNull(cbForm.getVanBanKeHoach())) {

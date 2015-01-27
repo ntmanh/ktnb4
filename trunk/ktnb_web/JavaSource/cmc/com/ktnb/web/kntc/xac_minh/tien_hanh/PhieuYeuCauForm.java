@@ -119,7 +119,7 @@ public class PhieuYeuCauForm extends BaseActionForm {
 	
 	public KntcQdxmPhieuYc toEntity(String loaiPhieu) throws Exception {
 		KntcQdxmPhieuYc pYc = new KntcQdxmPhieuYc();
-		pYc.setLoaiPhieu(loaiPhieu);
+		pYc.setLoaiPhieu(loaiPhieu); 
 		pYc.setMaHoSo(this.maHoSo);
 		pYc.setDiaDiem(this.diaDiem);
 		pYc.setDonViYkien(this.donViYkien);

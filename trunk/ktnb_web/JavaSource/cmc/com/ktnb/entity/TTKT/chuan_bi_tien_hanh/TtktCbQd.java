@@ -12,7 +12,7 @@ public class TtktCbQd extends PersistentObject implements java.io.Serializable{
 
 	// Fields
 
-	private String id;
+	private String id; 
 	private String idCuocTtkt;
 	private String soQuyetDinh;
 	private String diaDiemRaQuyetDinh;
@@ -25,6 +25,8 @@ public class TtktCbQd extends PersistentObject implements java.io.Serializable{
 	private String chucVuNguoiChiDaoGiamSat;
 	private String vanBanKeHoach;
 
+	private String canCuLuatSo;
+	private String canCuQd;
 	// Constructors
 	private String idNguoiCapNat;
 	 private String tenNguoiCapNhat;
@@ -191,5 +193,35 @@ public class TtktCbQd extends PersistentObject implements java.io.Serializable{
 	public void setVanBanKeHoach(String string) {
 		vanBanKeHoach = string;
 	}
+
+	/**
+	 * @return
+	 */
+	public String getCanCuLuatSo() {
+		return canCuLuatSo;
+	}
+
+	/**
+	 * @param string
+	 */
+	public void setCanCuLuatSo(String canCuLuatSo) {
+		this.canCuLuatSo = canCuLuatSo;
+	}
+
+	/**
+	 * @return
+	 */
+	public String getCanCuQd() {
+		return canCuQd;
+	}
+
+	/**
+	 * @param string
+	 */
+	public void setCanCuQd(String canCuQd) {
+		this.canCuQd = canCuQd;
+	}
+	
+	
 
 }
