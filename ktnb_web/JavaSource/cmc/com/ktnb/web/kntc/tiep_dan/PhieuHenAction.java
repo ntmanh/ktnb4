@@ -43,7 +43,6 @@ public class PhieuHenAction extends BaseDispatchAction {
 
 	public ActionForward show(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		System.out.println("Ver :"+appContext.getDonVer());
 		PhieuHenForm cnForm = (PhieuHenForm) form;
 		String maHs = request.getParameter("id");
 		if (!Formater.isNull(maHs)) {
@@ -197,15 +196,14 @@ public class PhieuHenAction extends BaseDispatchAction {
 	
 	public ActionForward inPhieuHen(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext=(ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		SoTiepDanForm cnForm = (SoTiepDanForm) form;
-		String maHs = cnForm.getMaHoSo();
+		PhieuHenForm phForm = (PhieuHenForm) form;
+		String maHs = phForm.getMaHoSo();
 		if (!Formater.isNull(maHs)) {
 			DungChungService service = new DungChungService();
 			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
-				inPhieuHenv3(map, form, request, response);
-			else
 				inPhieuHenV4(map, form, request, response);
-			System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
+			else
+				inPhieuHenv3(map, form, request, response);
 		} else
 			if("4".equals(Constants.APP_DEP_VERSION))
 				inPhieuHenV4(map, form, request, response);

@@ -750,7 +750,6 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 	}
 	
 	public ActionForward in(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("Da chay vao day !");
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		PhieuYeuCauForm xmForm = (PhieuYeuCauForm) form;
 		String maHs = xmForm.getMaHoSo();
@@ -1299,8 +1298,8 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			}
 		} else if (type.equals("15/KTNB")) {
 			if (!Formater.isNull(maQd)) {
-				su = "kntc12a";
-				fileIn = request.getRealPath("/docin") + "\\KN12A.doc";
+				su = "kn12";
+				fileIn = request.getRealPath("/docin/v4/kntc") + "\\KN12A.doc";
 				fileOut = request.getRealPath("/docout") + "\\KN12A_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
 				try {
@@ -1322,6 +1321,13 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 					// word.put("[co_quan_don_vi_tham_gia_y_kien]",
 					// cnForm.getDonViYkien());
 					//word.put("[co_quan_don_vi_tham_gia_y_kien]", cq_donvi_thamgia);
+					if(Formater.isNull(cnForm.getYKienVeViec()))
+					{
+						String defaultNull = KtnbUtil.inFieldNull(115);
+						word.put("[y_kien_ve_viec]", defaultNull + "\n" + defaultNull + "\n" + defaultNull + "\n" + defaultNull);
+					}
+					else 
+						word.put("[y_kien_ve_viec]", cnForm.getYKienVeViec());
 					if (Formater.isNull(cnForm.getYeuCauYcgt())) {
 						String defaultNull = KtnbUtil.inFieldNull(115);
 						word.put("[noi_dung]", defaultNull + "\n" + defaultNull + "\n" + defaultNull + "\n" + defaultNull);
