@@ -199,7 +199,7 @@ public class SoTiepDanService {
 				}
 			}
 			session = HibernateSessionFactory.currentSession();
-			if (hdr.getLoaiKntc() != null && hdr.getLoaiKntc().equals(new Long("4"))) // Hỏi chính sách
+			if ((hdr.getLoaiKntc() != null && hdr.getLoaiKntc().equals(new Long("4"))) || (hdr.getThamQuyenDon() !=null && "0".equals(hdr.getThamQuyenDon()) )) // Hỏi chính sách
 			{
 				hdr.setTrangThai(Constants.TT_KNTC_KET_THUC);
 				hdr.setLoaiKetThuc(Constants.KNTC_KET_THUC_THUONG);

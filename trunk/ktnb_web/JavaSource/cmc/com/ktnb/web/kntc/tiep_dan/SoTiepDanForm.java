@@ -54,6 +54,7 @@ public class SoTiepDanForm extends BaseSoTiepDanForm {
 	private String ngayNhanXL;
 	private String luotTiep;
 	private String trangThaiText;
+	private String thamQuyenDon;
 	
 	
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
@@ -84,7 +85,10 @@ public class SoTiepDanForm extends BaseSoTiepDanForm {
 				hdr.setHinhThucDk(new Long(0));
 			}
 		}
-		hdr.setDaiDienBsNoiDung(this.daiDienBsNoiDung); // Thong tin dai dien bo sung
+		
+		//Thong tin dai dien bo sung
+		hdr.setDaiDienBsNoiDung(this.daiDienBsNoiDung);
+		hdr.setThamQuyenDon(this.thamQuyenDon);
 		
 		hdr.setMaHs(this.maHoSo);
 		hdr.setNgayTiep(Formater.str2time(this.ngayTiep));
@@ -234,6 +238,7 @@ public class SoTiepDanForm extends BaseSoTiepDanForm {
 		
 		// Thong tin dai dien bo sung
 		this.daiDienBsNoiDung=hdr.getDaiDienBsNoiDung();
+		this.thamQuyenDon=hdr.getThamQuyenDon();
 
 		this.ngayNhanVT = Formater.date2str(hdr.getCongVanDenNgayVT());
 		this.ngayNhanXL = Formater.date2str(hdr.getCongVanDenNgay());
@@ -650,4 +655,13 @@ public class SoTiepDanForm extends BaseSoTiepDanForm {
 	public void setTrangThaiText(String trangThai) {
 		this.trangThaiText = trangThai;
 	}
+
+	public String getThamQuyenDon() {
+		return thamQuyenDon;
+	}
+
+	public void setThamQuyenDon(String thamQuyenDon) {
+		this.thamQuyenDon = thamQuyenDon;
+	}
+	
 }
