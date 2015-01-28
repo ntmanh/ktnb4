@@ -112,6 +112,19 @@
 					<td align="left" width="25%"><html:text styleClass="text" property="chucVuNguoiDeNghi" readonly="true"></html:text></td>
 				</tr>
 				<tr>
+					<td align="right" width="24%">Căn cứ luật số</td>
+					<td align="right" width="1%"></td>
+					<td align="left" width="25%"><html:textarea property="canCuLuatSo" styleClass="text"></html:textarea></td>
+					<td></td>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td align="right" width="24%">Căn cứ quyết định</td>
+					<td align="right" width="1%"></td>
+					<td colspan="4"><html:textarea property="canCuQdinh" style="width: 100%">Căn cứ Quyết định số 1722/QĐ-TCT ngày 08 tháng 10 năm 2014</html:textarea></td>
+				</tr>
+				<tr>
 					<td align="right" width="24%">Văn bản quy định chức năng nhiệm vụ</td>
 					<td align="right" width="1%"></td>
 					<td colspan="4"><html:select property="vbanQdinhCnangNvu" style="width: 100%" styleClass="combobox">

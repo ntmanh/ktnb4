@@ -1,4 +1,4 @@
-<%@page pageEncoding="UTF-8" %>
+<%@page pageEncoding="UTF-8" %> 
 <%@ include file="/top_bar.jsp"%>
 <!-- <h3 class="Header">Gia hạn Thanh tra Kiểm tra</h3> -->
 <h3 class="Header">Gia hạn Kiểm tra</h3>
@@ -67,6 +67,11 @@
 				<td style="width: 1%"></td>
 				<td align="left" style="width: 30%"><html:text property="ngayRaQd" onkeypress="return formatDate(event, this)" onblur="if(!isDate(this)) return;validateDateRequired(this);"  styleClass="text">
 				</html:text></td>
+			</tr>
+			<tr>
+				<td width="19%" align="right">Căn cứ quyết định</td>
+				<td style="width: 1%" ></td>
+				<td colspan="4"><html:textarea property="canCuQd" styleClass="textareaTitle" onkeypress="imposeMaxLength(this);"/></td>
 			</tr>
 		</TBODY>
 	</TABLE>
