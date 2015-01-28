@@ -2161,6 +2161,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		}
 	}
 
+	
 	public ActionForward inGhXm_old(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		HashMap[] reportRows = null;
@@ -2280,6 +2281,24 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	// Show bien ban lam viec 12/KNTC
 	public ActionForward bb(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		String maHs = request.getParameter("id");
+		if (!Formater.isNull(maHs)) {
+			DungChungService service = new DungChungService();
+			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+				return bbV4(map, form, request, response);
+			else
+				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
+				return bbV3(map, form, request, response);
+		} else
+			if("4".equals(Constants.APP_DEP_VERSION))
+				return bbV4(map, form, request, response);
+			else 
+				return bbV3(map, form, request, response);
+		
+	}
+	
+	public ActionForward bbV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		KeHoachForm cnForm = (KeHoachForm) form;
 		String maHs = request.getParameter("id");
 		XacMinhService s = new XacMinhService();
@@ -2366,9 +2385,27 @@ public class XacMinhHoSo extends BaseDispatchAction {
 
 		return map.findForward("bb");
 	}
-
+	
 	// Xem Bien ban lam viec! Mau 12/KNTC
 	public ActionForward xemBblv(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		KeHoachForm tdForm = (KeHoachForm) form;
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		String maHs = request.getParameter("id");
+		if (!Formater.isNull(maHs)) {
+			DungChungService service = new DungChungService();
+			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+				return xemBblvV4(map, form, request, response);
+			else
+				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
+				return xemBblvV3(map, form, request, response);
+		} else
+			if("4".equals(Constants.APP_DEP_VERSION))
+				return xemBblvV4(map, form, request, response);
+			else 
+				return xemBblvV3(map, form, request, response);
+	}
+	//v3
+	public ActionForward xemBblvV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		XacMinhService service = new XacMinhService();
 		try {
@@ -2382,8 +2419,43 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		return map.findForward("bb");
 	}
 
+	//v4
+	public ActionForward xemBblvV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		XacMinhService service = new XacMinhService();
+		String action=request.getParameter("action");
+		try {
+			KntcBienBan bb = service.getBienBanByMaBB(appContext, request.getParameter("pId").toString());
+			KeHoachForm tdForm = (KeHoachForm) form;
+			tdForm.fromBienBan(bb, appContext);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		if("bbxmtc".equals(action))
+			return map.findForward("bbTC");
+		else
+			return map.findForward("bb");
+	}
+
 	// Tao moi bien ban lam viec 12
 	public ActionForward taoMoiBblv(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		KeHoachForm tdForm = (KeHoachForm) form;
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		String maHs = request.getParameter("id");
+		if (!Formater.isNull(maHs)) {
+			DungChungService service = new DungChungService();
+			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+				return taoMoiBblvV4(map, form, request, response);
+			else
+				return taoMoiBblvV3(map, form, request, response);
+		} else
+			if("4".equals(Constants.APP_DEP_VERSION))
+				return taoMoiBblvV4(map, form, request, response);
+			else 
+				return taoMoiBblvV3(map, form, request, response);
+	}
+	public ActionForward taoMoiBblvV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		KeHoachForm tdForm = (KeHoachForm) form;
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		XacMinhService s = new XacMinhService();
@@ -2406,9 +2478,56 @@ public class XacMinhHoSo extends BaseDispatchAction {
 
 		return map.findForward("bb");
 	}
+	//v4
+	public ActionForward taoMoiBblvV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		KeHoachForm tdForm = (KeHoachForm) form;
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		XacMinhService s = new XacMinhService();
+		String action = request.getParameter("action");
+		// reset value
+		tdForm.setNoiDung("");
+		tdForm.setDiaDiem(appContext.getDiaBan());
+		tdForm.setThoiDiem(Formater.date2strDateTimeForNV(new Date()));
+		tdForm.setSoBanIn("2");
+		// Collection listCb = s.getListCanBoXmByHs(appContext,
+		// tdForm.getMaHoSo());
+		// StringBuffer sb = new StringBuffer("1. \u0110\u1EA1i \u0111i\u1EC7n
+		// \u0111o\u00E0n x\u00E1c minh: <br>");
+		// for (Iterator iter = listCb.iterator(); iter.hasNext();) {
+		// KntcCanBoRls element = (KntcCanBoRls) iter.next();
+		// sb.append("+ \u00D4ng (b\u00E0): " + element.getTenCb() + " -
+		// ch\u1EE9c v\u1EE5: " + element.getVaiTro());
+		// sb.append(" <br> ");
+		// }
+		tdForm.setThanhPhan("");
+		if ("bbxmtc".equals(action)) {
+//			 cnForm.setThoiDiemHoanThanh(thoiDiemHoanThanh)
+			 return map.findForward("bbTC");
+		 }
+		 else
+			 return map.findForward("bb");
+	}
 
 	// Xoa bb lam viec
 	public ActionForward xoaBblv(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		String maHs = request.getParameter("id");
+		if (!Formater.isNull(maHs)) {
+			DungChungService service = new DungChungService();
+			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+				return xoaBblvV4(map, form, request, response);
+			else
+				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
+				return xoaBblvV3(map, form, request, response);
+		} else
+			if("4".equals(Constants.APP_DEP_VERSION))
+				return xoaBblvV4(map, form, request, response);
+			else 
+				return xoaBblvV3(map, form, request, response);
+		
+	}
+	
+	public ActionForward xoaBblvV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		XacMinhService service = new XacMinhService();
 		try {
@@ -2421,9 +2540,45 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		}
 		return map.findForward("bb");
 	}
+	//v4
+	public ActionForward xoaBblvV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		XacMinhService service = new XacMinhService();
+		String action = request.getParameter("action");
+		try {
+			service.delBienBanByMaBB(appContext, request.getParameter("pId").toString(), request.getParameter("id").toString());
+			request.setAttribute("xoaThanhcong", "1");
+		} catch (Exception e) {
+			request.setAttribute("xoaThanhcong", "0");
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		if ("bbxmtc".equals(action)) {
+			 return map.findForward("bbTC");
+		 }
+		else
+			return map.findForward("bb");
+	}
+
 
 	// Save Bien ban lam viec! Mau 12/KNTC
 	public ActionForward saveBblv(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		String maHs = request.getParameter("id");
+		if (!Formater.isNull(maHs)) {
+			DungChungService service = new DungChungService();
+			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+				return saveBblvV4(map, form, request, response);
+			else
+				return saveBblvV3(map, form, request, response);
+		} else
+			if("4".equals(Constants.APP_DEP_VERSION))
+				return saveBblvV4(map, form, request, response);
+			else 
+				return saveBblvV3(map, form, request, response);		
+	}
+	
+	public ActionForward saveBblvV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		// if (isTokenValid(request, true)) {
 		try {
@@ -2498,6 +2653,97 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		return map.findForward("bb");
 	}
 
+	public ActionForward saveBblvV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		// if (isTokenValid(request, true)) {
+		try {
+			KeHoachForm tdForm = (KeHoachForm) form;
+			XacMinhService xmS = new XacMinhService();
+			KntcBienBan bb = null;
+			if (request.getParameter("pId") != null) {
+				bb = xmS.getBienBanByMaBB(appContext, request.getParameter("pId").toString());
+				// System.out.println(request.getParameter("pId").toString());
+			}
+			KntcBienBanId id = null;
+			if (bb == null) {
+				bb = new KntcBienBan();
+				id = new KntcBienBanId();
+				id.setMaHs(tdForm.getMaHoSo());
+				if (request.getParameter("pId") != null) {
+					id.setMaBb(request.getParameter("pId").toString());
+				} else
+					id.setMaBb(null);
+			} else
+				id = bb.getId();
+
+			bb.setId(id);
+			bb.setDiaDiem(tdForm.getDiaDiem());
+			bb.setNgayCapNhat(new Date());
+			bb.setNguoiCapNhat(appContext.getTenNsd());
+			bb.setThoiDiem(Formater.str2dateForNV(tdForm.getThoiDiem()));
+			bb.setThoiDiemHoanThanh(Formater.str2dateForNV(tdForm.getThoiDiemHoanThanh()));
+			System.out.println("bat dau: "+ bb.getThoiDiem());
+			System.out.println("ket thuc: "+bb.getThoiDiemHoanThanh());
+			bb.setSoBanIn(new Long(tdForm.getSoBanIn()));
+			// bb.setSoBenLviec(new Long(tdForm.getSoBen()));
+			// System.out.println(tdForm.getNoiDung().length());
+			bb.setNoiDung(tdForm.getNoiDung());
+			bb.setThanhPhan(tdForm.getThanhPhan());
+			// Luu xuong DB
+			XacMinhService services = new XacMinhService();
+			String loaiBienBan = "";
+			String action = tdForm.getAct();
+			if ("bbxmkn".equals(action)) {
+				loaiBienBan = KntcBienBan.BB_CONG_BO_QDXM_KN;
+			} else if ("bbxmtc".equals(action)) {
+				loaiBienBan = KntcBienBan.BB_CONG_BO_QDXM_TC;
+			} else if ("bbLamViecNguoiKN0".equals(action)) {
+				loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_KN0;
+			} else if ("bbLamViecNguoiKN".equals(action)) {
+				loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_KN;
+			} else if ("bbLamViecNguoiBiKN".equals(action)) {
+				loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_BI_KN;
+			} else if ("bbLamViecNguoiTC0".equals(action)) {
+				loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_TC0;
+			} else if ("bbLamViecNguoiTC".equals(action)) {
+				loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_TC;
+			} else if ("bbLamViecNguoiBiTC".equals(action)) {
+				loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_BI_TC;
+			} else if ("bbDoiThoai".equals(action)) {
+				loaiBienBan = KntcBienBan.BB_DOI_THOAI;
+			} else if ("bbDoiThoaiKN".equals(action)) {
+				loaiBienBan = KntcBienBan.BB_DOI_THOAI_KN;
+			} else if ("bbYeuCauBoSungHSTL".equals(action)) {
+				loaiBienBan = KntcBienBan.BB_LAM_VIEC_YEU_CAU_CCTL;
+			} else if ("bbYeuCauBoSungHSTLTC".equals(action)) {
+				loaiBienBan = KntcBienBan.BB_LAM_VIEC_YEU_CAU_CCTLTC;
+			} else if ("bbThongBaoDuThaoTC".equals(action)) {
+				loaiBienBan = KntcBienBan.BB_THONG_BAO_DU_THAO_GQTC;
+			}
+			services.saveBienBan(appContext, bb, loaiBienBan);
+			request.setAttribute("ghiThanhcong", "1");
+		} catch (Exception e) {
+			request.setAttribute("ghiThanhcong", "0");
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		String maHs = request.getParameter("id");
+		if (!Formater.isNull(maHs)) {
+			SoTiepDanService s = new SoTiepDanService();
+			KntcSoTiepDan hs = s.getSoTiepDan(appContext, maHs, true);
+			KntcHoSoHdr hdr = hs.getHdr();
+			if (hdr.getLoaiKntc().intValue() == 2) // TC
+			{
+				return map.findForward("bbTC");
+			}
+			else
+				return map.findForward("bb");
+		}
+		else
+			return map.findForward("bb");
+	}
+
+	
 	/**
 	 * Bien ban chuyen co quan dieu tra cua TO CAO
 	 * 
@@ -2569,6 +2815,22 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	}
 
 	private JSONObject createObject(HttpServletRequest request) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		String maHs = request.getParameter("id");
+		if (!Formater.isNull(maHs)) {
+			DungChungService service = new DungChungService();
+			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+				return createObjectV4(request);
+			else
+				return createObjectV3(request);
+		} else
+			if("4".equals(Constants.APP_DEP_VERSION))
+				return createObjectV4(request);
+			else 
+				return createObjectV3(request);
+				
+	}
+	private JSONObject createObjectV3(HttpServletRequest request) throws Exception {
 		// Get ma Ho so
 		String maHs = request.getParameter("maHs");
 		// Loai bien ban
@@ -2623,6 +2885,169 @@ public class XacMinhHoSo extends BaseDispatchAction {
 				ja.put(rs.getString(2)); // diadiem
 				ja.put(Formater.date2str(rs.getDate(3))); // thoidiem
 				ja.put(rs.getString(4));// so ban in
+				jsonArray.put(ja);
+				rc++;
+			}
+			jsonResult.put("iTotalRecords", new Integer(rc));
+			jsonResult.put("aaData", jsonArray);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			DataSourceConfiguration.releaseSqlResources(rs, ps);
+		}
+		return jsonResult;
+	}
+
+	//v4
+	public ActionForward bbV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		KeHoachForm cnForm = (KeHoachForm) form;
+		String maHs = request.getParameter("id");
+		XacMinhService s = new XacMinhService();
+		String act = request.getParameter("action");
+		// Loai bien ban
+		String readOnly = request.getParameter("r");
+		if (readOnly != null)
+			if (readOnly.equals("rol")) {
+				String loaiBienBan = "";
+				if ("bbxmkn".equals(act)) {
+					loaiBienBan = KntcBienBan.BB_CONG_BO_QDXM_KN;
+				} else if ("bbxmtc".equals(act)) {
+					loaiBienBan = KntcBienBan.BB_CONG_BO_QDXM_TC;
+				} else if ("bbLamViecNguoiKN0".equals(act)) {
+					loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_KN0;
+				} else if ("bbLamViecNguoiKN".equals(act)) {
+					loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_KN;
+				} else if ("bbLamViecNguoiBiKN".equals(act)) {
+					loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_BI_KN;
+				} else if ("bbLamViecNguoiTC0".equals(act)) {
+					loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_TC0;
+				} else if ("bbLamViecNguoiTC".equals(act)) {
+					loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_TC;
+				} else if ("bbLamViecNguoiBiTC".equals(act)) {
+					loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_BI_TC;
+				} else if ("bbDoiThoai".equals(act)) {
+					loaiBienBan = KntcBienBan.BB_DOI_THOAI;
+				} else if ("bbDoiThoaiKN".equals(act)) {
+					loaiBienBan = KntcBienBan.BB_DOI_THOAI_KN;
+				} else if ("bbYeuCauBoSungHSTL".equals(act)) {
+					loaiBienBan = KntcBienBan.BB_LAM_VIEC_YEU_CAU_CCTL;
+				} else if ("bbYeuCauBoSungHSTLTC".equals(act)) {
+					loaiBienBan = KntcBienBan.BB_LAM_VIEC_YEU_CAU_CCTLTC;
+				} else if ("bbThongBaoDuThaoTC".equals(act)) {
+					loaiBienBan = KntcBienBan.BB_THONG_BAO_DU_THAO_GQTC;
+				}
+				if (s.getBienBanByHoSo(appContext, maHs, loaiBienBan) == null) {
+					throw new KtnbException("Bi&#7875;u m&#7851;u n&#224;y kh&#244;ng c&#243; s&#7889; li&#7879;u!!!", "", "");
+				}
+			}
+
+		if (act.toUpperCase().indexOf("KN") != -1 && !act.equals("bbDoiThoaiKN") && !act.equals("bbLamViecNguoiKN0")) {
+			KntcQdinhXm qd = s.getKntcQdinhXmByHoSo(appContext, maHs);
+			if (qd == null || qd.getNgayDuyet() == null)
+				throw new KtnbException(
+						"Ch&#432;a c&#243; quy&#7871;t &#273;&#7883;nh x&#225;c minh, ho&#7863;c quy&#7871;t &#273;&#7883;nh x&#225;c minh ch&#432;a &#273;&#432;&#7907;c duy&#7879;t!", "",
+						"C&#7847;n ho&#224;n thi&#7879;n quy&#7871;t &#273;&#7883;nh x&#225;c minh m&#7851;u 10/KNTC tr&#432;&#7899;c!");
+
+			// KntcXmKeHoach kh = s.getKntcXmKeHoachByHoSo(appContext, maHs);
+			// if (kh == null || kh.getNgayDuyet() == null)
+			// throw new KtnbException("Ch&#432;a c&#243; k&#7871; ho&#7841;ch
+			// x&#225;c minh, ho&#7863;c k&#7871; ho&#7841;ch x&#225;c minh
+			// ch&#432;a &#273;&#432;&#7907;c duy&#7879;t!", "", "C&#7847;n
+			// ho&#224;n thi&#7879;n k&#7871; ho&#7841;ch x&#225;c minh
+			// m&#7851;u 11/KNTC tr&#432;&#7899;c!");
+		} else if (act.toUpperCase().indexOf("TC") != -1 && !act.equals("bbLamViecNguoiTC0") && !act.equals("bbThongBaoDuThaoTC")) {
+			KntcQdinhXm qd = s.getKntcQdinhXmByHoSo(appContext, maHs);
+			if (qd == null || qd.getNgayDuyet() == null)
+				throw new KtnbException(
+						"Ch&#432;a c&#243; quy&#7871;t &#273;&#7883;nh x&#225;c minh, ho&#7863;c quy&#7871;t &#273;&#7883;nh x&#225;c minh ch&#432;a &#273;&#432;&#7907;c duy&#7879;t!", "",
+						"C&#7847;n ho&#224;n thi&#7879;n quy&#7871;t &#273;&#7883;nh x&#225;c minh m&#7851;u 22/KNTC tr&#432;&#7899;c!");
+			// KntcXmKeHoach kh = s.getKntcXmKeHoachByHoSo(appContext, maHs);
+			// if (kh == null || kh.getNgayDuyet() == null)
+			// throw new KtnbException("Ch&#432;a c&#243; k&#7871; ho&#7841;ch
+			// x&#225;c minh, ho&#7863;c k&#7871; ho&#7841;ch x&#225;c minh
+			// ch&#432;a &#273;&#432;&#7907;c duy&#7879;t!", "", "C&#7847;n
+			// ho&#224;n thi&#7879;n k&#7871; ho&#7841;ch x&#225;c minh
+			// m&#7851;u 11/KNTC tr&#432;&#7899;c!");
+		}
+		if (!Formater.isNull(maHs))
+			cnForm.setMaHoSo(maHs);
+		cnForm.setThoiDiem(Formater.date2strDateTimeForNV(new Date()));
+		cnForm.setDiaDiem(appContext.getDiaBan());
+		Collection listCb = s.getListCanBoXmByHs(appContext, maHs);
+		StringBuffer sb = new StringBuffer("1. \u0110\u1EA1i \u0111i\u1EC7n \u0111o\u00E0n x\u00E1c minh: <br>");
+		for (Iterator iter = listCb.iterator(); iter.hasNext();) {
+			KntcCanBoRls element = (KntcCanBoRls) iter.next();
+			sb.append("+ \u00D4ng (b\u00E0): " + element.getTenCb() + " - ch\u1EE9c v\u1EE5: " + element.getVaiTro());
+			sb.append(" <br> ");
+		}
+		cnForm.setThanhPhan(sb.toString());
+
+		cnForm.setAct(act);
+		 if ("bbLamViecNguoiTC".equals(act)) {
+//			 cnForm.setThoiDiemHoanThanh(thoiDiemHoanThanh)
+			 return map.findForward("bbTC");
+		 }
+		 else
+			 return map.findForward("bb");
+	}
+
+	private JSONObject createObjectV4(HttpServletRequest request) throws Exception {
+		// Get ma Ho so
+		String maHs = request.getParameter("maHs");
+		// Loai bien ban
+		String loaiBienBan = "";
+		String action = request.getParameter("action");
+		if ("bbxmkn".equals(action)) {
+			loaiBienBan = KntcBienBan.BB_CONG_BO_QDXM_KN;
+		} else if ("bbxmtc".equals(action)) {
+			loaiBienBan = KntcBienBan.BB_CONG_BO_QDXM_TC;
+		} else if ("bbLamViecNguoiKN0".equals(action)) {
+			loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_KN0;
+		} else if ("bbLamViecNguoiKN".equals(action)) {
+			loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_KN;
+		} else if ("bbLamViecNguoiBiKN".equals(action)) {
+			loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_BI_KN;
+		} else if ("bbLamViecNguoiTC0".equals(action)) {
+			loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_TC0;
+		} else if ("bbLamViecNguoiTC".equals(action)) {
+			loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_TC;
+		} else if ("bbLamViecNguoiBiTC".equals(action)) {
+			loaiBienBan = KntcBienBan.BB_LAM_VIEC_NGUOI_BI_TC;
+		} else if ("bbDoiThoai".equals(action)) {
+			loaiBienBan = KntcBienBan.BB_DOI_THOAI;
+		} else if ("bbDoiThoaiKN".equals(action)) {
+			loaiBienBan = KntcBienBan.BB_DOI_THOAI_KN;
+		} else if ("bbYeuCauBoSungHSTL".equals(action)) {
+			loaiBienBan = KntcBienBan.BB_LAM_VIEC_YEU_CAU_CCTL;
+		} else if ("bbYeuCauBoSungHSTLTC".equals(action)) {
+			loaiBienBan = KntcBienBan.BB_LAM_VIEC_YEU_CAU_CCTLTC;
+		} else if ("bbThongBaoDuThaoTC".equals(action)) {
+			loaiBienBan = KntcBienBan.BB_THONG_BAO_DU_THAO_GQTC;
+		}
+		// Create Object
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		JSONObject jsonResult = new JSONObject();
+		try {
+			conn = DataSourceConfiguration.getConnection();
+			StringBuffer sb = new StringBuffer("select ma_bb,dia_diem,thoi_diem,thoi_diem_hoan_thanh,so_ban_in from kntc_bien_ban where ma_hs=? and loai_bb=?");
+			ps = conn.prepareStatement(sb.toString());
+			ps.setString(1, maHs);
+			ps.setString(2, loaiBienBan);
+			System.out.println(sb.toString());
+			JSONArray jsonArray = new JSONArray();
+			int rc = 0;
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				JSONArray ja;
+				ja = new JSONArray();
+				ja.put(rs.getString(1)); // ma bb
+				ja.put(rs.getString(2)); // diadiem
+				ja.put(Formater.date2strDateTimeForNV(rs.getDate(3))); // thoidiem
+				ja.put(Formater.date2strDateTimeForNV(rs.getDate(4))); // thoidiemhoanthanh
+				ja.put(rs.getString(5));// so ban in
 				jsonArray.put(ja);
 				rc++;
 			}

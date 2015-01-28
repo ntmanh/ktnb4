@@ -51,7 +51,7 @@ public class KeHoachForm extends BaseActionForm {
 	private String noiDung;
 
 	private String thanhPhan, soTrangTl, soBangChung, thoiDiemHoanThanh;
-
+	private String fileLuuTru;
 	private String act;
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
 		super.reset(mapping, request);		
@@ -380,6 +380,12 @@ public class KeHoachForm extends BaseActionForm {
 	}
 	public void setThoiDiem(String thoiDiem) {
 		this.thoiDiem = thoiDiem;
+	}
+	public String getFileLuuTru() {
+		return fileLuuTru;
+	}
+	public void setFileLuuTru(String fileLuuTru) {
+		this.fileLuuTru = fileLuuTru;
 	}
 
 }
