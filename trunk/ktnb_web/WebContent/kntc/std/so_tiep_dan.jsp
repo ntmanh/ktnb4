@@ -39,7 +39,7 @@
 <table width="100%">
 	<tr>
 		<td width="15%" style="text-align: right;">Số lượng người</td>
-		<td width="35%"><html:text property="doanKNTCSoLuong" maxlength="5" onblur="checkSln();"/></td>
+		<td width="35%"><html:text property="doanKNTCSoLuong" maxlength="5"/></td>
 		<td width="15%" style="text-align: right;"></td>
 		<td width="35%"></td>
 	</tr>

@@ -146,7 +146,7 @@ function checkSln()
 {
 	// alert(parseInt(document.forms[0].doanKNTCSoLuong.value));
 	var slNguoi=parseInt(document.forms[0].doanKNTCSoLuong.value);
-	if(slNguoi>=5)
+	if(slNguoi>=1)
 	{
 		$(".daiDienBs").show();
 		if(document.forms[0].coThemDaiDien.checked)
@@ -203,7 +203,9 @@ function changeDoanKntc(aValue){
 	else
 	{  
 		show("idDivSl");
-		checkSln();
+		$(".daiDienBs").show();
+		if(document.forms[0].coThemDaiDien.checked)
+			show("idDivDd");
 		if(document.forms[0].doanKNTCSoLuong.value=='null') 
 			document.forms[0].doanKNTCSoLuong.value='';
 	}
