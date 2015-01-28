@@ -373,7 +373,18 @@ public class SoTiepDanService {
 	 * @throws Exception
 	 */
 	public void savePhieuHen(ApplicationContext appContext, KntcPhieuHen ph) throws Exception {
-		dao.saveObject(appContext, ph, Boolean.FALSE);
+		System.out.println("Ma PH : "+ph.getMaPh());
+		if(Formater.isNull(ph.getMaPh()))
+		{
+			ph.setMaPh(KeyManagement.getGUID());
+			dao.saveObject(appContext, ph, Boolean.FALSE);
+		}
+		else 
+			dao.updateObject(appContext, ph);
+	}
+	
+	public void xoaPhieuHen(ApplicationContext applicationContext, KntcPhieuHen ph) throws Exception {
+		dao.deleteObject(applicationContext, ph);
 	}
 
 	/**
@@ -538,6 +549,13 @@ public class SoTiepDanService {
 		return (KntcPhieuHen) services.retriveObject(appContext, sc);
 	}
 
+	public KntcPhieuHen getPhieuHenByMaPhieu(ApplicationContext appContext, String maHoSo, String maPhieu) throws Exception {
+		CatalogService services = new CatalogService();
+		SearchCriteria sc = new SearchCriteria(KntcPhieuHen.class);
+		sc.addSearchItem("maDon", maHoSo);
+		sc.addSearchItem("maPh", maPhieu);
+		return (KntcPhieuHen) services.retriveObject(appContext, sc);
+	}
 	/**
 	 * Lưu thông tin về lớp tập huấn
 	 * 
