@@ -1,3 +1,4 @@
+
 package cmc.com.ktnb.web.kntc.tiep_dan;
 
 import java.io.InputStream;
@@ -18,6 +19,8 @@ import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.ibm.ws.webservices.engine.types.holders.MapHolder;
 
 import cmc.com.ktnb.exception.KtnbException;
 import cmc.com.ktnb.pl.hb.entity.KntcPhieuGiaoHs;
@@ -87,7 +90,85 @@ public class PhieuHenAction extends BaseDispatchAction {
 		}
 		return null;
 	}
-
+	
+	// Get phieu hen by id
+	public ActionForward xemPhieuHen(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext)request.getSession().getAttribute(Constants.APP_CONTEXT);
+		PhieuHenForm phForm= (PhieuHenForm) form;
+		String maHs=request.getParameter("id");
+		String maPh=request.getParameter("pId");
+		System.out.println("Ma hs : "+maHs + "   Ma phieu hen : "+maPh );
+		SoTiepDanService service = new SoTiepDanService();
+		if(!Formater.isNull(maHs))
+		{
+			KntcPhieuHen ph=service.getPhieuHenByMaPhieu(appContext, maHs,maPh);
+			if(ph!=null)
+			{
+				// Show phieu hen
+				String readOnly = request.getParameter("r");
+				if (readOnly != null)
+					if (readOnly.equals("rol")) {
+						throw new KtnbException("Bi&#7875;u m&#7851;u n&#224;y kh&#244;ng c&#243; s&#7889; li&#7879;u!!!", "", "");
+					}
+				phForm.setMaHoSo(maHs);
+				phForm.setMaPhieuHen(ph.getMaPh());
+				phForm.setDiaDiemHen(ph.getDiaDiemHen());
+				phForm.setNgayLapPhieu(Formater.date2strDateTimeForNV(ph.getThoiDiemLapPhieu()));
+				phForm.setCanBoLapPhieuTen(appContext.getTenCanbo());
+				phForm.setCanBoLapPhieuDV(appContext.getTenPhong());
+				phForm.setCanBoLapPhieuCV(appContext.getTenChucvu());
+				phForm.setThoiDiemHen(Formater.date2strDateTimeForNV(ph.getThoiDiemHen()));
+				phForm.setMucDichHen(ph.getMucDich());
+				if (request.getParameter("nguoinhan") != null || request.getParameter("nguoinhan") != "")
+					phForm.setNguoiNhanPhieuTen(request.getParameter("nguoinhan"));
+				if (request.getParameter("diachi") != null || request.getParameter("diachi") != "")
+					phForm.setNguoiNhanPhieuDC(request.getParameter("diachi"));
+			}
+		}
+		return mapping.findForward("success");
+	}
+	
+	// Tao moi phieu hen 
+	public ActionForward taoPhieuHen(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		PhieuHenForm cnForm = (PhieuHenForm) form;
+		String maHs=request.getParameter("id");
+		String readOnly = request.getParameter("r");
+		if (readOnly != null)
+			if (readOnly.equals("rol")) {
+				throw new KtnbException("Bi&#7875;u m&#7851;u n&#224;y kh&#244;ng c&#243; s&#7889; li&#7879;u!!!", "", "");
+			}
+		cnForm.setMaHoSo(maHs);
+		cnForm.setMaPhieuHen("");
+		cnForm.setDiaDiemHen(appContext.getDiaBan());
+		cnForm.setNgayLapPhieu(Formater.date2strDateTimeForNV(new Date()));
+		if (request.getParameter("nguoinhan") != null || request.getParameter("nguoinhan") != "")
+			cnForm.setNguoiNhanPhieuTen(request.getParameter("nguoinhan"));
+		if (request.getParameter("diachi") != null || request.getParameter("diachi") != "")
+			cnForm.setNguoiNhanPhieuDC(request.getParameter("diachi"));
+		cnForm.setCanBoLapPhieuTen(appContext.getTenCanbo());
+		cnForm.setCanBoLapPhieuDV(appContext.getTenPhong());
+		cnForm.setCanBoLapPhieuCV(appContext.getTenChucvu());
+		return map.findForward("success");
+	}
+	
+	// Xoa phieu hen 
+	public ActionForward xoaPhieuHen(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		SoTiepDanService service = new SoTiepDanService();
+		String maHs=request.getParameter("id");
+		try {
+			service.xoaPhieuHen(appContext, service.getPhieuHen(appContext, maHs));
+			request.setAttribute("xoaThanhcong", "1");
+		} catch (Exception e) {
+			// TODO: handle exception
+			request.setAttribute("xoaThanhcong", "0");
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		return map.findForward("success");
+	}
+	
 	private JSONObject createObject(HttpServletRequest request) throws Exception {
 		// Get ma Ho so
 		String maHs = request.getParameter("id");
@@ -98,7 +179,7 @@ public class PhieuHenAction extends BaseDispatchAction {
 		JSONObject jsonResult = new JSONObject();
 		try {
 			conn = DataSourceConfiguration.getConnection();
-			StringBuffer sb = new StringBuffer("select thoi_diem_lap_phieu,thoi_diem_hen,dia_diem_hen from kntc_phieu_hen where ma_don = ? order by thoi_diem_hen");
+			StringBuffer sb = new StringBuffer("select ma_ph,thoi_diem_lap_phieu,thoi_diem_hen,dia_diem_hen from kntc_phieu_hen where ma_don = ? order by thoi_diem_hen");
 			ps = conn.prepareStatement(sb.toString());
 			ps.setString(1, maHs);
 			System.out.println(sb.toString());
@@ -108,9 +189,10 @@ public class PhieuHenAction extends BaseDispatchAction {
 			while (rs.next()) {
 				JSONArray ja;
 				ja = new JSONArray();
-				ja.put(Formater.date2strDateTimeForNV(rs.getDate(1)));
-				ja.put(Formater.date2strDateTimeForNV(rs.getDate(2)));
-				ja.put(rs.getString(3));
+				ja.put(rs.getString("ma_ph"));
+				ja.put(Formater.date2strDateTimeForNV(rs.getDate("thoi_diem_lap_phieu")));
+				ja.put(Formater.date2strDateTimeForNV(rs.getDate("thoi_diem_hen")));
+				ja.put(rs.getString("dia_diem_hen"));
 				jsonArray.put(ja);
 				rc++;
 			}
@@ -132,7 +214,7 @@ public class PhieuHenAction extends BaseDispatchAction {
 			KntcPhieuHen phieuHen = new KntcPhieuHen();
 			// Lay thong tin phieu hen tren Form.
 			phieuHen.setMaDon(phieuHenForm.getMaHoSo());
-			phieuHen.setMaPh(KeyManagement.getGUID());
+			phieuHen.setMaPh(phieuHenForm.getMaPhieuHen());
 			phieuHen.setThoiDiemLapPhieu(Formater.str2dateForNV(phieuHenForm.getNgayLapPhieu()));
 			phieuHen.setThoiDiemHen(Formater.str2dateForNV(phieuHenForm.getThoiDiemHen()));
 			phieuHen.setDiaDiemHen(phieuHenForm.getDiaDiemHen());
