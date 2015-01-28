@@ -33,6 +33,7 @@ import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.BaseDispatchAction;
 import cmc.com.ktnb.web.catalog.CatalogService;
+import cmc.com.ktnb.web.ttkt.chuan_bi_tien_hanh.form.HuyThanhTraKiemTraForm;
 import cmc.com.ktnb.web.ttkt.dung_chung.form.ThayDoiThanhVienDoanForm;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktService;
@@ -55,7 +56,7 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 			cuocTtktId = thayDoiThanhVienDoanForm.getIdCuocTtkt();
 
 		} else if ("in".equals(method)) {
-			inThayDoiThanhVien(request, reponse, thayDoiThanhVienDoanForm, appContext);
+			inThayDoiThanhVien(request, appContext, thayDoiThanhVienDoanForm, reponse);
 			return null;
 		} else {
 			cuocTtktId = request.getParameter("idCuocTtkt");
@@ -166,6 +167,9 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 		thayDoiThanhVienDoanForm.setVbanQdinhCnangNvu(thayDoiTvd.getVbanQdinhCnangNvu());
 		thayDoiThanhVienDoanForm.setDvCnCoLquan(thayDoiTvd.getDvCnCoLquan());
 
+		thayDoiThanhVienDoanForm.setCanCuLuatSo(thayDoiTvd.getCanCuLuatSo());
+		thayDoiThanhVienDoanForm.setCanCuQdinh("C\u0103n c\u1EE9 Quy\u1EBFt \u0111\u1ECBnh s\u1ED1 1722/Q\u0110-TCT ng\u00E0y 08 th\u00E1ng 10 n\u0103m 2014");
+		
 		String loaiThayDoi = thayDoiTvd.getLoaiThayDoi();
 		thayDoiThanhVienDoanForm.setLoaiThayDoi(loaiThayDoi);
 		TtktCmThayDoiThemMoiTvd[] noiDungThayDoi = TtktService.getNoiDungThayDoiThanhVienDoan(appContext, thayDoiTvd.getId());
@@ -209,10 +213,30 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 	
+	private void inThayDoiThanhVien(HttpServletRequest request, ApplicationContext appConText, ThayDoiThanhVienDoanForm thayDoiThanhVienDoanForm, HttpServletResponse reponse) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=thayDoiThanhVienDoanForm.getIdCuocTtkt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				inThayDoiThanhVienv4(request, reponse, thayDoiThanhVienDoanForm, appConText);
+			}
+			else inThayDoiThanhVienv3(request, reponse, thayDoiThanhVienDoanForm, appConText);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inThayDoiThanhVienv4(request, reponse, thayDoiThanhVienDoanForm, appConText);
+			else inThayDoiThanhVienv3(request, reponse, thayDoiThanhVienDoanForm, appConText);
+		}
+	}
+	
 	/**
 	 * Des : ktnb v3
 	 * */
-	private void inThayDoiThanhVien(HttpServletRequest request, HttpServletResponse reponse, ThayDoiThanhVienDoanForm thayDoiThanhVienDoanForm, ApplicationContext appConText) throws Exception {
+	private void inThayDoiThanhVienv3(HttpServletRequest request, HttpServletResponse reponse, ThayDoiThanhVienDoanForm thayDoiThanhVienDoanForm, ApplicationContext appConText) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
@@ -581,7 +605,7 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 	 * Method : inThayDoiThanhVien
 	 * Des : ktnb v4
 	 * */
-	private void inThayDoiThanhVienV4(HttpServletRequest request, HttpServletResponse reponse, ThayDoiThanhVienDoanForm thayDoiThanhVienDoanForm, ApplicationContext appConText) throws Exception {
+	private void inThayDoiThanhVienv4(HttpServletRequest request, HttpServletResponse reponse, ThayDoiThanhVienDoanForm thayDoiThanhVienDoanForm, ApplicationContext appConText) throws Exception {
 		System.out.println("This is ktnb v4");
 		String fileIn = null;
 		String fileOut = null;
@@ -631,14 +655,14 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 				}
 				//word.put("[ttkt]", sb.toString());
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
-				word.put("[luat_so]", "7");
+				word.put("[luat_so]", thayDoiThanhVienDoanForm.getCanCuLuatSo());
 				if (CatalogService.getTenDanhMucById(thayDoiThanhVienDoanForm.getVbanQdinhCnangNvu()).equals("N/A")) {
 					word.put("[van_ban_quy_dinh]", KtnbUtil.inFieldNull(108) + ";");
 				} else {
 					word.put("[van_ban_quy_dinh]", CatalogService.getTenDanhMucById(thayDoiThanhVienDoanForm.getVbanQdinhCnangNvu()));
 				}
-				word.put("[quyet_dinh_so]", "22");
-				word.put("[quyet_dinh_ngay]", "09/04/2014");
+				word.put("[quyet_dinh_so]", thayDoiThanhVienDoanForm.getCanCuQdinh());
+				
 				//word.put("[ttkt]", sb.toString());
 				word.put("[so_qdinh]", cbQd.getSoQuyetDinh());
 				String ngayraqd1 = Formater.date2str(cbQd.getNgayRaQuyetDnh());
@@ -742,11 +766,13 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 				}
 				//word.put("[ttkt]", sb.toString());
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
+				word.put("[luat_so]", thayDoiThanhVienDoanForm.getCanCuLuatSo());
 				if (CatalogService.getTenDanhMucById(thayDoiThanhVienDoanForm.getVbanQdinhCnangNvu()).equals("N/A")) {
 					word.put("[van_ban_quy_dinh]", KtnbUtil.inFieldNull(108) + ";");
 				} else {
 					word.put("[van_ban_quy_dinh]", CatalogService.getTenDanhMucById(thayDoiThanhVienDoanForm.getVbanQdinhCnangNvu()));
 				}
+				word.put("[qd_so]", thayDoiThanhVienDoanForm.getCanCuQdinh());
 				//word.put("[ttkt]", sb.toString());
 				word.put("[so_qdinh]", cbQd.getSoQuyetDinh());
 				String ngayraqd1 = Formater.date2str(cbQd.getNgayRaQuyetDnh());
@@ -844,16 +870,17 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 					word.put("[ngay_ra_qd]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
 				}
 				//word.put("[ttkt]", sb.toString());
-				word.put("[luat_so]", "7");
+				
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
+				word.put("[luat_so]", thayDoiThanhVienDoanForm.getCanCuLuatSo());
 				if (CatalogService.getTenDanhMucById(thayDoiThanhVienDoanForm.getVbanQdinhCnangNvu()).equals("N/A")) {
 					word.put("[van_ban_quy_dinh]", KtnbUtil.inFieldNull(108) + ";");
 				} else {
 					word.put("[van_ban_quy_dinh]", CatalogService.getTenDanhMucById(thayDoiThanhVienDoanForm.getVbanQdinhCnangNvu()));
 				}
 				//word.put("[ttkt]", sb.toString());
-				word.put("[quyet_dinh_so]", "22");
-				word.put("[quyet_dinh_ngay]", "09/02/2014");
+				word.put("[quyet_dinh_so]", thayDoiThanhVienDoanForm.getCanCuQdinh());
+				
 				word.put("[so_qdinh]", cbQd.getSoQuyetDinh());
 				String ngayraqd1 = Formater.date2str(cbQd.getNgayRaQuyetDnh());
 				String[] arrngayraqd1 = ngayraqd1.split("/");
@@ -971,6 +998,10 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 		thayDoiTvd.setIdNguoiCapNat(appContext.getMaCanbo());
 		thayDoiTvd.setTenNguoiCapNhat(appContext.getTenCanbo());
 		thayDoiTvd.setNgayCapNhat(new Date());
+		
+		thayDoiTvd.setCanCuLuatSo(thayDoiThanhVienDoanForm.getCanCuLuatSo());
+		thayDoiTvd.setCanCuQdinh(thayDoiThanhVienDoanForm.getCanCuQdinh());
+		
 		// Quyet dinh
 		thayDoiTvd.setSoQd(thayDoiThanhVienDoanForm.getSoQd());
 		thayDoiTvd.setNoiRaQd(thayDoiThanhVienDoanForm.getNoiRaQd());

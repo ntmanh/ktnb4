@@ -1,4 +1,4 @@
-package cmc.com.ktnb.entity.TTKT.tien_hanh_ttkt;
+package cmc.com.ktnb.entity.TTKT.tien_hanh_ttkt; 
 
 import java.util.Date;
 
@@ -28,36 +28,48 @@ public class TtktThGiaHan extends PersistentObject implements java.io.Serializab
 	private String lyDoGiaHan;
 	private String dviCnhanLquan;
 	private String vbQdinhCnangNvu;
+	private String canCuQd;
 	
 	public static  String  IdCuocTtkt = "idCuocTtkt";
 	public static  String  Id = "id";
 	// Constructors
 	private String idNguoiCapNat;
-	 private String tenNguoiCapNhat;
-	 private Date ngayCapNhat;
-	 public String getIdNguoiCapNat() {
-	  return idNguoiCapNat;
-	 }
+	private String tenNguoiCapNhat;
+	private Date ngayCapNhat;
+	 
+	 
+	 
+	public String getCanCuQd() {
+		return canCuQd;
+	}
 
-	 public void setIdNguoiCapNat(String idNguoiCapNat) {
-	  this.idNguoiCapNat = idNguoiCapNat;
-	 }
+	public void setCanCuQd(String canCuQd) {
+		this.canCuQd = canCuQd;
+	}
 
-	 public Date getNgayCapNhat() {
-	  return ngayCapNhat;
-	 }
+	public String getIdNguoiCapNat() {
+		return idNguoiCapNat;
+	}
 
-	 public void setNgayCapNhat(Date ngayCapNhat) {
-	  this.ngayCapNhat = ngayCapNhat;
-	 }
+	public void setIdNguoiCapNat(String idNguoiCapNat) {
+		this.idNguoiCapNat = idNguoiCapNat;
+	}
 
-	 public String getTenNguoiCapNhat() {
-	  return tenNguoiCapNhat;
-	 }
+	public Date getNgayCapNhat() {
+		return ngayCapNhat;
+	}
 
-	 public void setTenNguoiCapNhat(String tenNguoiCapNhat) {
-	  this.tenNguoiCapNhat = tenNguoiCapNhat;
-	 }
+	public void setNgayCapNhat(Date ngayCapNhat) {
+		this.ngayCapNhat = ngayCapNhat;
+	}
+
+	public String getTenNguoiCapNhat() {
+		return tenNguoiCapNhat;
+	}
+
+	public void setTenNguoiCapNhat(String tenNguoiCapNhat) {
+		this.tenNguoiCapNhat = tenNguoiCapNhat;
+	}
 	/** default constructor */
 	public TtktThGiaHan() {
 	}
@@ -267,7 +279,11 @@ public class TtktThGiaHan extends PersistentObject implements java.io.Serializab
 						.getVbQdinhCnangNvu()) || (this.getVbQdinhCnangNvu() != null
 						&& castOther.getVbQdinhCnangNvu() != null && this
 						.getVbQdinhCnangNvu().equals(
-								castOther.getVbQdinhCnangNvu())));
+								castOther.getVbQdinhCnangNvu())))
+				&& ((this.getCanCuQd() == castOther
+						.getCanCuQd()) || (this.getCanCuQd() != null
+						&& castOther.getCanCuQd() != null && this
+						.getCanCuQd().equals(castOther.getCanCuQd())));
 	}
 
 	public int hashCode() {
@@ -323,6 +339,10 @@ public class TtktThGiaHan extends PersistentObject implements java.io.Serializab
 		result = 37
 				* result
 				+ (getVbQdinhCnangNvu() == null ? 0 : this.getVbQdinhCnangNvu()
+						.hashCode());
+		result = 37
+				* result
+				+ (getCanCuQd() == null ? 0 : this.getCanCuQd()
 						.hashCode());
 		return result;
 	}

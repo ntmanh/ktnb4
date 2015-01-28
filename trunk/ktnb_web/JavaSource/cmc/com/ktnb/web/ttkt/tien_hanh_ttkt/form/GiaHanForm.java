@@ -1,4 +1,4 @@
-package cmc.com.ktnb.web.ttkt.tien_hanh_ttkt.form;
+package cmc.com.ktnb.web.ttkt.tien_hanh_ttkt.form; 
  
 import cmc.com.ktnb.web.BaseActionForm;
 
@@ -26,8 +26,17 @@ public class GiaHanForm extends BaseActionForm {
 	private String lyDoRaHan;
 	private String dvCaNhanLq;
 	private String vbQdCnNv;
+	private String canCuQd;
 
+	
 
+	public String getCanCuQd() {
+		return canCuQd;
+	}
+
+	public void setCanCuQd(String canCuQd) {
+		this.canCuQd = canCuQd;
+	}
 
 	/**
 	 * @return
