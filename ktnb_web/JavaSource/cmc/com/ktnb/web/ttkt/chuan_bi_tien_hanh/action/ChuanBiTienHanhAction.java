@@ -1404,8 +1404,8 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				
 				// Default field
 				word.put("[luat_so]", cbForm.getCanCuLuatSo());
-				word.put("[quyet_dinh_so]", cbForm.getSoQuyetDinh());
-				word.put("[thoi_gian_ra_quyet_dinh]", cbForm.getNgayRaQuyetDnh());
+				word.put("[quyet_dinh_so]", cbForm.getCanCuQd());
+				
 				
 				word.put("[van_ban_quy_dinh]", CatalogService.getTenDanhMucById(cbForm.getVanBanQuyDinhCnangNvuQd()));
 				if (Formater.isNull(cbForm.getVanBanKeHoach())) {

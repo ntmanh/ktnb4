@@ -42,6 +42,26 @@ public class ThayDoiThanhVienDoanForm extends BaseActionForm {
 	private String idDstvCu;
 	private String idDstvMoi;
 	private String dvCnCoLquan;
+	private String canCuQdinh;
+	private String canCuLuatSo;
+	
+	
+
+	public String getCanCuLuatSo() {
+		return canCuLuatSo;
+	}
+
+	public void setCanCuLuatSo(String canCuLuatSo) {
+		this.canCuLuatSo = canCuLuatSo;
+	}
+
+	public String getCanCuQdinh() {
+		return canCuQdinh;
+	}
+
+	public void setCanCuQdinh(String canCuQd) {
+		this.canCuQdinh = canCuQd;
+	}
 
 	public String getDvCnCoLquan() {
 		return dvCnCoLquan;

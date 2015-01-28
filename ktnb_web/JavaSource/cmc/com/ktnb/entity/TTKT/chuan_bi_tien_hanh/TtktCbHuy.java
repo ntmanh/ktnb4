@@ -21,6 +21,9 @@ public class TtktCbHuy extends PersistentObject implements java.io.Serializable 
 	private String idNguoiDeNghiHuy;
 	private String tenNguoiDeNghiHuy;
 	private String chucVuNguoiDeNghi;
+	private String canCuLuatSo;
+	
+	
 	public static String IdCuocTtkt = "idCuocTtkt";
 
 	// Constructors
@@ -58,7 +61,7 @@ public class TtktCbHuy extends PersistentObject implements java.io.Serializable 
 	public TtktCbHuy(String id, String idCuocTtkt, String soQd, String noiRaQd,
 			Date ngayRaQd, String vbQdinhCnangNvu, String soQdHuy,
 			Date ngayHieuLuc, String idNguoiDeNghiHuy,
-			String tenNguoiDeNghiHuy, String chucVuNguoiDeNghi) {
+			String tenNguoiDeNghiHuy, String chucVuNguoiDeNghi, String canCuLuatSo) {
 		this.id = id;
 		this.idCuocTtkt = idCuocTtkt;
 		this.soQd = soQd;
@@ -70,9 +73,18 @@ public class TtktCbHuy extends PersistentObject implements java.io.Serializable 
 		this.idNguoiDeNghiHuy = idNguoiDeNghiHuy;
 		this.tenNguoiDeNghiHuy = tenNguoiDeNghiHuy;
 		this.chucVuNguoiDeNghi = chucVuNguoiDeNghi;
+		this.canCuLuatSo= canCuLuatSo;
 	}
 
 	// Property accessors
+	
+	public String getCanCuLuatSo() {
+		return this.canCuLuatSo;
+	}
+	
+	public void setCanCuLuatSo(String canCuLuatSo) {
+		this.canCuLuatSo = canCuLuatSo;
+	}
 
 	public String getId() {
 		return this.id;

@@ -23,6 +23,7 @@ import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.BaseDispatchAction;
 import cmc.com.ktnb.web.catalog.CatalogService;
+import cmc.com.ktnb.web.ttkt.chuan_bi_tien_hanh.form.ChuanBiTienHanhForm;
 import cmc.com.ktnb.web.ttkt.chuan_bi_tien_hanh.form.HuyThanhTraKiemTraForm;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktCnPhuService;
@@ -44,7 +45,7 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 			saveHuyTtKt(request, huyThanhTraKiemTraForm, app);
 			request.setAttribute("saveStatus", "true");
 		} else if ("in".equals(method)) {
-			inQuyetDinhHuy(request, response, huyThanhTraKiemTraForm, app);
+			inQuyetDinhHuy(request, app, huyThanhTraKiemTraForm, response);
 			return null;
 		} else {
 			loadDefaulForm(huyThanhTraKiemTraForm, app, request, cuocTtktId);
@@ -63,10 +64,31 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 	
+	private void inQuyetDinhHuy(HttpServletRequest request, ApplicationContext appConText, HuyThanhTraKiemTraForm huyThanhTraKiemTraForm, HttpServletResponse reponse) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=huyThanhTraKiemTraForm.getIdCuocTtKt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				inQuyetDinhHuyv4(request, reponse, huyThanhTraKiemTraForm, appConText);
+			}
+			else inQuyetDinhHuyv3(request, reponse, huyThanhTraKiemTraForm, appConText);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inQuyetDinhHuyv4(request, reponse, huyThanhTraKiemTraForm, appConText);
+			else inQuyetDinhHuyv3(request, reponse, huyThanhTraKiemTraForm, appConText);
+		}
+	}
+	
+	
 	/**
 	 * Des : ktnb v3
 	 * */
-	private void inQuyetDinhHuy(HttpServletRequest request, HttpServletResponse response, HuyThanhTraKiemTraForm huyThanhTraKiemTraForm, ApplicationContext appConText) throws Exception {
+	private void inQuyetDinhHuyv3(HttpServletRequest request, HttpServletResponse response, HuyThanhTraKiemTraForm huyThanhTraKiemTraForm, ApplicationContext appConText) throws Exception {
 		String fileIn = request.getRealPath("/docin") + "\\TTNB06.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TTNB06_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 		HashMap[] reportRows = null;
@@ -162,7 +184,7 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 	 * Method : inQuyetDinhHuy
 	 * Des : ktnb v4
 	 * */
-	private void inQuyetDinhHuyV4(HttpServletRequest request, HttpServletResponse response, HuyThanhTraKiemTraForm huyThanhTraKiemTraForm, ApplicationContext appConText) throws Exception {
+	private void inQuyetDinhHuyv4(HttpServletRequest request, HttpServletResponse response, HuyThanhTraKiemTraForm huyThanhTraKiemTraForm, ApplicationContext appConText) throws Exception {
 		System.out.println("This is ktnb v4");
 		String fileIn = request.getRealPath("/docin/v4") + "\\KTNB06.doc";
 		String fileOut = request.getRealPath("/docout") + "\\KTNB06_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
@@ -206,10 +228,10 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 																													// danh
 																													// thu
 																													// truong
-			word.put("[luat_so]","7");																									
+			word.put("[luat_so]", huyThanhTraKiemTraForm.getCanCuLuatSo());																									
 			word.put("[can_cu]", CatalogService.getTenDanhMucById(huyThanhTraKiemTraForm.getVbQd()));
-			word.put("[quyet_dinh_so]","8");
-			word.put("[quyet_dinh_ngay]","22/12/2013");
+			word.put("[quyet_dinh_so]", huyThanhTraKiemTraForm.getCanCuQd());
+			
 			//word.put("[ttkt]", sb.toString());
 			word.put("[so_qd]", cbQd.getSoQuyetDinh());
 			word.put("[ngay_ra_qd]", "ng\u00E0y " + arrngayttkt1[0] + " th\u00E1ng " + arrngayttkt1[1] + " n\u0103m " + arrngayttkt1[2]);
@@ -288,7 +310,9 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 																								// thu
 																								// truong
 		parameters.put("chuc_danh_thu_truong", KtnbUtil.getChucVuThuTruongByMaCqt(appConText.getMaCqt()));
+		parameters.put("luat_so", huyThanhTraKiemTraForm.getCanCuLuatSo());		
 		parameters.put("can_cu", CatalogService.getTenDanhMucById(huyThanhTraKiemTraForm.getVbQd()));
+		parameters.put("quyet_dinh_so", huyThanhTraKiemTraForm.getCanCuQd());
 		parameters.put("so_qd", cbQd.getSoQuyetDinh());
 		String ngayttkt1 = Formater.date2str(cbQd.getNgayRaQuyetDnh());
 		String[] arrngayttkt1 = ngayttkt1.split("/");
@@ -337,7 +361,9 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 			huyThanhTraKiemTraForm.setSoQdHuy(huyTtKt.getSoQdHuy());
 			huyThanhTraKiemTraForm.setTenNguyenDnHuy(huyTtKt.getTenNguoiDeNghiHuy());
 			huyThanhTraKiemTraForm.setVbQd(huyTtKt.getVbQdinhCnangNvu());
-
+			huyThanhTraKiemTraForm.setCanCuLuatSo(huyTtKt.getCanCuLuatSo());
+			System.out.println("abc : "+huyTtKt.getCanCuLuatSo());
+			huyThanhTraKiemTraForm.setCanCuQd("C\u0103n c\u1EE9 Quy\u1EBFt \u0111\u1ECBnh s\u1ED1 1722/Q\u0110-TCT ng\u00E0y 08 th\u00E1ng 10 n\u0103m 2014");
 		}
 
 	}
@@ -369,6 +395,9 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 		huyTtKt.setIdNguoiCapNat(app.getMaCanbo());
 		huyTtKt.setTenNguoiCapNhat(app.getTenCanbo());
 		huyTtKt.setNgayCapNhat(new Date());
+		
+		huyTtKt.setCanCuLuatSo(huyForm.getCanCuLuatSo());
+		
 
 		return huyTtKt;
 	}

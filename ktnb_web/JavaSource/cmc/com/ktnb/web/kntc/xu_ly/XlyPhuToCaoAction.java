@@ -21,6 +21,7 @@ import cmc.com.ktnb.util.Constants;
 import cmc.com.ktnb.util.Formater;
 import cmc.com.ktnb.util.HibernateSessionFactory;
 import cmc.com.ktnb.util.KeyManagement;
+import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 
 public class XlyPhuToCaoAction extends PrintAction {
@@ -209,7 +210,7 @@ public class XlyPhuToCaoAction extends PrintAction {
 		else if ("tbKoGquyetTiep".equals(type))
 			return request.getRealPath("/docin") + "\\TTNB_tb_ko_thu_ly_giai_quyet_tiep.doc";
 		else if ("tbKoThuLyGq".equals(type))
-			return request.getRealPath("/docin") + "\\TTNB_tb_khong_thu_ly_giai_quyet.doc";
+			return request.getRealPath("/docin/v4/kntc") + "\\TC04.doc";
 		else if ("giaoNhiemVu".equals(type))
 			return request.getRealPath("/docin") + "\\TTNB_giao_nv_xm.doc";
 		else
@@ -224,7 +225,7 @@ public class XlyPhuToCaoAction extends PrintAction {
 		else if ("tbKoGquyetTiep".equals(type))
 			return request.getRealPath("/docout") + "\\TTNB_tb_ko_thu_ly_giai_quyet_tiep_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 		else if ("tbKoThuLyGq".equals(type))
-			return request.getRealPath("/docout") + "\\TTNB_tb_khong_thu_ly_giai_quyet_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+			return request.getRealPath("/docout") + "\\TTNB_tb_ko_thu_ly_giai_quyet_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 		else if ("giaoNhiemVu".equals(type))
 			return request.getRealPath("/docout") + "\\TTNB_giao_nv_xm_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 		else
@@ -251,13 +252,29 @@ public class XlyPhuToCaoAction extends PrintAction {
 		word.put("[nguoi_dq_theo_tham_quyen]", cbForm.tbKhongThuLyTiep.getNguoiGqTheoThamQuyen());
 	}
 
-	public void pushDataTbKoGquyet(MsWordUtils word, XlyPhuToCaoForm cbForm) {
-		word.put("[ngay_lap]", cbForm.tbKoThuLyGq.getNgayLapStr());
+	public void pushDataTbKoGquyet(MsWordUtils word, XlyPhuToCaoForm cbForm, ApplicationContext app) {
+		
+		word.put("[cqt_ra_van_ban]", cbForm.tbKoThuLyGq.getDviBanHanh());
+		word.put("[so_tb]", cbForm.tbKoThuLyGq.getSoThongBao());
+		
 		word.put("[dia_diem]", cbForm.tbKoThuLyGq.getDiaDiem());
-		word.put("[don_vi_ban_hanh_thong_bao]", cbForm.tbKoThuLyGq.getDviBanHanh());
+		word.put("[ngay_lap]", cbForm.tbKoThuLyGq.getNgayLapStr());
+		
+		word.put("[ngay_lap]", cbForm.tbKoThuLyGq.getNgayLapStr());
+		
+		word.put("[co_quan_co_tham_quyen_giai_quyet]", cbForm.phieuHdNkn.getCqtGqTen());
+		word.put("[nguoi_co_quan_don_vi_to_cao]", cbForm.deXuatXly.getNguoiKNTC());
+		
+		//word.put("[don_vi_ban_hanh_thong_bao]", cbForm.tbKoThuLyGq.getDviBanHanh());
 		word.put("[noi_dung_khong_thu_ly]", cbForm.tbKoThuLyGq.getNoiDungBcKoThuLy());
-		word.put("[ly_do_khong_thu_ly]", cbForm.tbKoThuLyGq.getLyDoApDungKoThuLy());
 		word.put("[don_vi_chuyen_to_cao]", cbForm.tbKoThuLyGq.getDonViChuyenBc());
+		word.put("[ly_do_khong_thu_ly]", cbForm.tbKoThuLyGq.getLyDoApDungKoThuLy());
+		
+		//word.put("[don_vi_chuyen_to_cao]", cbForm.tbKoThuLyGq.getDonViChuyenBc());
+		
+		word.put("[nguoi_co_quan_don_vi_to_cao]", cbForm.deXuatXly.getNguoiKNTC());
+		word.put("[don_vi_chuyen_to_cao]", cbForm.tbKoThuLyGq.getDonViChuyenBc());
+		word.put("[chuc_danh_thu_truong]", KtnbUtil.getChucVuThuTruongByMaCqt(app.getMaCqt()).toUpperCase());
 	}
 
 	public void pushDataGiaoNhiemVu(MsWordUtils word, XlyPhuToCaoForm cbForm) {
@@ -280,7 +297,7 @@ public class XlyPhuToCaoAction extends PrintAction {
 		word.put("[y_kien_thu_truong]", cbForm.giaoNvXmTc.getYkienThuTruong());
 	}
 
-	public void pushData(MsWordUtils word, HttpServletRequest request, ActionForm form) throws Exception {
+	public void pushData(MsWordUtils word, HttpServletRequest request, ActionForm form, ApplicationContext app) throws Exception {
 		// TODO Auto-generated method stub
 		XlyPhuToCaoForm cbForm = (XlyPhuToCaoForm) form;
 		String type = request.getParameter("type");
@@ -289,7 +306,7 @@ public class XlyPhuToCaoAction extends PrintAction {
 		else if ("tbKoGquyetTiep".equals(type))
 			pushDataTbKoGquyetTiep(word, cbForm);
 		else if ("tbKoThuLyGq".equals(type))
-			pushDataTbKoGquyet(word, cbForm);
+			pushDataTbKoGquyet(word, cbForm, app);
 		else if ("giaoNhiemVu".equals(type))
 			pushDataGiaoNhiemVu(word, cbForm);
 	}
@@ -356,6 +373,11 @@ public class XlyPhuToCaoAction extends PrintAction {
 
 	public void setKhieuNaiTcaoService(XuLyPhuKhieuNaiToCaoService khieuNaiTcaoService) {
 		this.khieuNaiTcaoService = khieuNaiTcaoService;
+	}
+
+	public void pushData(MsWordUtils word, HttpServletRequest request, ActionForm form) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

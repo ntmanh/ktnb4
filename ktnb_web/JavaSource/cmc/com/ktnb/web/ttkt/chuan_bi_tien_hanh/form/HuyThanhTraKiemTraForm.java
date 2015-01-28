@@ -19,8 +19,22 @@ public class HuyThanhTraKiemTraForm extends BaseActionForm {
 	private String idNguoiDnHuy;
 	private String tenNguyenDnHuy;
 	private String chucVuNguoiDnHuy;
+	private String canCuLuatSo;
+	private String canCuQd;
 	
+	/**
+	 * @return
+	 */
+	public String getCanCuLuatSo() {
+		return canCuLuatSo;
+	}
 	
+	/**
+	 * @return
+	 */
+	public String getCanCuQd() {
+		return canCuQd;
+	}
 	
 	/**
 	 * @return
@@ -97,6 +111,20 @@ public class HuyThanhTraKiemTraForm extends BaseActionForm {
 	 */
 	public String getVbQd() {
 		return vbQd;
+	}
+	
+	/**
+	 * @param string
+	 */
+	public void setCanCuLuatSo(String string) {
+		canCuLuatSo = string;
+	}
+	
+	/**
+	 * @param string
+	 */
+	public void setCanCuQd(String string) {
+		canCuQd = string;
 	}
 
 	/**

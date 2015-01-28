@@ -31,6 +31,8 @@ public class TtktCmThayDoiTvd extends PersistentObject implements java.io.Serial
 	private String idDstvCu;
 	private String idDstvMoi;
 	private String dvCnCoLquan;
+	private String canCuQdinh;
+	private String canCuLuatSo;
 	
 	private TtktCmThayDoiThemMoiTvd[] chiTietThayDoi;
 	
@@ -74,7 +76,7 @@ public class TtktCmThayDoiTvd extends PersistentObject implements java.io.Serial
 	public TtktCmThayDoiTvd(String id, String idCuocTtkt, String loaiThayDoi,
 			String soQd, String noiRaQd, Date ngayRaQd,
 			String vbanQdinhCnangNvu, String idNguoiDeNghi,
-			String tenNguoiDeNghi, String chucVuNguoiDeNghi) {
+			String tenNguoiDeNghi, String chucVuNguoiDeNghi, String canCuLuatSo, String canCuQdinh) {
 		this.id = id;
 		this.idCuocTtkt = idCuocTtkt;
 		this.loaiThayDoi = loaiThayDoi;
@@ -85,6 +87,8 @@ public class TtktCmThayDoiTvd extends PersistentObject implements java.io.Serial
 		this.idNguoiDeNghi = idNguoiDeNghi;
 		this.tenNguoiDeNghi = tenNguoiDeNghi;
 		this.chucVuNguoiDeNghi = chucVuNguoiDeNghi;
+		this.canCuLuatSo = canCuLuatSo;
+		this.canCuQdinh = canCuQdinh;
 	}
 
 	/** full constructor */
@@ -93,7 +97,7 @@ public class TtktCmThayDoiTvd extends PersistentObject implements java.io.Serial
 			String vbanQdinhCnangNvu, String idNguoiDeNghi,
 			String tenNguoiDeNghi, String chucVuNguoiDeNghi,
 			Date ngayThoiThamGia, Date ngayBanGiao, Date ngayBdauCuaTvienMoi,
-			String danhSachThayDoi) {
+			String danhSachThayDoi, String canCuLuatSo, String canCuQdinh) {
 		this.id = id;
 		this.idCuocTtkt = idCuocTtkt;
 		this.loaiThayDoi = loaiThayDoi;
@@ -108,6 +112,8 @@ public class TtktCmThayDoiTvd extends PersistentObject implements java.io.Serial
 		this.ngayBanGiao = ngayBanGiao;
 		this.ngayBdauCuaTvienMoi = ngayBdauCuaTvienMoi;
 		this.danhSachThayDoi = danhSachThayDoi;
+		this.canCuLuatSo = canCuLuatSo;
+		this.canCuQdinh = canCuQdinh;
 	}
 
 	// Property accessors
@@ -231,6 +237,22 @@ public class TtktCmThayDoiTvd extends PersistentObject implements java.io.Serial
 	}
 
 	
+
+	public String getCanCuLuatSo() {
+		return canCuLuatSo;
+	}
+
+	public void setCanCuLuatSo(String canCuLuatSo) {
+		this.canCuLuatSo = canCuLuatSo;
+	}
+
+	public String getCanCuQdinh() {
+		return canCuQdinh;
+	}
+
+	public void setCanCuQdinh(String canCuQdinh) {
+		this.canCuQdinh = canCuQdinh;
+	}
 
 	/**
 	 * @return
