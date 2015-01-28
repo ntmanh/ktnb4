@@ -26,6 +26,19 @@
 				<td width="30%"><html:text property="ngayHieuLuc" styleClass="text" onblur="isDate(this)" onkeypress="return formatDate(event, this)"></html:text></td>
 			</tr>
 			<tr>
+				<td width="19%" align="right">Căn cứ luật số</td>
+				<td width="1%"></td>
+				<td width="30%"><html:textarea property="canCuLuatSo" styleClass="text"></html:textarea></td>
+				<td></td>
+				<td></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td width="19%" align="right">Căn cứ quyết định</td>
+				<td style="width: 1%; min-width: 5px"></td>
+				<td colspan="4"><html:textarea property="canCuQd" style="width: 100%" /></td>
+			</tr>
+			<tr>
 				<td align="right" width="19%">Văn bản quy định chức năng nhiệm vụ<font color=red>*</font></td>
 				<td style="width: 1%; min-width: 5px"></td>
 				<td colspan="4"><html:select property="vbQd" style="width: 100%">
