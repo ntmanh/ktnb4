@@ -27,8 +27,17 @@ public class GiaHanForm extends BaseActionForm {
 	private String dvCaNhanLq;
 	private String vbQdCnNv;
 	private String canCuQd;
+	private String canCuLuat;
 
-	
+	 
+
+	public String getCanCuLuat() {
+		return canCuLuat;
+	}
+
+	public void setCanCuLuat(String canCuLuat) {
+		this.canCuLuat = canCuLuat;
+	}
 
 	public String getCanCuQd() {
 		return canCuQd;

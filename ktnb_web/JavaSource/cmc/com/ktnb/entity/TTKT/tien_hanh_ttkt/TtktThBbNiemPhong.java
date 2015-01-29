@@ -33,7 +33,9 @@ public class TtktThBbNiemPhong extends PersistentObject implements java.io.Seria
 	 private String idNguoiCapNat;
 	 private String tenNguoiCapNhat;
 	 private Date ngayCapNhat;
-	 public String getIdNguoiCapNat() {
+	 
+
+	public String getIdNguoiCapNat() {
 	  return idNguoiCapNat;
 	 }
 

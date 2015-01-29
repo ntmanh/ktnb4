@@ -35,6 +35,7 @@ import cmc.com.ktnb.web.BaseDispatchAction;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktCnPhuService;
 import cmc.com.ktnb.web.ttkt.service.TtktService;
+import cmc.com.ktnb.web.ttkt.tien_hanh_ttkt.form.GiaHanForm;
 import cmc.com.ktnb.web.ttkt.tien_hanh_ttkt.form.NiemPhongHoSoTaiLieuForm;
 
 /**
@@ -63,7 +64,7 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 		} else if ("in".equals(method)) {
 			// TODO: Kiem tra xem cho nay co phai load lai lan nua khong
 			String cuocTtktId = request.getParameter("idCuocTtkt");
-			inNiemPhongHsTl(request, reponse, niemphonghosotailieuForm, app,cuocTtktId );
+			inNiemPhongHsTl(request, reponse, niemphonghosotailieuForm, app);
 			return null;
 		} else {
 			String cuocTtktId = request.getParameter("idCuocTtkt");
@@ -143,6 +144,7 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 		niemPhongHsTl.setNgayCapNhat(new Date());
 		
 		
+		
 		return niemPhongHsTl;
 	}
 
@@ -181,6 +183,7 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 		qdNiemPhongHsTl.setIdNguoiCapNat(app.getMaCanbo());
 		qdNiemPhongHsTl.setTenNguoiCapNhat(app.getTenCanbo());
 		qdNiemPhongHsTl.setNgayCapNhat(new Date());
+		qdNiemPhongHsTl.setCanCuQd("C\u0103n c\u1EE9 Quy\u1EBFt \u0111\u1ECBnh s\u1ED1 1722/Q\u0110-TCT ng\u00E0y 08 th\u00E1ng 10 n\u0103m 2014");
 		return qdNiemPhongHsTl;
 	}
 
@@ -197,7 +200,7 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 		if (Formater.isNull(qdNiemPhongHsTl.getIdDsTvdQdMoNiemPhong())) {
 			dsTvDoanHienTai = TtktService.getDsTvd(qdNiemPhongHsTl.getIdCuocTtkt(), app);
 			niemphonghosotailieuForm.setIdDsTvdQdMoNiemPhong(dsTvDoanHienTai.getId());
-			request.setAttribute("dsTvdQdMoNiemPhong", dsTvDoanHienTai.getChiTietDanhSachTV());
+			request.setAttribute("dsTvdQdMoNiemPhong", dsTvDoanHienTai.getChiTietDanhSachTV()); 
 		} else {
 			request.setAttribute("dsTvdQdMoNiemPhong", TtktService.getDsTvdById(app, qdNiemPhongHsTl.getIdDsTvdQdMoNiemPhong()));
 		}
@@ -218,6 +221,8 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 		
 		niemphonghosotailieuForm.setNguoiMoNP(qdNiemPhongHsTl.getIdNguoiMoNiemPhong());
 		niemphonghosotailieuForm.setTenCanBoDvCnTh(qdNiemPhongHsTl.getTenDviCnhanThucHien());
+		
+		niemphonghosotailieuForm.setCanCuQd(qdNiemPhongHsTl.getCanCuQd());
 
 		// Bien ban niem phong
 		TtktThBbNiemPhong bbNiemPhong = qdNiemPhongHsTl.getBbNiemPhong();
@@ -658,10 +663,44 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 	}
 	
 	/**
+	 *
+	 * Method : inNiemPhongHsTl
+	 * Des : chon version
+	 * */
+	
+	private void inNiemPhongHsTl(HttpServletRequest request,  HttpServletResponse reponse, NiemPhongHoSoTaiLieuForm form, ApplicationContext appConText) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=form.getIdCuocTtkt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				inNiemPhongHsTlv4(request, reponse, form, appConText, cuocTtktId);
+			}
+			else inNiemPhongHsTlv3(request, reponse, form, appConText, cuocTtktId);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inNiemPhongHsTlv4(request, reponse, form, appConText, cuocTtktId);
+			else inNiemPhongHsTlv3(request, reponse, form, appConText, cuocTtktId);
+		}
+	}
+
+	
+	/**
 	 * Download file mau TTNB22,TTNB23,TTNB24,TTNB25
 	 * 
 	 * @throws Exception
 	*/
+	
+	/**
+	 *
+	 * Method : inNiemPhongHsTlV3
+	 * Des : KTNBV3
+	 * */
+	
 	
 	//v3
 	private void inNiemPhongHsTlv3(HttpServletRequest request, HttpServletResponse reponse, NiemPhongHoSoTaiLieuForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
@@ -931,9 +970,15 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 			
 		}
 	}
+	
+	/**
+	 *
+	 * Method : inNiemPhongHsTlV4
+	 * Des : KTNBV4
+	 * */
 
 	//v4
-	private void inNiemPhongHsTl(HttpServletRequest request, HttpServletResponse reponse, NiemPhongHoSoTaiLieuForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
+	private void inNiemPhongHsTlv4(HttpServletRequest request, HttpServletResponse reponse, NiemPhongHoSoTaiLieuForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
@@ -982,6 +1027,8 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 				word.put("[so_ttkt]", cbQd.getSoQuyetDinh());
 				word.put("[ngay_qd]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())).toUpperCase());
 				word.put("[thu_truong]", KtnbUtil.getTenThuTruongCqtForMauin(app).toUpperCase());
+				//can cu quyet dinh so
+				word.put("[quyet_dinh_so]", form.getCanCuQd());
 				//word.put("[ttkt]", sb.toString());
 				word.put("[so_ttkt]", cbQd.getSoQuyetDinh());
 				word.put("[ngay_qd]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())));
@@ -1024,10 +1071,25 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 				word = new MsWordUtils(fileIn, fileOut);
 				word.put("[ten_cqt]", app.getTenCqt().toUpperCase());
 				word.put("[doan_ttkt_so]", sbT.toString().toUpperCase());
+				if (Formater.isNull(form.getNoiRaQDNP()) && Formater.isNull(form.getNgayRaQDNP())) {
+					word.put("[noi_ra_quyet_dinh]", ".....");
+					word.put("[ngay_ra_qd]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
+				} else if (!Formater.isNull(form.getNoiRaQDNP()) && !Formater.isNull(form.getNgayRaQDNP())) {
+					word.put("[noi_ra_quyet_dinh]", form.getNoiRaQDNP());
+					word.put("[ngay_ra_qd]", Formater.getDateForPrint(form.getNgayRaQDNP()));
+				} else if (Formater.isNull(form.getNoiRaQDNP()) && !Formater.isNull(form.getNgayRaQDNP())) {
+					word.put("[noi_ra_quyet_dinh]", ".....");
+					word.put("[ngay_ra_qd]", Formater.getDateForPrint(form.getNgayRaQDNP()));
+				} else if (!Formater.isNull(form.getNoiRaQDNP()) && Formater.isNull(form.getNgayRaQDNP())) {
+					word.put("[noi_ra_quyet_dinh]", form.getNoiRaQDNP());
+					word.put("[ngay_ra_qd]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
+				}
 				//word.put("[ttkt]", sb.toString().toUpperCase());
 				word.put("[so_qd]", cbQd.getSoQuyetDinh());
 				word.put("[ngay_qd]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())).toUpperCase());
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(app).toUpperCase());
+				//can cu quyet dinh so
+				word.put("[quyet_dinh_so]", form.getCanCuQd());
 				word.put("[so_qd]", cbQd.getSoQuyetDinh());
 				word.put("[ngay_qd]", Formater.getDateForPrint(Formater.date2str(cbQd.getNgayRaQuyetDnh())));
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(app));

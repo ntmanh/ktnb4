@@ -47,7 +47,7 @@ public class GiaHanAction extends BaseDispatchAction {
 			saveGiaHan(giaHanForm, appContext);
 			request.setAttribute("saveStatus", "ok");
 		} else if ("in".equals(request.getParameter("method"))) {
-			inQuyetDinh(request, reponse, giaHanForm, appContext);
+			inQuyetDinh(request, appContext, giaHanForm, reponse);
 			return null;
 		} else if ("inTT".equals(request.getParameter("method"))) {
 			inToTrinh(request, appContext, giaHanForm, reponse);
@@ -131,6 +131,34 @@ public class GiaHanAction extends BaseDispatchAction {
 		giaHanForm.setSoNgayRaHan(String.valueOf(giaHan.getSoNgayGiaHan()));
 		giaHanForm.setSoQd(giaHan.getSoQd());
 		giaHanForm.setVbQdCnNv(giaHan.getVbQdinhCnangNvu());
+		giaHanForm.setCanCuQd(giaHan.getCanCuQd());
+		giaHanForm.setCanCuLuat(giaHan.getCanCuLuat());
+	}
+	
+	/**
+	 *
+	 * Method : inQuyetDinh
+	 * Des : chon version
+	 * */
+	
+	private void inQuyetDinh(HttpServletRequest request, ApplicationContext appConText, GiaHanForm giaHanForm, HttpServletResponse reponse) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=giaHanForm.getIdCuocTtKt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				inQuyetDinhv4(request, reponse, giaHanForm, appConText);
+			}
+			else inQuyetDinhv3(request, reponse, giaHanForm, appConText);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inQuyetDinhv4(request, reponse, giaHanForm, appConText);
+			else inQuyetDinhv3(request, reponse, giaHanForm, appConText);
+		}
 	}
 
 	/**
@@ -138,7 +166,13 @@ public class GiaHanAction extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
-	private void inQuyetDinh(HttpServletRequest request, HttpServletResponse reponse, GiaHanForm giaHanForm, ApplicationContext appConText) throws Exception {
+	
+	/**
+	 *
+	 * Method : inQuyetDinhv3
+	 * Des : ktnb v3
+	 * */
+	private void inQuyetDinhv3(HttpServletRequest request, HttpServletResponse reponse, GiaHanForm giaHanForm, ApplicationContext appConText) throws Exception {
 		String fileIn = request.getRealPath("/docin") + "\\TTNB11.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TTNB11_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
@@ -235,7 +269,15 @@ public class GiaHanAction extends BaseDispatchAction {
 			}
 		}
 	}
-	private void inQuyetDinhV4(HttpServletRequest request, HttpServletResponse reponse, GiaHanForm giaHanForm, ApplicationContext appConText) throws Exception {
+	
+	/**
+	 *
+	 * Method : inQuyetDinhv4
+	 * Des : ktnb v4
+	 * */
+	
+	
+	private void inQuyetDinhv4(HttpServletRequest request, HttpServletResponse reponse, GiaHanForm giaHanForm, ApplicationContext appConText) throws Exception {
 		String fileIn = request.getRealPath("/docin/v4") + "\\TTNB11.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TTNB11_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
@@ -275,11 +317,13 @@ public class GiaHanAction extends BaseDispatchAction {
 			//word.put("[ttkt]", hinhThuc);
 			word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 			word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
+			word.put("[luat_so]", giaHanForm.getCanCuLuat());
 			if (CatalogService.getTenDanhMucById(giaHanForm.getVbQdCnNv()).equals("N/A")) {
 				word.put("[van_ban_quy_dinh]", KtnbUtil.inFieldNull(104) + ";");
 			} else {
 				word.put("[van_ban_quy_dinh]", CatalogService.getTenDanhMucById(giaHanForm.getVbQdCnNv()));
 			}
+			word.put("[qdinh_so]", giaHanForm.getCanCuQd());
 			//word.put("[ttkt]", hinhThuc);
 			//word.put("[ttkt]", hinhThuc);
 			word.put("[qd_so]", cbQd.getSoQuyetDinh());
@@ -578,7 +622,7 @@ public class GiaHanAction extends BaseDispatchAction {
 			form.setDvCaNhanLq(giaHan.getDviCnhanLquan());
 			form.setVbQdCnNv(giaHan.getVbQdinhCnangNvu());
 			form.setCanCuQd("C\u0103n c\u1EE9 Quy\u1EBFt \u0111\u1ECBnh s\u1ED1 1722/Q\u0110-TCT ng\u00E0y 08 th\u00E1ng 10 n\u0103m 2014");
-
+			form.setCanCuLuat(giaHan.getCanCuLuat());
 		}
 
 	}
@@ -607,8 +651,9 @@ public class GiaHanAction extends BaseDispatchAction {
 		giaHan.setDviCnhanLquan(form.getDvCaNhanLq());
 		giaHan.setVbQdinhCnangNvu(form.getVbQdCnNv());
 		
-		giaHan.setCanCuQd(form.getCanCuQd());
-
+		giaHan.setCanCuQd("C\u0103n c\u1EE9 Quy\u1EBFt \u0111\u1ECBnh s\u1ED1 1722/Q\u0110-TCT ng\u00E0y 08 th\u00E1ng 10 n\u0103m 2014");
+		giaHan.setCanCuLuat(form.getCanCuLuat());
+		
 		TtktCnPhuService.saveGiaHan(giaHan, app, form);
 	}
 

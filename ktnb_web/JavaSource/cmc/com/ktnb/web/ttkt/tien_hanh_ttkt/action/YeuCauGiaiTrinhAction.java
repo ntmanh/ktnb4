@@ -28,6 +28,7 @@ import cmc.com.ktnb.web.BaseDispatchAction;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktCnPhuService;
 import cmc.com.ktnb.web.ttkt.service.TtktService;
+import cmc.com.ktnb.web.ttkt.tien_hanh_ttkt.form.NiemPhongHoSoTaiLieuForm;
 import cmc.com.ktnb.web.ttkt.tien_hanh_ttkt.form.YeuCauGiaiTrinhForm;
 
 /**
@@ -48,7 +49,7 @@ public class YeuCauGiaiTrinhAction extends BaseDispatchAction {
 			saveYeuCauGiaiTrinh(giaiTrinhForm, app);
 			request.setAttribute("saveStatus", "true");
 		} else if ("in".equals(method)) {
-			inYeuCauGT(request, reponse, giaiTrinhForm, app, cuocTtktId);
+			inYeuCauGT(request, reponse, giaiTrinhForm, app);
 			return null;
 		} else {
 			if (!Formater.isNull(cuocTtktId)) { // Truong hop mo tu form main hoac them moi
@@ -288,6 +289,38 @@ public class YeuCauGiaiTrinhAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 	
+	/**
+	 *
+	 * Method : inYeuCauGT
+	 * Des : chon version
+	 * */
+	
+	private void inYeuCauGT(HttpServletRequest request,  HttpServletResponse reponse, YeuCauGiaiTrinhForm form, ApplicationContext appConText ) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=form.getIdCuocTtKt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				inYeuCauGTv4(request, reponse, form, appConText, cuocTtktId);
+			}
+			else inYeuCauGTv3(request, reponse, form, appConText, cuocTtktId);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inYeuCauGTv4(request, reponse, form, appConText, cuocTtktId);
+			else inYeuCauGTv3(request, reponse, form, appConText, cuocTtktId);
+		}
+	}
+	
+	/**
+	 *
+	 * Method : inYeuCauGTv3
+	 * Des : ktnbv3
+	 * */
+	
 	//v3
 	private void inYeuCauGTv3(HttpServletRequest request, HttpServletResponse reponse, YeuCauGiaiTrinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
 		String fileIn = null;
@@ -399,9 +432,15 @@ public class YeuCauGiaiTrinhAction extends BaseDispatchAction {
 		}
 	}
 	
+	/**
+	 *
+	 * Method : inYeuCauGTv4
+	 * Des : ktnbv4
+	 * */
+	
 	//v4
 	
-	private void inYeuCauGT(HttpServletRequest request, HttpServletResponse reponse, YeuCauGiaiTrinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
+	private void inYeuCauGTv4(HttpServletRequest request, HttpServletResponse reponse, YeuCauGiaiTrinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
