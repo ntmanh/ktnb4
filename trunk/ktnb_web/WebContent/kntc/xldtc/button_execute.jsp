@@ -16,7 +16,7 @@ function xuatDoc()
 		<logic:notPresent name="readOnly">
 			<tr>
 				<td width="50%" align="right">
-					<input type="button" style="width: 60" class="button" name="BBDoiThoai" value='Kết xuất' onclick="xuatDoc();">
+					<input type="button" style="width: 60" class="button" name="BBDoiThoai" value='Kết xuất' onclick="inTbKoThuLyGq();">
 					<input type="button" style="width: 60" class="button" name="btnSave" value='<bean:message  key="luu"/>' onclick="save();">
 				</td>
 				<td width="50%" align="left">
