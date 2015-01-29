@@ -2280,21 +2280,21 @@ public class XacMinhHoSo extends BaseDispatchAction {
 
 	// Show bien ban lam viec 12/KNTC
 	public ActionForward bb(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		String maHs = request.getParameter("id");
-		if (!Formater.isNull(maHs)) {
-			DungChungService service = new DungChungService();
-			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
-				return bbV4(map, form, request, response);
-			else
-				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
-				return bbV3(map, form, request, response);
-		} else
-			if("4".equals(Constants.APP_DEP_VERSION))
-				return bbV4(map, form, request, response);
-			else 
-				return bbV3(map, form, request, response);
-		
+//		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+//		String maHs = request.getParameter("id");
+//		if (!Formater.isNull(maHs)) {
+//			DungChungService service = new DungChungService();
+//			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+//				return bbV4(map, form, request, response);
+//			else
+//				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
+//				return bbV3(map, form, request, response);
+//		} else
+//			if("4".equals(Constants.APP_DEP_VERSION))
+//				return bbV4(map, form, request, response);
+//			else 
+//				return bbV3(map, form, request, response);
+		return bbV4(map, form, request, response);
 	}
 	
 	public ActionForward bbV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -2391,18 +2391,19 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		KeHoachForm tdForm = (KeHoachForm) form;
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		String maHs = request.getParameter("id");
-		if (!Formater.isNull(maHs)) {
-			DungChungService service = new DungChungService();
-			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
-				return xemBblvV4(map, form, request, response);
-			else
-				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
-				return xemBblvV3(map, form, request, response);
-		} else
-			if("4".equals(Constants.APP_DEP_VERSION))
-				return xemBblvV4(map, form, request, response);
-			else 
-				return xemBblvV3(map, form, request, response);
+//		if (!Formater.isNull(maHs)) {
+//			DungChungService service = new DungChungService();
+//			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+//				return xemBblvV4(map, form, request, response);
+//			else
+//				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
+//				return xemBblvV3(map, form, request, response);
+//		} else
+//			if("4".equals(Constants.APP_DEP_VERSION))
+//				return xemBblvV4(map, form, request, response);
+//			else 
+//				return xemBblvV3(map, form, request, response);
+		return xemBblvV4(map, form, request, response);
 	}
 	//v3
 	public ActionForward xemBblvV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -2510,21 +2511,22 @@ public class XacMinhHoSo extends BaseDispatchAction {
 
 	// Xoa bb lam viec
 	public ActionForward xoaBblv(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		String maHs = request.getParameter("id");
-		if (!Formater.isNull(maHs)) {
-			DungChungService service = new DungChungService();
-			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
-				return xoaBblvV4(map, form, request, response);
-			else
-				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
-				return xoaBblvV3(map, form, request, response);
-		} else
-			if("4".equals(Constants.APP_DEP_VERSION))
-				return xoaBblvV4(map, form, request, response);
-			else 
-				return xoaBblvV3(map, form, request, response);
-		
+//		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+//		String maHs = request.getParameter("id");
+//		if (!Formater.isNull(maHs)) {
+//			DungChungService service = new DungChungService();
+//			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+//				return xoaBblvV4(map, form, request, response);
+//			else
+//				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
+//				return xoaBblvV3(map, form, request, response);
+//		} else
+//			if("4".equals(Constants.APP_DEP_VERSION))
+//				return xoaBblvV4(map, form, request, response);
+//			else 
+//				return xoaBblvV3(map, form, request, response);
+//		
+		return xoaBblvV4(map, form, request, response);
 	}
 	
 	public ActionForward xoaBblvV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -2563,19 +2565,20 @@ public class XacMinhHoSo extends BaseDispatchAction {
 
 	// Save Bien ban lam viec! Mau 12/KNTC
 	public ActionForward saveBblv(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		String maHs = request.getParameter("id");
-		if (!Formater.isNull(maHs)) {
-			DungChungService service = new DungChungService();
-			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
-				return saveBblvV4(map, form, request, response);
-			else
-				return saveBblvV3(map, form, request, response);
-		} else
-			if("4".equals(Constants.APP_DEP_VERSION))
-				return saveBblvV4(map, form, request, response);
-			else 
-				return saveBblvV3(map, form, request, response);		
+//		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+//		String maHs = request.getParameter("id");
+//		if (!Formater.isNull(maHs)) {
+//			DungChungService service = new DungChungService();
+//			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+//				return saveBblvV4(map, form, request, response);
+//			else
+//				return saveBblvV3(map, form, request, response);
+//		} else
+//			if("4".equals(Constants.APP_DEP_VERSION))
+//				return saveBblvV4(map, form, request, response);
+//			else 
+//				return saveBblvV3(map, form, request, response);
+		return saveBblvV4(map, form, request, response);
 	}
 	
 	public ActionForward saveBblvV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -2817,18 +2820,18 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	private JSONObject createObject(HttpServletRequest request) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		String maHs = request.getParameter("id");
-		if (!Formater.isNull(maHs)) {
-			DungChungService service = new DungChungService();
-			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
-				return createObjectV4(request);
-			else
-				return createObjectV3(request);
-		} else
-			if("4".equals(Constants.APP_DEP_VERSION))
-				return createObjectV4(request);
-			else 
-				return createObjectV3(request);
-				
+//		if (!Formater.isNull(maHs)) {
+//			DungChungService service = new DungChungService();
+//			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+//				return createObjectV4(request);
+//			else
+//				return createObjectV3(request);
+//		} else
+//			if("4".equals(Constants.APP_DEP_VERSION))
+//				return createObjectV4(request);
+//			else s
+//				return createObjectV3(request);
+		return createObjectV4(request);
 	}
 	private JSONObject createObjectV3(HttpServletRequest request) throws Exception {
 		// Get ma Ho so
