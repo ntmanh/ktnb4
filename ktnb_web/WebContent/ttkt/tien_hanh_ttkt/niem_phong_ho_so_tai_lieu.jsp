@@ -1,4 +1,4 @@
-
+ 
 <%@ include file="/top_bar.jsp"%>      
 <h3 class="Header">Ni&#234;m phong h&#7891; s&#417; t&#224;i li&#7879;u</h3>
 <script type="text/javascript" src="<html:rewrite page='/include/js/ttkt/ttkt.js'/>"></script>
@@ -12,7 +12,7 @@
 	<li><a href="#tabBienBanNoNiemPhong"><b>Bi&#234;n b&#7843;n m&#7903; ni&#234;m phong</b></a></li>
 </ul>
 <DIV id="tabQuyetDinhNiemPhong">
-<fieldset><%@ include file="/ttkt/tien_hanh_ttkt/quyet_dinh_niem_phong.jsp"%></fieldset>
+<fieldset><%@ include file="/ttkt/tien_hanh_ttkt/quyet_dinh_niem_phong.jsp"%></fieldset> 
 </DIV>
 <DIV id="tabBienBanNiemPhong">
 <fieldset><%@ include file="/ttkt/tien_hanh_ttkt/bien_ban_niem_phong.jsp"%></fieldset>

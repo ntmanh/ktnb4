@@ -45,7 +45,17 @@
 			<tr>
 				<td width="19%" align="right">&#272;&#417;n v&#7883; c&#225; nh&#226;n &#273;&#432;&#7907;c giao b&#7843;o qu&#7843;n <font color=red>*</font></td>
 				<td width="1%"></td>
-				<td width="30%" align="left"><html:text styleClass="text" property="dinViCaNhanBaoQuanQdNp"></html:text></td>
+				<td width="30%" align="left" colspan="4"><html:text styleClass="text" property="dinViCaNhanBaoQuanQdNp"></html:text></td>				
+			</tr>
+			<tr>
+				<td width="19%" align="right">C&#x103;n c&#x1EE9; Quy&#x1EBF;t &#x111;&#x1ECB;nh</td>
+				<td width="1%"></td>
+				<td width="30%" align="left" colspan="4"><html:textarea property="canCuQd" style="width: 100%" /></td>
+			</tr>
+			<tr>
+				<td></td> 
+				<td></td>
+				<td></td>
 				<td></td>
 				<td></td>
 				<td width="30%" align="right" colspan="3"><INPUT type="button" class="button1" value="In quy&#7871;t &#273;&#7883;nh" onclick="inQDNP()"></td>
