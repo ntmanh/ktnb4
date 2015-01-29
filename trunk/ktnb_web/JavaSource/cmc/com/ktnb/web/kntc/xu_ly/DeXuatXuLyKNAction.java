@@ -1,4 +1,4 @@
-/*
+﻿/*
  * Created on Mar 3, 2011
  *
  * To change the template for this generated file go to
@@ -197,6 +197,10 @@ public class DeXuatXuLyKNAction extends BaseDispatchAction {
 
 			// Xử lý các thông tin khác
 			inputForm.setMa(maDeXuat);
+//			String maHsStd=request.getParameter("id");
+//			SoTiepDanService sv=new SoTiepDanService();
+//			KntcSoTiepDan std=sv.getSoTiepDan(appContext, maHsStd, true);
+//			System.out.println("Noi dung so tiep dan : "+std.getHdr().getNoiDung());
 			KntcDeXuatXly dx = plService.getDeXuatXly(appContext, maHs);
 			// Lần đầu tiên lập đề xuất
 			if (dx == null) {
@@ -208,6 +212,7 @@ public class DeXuatXuLyKNAction extends BaseDispatchAction {
 				dx.setNguoiBiKNTC(hdr.getNguoiBiKntcTen() == null ? "" : hdr.getNguoiBiKntcTen());
 				dx.setChuDanhNguoiBiKNTC(hdr.getNguoiBiKntcCv() == null ? "" : hdr.getNguoiBiKntcCv());
 				dx.setDcNguoiBiKNTC(hdr.getNguoiBiKntcDc() == null ? "" : hdr.getNguoiBiKntcDc());
+//				dx.setNoiDungKNTC(std.getHdr().getNoiDung());
 			}
 			//if (dx.getDeXuat() == null) {
 				//String readOnly = request.getParameter("r");
