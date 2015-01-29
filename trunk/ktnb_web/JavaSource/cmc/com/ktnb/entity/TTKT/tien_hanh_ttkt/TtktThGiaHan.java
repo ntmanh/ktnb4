@@ -10,7 +10,7 @@ import cmc.com.ktnb.pl.hb.entity.PersistentObject;
 
 public class TtktThGiaHan extends PersistentObject implements java.io.Serializable {
 
-	// Fields
+	// Fields 
 
 	private String id;
 	private String idCuocTtkt;
@@ -29,6 +29,7 @@ public class TtktThGiaHan extends PersistentObject implements java.io.Serializab
 	private String dviCnhanLquan;
 	private String vbQdinhCnangNvu;
 	private String canCuQd;
+	private String canCuLuat;
 	
 	public static  String  IdCuocTtkt = "idCuocTtkt";
 	public static  String  Id = "id";
@@ -39,6 +40,14 @@ public class TtktThGiaHan extends PersistentObject implements java.io.Serializab
 	 
 	 
 	 
+	public String getCanCuLuat() {
+		return canCuLuat;
+	}
+
+	public void setCanCuLuat(String canCuLuat) {
+		this.canCuLuat = canCuLuat;
+	}
+
 	public String getCanCuQd() {
 		return canCuQd;
 	}
@@ -283,7 +292,11 @@ public class TtktThGiaHan extends PersistentObject implements java.io.Serializab
 				&& ((this.getCanCuQd() == castOther
 						.getCanCuQd()) || (this.getCanCuQd() != null
 						&& castOther.getCanCuQd() != null && this
-						.getCanCuQd().equals(castOther.getCanCuQd())));
+						.getCanCuQd().equals(castOther.getCanCuQd())))
+				&& ((this.getCanCuLuat() == castOther
+						.getCanCuLuat()) || (this.getCanCuLuat() != null
+						&& castOther.getCanCuLuat() != null && this
+						.getCanCuLuat().equals(castOther.getCanCuLuat())));
 	}
 
 	public int hashCode() {
@@ -343,6 +356,10 @@ public class TtktThGiaHan extends PersistentObject implements java.io.Serializab
 		result = 37
 				* result
 				+ (getCanCuQd() == null ? 0 : this.getCanCuQd()
+						.hashCode());
+		result = 37
+				* result
+				+ (getCanCuLuat() == null ? 0 : this.getCanCuLuat()
 						.hashCode());
 		return result;
 	}

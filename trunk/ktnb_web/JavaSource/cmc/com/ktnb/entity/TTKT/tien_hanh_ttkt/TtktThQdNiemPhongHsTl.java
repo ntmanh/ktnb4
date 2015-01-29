@@ -8,14 +8,14 @@ import java.util.Set;
  * TtktThQdNiemPhongHsTl entity. @author MyEclipse Persistence Tools
  */
 
-public class TtktThQdNiemPhongHsTl extends PersistentObject implements java.io.Serializable {
+public class TtktThQdNiemPhongHsTl extends PersistentObject implements java.io.Serializable { 
 
 	// Fields
 
 	private String id;
 	private String idCuocTtkt;
 	private Date ngayRaQd;
-	private String taiLieuDuocNiemPhong;
+	private String taiLieuDuocNiemPhong; 
 	private Date tgNiemPhongTu;
 	private String idDviCnhanThucHien;
 	private String idDviCnhanBaoQuan;
@@ -33,6 +33,8 @@ public class TtktThQdNiemPhongHsTl extends PersistentObject implements java.io.S
 	private String idDsTvdQdNiemPhong;
 	private String idDsTvdQdMoNiemPhong;
 	
+	private String canCuQd;
+	
 
 	private TtktThBbMoNiemPhong bbMoNiemPhong;
 	private TtktThBbNiemPhong bbNiemPhong;
@@ -45,7 +47,18 @@ public class TtktThQdNiemPhongHsTl extends PersistentObject implements java.io.S
 	private String idNguoiCapNat;
 	 private String tenNguoiCapNhat;
 	 private Date ngayCapNhat;
-	 public String getIdNguoiCapNat() {
+	 
+	 
+	 
+	 public String getCanCuQd() {
+		return canCuQd;
+	}
+
+	public void setCanCuQd(String canCuQd) {
+		this.canCuQd = canCuQd;
+	}
+
+	public String getIdNguoiCapNat() {
 	  return idNguoiCapNat;
 	 }
 

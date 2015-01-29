@@ -33,6 +33,7 @@ import cmc.com.ktnb.web.ttkt.dung_chung.form.BienBanLamViecForm;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktCnPhuService;
 import cmc.com.ktnb.web.ttkt.service.TtktService;
+import cmc.com.ktnb.web.ttkt.tien_hanh_ttkt.form.NiemPhongHoSoTaiLieuForm;
 
 /**
  * @version 1.0
@@ -61,7 +62,7 @@ public class BienBanLamViecAction extends Action {
 			}
 
 		} else if ("in".equals(method)) {
-			inYeuCauGT(request, response, bienBanLamViecForm, app, cuocTtktId);
+			inYeuCauGT(request, response, bienBanLamViecForm, app);
 			return null;
 		} else {
 			loadDefaulForm(bienBanLamViecForm, app, cuocTtktId, type);
@@ -201,6 +202,32 @@ public class BienBanLamViecAction extends Action {
 	}
 	
 	/**
+	 *
+	 * Method : inYeuCauGT
+	 * Des : chon version
+	 * */
+	
+	private void inYeuCauGT(HttpServletRequest request,  HttpServletResponse reponse, BienBanLamViecForm form, ApplicationContext appConText) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=form.getIdCuocTtKt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				inYeuCauGTv4(request, reponse, form, appConText, cuocTtktId);
+			}
+			else inYeuCauGTv3(request, reponse, form, appConText, cuocTtktId);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inYeuCauGTv4(request, reponse, form, appConText, cuocTtktId);
+			else inYeuCauGTv3(request, reponse, form, appConText, cuocTtktId);
+		}
+	}
+	
+	/**
 	 * Des : ktnb v3
 	 * */
 	private void inYeuCauGTv3(HttpServletRequest request, HttpServletResponse reponse, BienBanLamViecForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
@@ -316,10 +343,10 @@ public class BienBanLamViecAction extends Action {
 	
 	/**
 	 * Edit : ntmanh
-	 * Method : inYeuCauGT
+	 * Method : inYeuCauGTv4
 	 * Des : ktnb v4
 	 * */
-	private void inYeuCauGT(HttpServletRequest request, HttpServletResponse reponse, BienBanLamViecForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
+	private void inYeuCauGTv4(HttpServletRequest request, HttpServletResponse reponse, BienBanLamViecForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
 		System.out.println("This is KTNBv4");
 		String fileIn = null;
 		String fileOut = null;

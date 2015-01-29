@@ -8,7 +8,7 @@ import cmc.com.ktnb.web.BaseActionForm;
  * @version 	1.0
  * @author
  */
-public class NiemPhongHoSoTaiLieuForm extends BaseActionForm {
+public class NiemPhongHoSoTaiLieuForm extends BaseActionForm {  
 
 	//Quyet dinh niem phong
 	private String idQdNiemPhong;
@@ -66,6 +66,18 @@ public class NiemPhongHoSoTaiLieuForm extends BaseActionForm {
 	private String idCqtBi;
 
 	private String optionTag;
+	
+	private String canCuQd;
+	
+	
+	/**
+	 * @return
+	 */
+
+	public String getCanCuQd() {
+		return canCuQd;
+	}
+
 
 	/**
 	 * @return
@@ -177,6 +189,15 @@ public class NiemPhongHoSoTaiLieuForm extends BaseActionForm {
 	public String getVaoLucBienBanNP() {
 		return vaoLucBienBanNP;
 	}
+	
+	/**
+	 * @param string
+	 */
+	
+	public void setCanCuQd(String canCuQd) {
+		this.canCuQd = canCuQd;
+	}
+
 
 	/**
 	 * @param string
