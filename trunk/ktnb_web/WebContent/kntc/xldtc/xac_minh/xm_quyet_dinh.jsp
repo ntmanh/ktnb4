@@ -76,7 +76,7 @@
 		</tr>
 		</tr>
 		<tr>
-			<td style="text-align: right;">Nội dung cần xác minh <font style="color: red">*</font></td>
+			<td style="text-align: right;">Nội dung tố cáo được thụ lý <font style="color: red">*</font></td>
 			<td colspan="3"><html:textarea property="noiDung" style="width:100%;height:80px" /></td>
 		</tr>
 		<tr>

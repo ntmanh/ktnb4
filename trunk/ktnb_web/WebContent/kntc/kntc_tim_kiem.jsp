@@ -272,7 +272,7 @@
 				<input type="button" class="button" value='Quyết định xác minh' name="B2" onclick="executeAction('qdxmkn')">
 			</logic:equal>
 			<logic:equal name="action" value="qdxmtc">
-				<input type="button" class="button" value='Quyết định xác minh' name="B2" onclick="executeAction('qdxmtc')">
+				<input type="button" class="button" value='Quyết định thụ lý và thành lập đoàn xác minh' name="B2" onclick="executeAction('qdxmtc')">
 			</logic:equal>
 			<logic:equal name="action" value="bbLamViecNguoiTC0">
 				<input type="button" class="button" value='Lập biên bản làm việc' name="B2" onclick="executeAction('bbLamViecNguoiTC0')">
