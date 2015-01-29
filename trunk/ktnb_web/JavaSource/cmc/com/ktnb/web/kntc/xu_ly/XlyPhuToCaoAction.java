@@ -421,7 +421,7 @@ public class XlyPhuToCaoAction extends PrintAction {
 				word.put("[ngay_lap_quyet_dinh]", cbForm.tbKoThuLyGq.getDiaDiem() + ", " + ngayLap);
 			} else
 				word.put("[ngay_lap_quyet_dinh]", cbForm.tbKoThuLyGq.getDiaDiem() + ", " + Formater.getDateForPrint(cbForm.tbKoThuLyGq.getNgayLapStr()));
-			word.put("[dia_diem]", cbForm.tbKoThuLyGq.getDiaDiem());
+//			word.put("[dia_diem]", cbForm.tbKoThuLyGq.getDiaDiem());
 			if (Formater.isNull(cbForm.tbKoThuLyGq.getNgayLapStr())) {
 				ngayLap = "Ng\u00E0y   th\u00E1ng   n\u0103m        ";
 				word.put("[ngay_lap_quyet_dinh]", ngayLap);
