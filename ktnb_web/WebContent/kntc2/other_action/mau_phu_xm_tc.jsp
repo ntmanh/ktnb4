@@ -6,7 +6,7 @@
 			<td><a href="#" onclick="openBm2('kntc_xm_phieu_yc.do?method=ycgt&action=phieuYcGtTC&id=');">Phiếu yêu cầu giải trình - Mẫu 12/TC</a></td>
 		</tr>
 		<tr>
-			<td><a href="#" onclick="openBm2('kntc_khxm.do?method=bb&action=bbLamViecNguoiTC&id=');">Biên bản làm việc với người Tố cáo - Mẫu 12/KNTC</a></td>
+			<td><a href="#" onclick="openBm2('kntc_khxm.do?method=bb&action=bbLamViecNguoiTC&id=');">Biên bản làm việc với người Tố cáo - Mẫu 09/TC</a></td>
 			<td><a href="#" onclick="openBm2('kntc_xm_phieu_yc.do?method=yktv&action=yktvTC&id=');">Lập phiếu lấy ý kiến tư vấn - Mẫu 14/TC</a></td>
 		</tr>
 		<tr>
