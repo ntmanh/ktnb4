@@ -3048,8 +3048,8 @@ public class XacMinhHoSo extends BaseDispatchAction {
 				ja = new JSONArray();
 				ja.put(rs.getString(1)); // ma bb
 				ja.put(rs.getString(2)); // diadiem
-				ja.put(Formater.date2strDateTimeForNV(rs.getDate(3))); // thoidiem
-				ja.put(Formater.date2strDateTimeForNV(rs.getDate(4))); // thoidiemhoanthanh
+				ja.put(Formater.date2strDateTimeForNV(rs.getTimestamp(3))); // thoidiem
+				ja.put(Formater.date2strDateTimeForNV(rs.getTimestamp(4))); // thoidiemhoanthanh
 				ja.put(rs.getString(5));// so ban in
 				jsonArray.put(ja);
 				rc++;
