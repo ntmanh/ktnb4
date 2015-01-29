@@ -24,6 +24,11 @@
 				<td colspan="4" width="25%" align="left"><html:textarea property="donViBaoQuanSauNP" onkeypress="imposeMaxLength(this);"  styleClass="textareaContent" /></td>
 			</tr>
 			<tr>
+				<td width="19%" align="right">C&#x103;n c&#x1EE9; Quy&#x1EBF;t &#x111;&#x1ECB;nh</td>
+				<td width="1%"></td>
+				<td colspan="4" width="25%" align="left"><html:textarea property="canCuQd" style="width: 100%" /></td>
+			</tr>
+			<tr>
 				<td colspan="6">
 				<fieldset style="margin: 0px;"><legend>Ng&#432;&#7901;i m&#7903; ni&#234;m phong</legend>
 				<table width="100%" border="0">
