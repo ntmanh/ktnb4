@@ -338,7 +338,6 @@ function ghi(){
 		if(document.forms[0].doanKNTC[0].checked | document.forms[0].doanKNTC[2].checked)
 		{
 			document.forms[0].daiDienBsNoiDung.value='';
-			alert(document.forms[0].daiDienBsNoiDung.value);
 		}
 		document.forms[0].action="kntc_tiep_dan.do?method=save";
 		document.forms[0].submit();

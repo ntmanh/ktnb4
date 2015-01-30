@@ -16,6 +16,7 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 
 import cmc.com.ktnb.exception.KtnbException;
+import cmc.com.ktnb.pl.hb.entity.KntcBbDoiThoai;
 import cmc.com.ktnb.pl.hb.entity.KntcCanBoRls;
 import cmc.com.ktnb.pl.hb.entity.KntcCanBoRlsId;
 import cmc.com.ktnb.pl.hb.entity.KntcDeXuatXly;
@@ -387,6 +388,39 @@ public class SoTiepDanService {
 		dao.deleteObject(applicationContext, ph);
 	}
 
+	/**
+	 * Bien Ban doi thoai
+	 * 
+	 * @param appContext
+	 * @param maHs,maPh
+	 *            Phiếu hẹn
+	 * @throws Exception
+	 */
+	public KntcBbDoiThoai getBienBanByMaPh(ApplicationContext appContext, String maHs, String maPh)  throws Exception
+	{
+		CatalogService service = new CatalogService();
+		SearchCriteria sc= new SearchCriteria(KntcBbDoiThoai.class);
+		sc.addSearchItem("soQD", maHs);
+		sc.addSearchItem("id", maPh);
+		return (KntcBbDoiThoai) service.retriveObject(appContext, sc);
+	}
+	
+	public void xoaBienBanDoiThoai(ApplicationContext appContext, KntcBbDoiThoai bb) throws Exception
+	{
+		dao.deleteObject(appContext, bb);
+	}
+	
+	public void saveBbDoiThoai(ApplicationContext appContext, KntcBbDoiThoai bb) throws Exception
+	{
+		if(Formater.isNull(bb.getId()))
+		{
+			bb.setId(KeyManagement.getGUID());
+			dao.saveObject(appContext, bb);
+		}
+		else dao.updateObject(appContext, bb);
+		
+	}
+	
 	/**
 	 * Lưu giấy biên nhận
 	 * 
