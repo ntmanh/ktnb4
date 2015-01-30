@@ -26,6 +26,7 @@ import cmc.com.ktnb.util.Formater;
 import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.BaseDispatchAction;
+import cmc.com.ktnb.web.ttkt.chuan_bi_tien_hanh.form.ChuanBiTienHanhForm;
 import cmc.com.ktnb.web.ttkt.ket_thuc_ttkt.form.CongBoKetLuanForm;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktCnPhuService;
@@ -66,7 +67,7 @@ public class CongBoKetLuanAction extends BaseDispatchAction {
 			}
 
 		} else if ("in".equals(method)) {
-			inCongBoKL(request, response, congBoKetLuanForm, appContext,
+			inCongBoKL(request, appContext, congBoKetLuanForm, response,
 					cuocTtktId);
 			return null;
 		} else {
@@ -263,10 +264,29 @@ public class CongBoKetLuanAction extends BaseDispatchAction {
 
 		return congBoKL;
 	}
+	
+	private void inCongBoKL(HttpServletRequest request, ApplicationContext appConText, CongBoKetLuanForm form, HttpServletResponse reponse, String idCuocTtKt) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=form.getIdCuocTtkt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				inCongBoKLv4(request, appConText, form, reponse, cuocTtktId);
+			}
+			else inCongBoKLv3(request, appConText, form, reponse, cuocTtktId);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inCongBoKLv4(request, appConText, form, reponse, cuocTtktId);
+			else inCongBoKLv3(request, appConText, form, reponse, cuocTtktId);
+		}
+	}
+	
 
-	private void inCongBoKLv3(HttpServletRequest request,
-			HttpServletResponse reponse, CongBoKetLuanForm form,
-			ApplicationContext app, String idCuocTtKt) throws Exception {
+	private void inCongBoKLv3(HttpServletRequest request, ApplicationContext app, CongBoKetLuanForm form, HttpServletResponse reponse, String idCuocTtKt) throws Exception {
 		TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtkTrongQd(app,
 				idCuocTtKt);
 		TtktCbQd cbQd = TtktService.getQuyetDinh(idCuocTtKt, app);
@@ -564,9 +584,7 @@ public class CongBoKetLuanAction extends BaseDispatchAction {
 	}
 
 	// v4
-	private void inCongBoKL(HttpServletRequest request,
-			HttpServletResponse reponse, CongBoKetLuanForm form,
-			ApplicationContext app, String idCuocTtKt) throws Exception {
+	private void inCongBoKLv4(HttpServletRequest request, ApplicationContext app, CongBoKetLuanForm form, HttpServletResponse reponse, String idCuocTtKt) throws Exception {
 		TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtkTrongQd(app,
 				idCuocTtKt);
 		TtktCbQd cbQd = TtktService.getQuyetDinh(idCuocTtKt, app);

@@ -33,6 +33,7 @@ import cmc.com.ktnb.util.KtnbCache;
 import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.BaseDispatchAction;
+import cmc.com.ktnb.web.ttkt.dung_chung.form.ThayDoiThanhVienDoanForm;
 import cmc.com.ktnb.web.ttkt.ket_thuc_ttkt.form.KetThucTtktForm;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktCnPhuService;
@@ -56,7 +57,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			this.saveKetThucTtkt(appContext, ketThucTtktForm, request, reponse);
 			return null;
 		} else if ("in".equals(method)) {
-			this.inKetThucTtkt(appContext, ketThucTtktForm, request, reponse);
+			this.inKetThucTtkt(request, appContext, ketThucTtktForm, reponse);
 			return null;
 		} else {
 			String cuocTtktId = request.getParameter("cuocTtktId");
@@ -77,12 +78,36 @@ public class KetThucTtktAction extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
+	
+	/**
+	 * Des : chon version
+	 * */
+	
+	private void inKetThucTtkt(HttpServletRequest request, ApplicationContext appConText, KetThucTtktForm ketThucTtktForm, HttpServletResponse reponse) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=ketThucTtktForm.getIdCuocTtkt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				inKetThucTtktv4(request, reponse, ketThucTtktForm, appConText);
+			}
+			else inKetThucTtktv3(request, reponse, ketThucTtktForm, appConText);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inKetThucTtktv4(request, reponse, ketThucTtktForm, appConText);
+			else inKetThucTtktv3(request, reponse, ketThucTtktForm, appConText);
+		}
+	}
 
 	/**
 	 * Des : ktnb v3
 	 * */
 	
-	private void inKetThucTtktv3(ApplicationContext appContext, KetThucTtktForm ketThucTtktForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private void inKetThucTtktv3(HttpServletRequest request, HttpServletResponse response, KetThucTtktForm ketThucTtktForm, ApplicationContext appContext) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
@@ -436,13 +461,15 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			}
 		}
 	}
+	
+
 
 	/**
 	 * Edit : tmtuan
 	 * Method : inKetThucTtkt
 	 * Des : ktnb v4
 	 * */
-	private void inKetThucTtkt(ApplicationContext appContext, KetThucTtktForm ketThucTtktForm, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	private void inKetThucTtktv4(HttpServletRequest request, HttpServletResponse response, KetThucTtktForm ketThucTtktForm, ApplicationContext appContext) throws Exception {
 		System.out.println("This is ktnb v4");
 		String fileIn = null;
 		String fileOut = null;

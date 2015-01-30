@@ -24,6 +24,7 @@ import cmc.com.ktnb.util.Constants;
 import cmc.com.ktnb.util.Formater;
 import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.web.BaseDispatchAction;
+import cmc.com.ktnb.web.ttkt.dung_chung.form.ThayDoiThanhVienDoanForm;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktService;
 import cmc.com.ktnb.web.ttkt.tien_hanh_ttkt.form.BienBanChiTietForm;
@@ -55,7 +56,7 @@ public class BienBanChiTietAction extends BaseDispatchAction {
 			}
 
 		} else if ("downLoadMau".equals(method)) {
-			downLoadMau(request, reponse);
+			downLoadMau(request, appContext, bienBanChiTietForm, reponse);
 			return null;
 		} else {
 			String cuocTtktId = request.getParameter("idCuocTtkt");
@@ -82,6 +83,30 @@ public class BienBanChiTietAction extends BaseDispatchAction {
 
 		}
 		return mapping.findForward("success");
+	}
+	
+	/**
+	 * Des : downLoadMau 
+	 * */
+	
+	private void downLoadMau(HttpServletRequest request, ApplicationContext appConText, BienBanChiTietForm bienBanChiTietForm, HttpServletResponse reponse) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=bienBanChiTietForm.getIdCuocTtkt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				downLoadMauv4(request, reponse);
+			}
+			else downLoadMauv3(request, reponse);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				downLoadMauv4(request, reponse);
+			else downLoadMauv3(request, reponse);
+		}
 	}
 
 	/**
@@ -120,7 +145,7 @@ public class BienBanChiTietAction extends BaseDispatchAction {
 	 * Method: downLoadMau
 	 * Des : ktnb v4
 	 * */
-	private void downLoadMau(HttpServletRequest request, HttpServletResponse response) {
+	private void downLoadMauv4(HttpServletRequest request, HttpServletResponse response) {
 		InputStream inputStream;
 		try {
 			inputStream = new FileInputStream(request.getRealPath("/docin/v4") + "\\TTNB32.doc");

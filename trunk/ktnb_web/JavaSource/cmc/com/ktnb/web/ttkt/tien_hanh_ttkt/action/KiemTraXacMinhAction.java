@@ -32,6 +32,7 @@ import cmc.com.ktnb.util.Formater;
 import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.BaseDispatchAction;
+import cmc.com.ktnb.web.ttkt.dung_chung.form.BienBanLamViecForm;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktCnPhuService;
 import cmc.com.ktnb.web.ttkt.service.TtktService;
@@ -50,7 +51,7 @@ public class KiemTraXacMinhAction extends BaseDispatchAction {
 			request.setAttribute("saveStatus", "true");
 		} else if ("in".equals(method)) {
 			// TODO: Kiem tra xem cho nay co phai load lai lan nua khong
-			inKiemTraXacMinh(request, reponse, kiemtraxacminForm, app, kiemtraxacminForm.getIdCuocTtKt());
+			inKiemTraXacMinh(request, reponse, kiemtraxacminForm, app);
 			return null;
 		} else {
 			String cuocTtktId = request.getParameter("idCuocTtkt");
@@ -358,6 +359,39 @@ public class KiemTraXacMinhAction extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
+	
+	/**
+	 *
+	 * Method : inKiemTraXacMinh
+	 * Des : chon version
+	 * */
+	
+	private void inKiemTraXacMinh(HttpServletRequest request,  HttpServletResponse reponse, KiemTraXacMinhForm form, ApplicationContext appConText) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=form.getIdCuocTtKt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				inKiemTraXacMinhv4(request, reponse, form, appConText, cuocTtktId);
+			}
+			else inKiemTraXacMinhv3(request, reponse, form, appConText, cuocTtktId);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inKiemTraXacMinhv4(request, reponse, form, appConText, cuocTtktId);
+			else inKiemTraXacMinhv3(request, reponse, form, appConText, cuocTtktId);
+		}
+	}
+	
+	/**
+	 *
+	 * Method : inKiemTraXacMinhv3
+	 * Des : ktnbv3
+	 * */
+	
 	//v3
 	public void inKiemTraXacMinhv3(HttpServletRequest request, HttpServletResponse reponse, KiemTraXacMinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
 		// String type = request.getParameter("type");
@@ -450,9 +484,16 @@ public class KiemTraXacMinhAction extends BaseDispatchAction {
 			}
 		}
 	}
+	
+	/**
+	 *
+	 * Method : inKiemTraXacMinhv4
+	 * Des : ktnbv4
+	 * */
+	
 	//v4
 	
-	public void inKiemTraXacMinh(HttpServletRequest request, HttpServletResponse reponse, KiemTraXacMinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
+	public void inKiemTraXacMinhv4(HttpServletRequest request, HttpServletResponse reponse, KiemTraXacMinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
 		// String type = request.getParameter("type");
 		String fileIn = request.getRealPath("/docin/v4") + "\\TTNB30.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TTNB30_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";

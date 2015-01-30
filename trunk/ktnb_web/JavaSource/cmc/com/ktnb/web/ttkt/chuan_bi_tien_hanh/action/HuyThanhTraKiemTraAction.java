@@ -64,7 +64,7 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 	
-	private void inQuyetDinhHuy(HttpServletRequest request, ApplicationContext appConText, HuyThanhTraKiemTraForm huyThanhTraKiemTraForm, HttpServletResponse reponse) throws Exception {
+	private void inQuyetDinhHuy(HttpServletRequest request, ApplicationContext appConText, HuyThanhTraKiemTraForm huyThanhTraKiemTraForm, HttpServletResponse response) throws Exception {
 		CuocTtktService service = new CuocTtktService();
 		String cuocTtktId=huyThanhTraKiemTraForm.getIdCuocTtKt();
 		System.out.println("Id cuoc ttkt : "+cuocTtktId );
@@ -72,15 +72,15 @@ public class HuyThanhTraKiemTraAction extends BaseDispatchAction {
 		{
 			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
 			{
-				inQuyetDinhHuyv4(request, reponse, huyThanhTraKiemTraForm, appConText);
+				inQuyetDinhHuyv4(request, response, huyThanhTraKiemTraForm, appConText);
 			}
-			else inQuyetDinhHuyv3(request, reponse, huyThanhTraKiemTraForm, appConText);
+			else inQuyetDinhHuyv3(request, response, huyThanhTraKiemTraForm, appConText);
 		}
 		else 
 		{
 			if("4".equals(Constants.APP_DEP_VERSION))
-				inQuyetDinhHuyv4(request, reponse, huyThanhTraKiemTraForm, appConText);
-			else inQuyetDinhHuyv3(request, reponse, huyThanhTraKiemTraForm, appConText);
+				inQuyetDinhHuyv4(request, response, huyThanhTraKiemTraForm, appConText);
+			else inQuyetDinhHuyv3(request, response, huyThanhTraKiemTraForm, appConText);
 		}
 	}
 	
