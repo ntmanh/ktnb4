@@ -50,7 +50,7 @@
 			<tr>
 				<td width="19%" align="right">C&#x103;n c&#x1EE9; Quy&#x1EBF;t &#x111;&#x1ECB;nh</td>
 				<td width="1%"></td>
-				<td width="30%" align="left" colspan="4"><html:textarea property="canCuQd" style="width: 100%" /></td>
+				<td width="30%" align="left" colspan="4"><html:textarea property="canCuQd" style="width: 100%" >C&#x103;n c&#x1EE9; Quy&#x1EBF;t &#x111;&#x1ECB;nh s&#x1ED1; 1722/Q&#x110;-TCT ng&#xE0;y 08 th&#xE1;ng 10 n&#x103;m 2014</html:textarea></td>
 			</tr>
 			<tr>
 				<td></td> 

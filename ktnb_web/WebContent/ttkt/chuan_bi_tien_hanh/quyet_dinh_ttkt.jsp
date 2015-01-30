@@ -37,7 +37,7 @@
 		<tr> 
 			<td align="right" width="24%">Căn cứ quyết định</td>
 			<td style="width: 1%; min-width: 5px;"/>
-			<td colspan="4"><html:textarea property="canCuQd" style="width: 155%" /></td>
+			<td colspan="4"><html:textarea property="canCuQd" style="width: 155%">Căn cứ Quyết định số 1722/QĐ-TCT ngày 08 tháng 10 năm 2014</html:textarea></td>
 		</tr>
 		<tr>
 			<td align="right" width="19%">Văn bản quy định chức năng nhiệm vụ<font color=red>*</font></td>
