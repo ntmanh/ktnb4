@@ -74,7 +74,7 @@
 			<tr>
 				<td width="19%" align="right">Căn cứ quyết định</td>
 				<td style="width: 1%" ></td>
-				<td colspan="4"><html:textarea property="canCuQd" styleClass="textareaTitle" onkeypress="imposeMaxLength(this);"/></td>
+				<td colspan="4"><html:textarea property="canCuQd" styleClass="textareaTitle" onkeypress="imposeMaxLength(this);">Căn cứ Quyết định số 1722/QĐ-TCT ngày 08 tháng 10 năm 2014</html:textarea></td>
 			</tr>
 		</TBODY>
 	</TABLE>
