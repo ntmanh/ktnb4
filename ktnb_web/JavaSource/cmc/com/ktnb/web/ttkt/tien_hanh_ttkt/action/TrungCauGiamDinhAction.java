@@ -24,6 +24,7 @@ import cmc.com.ktnb.util.Formater;
 import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.BaseDispatchAction;
+import cmc.com.ktnb.web.ttkt.dung_chung.form.BienBanLamViecForm;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktCnPhuService;
 import cmc.com.ktnb.web.ttkt.service.TtktService;
@@ -48,7 +49,7 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 			request.setAttribute("saveStatus", "true");
 		} else if ("in".equals(method)) {
 			// TODO: Kiem tra xem cho nay co phai load lai lan nua khong
-			inTrungCauGD(request, reponse, tcGiamDinhForm, app, tcGiamDinhForm.getIdCuocTtKt());
+			inTrungCauGD(request, reponse, tcGiamDinhForm, app);
 			return null;
 		} else {
 			String cuocTtktId = request.getParameter("idCuocTtkt");
@@ -211,6 +212,40 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
+	
+	/**
+	 * 
+	 * Method : inTrungCauGD
+	 * Des : chon version
+	 * */
+	
+	private void inTrungCauGD(HttpServletRequest request,  HttpServletResponse reponse, TrungCauGiamDinhForm form, ApplicationContext appConText) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=form.getIdCuocTtKt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				inTrungCauGDv4(request, reponse, form, appConText, cuocTtktId);
+			}
+			else inTrungCauGDv3(request, reponse, form, appConText, cuocTtktId);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inTrungCauGDv4(request, reponse, form, appConText, cuocTtktId);
+			else inTrungCauGDv3(request, reponse, form, appConText, cuocTtktId);
+		}
+	}
+	
+	
+	/**
+	 * 
+	 * Method : inTrungCauGDv3
+	 * Des : ktnb v3
+	 * */
+	
 	//v3
 	public void inTrungCauGDv3(HttpServletRequest request, HttpServletResponse reponse, TrungCauGiamDinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
 		String fileIn = request.getRealPath("/docin") + "\\TTNB32.doc";
@@ -290,11 +325,11 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 
 	/**
 	 * Edit : ntmanh	
-	 * Method : inTrungCauGD
+	 * Method : inTrungCauGDv4
 	 * Des : ktnb v4
 	 * */
 
-	public void inTrungCauGD(HttpServletRequest request, HttpServletResponse reponse, TrungCauGiamDinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
+	public void inTrungCauGDv4(HttpServletRequest request, HttpServletResponse reponse, TrungCauGiamDinhForm form, ApplicationContext app, String idCuocTtKt) throws Exception {
 		System.out.println("This is KTNBv4");
 		String fileIn = request.getRealPath("/docin/v4") + "\\TTNB31.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TTNB31_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";

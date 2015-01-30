@@ -31,6 +31,7 @@ import cmc.com.ktnb.util.Formater;
 import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.BaseDispatchAction;
+import cmc.com.ktnb.web.ttkt.dung_chung.form.BienBanLamViecForm;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktCnPhuService;
 import cmc.com.ktnb.web.ttkt.service.TtktService;
@@ -55,7 +56,7 @@ public class YeuCauCungCapHstlAction extends BaseDispatchAction {
 			// TODO: Kiem tra xem cho nay co phai load lai lan nua khong
 			String cuocTtktId = request.getParameter("idCuocTtkt");
 			System.out.println("cuoc ttkt : "+cuocTtktId);
-			inYcbsTl(request, reponse, hstlForm, app,cuocTtktId);
+			inYcbsTl(request, reponse, hstlForm, app);
 			return null;
 		} else {
 			String cuocTtktId = request.getParameter("idCuocTtkt");
@@ -493,6 +494,38 @@ public class YeuCauCungCapHstlAction extends BaseDispatchAction {
 	 * @throws Exception
 	*/
 	
+	/**
+	 *
+	 * Method : inYcbsTl
+	 * Des : chon version
+	 * */
+	
+	private void inYcbsTl(HttpServletRequest request,  HttpServletResponse reponse, YeuCauCungCapHstlForm form, ApplicationContext appConText) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=form.getIdCuocTtKtl();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				inYcbsTlv4(request, reponse, form, appConText, cuocTtktId);
+			}
+			else inYcbsTlv3(request, reponse, form, appConText, cuocTtktId);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inYcbsTlv4(request, reponse, form, appConText, cuocTtktId);
+			else inYcbsTlv3(request, reponse, form, appConText, cuocTtktId);
+		}
+	}
+	
+	
+	/**
+	 * inYcbsTlv3
+	 * Des : ktnb v3
+	 * */
+	
 	// this is KTNBv3
 	private void inYcbsTlv3(HttpServletRequest request, HttpServletResponse reponse, YeuCauCungCapHstlForm hstlForm, ApplicationContext appConText, String idCuocTtkt) throws Exception {
 		String fileIn = null;
@@ -784,7 +817,7 @@ public class YeuCauCungCapHstlAction extends BaseDispatchAction {
 	}
 	
 	// this is KTNBv4
-	private void inYcbsTl(HttpServletRequest request, HttpServletResponse reponse, YeuCauCungCapHstlForm hstlForm, ApplicationContext appConText, String idCuocTtkt) throws Exception {
+	private void inYcbsTlv4(HttpServletRequest request, HttpServletResponse reponse, YeuCauCungCapHstlForm hstlForm, ApplicationContext appConText, String idCuocTtkt) throws Exception {
 		System.out.println("This is KTNBv4");
 		String fileIn = null;
 		String fileOut = null;

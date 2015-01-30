@@ -33,6 +33,7 @@ import cmc.com.ktnb.util.KtnbCache;
 import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.BaseDispatchAction;
+import cmc.com.ktnb.web.ttkt.dung_chung.form.ThayDoiThanhVienDoanForm;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktCnPhuService;
 import cmc.com.ktnb.web.ttkt.service.TtktService;
@@ -112,6 +113,33 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 	 * @param appContext
 	 * @param tienHanhTtktForm
 	 */
+	
+	/**
+	 *
+	 * Method : inTienHanhTtkt
+	 * Des : chon version
+	 * */
+	
+	private void inTienHanhTtkt(HttpServletRequest request, ApplicationContext appConText, TienHanhTtktForm tienHanhTtktForm, HttpServletResponse reponse) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=tienHanhTtktForm.getIdCuocTtkt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				inTienHanhTtktv4(request, appConText, tienHanhTtktForm, reponse);
+			}
+			else inTienHanhTtktv3(request, appConText, tienHanhTtktForm, reponse);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inTienHanhTtktv4(request, appConText, tienHanhTtktForm, reponse);
+			else inTienHanhTtktv3(request, appConText, tienHanhTtktForm, reponse);
+		}
+	}
+	
 	
 	/**
 	 * Des : ktnb v3
@@ -434,7 +462,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 	 * Method : inTienHanhTtkt
 	 * Des : ktnb v4
 	 * */
-	private void inTienHanhTtkt(HttpServletRequest request, ApplicationContext appContext, TienHanhTtktForm tienHanhTtktForm, HttpServletResponse response) throws Exception {
+	private void inTienHanhTtktv4(HttpServletRequest request, ApplicationContext appContext, TienHanhTtktForm tienHanhTtktForm, HttpServletResponse response) throws Exception {
 		System.out.println("This is ktnb v4");
 		String fileIn = null;
 		String fileOut = null;

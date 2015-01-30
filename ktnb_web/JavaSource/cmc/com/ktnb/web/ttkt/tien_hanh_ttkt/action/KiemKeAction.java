@@ -36,6 +36,7 @@ import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.BaseDispatchAction;
 import cmc.com.ktnb.web.ttkt.dung_chung.form.BienBanLamViecForm;
+import cmc.com.ktnb.web.ttkt.dung_chung.form.ThayDoiThanhVienDoanForm;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktCnPhuService;
 import cmc.com.ktnb.web.ttkt.service.TtktService;
@@ -67,7 +68,7 @@ public class KiemKeAction extends BaseDispatchAction {
 			//saveQDKK(kiemkeForm, app);
 			request.setAttribute("save", "ok");
 		} else if ("in".equals(method)) {
-			inKiemke(request, reponse, kiemkeForm, app);
+			inKiemke(request, app, kiemkeForm, reponse);
 			return null;
 		} else {
 			loadDefault(kiemkeForm, app, id, cuocTtktId);
@@ -89,7 +90,7 @@ public class KiemKeAction extends BaseDispatchAction {
 			//request.setAttribute("saveStatus", "true");
 		} else if ("in".equals(method)) {
 			// TODO: Kiem tra xem cho nay co phai load lai lan nua khong
-			inKiemke(request, reponse, kiemKeForm, app);
+			inKiemke(request, app, kiemKeForm, reponse);
 			return null;
 		} else {
 			String cuocTtktId = request.getParameter("idCuocTtkt");
@@ -440,6 +441,38 @@ public class KiemKeAction extends BaseDispatchAction {
 	 * @throws Exception
 	 */
 	
+	/**
+	 *
+	 * Method : inKiemke
+	 * Des : chon version
+	 * */
+	
+	private void inKiemke(HttpServletRequest request, ApplicationContext appConText, KiemKeForm kiemKeForm, HttpServletResponse reponse) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=kiemKeForm.getIdCuocTtkt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			{
+				inKiemkev4(request, reponse, kiemKeForm, appConText);
+			}
+			else inKiemkev3(request, reponse, kiemKeForm, appConText);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inKiemkev4(request, reponse, kiemKeForm, appConText);
+			else inKiemkev3(request, reponse, kiemKeForm, appConText);
+		}
+	}
+	
+	/**
+	 *
+	 * Method : inKiemkev3
+	 * Des : ktnbv3
+	 * */
+	
 	//v3
 	private void inKiemkev3(HttpServletRequest request, HttpServletResponse reponse, KiemKeForm kiemkeForm, ApplicationContext appConText) throws Exception {
 		String fileIn = null;
@@ -641,7 +674,7 @@ public class KiemKeAction extends BaseDispatchAction {
 	
 	//v4
 	
-	private void inKiemke(HttpServletRequest request, HttpServletResponse reponse, KiemKeForm kiemkeForm, ApplicationContext appConText) throws Exception {
+	private void inKiemkev4(HttpServletRequest request, HttpServletResponse reponse, KiemKeForm kiemkeForm, ApplicationContext appConText) throws Exception {
 		System.out.println("Begin start ktnbv4");
 		String fileIn = null;
 		String fileOut = null;

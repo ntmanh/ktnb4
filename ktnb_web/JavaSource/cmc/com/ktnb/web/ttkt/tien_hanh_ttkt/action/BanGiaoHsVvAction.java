@@ -28,6 +28,7 @@ import cmc.com.ktnb.util.Formater;
 import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.BaseDispatchAction;
+import cmc.com.ktnb.web.ttkt.chuan_bi_tien_hanh.form.HuyThanhTraKiemTraForm;
 import cmc.com.ktnb.web.ttkt.service.CuocTtktService;
 import cmc.com.ktnb.web.ttkt.service.TtktCnPhuService;
 import cmc.com.ktnb.web.ttkt.service.TtktService;
@@ -249,6 +250,27 @@ public class BanGiaoHsVvAction extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
+	
+	private void inBanGiaoHsVv(HttpServletRequest request, BanGiaoHsVvForm form, HttpServletResponse response, ApplicationContext app) throws Exception {
+		CuocTtktService service = new CuocTtktService();
+		String cuocTtktId=form.getIdCuocTtKt();
+		System.out.println("Id cuoc ttkt : "+cuocTtktId );
+		if(!Formater.isNull(cuocTtktId))
+		{
+			if("4".equals(service.getDonVerionTtkt(app, cuocTtktId)))
+			{
+				inBanGiaoHsVvv4(request, form, response, app);
+			}
+			else inBanGiaoHsVvv3(request, form, response, app);
+		}
+		else 
+		{
+			if("4".equals(Constants.APP_DEP_VERSION))
+				inBanGiaoHsVvv4(request, form, response, app);
+			else inBanGiaoHsVvv3(request, form, response, app);
+		}
+	}
+	
 	//v3
 	private void inBanGiaoHsVvv3(HttpServletRequest request, BanGiaoHsVvForm form, HttpServletResponse response, ApplicationContext app) throws Exception {
 		String fileIn = null;
@@ -378,7 +400,7 @@ public class BanGiaoHsVvAction extends BaseDispatchAction {
 		}
 	}
 	//v4
-	private void inBanGiaoHsVv(HttpServletRequest request, BanGiaoHsVvForm form, HttpServletResponse response, ApplicationContext app) throws Exception {
+	private void inBanGiaoHsVvv4(HttpServletRequest request, BanGiaoHsVvForm form, HttpServletResponse response, ApplicationContext app) throws Exception {
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
