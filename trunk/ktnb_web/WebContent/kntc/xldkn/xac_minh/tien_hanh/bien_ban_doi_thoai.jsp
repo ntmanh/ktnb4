@@ -6,180 +6,195 @@
 <h3 class="Header">BIÊN BẢN ĐỐI THOẠI</h3>
 <html:form action="kntc_xm_bb_doi_thoai.do" method="POST"
 	enctype="multipart/form-data">
-	<html:hidden property="bbDoiThoai.id"/> 
+	<html:hidden property="bbDoiThoai.id" />
 	<div style="text-align: center; width: 100%"><font
 		style="font-size: 14px; color: red"> Số Quyết định</font> <html:text
 		property="bbDoiThoai.soQD" styleClass="text" style="width:250px"
 		readonly="true" /></div>
 	<br>
-	<table width="100%">
-		<tr>
-			<td width="24%" align="right">Địa điểm <font color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%"><html:text property="bbDoiThoai.diaDiem" styleClass="text">
-			</html:text></td>
-			<td width="24%" align="right">Thời gian bắt đầu <font
-				color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%" align="left"><html:text
-				onblur="isTime(this)" onkeypress="return formatTime(event, this)" property="bbDoiThoai.thoiGianBatDauStr"
-				styleClass="text">
-			</html:text></td>
-		</tr>
+	<fieldset><legend>Danh sách các phiếu hẹn đã lập</legend>
+	<table cellpadding="0" cellspacing="0" border="0" class="display"
+		id="tbl_listPhieuHen">
+		<thead>
+			<tr>
+				<th>Mã biên bản</th>
+				<th>Dia Diem</th>
+				<th>Thoi gian bat dau</th>
+				<th>Thoi gian ket thuc</th>
+				<th>File dinh kem</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr align="center">
+				<td colspan="5" class="dataTables_empty">Loading data from
+				server</td>
+			</tr>
+		</tbody>
 	</table>
-	<fieldset><legend>Người giải quyết khiếu nại hoặc
-	người có trách nhiệm xác minh</legend>
 	<table width="100%">
-		<tr>
-			<td width="24%" align="right">Ông/bà <font color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%"><html:text property="bbDoiThoai.nguoiGqTen"style="width:77%"></html:text> 
-				<input type="button" class="button" name="btnCb" value="..." onclick="showLovCanbo()" size="15%"></<input>
-			</td>
-			<td width="24%" align="right">Chức vụ <font color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%"><html:text property="bbDoiThoai.nguoiGqChucVu"
-				styleClass="text">
-			</html:text></td>
-		</tr>
-		<tr>
-			<td width="24%" align="right">Cơ quan, tổ chức đơn vị <font
-				color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%"><html:text property="bbDoiThoai.nguoiGqCoQuan"
-				styleClass="text">
-			</html:text></td>
+		<tr align="center">
+			<td align="center"><input type="button" class="button"
+				id="btnXem" value='Xem' onclick="xem();" /> <input type="button"
+				class="button" value='Tạo mới' onclick="taomoi();" /> <input
+				type="button" class="button" value='Xóa' onclick="xoa();" /> <input
+				type="button" class="button" id="btnClose2" value='Đóng'
+				onclick="window.close();"></td>
 		</tr>
 	</table>
 	</fieldset>
-	<fieldset><legend>Người ghi biên bản</legend>
-	<table width="100%">
-		<tr>
-			<td width="24%" align="right">Ông/bà <font color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%"><html:text property="bbDoiThoai.nguoiGhiBbTen"
-				styleClass="text">
-			</html:text></td>
-			<td width="24%" align="right">Chức vụ <font color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%"><html:text property="bbDoiThoai.nguoiGhiBbChucVu"
-				styleClass="text">
-			</html:text></td>
-		</tr>
-		<tr>
-			<td width="24%" align="right">Cơ quan, tổ chức đơn vị <font
-				color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%"><html:text property="bbDoiThoai.nguoiGhiBbCoQuan"
-				styleClass="text">
-			</html:text></td>
-		</tr>
-	</table>
+	<div id="divContent">
+	<fieldset><legend>Thông tin phiếu hẹn mới</legend>
+	<TABLE width="100%">
+		<TBODY>
+			<tr>
+				<td style="text-align: right;">Dia diem</td>
+				<td><html:text property="bbDoiThoai.diaDiem" style="width:100%" /></td>
+				<td style="text-align: right;"></td>
+				<td></td>
+			</tr>
+			<tr>
+				<td width="15%" style="text-align: right;">Thời gian bat dau</td>
+				<td width="35%"><html:text styleId="thoiGianBatDauStr"
+					property="bbDoiThoai.thoiGianBatDauStr" style="width:100%"
+					onblur="isTime(this)" onkeypress="return formatTime(event, this)" /></td>
+				<td width="15%" style="text-align: left;">Thoi gian ket thuc</td>
+				<td width="35%"><html:text styleId="thoiGianBatDauStr"
+					property="bbDoiThoai.thoiGianKetThucStr" style="width:100%"
+					onblur="isTime(this)" onkeypress="return formatTime(event, this)" /></td>
+			</tr>
+			<tr>
+				<td style="width: 15%" align="right">Nhập file đính kèm</td>
+				<td colspan="2"><a href="#" onclick="openUploadFile();">File "đề xuất xử lý" đính kèm</a></td>
+			</tr>
+		</TBODY>
+	</TABLE>
 	</fieldset>
-	<fieldset><legend>Người có quyền, nghĩa vụ liên
-	quan</legend>
 	<table width="100%">
-		<tr>
-			<td width="24%" align="right">Ông/bà <font color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%"><html:text property="bbDoiThoai.nguoiLqTen"
-				styleClass="text">
-			</html:text></td>
-			<td width="24%" align="right">Số CMTD/Hộ chiếu <font color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%"><html:text property="bbDoiThoai.nguoiLqCmt"
-				styleClass="text">
-			</html:text></td>
+		<tr align="center">
+			<td align="center"><input type="button" class="button"
+				id="btnKetXuat" value='Kết xuất' name="export" onclick="print();">
+			<input type="button" id="btnSave" class="button" value='Lưu'
+				name="save" onclick="ghi();"> <input type="button"
+				id="btnClose" class="button" value='Đóng' name="exit"
+				onclick="window.close();"></td>
 		</tr>
-		<tr>
-			<td width="24%" align="right">Nơi cấp <font color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%"><html:text property="bbDoiThoai.nguoiLqCmtNoiCap"
-				styleClass="text">
-			</html:text></td>
-			<td width="24%" align="right">Ngày cấp <font color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%"><html:text property="bbDoiThoai.nguoiLqCmtNgayStr" onblur="if(!isDate(this)) return; validateNgayLapDeCuong()" onkeypress="return formatDate(event, this)"
-				styleClass="text">
-			</html:text></td>
-		</tr>
-	</table>
-	</fieldset>
-	<fieldset><legend>Đại diện cơ quan, tổ chức, cá
-	nhân có liên quan</legend>
-	<table width="100%">
-		<tr>
-			<td width="24%" align="right">Ông/bà <font color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%"><html:text property="bbDoiThoai.daiDienTen"
-				styleClass="text">
-			</html:text></td>
-			<td width="24%" align="right">Địa chỉ <font color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%"><html:text property="bbDoiThoai.daiDienDiaChi"
-				styleClass="text">
-			</html:text></td>
-		</tr>
-	</table>
-	</fieldset>
-	<table align="center" width="100%">
-		<tr>
-			<td align="right" width="19%">Nội dung đối thoại <font color=red>*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td colspan="4" width="80%"><html:textarea property="bbDoiThoai.noiDung"
-				onkeypress="imposeMaxLength(this);" styleClass="textareaTitle"></html:textarea></td>
-		</tr>
-		<tr>
-			<td align="right" width="19%">Kết quả đối thoại <font color=red>*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td colspan="4" width="80%"><html:textarea property="bbDoiThoai.ketQua"
-				onkeypress="imposeMaxLength(this);" styleClass="textareaTitle"></html:textarea></td>
-		</tr>
-		<tr>
-			<td width="24%" align="right">Thời gian kết thúc <font
-				color="red">*</font></td>
-			<td style="width: 1%; min-width: 5px"></td>
-			<td width="25%"><html:text property="bbDoiThoai.thoiGianKetThucStr" onblur="isTime(this)" onkeypress="return formatTime(event, this)"
-				styleClass="text">
-			</html:text></td>
-		</tr>
-		<%@ include file="../../../xldtc/button_execute.jsp"%>
 	</table>
 </html:form>
 <%@ include file="/bottom.jsp"%>
 <script type="text/javascript">
 
-function exportDoc()
-{
-	document.forms[0].action="kntc_xm_bb_doi_thoai.do?method=show&action=exportDoc";
-	document.forms[0].submit();
-}
-function saveObject()
-{
-	document.forms[0].action='kntc_xm_bb_doi_thoai.do?method=show&action=save';
-	document.forms[0].submit();
-}
-function showLovCanbo()
-{
-		openWindow("danhmuc_canbo.do?method=lov&r=1");
-}
-function setData(values){
-	var str_val= values.split("@@"); 
- 	
-	 	// document.forms[0].nguoiNhanMa.value = str_val[0];
-	 	document.forms[0].nguoiGqTen.value = str_val[1];
-	 	document.forms[0].nguoiGqChucVu.value = str_val[2];		
-	 	document.forms[0].nguoiGqDonVi.value = str_val[4];	
-}
+var oTable;
+	var pId;
+	var id = '<%=request.getParameter("id")%>';
+		var nguoinhan= '<%= request.getParameter("nguoinhan")%>';
+		var diachi= '<%= request.getParameter("diachi")%>';
+		var r = '<%=request.getParameter("r")%>';
+	$(document).ready(function() {
+				oTable = $('#example').dataTable({
+					"bJQueryUI": true,
+					"sPaginationType": "full_numbers"
+				});
+			} );
+	$(function(){
+	    var url='kntc_xm_bb_doi_thoai.do?method=getListBienBan&id=<%=request.getParameter("id") %>';
+	  	oTable=$("#tbl_listPhieuHen").dataTable({
+	     	"bJQueryUI":true, "sDom":'<"H"fr>t<"F"p>', "bSort": true, "bFilter": false,"bSort": false,"oLanguage":language,
+			"aoColumnDefs": [{"bSortable": false, "aTargets": [ 0 ]}],"sAjaxSource":url,"aaSorting": [[ 1, 'asc' ]]	
+		}).fnSetFilteringDelay(500);
+		var method = '<%=request.getParameter("method")%>';
+	if(method == 'xemBienBan' || method == 'taoBienBan')
+		show('divContent');
+	else hide('divContent');
+		$("#tbl_listPhieuHen tbody").click(function(event) {
+			$(oTable.fnSettings().aoData).each(function (){
+				$(this.nTr).removeClass('row_selected');
+			});
+			$(event.target.parentNode).addClass('row_selected');
+			var iPos=oTable.fnGetPosition(event.target.parentNode);
+			var aData=oTable.fnGetData(iPos);
+			pId = aData[0];
+		});
+	});
+		
+	$(document).ready(function(){
+		 var ghiTC = "";
+		 <logic:present name="ghiThanhcong">
+		     	ghiTC = '<%=request.getAttribute("ghiThanhcong")%>';
+		 </logic:present>
+		 if(ghiTC=='1'){
+			alert('Lưu thành công'); 
+		 }
+		 else  if(ghiTC=='0'){
+			alert('Lỗi khi ghi dữ liệu!!!'); 
+		 }  
+		 <%request.removeAttribute("ghiThanhcong");%>		
+		 var xoaTC = "";
+	 <logic:present name="xoaThanhcong">
+	     	xoaTC = '<%=request.getAttribute("xoaThanhcong")%>';
+	 </logic:present>
+	 if(xoaTC=='1')
+	   alert('Xóa dữ liệu thành công!'); 
+	 else  if(xoaTC=='0')
+	   alert('Lỗi khi xóa dữ liệu!!!');
+		 
+	 }
+	);
+	function ghi(){
+		if(validForm()){
+			alert("id  : "+id);
+			document.forms[0].action="kntc_xm_bb_doi_thoai.do?method=show&action=save&id="+id+"&r="+r;
+			document.forms[0].submit();
+		}
+	}
+	
+	function validForm(){
+		
+		return true;	
+	}
+	 
+	function openUploadFile(){
+		var view='';
+		var method = '<%=request.getParameter("method")%>';
+		if(method == 'view') view = 'view';
+		var r = '<%=request.getParameter("r")%>';
+		if(r == 'rol') view = 'view';
+		
+	    var maHS = id; 
+	    if(maHS!=null && maHS!='' && maHS!='null')
+			openWindow("UploadAction.do?parentId="+id+"&nv=KNTC/XM/BBDT&view="+view);
+		else
+			alert("Chưa có thông tin về hồ sơ!");	
+	}
+	
+	function xem(){
+		var anSelected = fnGetSelected( oTable ); 
+		if(anSelected.length>0) {
+			document.forms[0].action="kntc_xm_bb_doi_thoai.do?method=xemBienBan&id="+id+"&pId="+pId+"&r="+r;
+			document.forms[0].submit();
+		}
+		else showMessage(chua_chon_ban_ghi);	
+	}
+	 
+	function taomoi(){
+		document.forms[0].action="kntc_xm_bb_doi_thoai.do?method=taoBienBan&id="+id+"&r="+r;
+		document.forms[0].submit();
+	}
 
-function validateForm(){    
-	return true;
-}
+	function xoa(){
+		var anSelected = fnGetSelected( oTable );
+		if(anSelected.length>0) {
+			if(confirm ("Bạn chắc chắn muốn xóa bản ghi đang chọn?")){
+				document.forms[0].action="kntc_xm_bb_doi_thoai.do?method=xoaBienBan&id="+id+"&pId="+pId;
+				document.forms[0].submit();
+			}
+		}
+		else showMessage(chua_chon_ban_ghi);
+	}
+	
+	function clearAllText()
+	{
+		$(':text').val("");
+		$('textarea').empty();
+	}
 
 </script>
-<%if(request.getAttribute("save") != null){%>
-<script language="javascript">
-		alert('L\u01B0u th\u00E0nh c\u00F4ng');
-		window.location  = 'kntc_xm_bb_doi_thoai.do?method=show&action=view&id=' + document.getElementsByName('canCuQd')[0].value;
-	</script>
-<%}%>

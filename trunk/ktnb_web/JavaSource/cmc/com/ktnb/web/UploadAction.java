@@ -43,6 +43,11 @@ public class UploadAction extends Action {
 	public static final String UPLOAD_FOLDER_IMGS = "F:/ktnb_file/images/";
 	public static final String UPLOAD_FOLDER_IMGS_BACKUP = "F:/ktnb_file/images_backup/";
 	public static final String UPLOAD_FORDER_PDF="F:/ktnb_file/Reg_images/";*/
+	
+	/*public static final String UPLOAD_FOLDER = "D:/ktnb_file/";
+	public static final String UPLOAD_FOLDER_IMGS = "D:/ktnb_file/images/";
+	public static final String UPLOAD_FOLDER_IMGS_BACKUP = "D:/ktnb_file/images_backup/";
+	public static final String UPLOAD_FORDER_PDF="D:/ktnb_file/Reg_images/";*/
 	 
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		
