@@ -490,7 +490,7 @@ public class XlyPhuToCaoAction extends PrintAction {
 				word.put("[ngay_lap_quyet_dinh]", ngayLap);
 			} else
 				word.put("[ngay_lap_quyet_dinh]", Formater.getDateForPrint(cbForm.tbKoThuLyGq.getNgayLapStr()));
-			word.put("[co_quan_co_tham_quyen_giai_quyet]", cbForm.tbKoThuLyGq.getDviBanHanh());
+			word.put("[nguoi_co_tham_quyen_giai_quyet]", appContext.getTenCanbo().toUpperCase());
 			word.put("[nguoi_co_quan_don_vi_to_cao]", dx.getNguoiKNTC());
 			// word.put("[don_vi_ban_hanh_thong_bao]",
 			// cbForm.tbKoThuLyGq.getDviBanHanh());
