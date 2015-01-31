@@ -63,13 +63,21 @@
 		</tr>
 		<tr>
 			<td style="text-align: right;">File lưu trữ</td>
-			<td><html:text property="soBanIn" value="2" style="width:78%" />
-			<input type="button" style="width: 20%" value='Tải lên' onclick="openUploadFile();" /></td>
+			<td><A href="#" onclick="openUploadFile();">File biên bản đính kèm</A>
+			</td>
 			<td colspan="2"></td>
 		</tr>
 	</table>
 	</fieldset>
-	<jsp:include page="../../../button_bar_kntc_mau_phu.jsp" /></div>
+	<table width="100%">
+	<tr align="center">
+		<td align="center">
+		<input type="button" id="btnSave" class="button" value='Lưu' name="save" onclick="ghi();"> 
+		<input type="button" id="btnClose" class="button" value='Đóng' name="exit" onclick="window.close();">
+	</td>
+</tr>
+</table>
+</div>
 </html:form>
 <script type="text/javascript" language="JavaScript" charset="utf-8">
 var oTable;
@@ -139,14 +147,14 @@ function xem(){
 	var r = '<%=request.getParameter("r")%>';
 	var anSelected = fnGetSelected( oTable );
 	if(anSelected.length>0) {
-		document.forms[0].action="kntc_khxm.do?method=xemBblv&action=bbxmtc&id="+document.forms[0].maHoSo.value+"&pId="+pId+"&r="+r;
+		document.forms[0].action="kntc_khxm.do?method=xemBblv&action=bbLamViecNguoiTC&id="+document.forms[0].maHoSo.value+"&pId="+pId+"&r="+r;
 		document.forms[0].submit();
 	}
 	else showMessage(chua_chon_ban_ghi);	
 }
 
 function taomoi(){
-	document.forms[0].action="kntc_khxm.do?method=taoMoiBblv&action=bbxmtc&id="+document.forms[0].maHoSo.value;
+	document.forms[0].action="kntc_khxm.do?method=taoMoiBblv&action=bbLamViecNguoiTC&id="+document.forms[0].maHoSo.value;
 	document.forms[0].submit();
 }
 
@@ -154,7 +162,7 @@ function xoa(){
 	var anSelected = fnGetSelected( oTable );
 	if(anSelected.length>0) {
 		if(confirm ("Bạn chắc chắn muốn xóa bản ghi đang chọn?")){
-			document.forms[0].action="kntc_khxm.do?method=xoaBblv&action=bbxmtc&id="+document.forms[0].maHoSo.value+"&pId="+pId;
+			document.forms[0].action="kntc_khxm.do?method=xoaBblv&action=bbLamViecNguoiTC&id="+document.forms[0].maHoSo.value+"&pId="+pId;
 			document.forms[0].submit();
 		}
 	}
@@ -185,6 +193,20 @@ function openUploadFile(){
 		else
 			alert("Chưa có thông tin về hồ sơ!");	
 	}
+}
+function openUploadFile1(){
+		var view='';
+		var method = '<%=request.getParameter("method")%>';
+		if(method == 'view') view = 'view';
+		var r = '<%=request.getParameter("r")%>';
+		if(r == 'rol') view = 'view';
+		
+	    var maHS = document.forms[0].maHoSo.value;
+	    var act = '<%=request.getParameter("action")%>';    
+	    if(maHS!=null && maHS!='' && maHS!='null')
+			openWindow("UploadAction.do?parentId="+maHS+"&nv="+act+"&view="+view);
+		else
+			alert("Chưa có thông tin về hồ sơ!");	
 }
 </script>
 <%@ include file="/bottom.jsp"%>

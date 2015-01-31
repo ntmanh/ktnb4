@@ -1,4 +1,4 @@
-
+﻿
 package cmc.com.ktnb.web.kntc.xac_minh;
 
 import java.io.InputStream;
@@ -74,22 +74,22 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	 * 
 	 * @throws Exception
 	 */
-	public ActionForward show(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		String maHs = request.getParameter("id");
-		if (!Formater.isNull(maHs)) {
-			DungChungService service = new DungChungService();
-			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
-				return showV4(map, form, request, response);
-			else
-				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
-				return showV3(map, form, request, response);
-		} else
-			if("4".equals(Constants.APP_DEP_VERSION))
-				return showV4(map, form, request, response);
-			else 
-				return showV3(map, form, request, response);
-	}
+//	public ActionForward show(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+//		String maHs = request.getParameter("id");
+//		if (!Formater.isNull(maHs)) {
+//			DungChungService service = new DungChungService();
+//			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+//				return showV4(map, form, request, response);
+//			else
+//				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
+//				return showV3(map, form, request, response);
+//		} else
+//			if("4".equals(Constants.APP_DEP_VERSION))
+//				return showV4(map, form, request, response);
+//			else 
+//				return showV3(map, form, request, response);
+//	}
 	public ActionForward showV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		FormBeanConfig fbc = map.getModuleConfig().findFormBeanConfig("xacMinhForm");
@@ -146,7 +146,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		// saveToken(request);
 		return map.findForward(ret);
 	}
-	public ActionForward showV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward show(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		FormBeanConfig fbc = map.getModuleConfig().findFormBeanConfig("xacMinhForm");
 		Class clazz = Class.forName(fbc.getType());
@@ -2279,23 +2279,6 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	}
 
 	// Show bien ban lam viec 12/KNTC
-	public ActionForward bb(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-//		String maHs = request.getParameter("id");
-//		if (!Formater.isNull(maHs)) {
-//			DungChungService service = new DungChungService();
-//			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
-//				return bbV4(map, form, request, response);
-//			else
-//				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
-//				return bbV3(map, form, request, response);
-//		} else
-//			if("4".equals(Constants.APP_DEP_VERSION))
-//				return bbV4(map, form, request, response);
-//			else 
-//				return bbV3(map, form, request, response);
-		return bbV4(map, form, request, response);
-	}
 	
 	public ActionForward bbV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
@@ -2387,24 +2370,6 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	}
 	
 	// Xem Bien ban lam viec! Mau 12/KNTC
-	public ActionForward xemBblv(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		KeHoachForm tdForm = (KeHoachForm) form;
-		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		String maHs = request.getParameter("id");
-//		if (!Formater.isNull(maHs)) {
-//			DungChungService service = new DungChungService();
-//			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
-//				return xemBblvV4(map, form, request, response);
-//			else
-//				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
-//				return xemBblvV3(map, form, request, response);
-//		} else
-//			if("4".equals(Constants.APP_DEP_VERSION))
-//				return xemBblvV4(map, form, request, response);
-//			else 
-//				return xemBblvV3(map, form, request, response);
-		return xemBblvV4(map, form, request, response);
-	}
 	//v3
 	public ActionForward xemBblvV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
@@ -2421,7 +2386,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	}
 
 	//v4
-	public ActionForward xemBblvV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward xemBblv(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		XacMinhService service = new XacMinhService();
 		String action=request.getParameter("action");
@@ -2433,29 +2398,13 @@ public class XacMinhHoSo extends BaseDispatchAction {
 			e.printStackTrace();
 			throw new Exception(e);
 		}
-		if("bbxmtc".equals(action))
+		if("bbLamViecNguoiTC".equals(action))
 			return map.findForward("bbTC");
 		else
 			return map.findForward("bb");
 	}
 
 	// Tao moi bien ban lam viec 12
-	public ActionForward taoMoiBblv(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		KeHoachForm tdForm = (KeHoachForm) form;
-		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		String maHs = request.getParameter("id");
-		if (!Formater.isNull(maHs)) {
-			DungChungService service = new DungChungService();
-			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
-				return taoMoiBblvV4(map, form, request, response);
-			else
-				return taoMoiBblvV3(map, form, request, response);
-		} else
-			if("4".equals(Constants.APP_DEP_VERSION))
-				return taoMoiBblvV4(map, form, request, response);
-			else 
-				return taoMoiBblvV3(map, form, request, response);
-	}
 	public ActionForward taoMoiBblvV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		KeHoachForm tdForm = (KeHoachForm) form;
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
@@ -2480,7 +2429,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		return map.findForward("bb");
 	}
 	//v4
-	public ActionForward taoMoiBblvV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward taoMoiBblv(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		KeHoachForm tdForm = (KeHoachForm) form;
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		XacMinhService s = new XacMinhService();
@@ -2501,7 +2450,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		// sb.append(" <br> ");
 		// }
 		tdForm.setThanhPhan("");
-		if ("bbxmtc".equals(action)) {
+		if ("bbLamViecNguoiTC".equals(action)) {
 //			 cnForm.setThoiDiemHoanThanh(thoiDiemHoanThanh)
 			 return map.findForward("bbTC");
 		 }
@@ -2510,25 +2459,6 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	}
 
 	// Xoa bb lam viec
-	public ActionForward xoaBblv(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-//		String maHs = request.getParameter("id");
-//		if (!Formater.isNull(maHs)) {
-//			DungChungService service = new DungChungService();
-//			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
-//				return xoaBblvV4(map, form, request, response);
-//			else
-//				System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
-//				return xoaBblvV3(map, form, request, response);
-//		} else
-//			if("4".equals(Constants.APP_DEP_VERSION))
-//				return xoaBblvV4(map, form, request, response);
-//			else 
-//				return xoaBblvV3(map, form, request, response);
-//		
-		return xoaBblvV4(map, form, request, response);
-	}
-	
 	public ActionForward xoaBblvV3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		XacMinhService service = new XacMinhService();
@@ -2543,7 +2473,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		return map.findForward("bb");
 	}
 	//v4
-	public ActionForward xoaBblvV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward xoaBblv(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		XacMinhService service = new XacMinhService();
 		String action = request.getParameter("action");
@@ -2555,7 +2485,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 			e.printStackTrace();
 			throw new Exception(e);
 		}
-		if ("bbxmtc".equals(action)) {
+		if ("bbLamViecNguoiTC".equals(action)) {
 			 return map.findForward("bbTC");
 		 }
 		else
@@ -2817,22 +2747,6 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		return null;
 	}
 
-	private JSONObject createObject(HttpServletRequest request) throws Exception {
-		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		String maHs = request.getParameter("id");
-//		if (!Formater.isNull(maHs)) {
-//			DungChungService service = new DungChungService();
-//			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
-//				return createObjectV4(request);
-//			else
-//				return createObjectV3(request);
-//		} else
-//			if("4".equals(Constants.APP_DEP_VERSION))
-//				return createObjectV4(request);
-//			else s
-//				return createObjectV3(request);
-		return createObjectV4(request);
-	}
 	private JSONObject createObjectV3(HttpServletRequest request) throws Exception {
 		// Get ma Ho so
 		String maHs = request.getParameter("maHs");
@@ -2902,7 +2816,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	}
 
 	//v4
-	public ActionForward bbV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public ActionForward bb(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		KeHoachForm cnForm = (KeHoachForm) form;
 		String maHs = request.getParameter("id");
@@ -2995,7 +2909,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 			 return map.findForward("bb");
 	}
 
-	private JSONObject createObjectV4(HttpServletRequest request) throws Exception {
+	private JSONObject createObject(HttpServletRequest request) throws Exception {
 		// Get ma Ho so
 		String maHs = request.getParameter("maHs");
 		// Loai bien ban
@@ -3050,7 +2964,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 				ja.put(rs.getString(2)); // diadiem
 				ja.put(Formater.date2strDateTimeForNV(rs.getTimestamp(3))); // thoidiem
 				ja.put(Formater.date2strDateTimeForNV(rs.getTimestamp(4))); // thoidiemhoanthanh
-				ja.put(rs.getString(5));// so ban in
+				ja.put("<A href='#' onclick='openUploadFile1();'>File đính kèm</A>");// so ban in
 				jsonArray.put(ja);
 				rc++;
 			}
