@@ -1,6 +1,10 @@
 package cmc.com.ktnb.web.kntc.xac_minh;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 
 import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletRequest;
@@ -11,13 +15,19 @@ import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
 import org.hibernate.Session;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
+import cmc.com.ktnb.exception.KtnbException;
+import cmc.com.ktnb.pl.hb.entity.KntcQdDinhChiKN;
 import cmc.com.ktnb.pl.hb.entity.KntcQdHuyTamDinhChiKN;
 import cmc.com.ktnb.pl.hb.entity.KntcQdTamDinhChiKn;
+import cmc.com.ktnb.service.kntc.SoTiepDanService;
 import cmc.com.ktnb.service.kntc.XuLyPhuKhieuNaiToCaoService;
 import cmc.com.ktnb.util.ApplicationContext;
 import cmc.com.ktnb.util.BaseHibernateDAO;
 import cmc.com.ktnb.util.Constants;
+import cmc.com.ktnb.util.DataSourceConfiguration;
 import cmc.com.ktnb.util.Formater;
 import cmc.com.ktnb.util.HibernateSessionFactory;
 import cmc.com.ktnb.util.KeyManagement;
@@ -51,8 +61,7 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 		{
 			if("tam".equals(request.getParameter("type")))
 			{
-				qdTamDinhChiKn=cbForm.tamDinhChiKn;
-				services.saveTamDinhChiKn(request, appContext, qdTamDinhChiKn);
+				saveQdTamDinhChiKn(map, request, response, form);
 			}
 			else if("huytam".equals(request.getParameter("type")))
 			{
@@ -106,6 +115,138 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 			cbForm.huyDinhChiKn=huyTamDinhChi;
 		}
 	}
+	
+	/**
+	 * Quyet dinh dinh chi khieu nai 
+	 * 
+	 * */
+	public ActionForward getListBienBan(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception{
+		JSONObject jsonResult = null;
+		// PhieuHenForm phForm = (PhieuHenForm) form;
+		try {
+			jsonResult = this.createObject(request);
+			response.setContentType("application/json;charset=UTF-8");
+			response.setHeader("Cache-Control", "no-store");
+			PrintWriter out = response.getWriter();
+			out.println(jsonResult);
+			out.flush();
+			out.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	private JSONObject createObject(HttpServletRequest request) throws Exception {
+		// Get ma Ho so
+		String maHs = request.getParameter("id");
+		// Create Object
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		JSONObject jsonResult = new JSONObject();
+		try {
+			conn = DataSourceConfiguration.getConnection();
+			StringBuffer sb = new StringBuffer("select id,so_qd,ngay_ban_hanh from kntc_qd_tam_dinh_chi_kn where so_hs= ? order by ngay_ban_hanh desc");
+			ps = conn.prepareStatement(sb.toString());
+			ps.setString(1, maHs);
+			System.out.println(sb.toString());
+			JSONArray jsonArray = new JSONArray();
+			int rc = 0;
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				JSONArray ja;
+				ja = new JSONArray();
+				ja.put(rs.getString("id"));
+				ja.put(rs.getString("so_qd"));
+				ja.put(Formater.date2str(rs.getDate("ngay_ban_hanh")));
+				ja.put("<a href='#' onclick='openUploadFile();'>File \u0111\u00EDnh k\u00E8m</a>");
+				jsonArray.put(ja);
+				rc++;
+			}
+			jsonResult.put("iTotalRecords", new Integer(rc));
+			jsonResult.put("aaData", jsonArray);
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			DataSourceConfiguration.releaseSqlResources(rs, ps);
+		}
+		return jsonResult;
+	}
+	public ActionForward saveQdTamDinhChiKn(ActionMapping map, HttpServletRequest request, HttpServletResponse response, ActionForm form) throws Exception
+	{
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		SoTiepDanService service = new SoTiepDanService();
+		QDTamDinhChiThiHanhKNForm cmForm= (QDTamDinhChiThiHanhKNForm) form;
+		String maHs=request.getParameter("id");
+		try {
+			KntcQdTamDinhChiKn qd=cmForm.getTamDinhChiKn();
+			qd.setSoHs(maHs);
+			service.saveQdTamDinhChiKn(appContext, qd);
+			request.setAttribute("ghiThanhcong", "1");
+		} catch (Exception e) {
+			// TODO: handle exception
+			request.setAttribute("ghiThanhcong", "0");
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		return map.findForward("success");
+	}
+	// Xem bien ban
+	public ActionForward xemBienBan(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		String maHs = request.getParameter("id");
+		String maPh = request.getParameter("pId");
+		System.out.println(maHs + maPh);
+		QDTamDinhChiThiHanhKNForm bbForm = (QDTamDinhChiThiHanhKNForm) form;
+		SoTiepDanService service = new SoTiepDanService();
+		if (!Formater.isNull(maHs)) {
+			KntcQdTamDinhChiKn bb = service.getQdTamDinhChi(appContext, maHs, maPh);
+			if (bb != null)
+				bbForm.setTamDinhChiKn(bb);
+		} else {
+
+		}
+		return map.findForward("success");
+	}
+
+	// Tao moi bien ban doi thoai 
+	public ActionForward taoBienBan(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		QDTamDinhChiThiHanhKNForm bbForm=(QDTamDinhChiThiHanhKNForm) form;
+		String maHs=request.getParameter("id");
+		String readOnly = request.getParameter("r");
+		if (readOnly != null)
+			if (readOnly.equals("rol")) {
+				throw new KtnbException("Bi&#7875;u m&#7851;u n&#224;y kh&#244;ng c&#243; s&#7889; li&#7879;u!!!", "", "");
+			}
+		bbForm.setTamDinhChiKn(new KntcQdTamDinhChiKn());
+		return map.findForward("success");
+	}
+	
+	// Xoa bien ban doi thoai
+	public ActionForward xoaBienBan(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		ApplicationContext appContext = (ApplicationContext)request.getSession().getAttribute(Constants.APP_CONTEXT);
+		SoTiepDanService service = new SoTiepDanService();
+		String maHs= request.getParameter("id");
+		String maPh= request.getParameter("pId");
+		try {
+			if(!Formater.isNull(maHs) && !Formater.isNull(maPh))
+			{
+				service.xoaQdTamDinhChiKn(appContext, service.getQdTamDinhChi(appContext, maHs, maPh));
+				request.setAttribute("xoaThanhcong", "1");
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			request.setAttribute("xoaThanhcong","0");
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+		
+		return map.findForward("success");
+	}
+	
 	
 	// Export 
 	public void exportTamDinhChi(HttpServletRequest request,HttpServletResponse response, ActionForm form) throws IOException

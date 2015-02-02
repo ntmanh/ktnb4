@@ -24,6 +24,8 @@ import cmc.com.ktnb.pl.hb.entity.KntcGiayBienNhan;
 import cmc.com.ktnb.pl.hb.entity.KntcHoSoHdr;
 import cmc.com.ktnb.pl.hb.entity.KntcPhieuGiaoHs;
 import cmc.com.ktnb.pl.hb.entity.KntcPhieuHen;
+import cmc.com.ktnb.pl.hb.entity.KntcQdDinhChiKN;
+import cmc.com.ktnb.pl.hb.entity.KntcQdTamDinhChiKn;
 import cmc.com.ktnb.pl.hb.entity.KtnbDmCanbo;
 import cmc.com.ktnb.pl.hb.entity.KtnbDmCqt;
 import cmc.com.ktnb.pl.hb.entity.KtnbLopTapHuan;
@@ -421,6 +423,91 @@ public class SoTiepDanService {
 		
 	}
 	
+	/**
+	 * Quyet dinh dinh chi khieu nai
+	 * 
+	 * @param appContext
+	 * @param maHs,maPh
+	 * @throws Exception
+	 */
+	public KntcQdDinhChiKN getQuyetDinhByMaPh(ApplicationContext appContext, String maHs, String maPh)  throws Exception
+	{
+		CatalogService service = new CatalogService();
+		SearchCriteria sc= new SearchCriteria(KntcQdDinhChiKN.class);
+		sc.addSearchItem("soHoSo", maHs);
+		sc.addSearchItem("id", maPh);
+		return (KntcQdDinhChiKN) service.retriveObject(appContext, sc);
+	}
+	public void saveQuyetDinhDinhChi(ApplicationContext appContext, KntcQdDinhChiKN qd) throws Exception
+	{
+		try {
+
+			if(Formater.isNull(qd.getId()))
+			{
+				qd.setId(KeyManagement.getGUID());
+				dao.saveObject(appContext, qd);
+			}
+			else
+				dao.updateObject(appContext, qd);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new Exception(e);
+		} 
+		
+	}
+	public void xoaQDDinhChiKn(ApplicationContext appContext, KntcQdDinhChiKN dckn) throws Exception
+	{
+		try {
+			dao.deleteObject(appContext, dckn);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+	}
+	
+	/**
+	 * Quyet dinh tam dinh chi khieu nai
+	 * @throws Exception 
+	 * */
+	public KntcQdTamDinhChiKn getQdTamDinhChi(ApplicationContext appContext, String maHs, String maPhieu) throws Exception
+	{
+		CatalogService service = new CatalogService();
+		SearchCriteria sc= new SearchCriteria(KntcQdTamDinhChiKn.class);
+		sc.addSearchItem("soHs", maHs);
+		sc.addSearchItem("id", maPhieu);
+		return (KntcQdTamDinhChiKn)service.retriveObject(appContext, sc);
+	}
+	
+	public void saveQdTamDinhChiKn(ApplicationContext appContext, KntcQdTamDinhChiKn qdTamDinhChiKn) throws Exception
+	{
+		try {
+			if(Formater.isNull(qdTamDinhChiKn.getId()))
+			{
+				qdTamDinhChiKn.setId(KeyManagement.getGUID());
+				dao.saveObject(appContext, qdTamDinhChiKn);
+			}
+			else 
+				dao.updateObject(appContext, qdTamDinhChiKn);
+					
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+	}
+	
+	public void xoaQdTamDinhChiKn(ApplicationContext appContext, KntcQdTamDinhChiKn qdTamDinhChiKn) throws Exception
+	{
+		try {
+			dao.deleteObject(appContext, qdTamDinhChiKn);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			throw new Exception(e);
+		}
+	}
 	/**
 	 * Lưu giấy biên nhận
 	 * 
