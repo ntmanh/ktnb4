@@ -144,7 +144,7 @@ var oTable;
 	function ghi(){
 		if(validForm()){
 			alert("id  : "+id);
-			document.forms[0].action="kntc_qd_dinh_chi_kn.do?method=show&action=save&id="+id+"&r="+r;
+			document.forms[0].action="kntc_qd_dinh_chi_kn.do?method=show&action=save&id="+id+"&r="+r+"&type=Qddckn";
 			document.forms[0].submit();
 		}
 	}
@@ -171,14 +171,14 @@ var oTable;
 	function xem(){
 		var anSelected = fnGetSelected( oTable ); 
 		if(anSelected.length>0) {
-			document.forms[0].action="kntc_qd_dinh_chi_kn.do?method=xemBienBan&id="+id+"&pId="+pId+"&r="+r;
+			document.forms[0].action="kntc_qd_dinh_chi_kn.do?method=xemBienBan&id="+id+"&pId="+pId+"&r="+r+"&type=Qddckn";
 			document.forms[0].submit();
 		}
 		else showMessage(chua_chon_ban_ghi);	
 	}
 	 
 	function taomoi(){
-		document.forms[0].action="kntc_qd_dinh_chi_kn.do?method=taoBienBan&id="+id+"&r="+r;
+		document.forms[0].action="kntc_qd_dinh_chi_kn.do?method=taoBienBan&id="+id+"&r="+r+"&type=Qddckn";
 		document.forms[0].submit();
 	}
 
@@ -186,7 +186,7 @@ var oTable;
 		var anSelected = fnGetSelected( oTable );
 		if(anSelected.length>0) {
 			if(confirm ("Bạn chắc chắn muốn xóa bản ghi đang chọn?")){
-				document.forms[0].action="kntc_qd_dinh_chi_kn.do?method=xoaBienBan&id="+id+"&pId="+pId;
+				document.forms[0].action="kntc_qd_dinh_chi_kn.do?method=xoaBienBan&id="+id+"&pId="+pId+"&type=Qddckn";
 				document.forms[0].submit();
 			}
 		}
