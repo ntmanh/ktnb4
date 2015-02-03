@@ -85,7 +85,7 @@
 <div style="width: 100%; margin: 0"><%@ include file="/ttkt/dung_chung/action_bar.jsp"%></div>
 <%@ include file="/bottom.jsp"%>
 
-<INPUT type="hidden" name="truongGiuNgayTam">
+<INPUT type="hidden" name="truongGiuNgayTam"> 
 <script language="javascript">     
 function selfClose(){
 	if(window.opener != null)
@@ -397,7 +397,7 @@ function validateDateRequired(dateElement){
 				alert("Ngày họp phải sau ngày ra quyết định");
 				$(dateElement).focus().select();
 			}
-			break;
+			break; 
 		case "thoiDiemKetThuc":
 			if($('[name="ngayRaQuyetDnh"]')[0].value!=""&& d2n(dateElement.value.split(" ")[1])<d2n($('[name="ngayRaQuyetDnh"]')[0].value)){
 				alert("Ngày kết thúc họp đoàn phải sau ngày ra quyết định");

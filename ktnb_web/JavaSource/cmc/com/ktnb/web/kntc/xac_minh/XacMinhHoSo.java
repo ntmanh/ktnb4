@@ -1271,7 +1271,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 	
 	public ActionForward inBbQdxm (ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		SoTiepDanForm cnForm = (SoTiepDanForm) form;
+		KeHoachForm cnForm = (KeHoachForm) form;
 		String maHs = cnForm.getMaHoSo();
 		if (!Formater.isNull(maHs)) {
 			DungChungService service = new DungChungService();
