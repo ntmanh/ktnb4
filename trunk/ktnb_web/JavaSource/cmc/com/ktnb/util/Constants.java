@@ -600,6 +600,10 @@ public class Constants {
 	/*MAP Mẫu phụ*/
 	public static String getMauPhu(int idMauPhu){
 		switch (idMauPhu) {
+		case 1924:
+			return "04/TC";
+		case 1925:
+			return "05/TC";
 		case 9905:
 			return "05/KNTC";
 		case 9906:
