@@ -837,7 +837,7 @@ public class TimKiemStdAction extends BaseDispatchAction {
 		ArrayList list = new ArrayList();
 		list.add(new LabelValueBean("Khiếu nại", "1"));
 		list.add(new LabelValueBean("Tố cáo", "2"));
-		list.add(new LabelValueBean("Hỏi chế độ chính sách", "4"));
+		list.add(new LabelValueBean("Phản ánh, kiến nghị", "4"));
 		list.add(new LabelValueBean("Khác", "3"));
 		return list;
 	}

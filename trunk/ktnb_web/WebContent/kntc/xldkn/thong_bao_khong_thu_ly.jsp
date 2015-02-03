@@ -20,7 +20,7 @@
 			<td><html:text property="cqtGqTen" style="width: 100%" /></td>
 		</tr>
 		<tr>
-			<td style="text-align: right;">L&#253; do kh&#244;ng th&#7909; l&#253; gi&#7843;i quy&#7871;t</td>
+			<td style="text-align: right;">C&#259;n c&#7913;</td>
 			<td colspan="3"><html:textarea property="canCuQuyetDinh" onkeypress="imposeMaxLength(this);" style="width: 100%" /></td>
 		</tr>
 		<tr>

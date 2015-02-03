@@ -1280,6 +1280,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 
 			try {
 				word = new MsWordUtils(fileIn, fileOut);
+				TtktCbDsTvDoan dsTvDoan = TtktService.getDsTvd(idCuocTtkt, appConText);
 				// ----------------------------------//
 				word.put("[ten_cqt]", appConText.getTenCqt().toUpperCase());
 				word.put("[ten_phong]", appConText.getTenPhong().toUpperCase());
@@ -1290,10 +1291,14 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				word.put("[thu_truong]", tenTt);
 				word.put("[nam]", getNamTienHanh(cuocTtkt.getMa()));
 				if (CatalogService.getTenDanhMucById(cbForm.getVanBanQuyDinhCnangNvuQdTvd()).equals("N/A")) {
-					word.put("[can_cu]", KtnbUtil.inFieldNull(108) + ";");
-				} else {
-					word.put("[can_cu]", CatalogService.getTenDanhMucById(cbForm.getVanBanQuyDinhCnangNvuQdTvd()));
+					if (CatalogService.getTenDanhMucById(dsTvDoan.getVanBanQuyDinhCnangNvuQdTvd()).equals("N/A")) {
+						word.put("[can_cu]", KtnbUtil.inFieldNull(108) + ";");
+					} else {
+						word.put("[can_cu]", CatalogService.getTenDanhMucById(dsTvDoan.getVanBanQuyDinhCnangNvuQdTvd()));
+					}
 				}
+				else
+					word.put("[can_cu]", CatalogService.getTenDanhMucById(cbForm.getVanBanQuyDinhCnangNvuQdTvd()));
 				word.put("[ten_phong]", appConText.getTenPhong());
 				word.put("[thu_truong]", tenTt);
 				word.put("[ttkt]", sb.toString());
@@ -1304,7 +1309,8 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				Dispatch table = word.openTable(2);
 				//Collection dsThanhVienDoan = TtktService.getDanhSachThanhVienDoan(idCuocTtkt);
 				
-				TtktCbDsTvDoan dsTvDoan = TtktService.getDsTvd(idCuocTtkt, appConText);
+				
+				System.out.println("TVD : "+dsTvDoan.getVanBanQuyDinhCnangNvuQdTvd());
 				if(dsTvDoan==null){
 					dsTvDoan = TtktService.getDsTvdInQd(idCuocTtkt, appConText);
 				}				

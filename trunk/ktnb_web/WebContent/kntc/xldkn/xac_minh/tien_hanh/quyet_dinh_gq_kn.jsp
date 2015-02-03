@@ -29,7 +29,7 @@
 		<tr>
 			<td style="text-align: right;">File lưu trữ</td>
 			<td><A href="#" onclick="openUploadFile_19();"><font
-				color=blue>Quyết định giải quyết KN mẫu 19/KNTC</font></A></td>
+				color=blue>Quyết định giải quyết KN mẫu 16/KN</font></A></td>
 			<!-- <td align="right">Kết thúc QĐ giải quyết</td>
 			<td><html:checkbox property="ketThuc" value="1"/></td> -->
 			<td></td>
@@ -92,7 +92,7 @@ function openUploadFile_19(){
 	var r = '<%=request.getParameter("r")%>';
 	if(r == 'rol') view = 'view';
 	
-    var maHS = document.forms[1].maHoSo.value;
+    var maHS = '<%=request.getParameter("id")%>';
     if(maHS!=null && maHS!='' && maHS!='null')
 		openWindow("UploadAction.do?parentId="+maHS+"&nv=KNTC/QDGQ19&view="+view);
 	else

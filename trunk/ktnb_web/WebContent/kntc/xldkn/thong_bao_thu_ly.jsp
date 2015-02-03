@@ -24,7 +24,7 @@
 			<td colspan="3"><html:textarea property="noiDungDon" onkeypress="imposeMaxLength(this);" rows="5" style="width: 100%" /></td>
 		</tr>
 		<tr>
-			<td style="text-align: right">&#272;&#417;n v&#7883;, c&#225; nh&#226;n c&#243; th&#226;m quy&#7873;n chuy&#7875;n khi&#7871;u n&#7841;i &#273;&#7871;n</td>
+			<td style="text-align: right">&#272;&#417;n v&#7883;, c&#225; nh&#226;n c&#243; th&#7849;m quy&#7873;n chuy&#7875;n khi&#7871;u n&#7841;i &#273;&#7871;n</td>
 			<td><html:text property="donViCoThamQuyenChuyenDen" style="width: 100%" /></td>
 			<td></td>
 			<td></td>

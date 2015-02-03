@@ -188,7 +188,6 @@ public class SoTiepDanService {
 	public void saveSoTiepDan(ApplicationContext appContext, KntcSoTiepDan hoSo, boolean isInTrans) throws Exception {
 		UserTransaction tx = null;
 		Session session = null;
-		System.out.println("So Tiep Dan thong tin nguoi dai dien : "+hoSo.getHdr().getDaiDienBsNoiDung());
 		try {
 			KntcHoSoHdr hdr = hoSo.getHdr();
 			// KntcNdungDon hdr = hoSo.getNoiDungDon();

@@ -2,7 +2,7 @@
 
 <%@ include file="/top_bar.jsp"%> 
 <!--TODO: P: Sua header tuy theo bieu mau -->
-<h3 class="Header">Biên bản làm việc - Mẫu 12/KNTC</h3>
+<h3 class="Header">Biên bản làm việc - Mẫu 08/KN</h3>
 <html:form action="kntc_khxm.do?method=bb">
 	<html:hidden property="act" styleId="act" />
 	<div style="text-align: center; width: 100%"><font style="font-size: 14px; color: red">Số hồ sơ</font> <html:text property="maHoSo" styleId="maHoSo" styleClass="text" style="width:250px" readonly="true" /></div>
