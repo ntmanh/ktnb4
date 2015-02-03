@@ -8,6 +8,7 @@
 <html:form action="kntc_dxxltc.do" method="POST"
 	enctype="multipart/form-data">
 	<html:hidden property="tbKhongThuLyTiep.id" />
+	<html:hidden property="xuLyKN.canBoTL"/>
 	<div style="text-align: center; width: 100%"><font
 		style="font-size: 14px; color: red">Số hồ sơ</font> <html:text
 		property="tbKhongThuLyTiep.soHoSo" styleId="soHs" style="width:250px"
@@ -56,7 +57,7 @@
 			cáo</td>
 			<td style="width: 1%; min-width: 5px"></td>
 			<td colspan="4" width="80%"><html:text
-				property="tbKhongThuLyTiep.noiDung" style="width:100%"></html:text></td>
+				property="tbKhongThuLyTiep.ttVanBan" style="width:100%"></html:text></td>
 		</tr>
 		<tr>
 			<td width="24%" align="right">Lý do tố cáo tiếp</td>
