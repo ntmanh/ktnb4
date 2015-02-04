@@ -38,13 +38,28 @@ public class KntcQdxmPhieuYc extends cmc.com.ktnb.pl.hb.entity.PersistentObject 
 	 private Long lanTd;
 
 	 private String layYkienVeViec; 
+	 
+	 private String quyetDinhHcKl;
+	 
+	 
+	 
 
 	 //private String layYkienVeViec;
 
 
     // Constructors
 
-    /** default constructor */
+    public String getQuyetDinhHcKl() {
+		return quyetDinhHcKl;
+	}
+
+
+	public void setQuyetDinhHcKl(String quyetDinhHcKl) {
+		this.quyetDinhHcKl = quyetDinhHcKl;
+	}
+
+
+	/** default constructor */
     public KntcQdxmPhieuYc() {
     }
 

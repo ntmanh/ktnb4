@@ -562,7 +562,7 @@ public class GiaHanAction extends BaseDispatchAction {
 			String[] arrdenngay = denngay.split("/");
 			word.put("[den_ngay]", "ng\u00E0y " + arrdenngay[0] + " th\u00E1ng " + arrdenngay[1] + " n\u0103m " + arrdenngay[2]);
 			word.put("[ly_do]", giaHanForm.getLyDoRaHan());
-			word.put("[thu_truong_cqt_ra_qd]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toUpperCase());
+			word.put("[thu_truong_cqt_ra_qd]", KtnbUtil.getTenThuTruongCqtForMauin(appConText).toLowerCase());
 			word.put("[noi_duyet]", giaHanForm.getNoiPheDuyet());
 			// ngay duyet
 			String ngayduyet = giaHanForm.getNgayPheDuyet();

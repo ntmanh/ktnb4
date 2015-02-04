@@ -1379,8 +1379,8 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		KeHoachForm xmForm = (KeHoachForm) form;
 		String maHs = xmForm.getMaHoSo();
 		if (!Formater.isNull(maHs)) {
-			fileIn = request.getRealPath("/docin") + "\\KNTC12.doc";
-			fileOut = request.getRealPath("/docout") + "\\KNTC12_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+			fileIn = request.getRealPath("/docin/v4/kntc") + "\\KN08.doc";
+			fileOut = request.getRealPath("/docout") + "\\KN08_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
 			word = new MsWordUtils(fileIn, fileOut);
 			try {
@@ -1389,34 +1389,45 @@ public class XacMinhHoSo extends BaseDispatchAction {
 					gioHop = ".....gi\u1EDD.....ph\u00FAt ng\u00E0y.....th\u00E1ng....n\u0103m....";
 				} else
 					gioHop = Formater.getDateForPrint(xmForm.getThoiDiem());
-				word.put("[Gio_hop]", gioHop);
+				word.put("[thoi_gian_bat_dau]", xmForm.getThoiDiem());
 
 				if (Formater.isNull(xmForm.getDiaDiem()))
 					word.put("[Dia_diem_hop]", "...");
 				else
 					word.put("[Dia_diem_hop]", xmForm.getDiaDiem());
 
-				if (Formater.isNull(xmForm.getThanhPhan())) {
-					word.put("[Dai_dien]", "\t...");
-				} else {
-					String thanhPhanStr = "\t" + xmForm.getThanhPhan().replaceAll("\n", "\n\t");
-					word.put("[Dai_dien]", thanhPhanStr);
-				}
+				//if (Formater.isNull(xmForm.getThanhPhan())) {
+					//word.put("[Dai_dien]", "\t...");
+				//} else {
+					//String thanhPhanStr = "\t" + xmForm.getThanhPhan().replaceAll("\n", "\n\t");
+					//word.put("[Dai_dien]", thanhPhanStr);
+				//}
+				
+				word.put("[nguoi_xm]", "Nguoi xac minh");
+				word.put("[nguoi_lam_viec_nguoi_xm]", "Nguoi lam viec voi nguoi xac minh");
+				
 
 				if (Formater.isNull(xmForm.getNoiDung())) {
-					word.put("[Noi_dung_lam_viec]", "...");
+					word.put("[noi_dung]", "...");
 				} else {
 					String noiDungLamViec = "\t" + xmForm.getNoiDung().replaceAll("\n", "\n\t");
-					word.put("[Noi_dung_lam_viec]", noiDungLamViec);
+					word.put("[noi_dung]", noiDungLamViec);
 				}
+				
+				word.put("[ket_qua]", "Ket qua");
+				word.put("[noi_dung_lien_quan]", "Noi dung lien quan");
+				word.put("[thoi_gian_ket_thuc]", xmForm.getThoiDiemHoanThanh());
 
 				if (Formater.isNull(xmForm.getSoBanIn()))
 					word.put("[So_ban_in_ra]", "...");
 				else
 					word.put("[So_ban_in_ra]", xmForm.getSoBanIn());
+				
+				word.put("[nguoi_lam_viec_nguoi_xm]", "Nguoi lam viec voi nguoi xac minh");
+				word.put("[nguoi_xm]", "Nguoi xac minh");
 
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau KNTC12", ".doc", response);
+				word.downloadFile(fileOut, "Mau KN08", ".doc", response);
 			} catch (Exception ex) {
 				// ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
