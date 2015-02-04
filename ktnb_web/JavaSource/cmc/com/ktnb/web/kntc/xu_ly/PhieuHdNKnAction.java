@@ -446,7 +446,8 @@ public class PhieuHdNKnAction extends BaseDispatchAction {
 		{
 			if("4".equals(Constants.APP_DEP_VERSION))
 				inv4(map, form, request, response);
-			else inv3(map, form, request, response);
+			else 
+				inv3(map, form, request, response);
 		}
 		return null;
 		

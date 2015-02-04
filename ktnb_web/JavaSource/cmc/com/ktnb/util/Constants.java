@@ -604,6 +604,10 @@ public class Constants {
 			return "04/TC";
 		case 1925:
 			return "05/TC";
+		case 1926:
+			return "06/TC";
+		case 1927:
+			return "07/TC";
 		case 9905:
 			return "05/KNTC";
 		case 9906:

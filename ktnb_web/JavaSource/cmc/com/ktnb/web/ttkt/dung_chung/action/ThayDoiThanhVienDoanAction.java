@@ -237,6 +237,8 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 	 * Des : ktnb v3
 	 * */
 	private void inThayDoiThanhVienv3(HttpServletRequest request, HttpServletResponse reponse, ThayDoiThanhVienDoanForm thayDoiThanhVienDoanForm, ApplicationContext appConText) throws Exception {
+		System.out.println("This is ktnb v3");
+		
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;

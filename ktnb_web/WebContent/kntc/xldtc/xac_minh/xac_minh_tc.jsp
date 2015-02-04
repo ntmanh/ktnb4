@@ -13,7 +13,7 @@
 	<div id="super-tab1">	
 	<div id="tab_xac_minh" style="background-color: transparent; float: left;">
 	<ul>
-		<li><a href="#tab_qdxm" class="tabTitle">Quyết định xác minh - Mẫu 22/KNTC</a></li>
+		<li><a href="#tab_qdxm" class="tabTitle">Quyết định xác minh - Mẫu 07/TC</a></li>
 		<li><a href="#tab_khxm" class="tabTitle">Kế hoạch xác minh - Mẫu 11/KNTC</a></li>
 		<li><a href="#tab_kqxm" class="tabTitle">Báo cáo kết quả xác minh - Mẫu 17/TC</a></li>
 	</ul>
