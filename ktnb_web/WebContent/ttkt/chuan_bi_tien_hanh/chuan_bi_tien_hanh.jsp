@@ -85,7 +85,7 @@
 <div style="width: 100%; margin: 0"><%@ include file="/ttkt/dung_chung/action_bar.jsp"%></div>
 <%@ include file="/bottom.jsp"%>
 
-<INPUT type="hidden" name="truongGiuNgayTam"> 
+<INPUT type="hidden" name="truongGiuNgayTam">    
 <script language="javascript">     
 function selfClose(){
 	if(window.opener != null)
@@ -99,10 +99,10 @@ window.open('huy_ttkt.do?idCuocTtkt=' + document.getElementsByName('idCuocTtkt')
 function hoan(){
 window.open('hoan_ttkt.do?idCuocTtkt=' + document.getElementsByName('idCuocTtkt')[0].value);
 }     
-function giaHan(){ 
+function giaHan(){  
 	window.open('gia_han.do?idCuocTtkt=' + document.getElementsByName('idCuocTtkt')[0].value);
 } 
-function thayDoiThanhVien(){
+function thayDoiThanhVien(){ 
 	window.open('thay_doi_thanh_vien_doan.do?idCuocTtkt=' + document.getElementsByName('idCuocTtkt')[0].value);
 }  
     
@@ -184,7 +184,7 @@ function saveActiveTab(){
 		url = 'chuan_bi_tien_hanh.do?method=save&type=tvd';
 	}else if(activeTab == 2){   
 		if(!isEmpty(document.getElementsByName('soQuyetDinh')[0].value)){
-			var r=confirm("Sau khi lưu quyết định, các thông tin trước sẽ không được sửa!")
+			var r=confirm("Sau khi lưu quyết định, các thông tin trước sẽ không được sửa!") 
 			if (r==false)
 				return;		      
 		}

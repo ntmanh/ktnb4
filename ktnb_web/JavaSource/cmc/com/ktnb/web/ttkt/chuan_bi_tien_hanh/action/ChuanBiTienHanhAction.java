@@ -1291,11 +1291,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				word.put("[thu_truong]", tenTt);
 				word.put("[nam]", getNamTienHanh(cuocTtkt.getMa()));
 				if (CatalogService.getTenDanhMucById(cbForm.getVanBanQuyDinhCnangNvuQdTvd()).equals("N/A")) {
-					if (CatalogService.getTenDanhMucById(dsTvDoan.getVanBanQuyDinhCnangNvuQdTvd()).equals("N/A")) {
-						word.put("[can_cu]", KtnbUtil.inFieldNull(108) + ";");
-					} else {
-						word.put("[can_cu]", CatalogService.getTenDanhMucById(dsTvDoan.getVanBanQuyDinhCnangNvuQdTvd()));
-					}
+					word.put("[can_cu]", KtnbUtil.inFieldNull(108) + ";");
 				}
 				else
 					word.put("[can_cu]", CatalogService.getTenDanhMucById(cbForm.getVanBanQuyDinhCnangNvuQdTvd()));
@@ -1308,9 +1304,6 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				// ----------------------------danh sach thanh vien doan---------------------------------//
 				Dispatch table = word.openTable(2);
 				//Collection dsThanhVienDoan = TtktService.getDanhSachThanhVienDoan(idCuocTtkt);
-				
-				
-				System.out.println("TVD : "+dsTvDoan.getVanBanQuyDinhCnangNvuQdTvd());
 				if(dsTvDoan==null){
 					dsTvDoan = TtktService.getDsTvdInQd(idCuocTtkt, appConText);
 				}				
