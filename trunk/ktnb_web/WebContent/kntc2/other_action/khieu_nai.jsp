@@ -7,7 +7,7 @@
 		</tr>		
 		<tr>
 			<td><a href="#" onclick="openBm2('kntc_qdgq.do?method=rutdon&id=');">Rút / Đóng đơn</a></td>			
-			<td></td>
+			<td><a href="#" onclick="openBm2('kntc_qd_dinh_chi_kn.do?method=show&action=view&type=Qddckn&id=');">Quyết định đình chỉ khiếu nại - Mẫu 18/KN</td>
 		</tr>
 	</table>
 </fieldset>
