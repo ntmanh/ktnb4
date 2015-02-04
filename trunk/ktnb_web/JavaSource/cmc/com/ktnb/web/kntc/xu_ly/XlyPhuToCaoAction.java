@@ -35,7 +35,7 @@ import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.catalog.CatalogService;
 import cmc.com.ktnb.web.kntc.tiep_dan.PhieuForm;
 import cmc.com.ktnb.web.kntc.xac_minh.XacMinhForm;
-
+import org.apache.commons.lang.WordUtils;
 public class XlyPhuToCaoAction extends PrintAction {
 	KntcNoiDungTCTT ndtc = new KntcNoiDungTCTT();
 
@@ -426,8 +426,8 @@ public class XlyPhuToCaoAction extends PrintAction {
 				ngayLap = "Ng\u00E0y   th\u00E1ng   n\u0103m        ";
 				word.put("[ngay_lap_quyet_dinh]", ngayLap);
 			} else
-				word.put("[ngay_lap_quyet_dinh]", Formater.getDateForPrint(cbForm.tbKoThuLyGq.getNgayLapStr()));
-			word.put("[co_quan_co_tham_quyen_giai_quyet]", cbForm.tbKoThuLyGq.getDviBanHanh());
+				word.put("[ngay_lap_quyet_dinh]", Formater.getDateForPrint1(cbForm.tbKoThuLyGq.getNgayLapStr()));
+			word.put("[nguoi_co_tham_quyen_giai_quyet]", WordUtils.capitalizeFully(appContext.getTenCanbo().toUpperCase()));
 			word.put("[nguoi_co_quan_don_vi_to_cao]", dx.getNguoiKNTC());
 			// word.put("[don_vi_ban_hanh_thong_bao]",
 			// cbForm.tbKoThuLyGq.getDviBanHanh());
@@ -482,18 +482,22 @@ public class XlyPhuToCaoAction extends PrintAction {
 //			word.put("[cqt_ra_van_ban]", cbForm.tbKoThuLyGq.getDviBanHanh());
 			word.put("[so_tb]", cbForm.tbKhongThuLyTiep.getSoThongBao());
 			String ngayLap="";
+			String diaDiem="";
+			if (Formater.isNull(cbForm.tbKhongThuLyTiep.getDiaDiem())){
+				diaDiem=".....";
+			}else
+				diaDiem=cbForm.tbKhongThuLyTiep.getDiaDiem();
 			if (Formater.isNull(cbForm.tbKhongThuLyTiep.getNgayLapStr())) {
-				ngayLap = "Ng\u00E0y   th\u00E1ng   n\u0103m        ";
-				word.put("[ngay_lap_quyet_dinh]", cbForm.tbKhongThuLyTiep.getDiaDiem() + ", " + ngayLap);
-			} else
-				word.put("[ngay_lap_quyet_dinh]", cbForm.tbKhongThuLyTiep.getDiaDiem() + ", " + Formater.getDateForPrint(cbForm.tbKoThuLyGq.getNgayLapStr()));
-//			word.put("[dia_diem]", cbForm.tbKoThuLyGq.getDiaDiem());
-			if (Formater.isNull(cbForm.tbKhongThuLyTiep.getNgayLapStr())) {
-				ngayLap = "Ng\u00E0y   th\u00E1ng   n\u0103m        ";
+				ngayLap = "ng\u00E0y   th\u00E1ng   n\u0103m        ";
+				word.put("[ngay_lap_quyet_dinh]", diaDiem + ", " + ngayLap);
 				word.put("[ngay_lap_quyet_dinh]", ngayLap);
 			} else
-				word.put("[ngay_lap_quyet_dinh]", Formater.getDateForPrint(cbForm.tbKhongThuLyTiep.getNgayLapStr()));
-			word.put("[nguoi_co_tham_quyen_giai_quyet]", appContext.getTenCanbo().toUpperCase());
+			{
+				word.put("[ngay_lap_quyet_dinh]", diaDiem + ", " + Formater.getDateForPrint(cbForm.tbKhongThuLyTiep.getNgayLapStr()));
+				word.put("[ngay_lap_quyet_dinh]", Formater.getDateForPrint1(cbForm.tbKhongThuLyTiep.getNgayLapStr()));
+			}
+//			word.put("[dia_diem]", cbForm.tbKoThuLyGq.getDiaDiem());
+			word.put("[nguoi_co_tham_quyen_giai_quyet]", WordUtils.capitalizeFully(appContext.getTenCanbo().toUpperCase()));
 			word.put("[noi_dung_to_cao_tiep]", dx.getNoiDungKNTC());
 //			word.put("[nguoi_co_quan_don_vi_to_cao]", dx.getNguoiKNTC());
 			// word.put("[don_vi_ban_hanh_thong_bao]",
@@ -511,8 +515,8 @@ public class XlyPhuToCaoAction extends PrintAction {
 			else
 				word.put("[ly_do_tc_tiep]", cbForm.tbKhongThuLyTiep.getLyDo());
 
-			word.put("[nguoi_co_tham_quyen_giai_quyet]", appContext.getTenCanbo().toUpperCase());
-			word.put("[nguoi_co_tham_quyen_giai_quyet]", appContext.getTenCanbo().toUpperCase());
+			word.put("[nguoi_co_tham_quyen_giai_quyet]", WordUtils.capitalizeFully(appContext.getTenCanbo().toUpperCase()));
+			word.put("[nguoi_co_tham_quyen_giai_quyet]", WordUtils.capitalizeFully(appContext.getTenCanbo().toUpperCase()));
 			// word.put("[don_vi_chuyen_to_cao]",
 			// cbForm.tbKoThuLyGq.getDonViChuyenBc());
 			if (Formater.isNull(cbForm.tbKhongThuLyTiep.getNgayLapStr()))
