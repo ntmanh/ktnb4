@@ -52,6 +52,8 @@ public class KntcBienBan extends cmc.com.ktnb.pl.hb.entity.PersistentObject impl
 	private String maCqt;
 
 	private String loaiBienBan, thanhPhan,daiDien;
+	
+
 
 	// private Long lanTd;
 	// Constructors

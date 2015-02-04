@@ -46,6 +46,10 @@
 				<td><html:text property="lanYc" style="width:100%" maxlength="2" onblur="isNumber(this,'i') " /></td>
 			</tr>
 			<tr>
+				<td width="15%" style="text-align: right;">Quyết định hành chính, kỷ luật công chức bị khiếu nại</td>
+				<td colspan="3"><html:textarea property="quyetDinhHcKl" onkeypress="imposeMaxLength(this);" style="width:100%;height:80px;" /></td>
+			</tr>
+			<tr>
 				<td width="15%" style="text-align: right;">Các báo cáo cần cung cấp</td>
 				<td colspan="3"><html:textarea property="ycBaoCao" onkeypress="imposeMaxLength(this);" style="width:100%;height:80px;" /></td>
 			</tr>
