@@ -8,24 +8,24 @@
 	<fieldset><legend>Th&#244;ng tin phi&#7871;u h&#432;&#7899;ng d&#7851;n</legend>
 	<table width="100%">
 		<tr>
-			<td width="15%" style="text-align: right;">&#272;&#7883;a &#273;i&#7875;m</td>
+			<td width="15%" style="text-align: right;">&#272;&#7883;a &#273;i&#7875;m<font color="red">*</font></td>
 			<td width="35%"><html:text property="diaDiem" style="width: 100%" /></td>
-			<td width="15%" style="text-align: right;">Ng&#224;y l&#7853;p</td>
+			<td width="15%" style="text-align: right;">Ng&#224;y l&#7853;p<font color="red">*</font></td>
 			<td width="35%"><html:text property="thoiDiem" style="width: 100%" maxlength="10" onkeypress="return formatDate(event, this)" onblur="isDate(this)" /></td>
 		</tr>
 		<tr>
-			<td style="text-align: right;">S&#7889; phi&#7871;u</td>
+			<td style="text-align: right;">S&#7889; phi&#7871;u<font color="red">*</font></td>
 			<td><html:text property="maPhieu" style="width: 100%" /></td>
 			<td style="text-align: right;">C&#417; quan c&#243; th&#7849;m quy&#7873;n gi&#7843;i quy&#7871;t khi&#7871;u n&#7841;i</td>
 			<td><html:text property="cqtGqTen" style="width: 100%" /></td>
 		</tr>
 		<tr>
 			<td style="text-align: right;">C&#259;n c&#7913;</td>
-			<td colspan="3"><html:textarea property="canCuQuyetDinh" onkeypress="imposeMaxLength(this);" style="width: 100%" /></td>
+			<td colspan="3"><html:text property="canCuQuyetDinh" style="width: 100%" /></td>
 		</tr>
 		<tr>
 			<td style="text-align: right;">T&#243;m t&#7855;t n&#7897;i dung &#273;&#417;n</td>
-			<td colspan="3"><html:textarea property="noiDungDon" onkeypress="imposeMaxLength(this);" style="width: 100%" readonly="true" /></td>
+			<td colspan="3"><html:textarea property="noiDungDon" onkeypress="imposeMaxLength(this);" style="width: 100%;" readonly="true" /></td>
 		</tr>
 	</table>
 	</fieldset>

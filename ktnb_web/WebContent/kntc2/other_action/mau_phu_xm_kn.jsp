@@ -20,7 +20,7 @@
 		
 		<tr>
 			<td><a href="#" onclick="openBm2('kntc_xm_bb_doi_thoai.do?method=show&action=view&id=');">Biên bản đối thoại - Mẫu 17/KN</a></td>
-			<td><a href="#" onclick="openBm2('kntc_qd_dinh_chi_kn.do?method=show&action=view&type=Qddckn&id=');">Quyết định đình chỉ khiếu nại - Mẫu 18/KN</td>
+<!--			<td><a href="#" onclick="openBm2('kntc_qd_dinh_chi_kn.do?method=show&action=view&type=Qddckn&id=');">Quyết định đình chỉ khiếu nại - Mẫu 18/KN</td>-->
 		</tr>
 		
 		<tr>
