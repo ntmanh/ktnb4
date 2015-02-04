@@ -25,7 +25,7 @@
 		<OPTION value="<bean:write name="noiDung" property="idNoiDung"/>"><bean:write name="noiDung" property="tenNoiDung" /></OPTION>
 	</logic:iterate>
 </SELECT>
-<h3 class="Header">Phúc tra</h3>
+<h3 class="Header">Thanh tra lại</h3>
 <html:form action="phuc_tra.do">
 	<html:hidden property="id" />
 	<html:hidden property="idCuocTtKt" />
@@ -39,7 +39,7 @@
 	<TABLE width="100%" align="center">
 		<TBODY>
 			<tr>
-				<td align="right" width="19%">Số quyết định <font color=red>*</font></td>
+				<td align="right" width="19%">Số quyết định thanh tra lại <font color=red>*</font></td>
 				<td width="1%"></td>
 				<td width="30%" align="left"><html:text styleClass="text" property="soQuyetDinh"></html:text></td>
 				<td width="19%" align="right">Ngày ra quyết định <font color=red>*</font></td>
@@ -68,7 +68,7 @@
 				<td colspan="4"><html:textarea property="kienPheDuyet" onkeypress="imposeMaxLength(this);"  styleClass="textareaTitle"></html:textarea></td>
 			</tr>
 			<tr>
-				<td align="right" width="19%">Người đề nghị phúc tra <font color=red>*</font></td>
+				<td align="right" width="19%">Người đề nghị thanh tra lại <font color=red>*</font></td>
 				<td width="1%"></td>
 				<td align="left" width="30%">
 				<table style="margin: 0" border="0" cellpadding="0" cellspacing="0" width="100%" align="center">
@@ -84,7 +84,7 @@
 			</tr>
 			<tr>
 				<td colspan="6">
-				<fieldset style="margin: 0"><legend>Thông tin phúc tra</legend>
+				<fieldset style="margin: 0"><legend>Thông tin thanh tra lại</legend>
 				<TABLE width="100%">
 					<TBODY>
 						<tr>
@@ -96,7 +96,7 @@
 							<td align="left" width="30%"><html:text styleClass="text" property="chucDanhNguoiRaQd"></html:text></td>
 						</tr>
 						<tr>
-							<td align="right" width="19%">Đề nghị phúc tra tại <font color=red>*</font></td>
+							<td align="right" width="19%">Đề nghị thanh tra tại <font color=red>*</font></td>
 							<td width="1%"></td>
 							<td align="left" width="30%"><html:text styleClass="text" property="tenCoQuanTueCanPhucTra"></html:text></td>
 							<td colspan="3"></td>
@@ -108,7 +108,7 @@
 						</tr>
 						<tr>
 							<td colspan="6">
-							<fieldset style="margin: 0"><legend>Quyết định kiểm tra cần phúc tra</legend>
+							<fieldset style="margin: 0"><legend>Quyết định thanh tra, kiểm tra cần thanh tra lại</legend>
 							<TABLE width="100%">
 								<TBODY>
 									<tr>
@@ -131,15 +131,15 @@
 						</tr>
 						<tr>
 							<td colspan="6">
-							<fieldset style="margin: 0"><legend>Nội dung phúc tra</legend>
+							<fieldset style="margin: 0"><legend>Nội dung thanh tra lại</legend>
 							<table align="center">
 								<tr>
 									<td align="right" width="5%"><html:radio property="loaiND" value="NoiBo" onclick="radio(true)"></html:radio></td>
 									<td width="2%"></td>
-									<td align="left" width="25%">Phúc tra việc thực hiện công tác kiểm tra nội bộ</td>
+									<td align="left" width="25%">Thanh tra lại việc thực hiện công tác kiểm tra nội bộ</td>
 									<td align="right" width="5%"><html:radio property="loaiND" value="Ngoai" onclick="radio(false)"></html:radio></td>
 									<td width="2%"></td>
-									<td align="left" width="25%">Phúc tra việc kiểm tra người nộp thuế</td>
+									<td align="left" width="25%">Thanh tra lại việc kiểm tra người nộp thuế</td>
 								</tr>
 							</table>
 							<table id="NDPT2" width="100%">
@@ -150,7 +150,7 @@
 							<table id="NDPT" width="100%">
 								<tr class=TdHeaderList>
 									<td align="center" width="10%">STT</td>
-									<td>Nội dung phúc tra</td>
+									<td>Nội dung thanh tra lại</td>
 									<td align="center" width="10%"><input type="checkbox" onclick="chonTat()"></td>
 								</tr>
 								<logic:present name="PhucTraForm" property="noiDungPhucTra">
@@ -174,7 +174,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td align="right" width="19%">Niên độ phúc tra từ <font color=red>*</font></td>
+							<td align="right" width="19%">Niên độ thanh tra lại từ <font color=red>*</font></td>
 							<td width="1%"></td>
 							<td align="left" width="30%"><html:text styleClass="text" property="nienDoTuNgay" onblur="if(!isDate(this)) return;validateDateRequired(this);"  onkeypress="return formatDate(event, this)"></html:text></td>
 							<td align="right" width="19%">Đến <font color=red>*</font></td>
@@ -182,13 +182,13 @@
 							<td align="left" width="30%"><html:text styleClass="text" property="nienDoDenNgay" onblur="if(!isDate(this)) return;validateDateRequired(this);" onkeypress="return formatDate(event, this)"></html:text></td>
 						</tr>
 						<tr>
-							<td align="right" width="19%">Thời gian phúc tra <font color=red>*</font></td>
+							<td align="right" width="19%">Thời gian thanh tra lại <font color=red>*</font></td>
 							<td width="1%"></td>
 							<td colspan="4"><html:text styleClass="text" property="thoiGian" onblur="if(!isNumber(this,'i')) return;" onkeypress="return formatInt(event);" style="width:7%"></html:text> ngày</td>
 						</tr>
 						<tr>
 							<td colspan="6">
-							<fieldset style="margin: 0"><legend>Danh sách cán bộ thực hiện phúc tra</legend>
+							<fieldset style="margin: 0"><legend>Danh sách cán bộ thực hiện thanh tra lại</legend>
 							<table id="TPTD" width="100%">
 								<thead>
 									<tr class=TdHeaderList>
