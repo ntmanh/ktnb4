@@ -152,8 +152,14 @@ function IntoTrinh(){
 	if(!validateThanhVienDoan())     
 			return;
 	//window.open('report.do?rp=ttnb04'); 
+	var thongTinIn = "";
+		var qdForm = findForm('/' + contextRoot + '/chuan_bi_tien_hanh.do?method=save&type=tvd');	 
+		for(var i = 0; i< qdForm.elements.length; i++){
+			if(qdForm.elements[i].name != null && qdForm.elements[i].name != '' && qdForm.elements[i].value != null && qdForm.elements[i].value != '')
+			thongTinIn += "&" + qdForm.elements[i].name + "=" + encodeURIComponent(qdForm.elements[i].value);
+		}		
 	var printfForm = findForm('/' + contextRoot + '/chuan_bi_tien_hanh.do?method=save&type=tvd');	
-	printfForm.action = 'chuan_bi_tien_hanh.do?method=in&type=tvd&idCuocTtkt=' + document.getElementsByName('idCuocTtkt')[0].value;
+	printfForm.action = 'chuan_bi_tien_hanh.do?method=in&type=tvd&idCuocTtkt=' + document.getElementsByName('idCuocTtkt')[0].value + thongTinIn;
 	printfForm.submit();
 	printfForm.action = '/' + contextRoot + '/chuan_bi_tien_hanh.do?method=save&type=tvd'; 
 }

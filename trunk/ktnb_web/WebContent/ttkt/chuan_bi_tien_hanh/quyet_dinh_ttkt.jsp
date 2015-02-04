@@ -111,7 +111,6 @@
 		//thongTinIn = thongTinIn.substring(0, thongTinIn.length - 1);  
 		//window.open('chuan_bi_tien_hanh.do?method=in&type=qd&idCuocTtkt=' + document.getElementsByName('idCuocTtkt')[0].value + '&' + thongTinIn);
 		var printfForm = findForm('/' + contextRoot + '/chuan_bi_tien_hanh.do?method=save&type=qd'); 
-		alert('Thong tin in : '+thongTinIn);
 		printfForm.action = 'chuan_bi_tien_hanh.do?method=in&type=qd&idCuocTtkt=' + document.getElementsByName('idCuocTtkt')[0].value + thongTinIn;
 		printfForm.submit();
 		printfForm.action = '/' + contextRoot + '/chuan_bi_tien_hanh.do?method=save&type=qd'; 

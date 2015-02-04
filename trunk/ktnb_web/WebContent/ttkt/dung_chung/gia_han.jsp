@@ -139,7 +139,14 @@
 	function inQuyetDinh(){
 		if(!validateForm())
 			return;
-		document.forms[0].action = 'gia_han.do?method=in';
+		var contextRoot = document.forms[0].action.split('/')[1];
+		var thongTinIn = "";
+			var qdForm = findForm('/' + contextRoot + '/gia_han.do');	 
+			for(var i = 0; i< qdForm.elements.length; i++){
+				if(qdForm.elements[i].name != null && qdForm.elements[i].name != '' && qdForm.elements[i].value != null && qdForm.elements[i].value != '')
+				thongTinIn += "&" + qdForm.elements[i].name + "=" + encodeURIComponent(qdForm.elements[i].value);
+			}	
+		document.forms[0].action = 'gia_han.do?method=in' + thongTinIn;
 		document.forms[0].submit();		
 		
 	}

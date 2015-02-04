@@ -413,12 +413,19 @@ function inQuyetDinh(){
 		
 	}
 	var action;
+	var contextRoot = document.forms[0].action.split('/')[1];
+	var thongTinIn = "";
+		var qdForm = findForm('/' + contextRoot + '/thay_doi_thanh_vien_doan.do');	 
+		for(var i = 0; i< qdForm.elements.length; i++){
+			if(qdForm.elements[i].name != null && qdForm.elements[i].name != '' && qdForm.elements[i].value != null && qdForm.elements[i].value != '')
+			thongTinIn += "&" + qdForm.elements[i].name + "=" + encodeURIComponent(qdForm.elements[i].value);
+		}		
 	if(document.forms[0].elements['loaiThayDoi'].value == 'truong_doan'){
 		action = 'thay_doi_thanh_vien_doan.do?method=in&type=truongDoan';
 	}else if(document.forms[0].elements['loaiThayDoi'].value == 'thanh_vien_doan'){
 		action = 'thay_doi_thanh_vien_doan.do?method=in&type=thanhVienDoan';
 	}else if(document.forms[0].elements['loaiThayDoi'].value == 'bo_sung_thanh_vien_doan'){
-		action = 'thay_doi_thanh_vien_doan.do?method=in&type=boSungTv';
+		action = 'thay_doi_thanh_vien_doan.do?method=in&type=boSungTv' + thongTinIn;
 	}
 	document.forms[0].action = action;
 	document.forms[0].submit();

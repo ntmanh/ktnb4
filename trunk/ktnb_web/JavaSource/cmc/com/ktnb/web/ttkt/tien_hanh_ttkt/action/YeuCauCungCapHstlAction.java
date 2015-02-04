@@ -56,7 +56,7 @@ public class YeuCauCungCapHstlAction extends BaseDispatchAction {
 			// TODO: Kiem tra xem cho nay co phai load lai lan nua khong
 			String cuocTtktId = request.getParameter("idCuocTtkt");
 			System.out.println("cuoc ttkt : "+cuocTtktId);
-			inYcbsTl(request, reponse, hstlForm, app);
+			inYcbsTl(request, reponse, hstlForm, app,cuocTtktId);
 			return null;
 		} else {
 			String cuocTtktId = request.getParameter("idCuocTtkt");
@@ -500,23 +500,21 @@ public class YeuCauCungCapHstlAction extends BaseDispatchAction {
 	 * Des : chon version
 	 * */
 	
-	private void inYcbsTl(HttpServletRequest request,  HttpServletResponse reponse, YeuCauCungCapHstlForm form, ApplicationContext appConText) throws Exception {
+	private void inYcbsTl(HttpServletRequest request,  HttpServletResponse reponse, YeuCauCungCapHstlForm form, ApplicationContext appConText,String idCuocTtkt) throws Exception {
 		CuocTtktService service = new CuocTtktService();
-		String cuocTtktId=form.getIdCuocTtKtl();
-		System.out.println("Id cuoc ttkt : "+cuocTtktId );
-		if(!Formater.isNull(cuocTtktId))
+		if(!Formater.isNull(idCuocTtkt))
 		{
-			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			if("4".equals(service.getDonVerionTtkt(appConText, idCuocTtkt)))
 			{
-				inYcbsTlv4(request, reponse, form, appConText, cuocTtktId);
+				inYcbsTlv4(request, reponse, form, appConText, idCuocTtkt);
 			}
-			else inYcbsTlv3(request, reponse, form, appConText, cuocTtktId);
+			else inYcbsTlv3(request, reponse, form, appConText, idCuocTtkt);
 		}
 		else 
 		{
 			if("4".equals(Constants.APP_DEP_VERSION))
-				inYcbsTlv4(request, reponse, form, appConText, cuocTtktId);
-			else inYcbsTlv3(request, reponse, form, appConText, cuocTtktId);
+				inYcbsTlv4(request, reponse, form, appConText, idCuocTtkt);
+			else inYcbsTlv3(request, reponse, form, appConText, idCuocTtkt);
 		}
 	}
 	

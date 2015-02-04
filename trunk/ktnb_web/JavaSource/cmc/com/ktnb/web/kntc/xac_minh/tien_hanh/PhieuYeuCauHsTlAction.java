@@ -397,11 +397,11 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		/*
 		 * String maQd = qd.getMaQd(); if (!Formater.isNull(maQd)) {
 		 * ycgtForm.setKntcQdinhXm(maQd); ycgtForm.setMaHoSo(qd.getMaHs()); }
-		 */
-		ycgtForm.setMaHoSo(dx.getMaHs());
+		 */ 
+		ycgtForm.setMaHoSo(maHs);
 		ycgtForm.setMaPhieu(KtnbUtil.getMaNvu(appContext, "YKTV"));
 		ycgtForm.setThoiDiemYcgt(Formater.date2str(new Date()));
-		ycgtForm.setNgayLap(Formater.date2str(new Date()));
+		ycgtForm.setNgayLap(Formater.date2str(new Date())); 
 		ycgtForm.setDiaDiem(appContext.getDiaBan());
 		saveToken(request);
 		return map.findForward("yktv");
