@@ -12,6 +12,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.WordUtils;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
@@ -1099,9 +1100,9 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 					else
 						word.put("[nguoi_co_quan_don_vi_duoc_yeu_cau_cung_cap]", cnForm.getDonViYcgt());
 					//word.put("[doan_to_xac_minh_qd_so]", cnForm.getKntcQdinhXm());
-					word.put("[ngay_ra_quyet_dinh]", Formater.getDateForPrint(Formater.date2str(qd.getNgayLap())));
+					word.put("[ngay_ra_quyet_dinh]", Formater.getDateForPrint1(Formater.date2str(qd.getNgayLap())));
 					//word.put("[chuc_danh_thu_truong_co_quan_thue]", KtnbUtil.getTenThuTruongCqtForMauin(appContext));
-					word.put("[nguoi_gq_khieu_nai]", "Ong ABC");
+					word.put("[nguoi_gq_khieu_nai]", WordUtils.capitalizeFully(appContext.getTenCanbo().toUpperCase()));
 					word.put("[nguoi_co_quan_don_vi_khieu_nai]", dx.getNguoiKNTC());
 					
 					word.put("[quyet_dinh_hc_kl]", cnForm.getQuyetDinhHcKl());
@@ -1110,12 +1111,12 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 						//word.put("[xac_minh_ve_viec]", qd.getNoiDungXm());
 					//else
 						//word.put("[xac_minh_ve_viec]", " ");
-					word.put("[nguoi_gq_khieu_nai]", "Ong ABC");
+					word.put("[nguoi_gq_khieu_nai]", WordUtils.capitalizeFully(appContext.getTenCanbo().toUpperCase()));
 					if (Formater.isNull(cnForm.getDonViYcgt()))
 						word.put("[nguoi_co_quan_don_vi_duoc_yeu_cau_cung_cap]", KtnbUtil.inFieldNull(100));
 					else
 						word.put("[nguoi_co_quan_don_vi_duoc_yeu_cau_cung_cap]", cnForm.getDonViYcgt());
-					word.put("[nguoi_gq_khieu_nai]", "Ong ABC");
+					word.put("[nguoi_gq_khieu_nai]", WordUtils.capitalizeFully(appContext.getTenCanbo().toUpperCase()));
 					word.put("[bao_cao_can_cung_cap]", cnForm.getYcBaoCao());
 					word.put("[ho_so_tai_lieu_can_cung_cap]", cnForm.getYcHoSo());
 					//word.put("[thoi_gian_cung_cap_tai_lieu]", Formater.getDateTimeForPrint(cnForm.getThoiDiemYcgt()));
@@ -1132,7 +1133,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 						word.put("[nguoi_co_quan_don_vi_duoc_yeu_cau_cung_cap]", KtnbUtil.inFieldNull(100));
 					else
 						word.put("[nguoi_co_quan_don_vi_duoc_yeu_cau_cung_cap]", cnForm.getDonViYcgt());
-					word.put("[nguoi_gq_khieu_nai]", "Ong ABC");
+					word.put("[nguoi_gq_khieu_nai]", WordUtils.capitalizeFully(appContext.getTenCanbo().toUpperCase()));
 					//if (Formater.isNull(cnForm.getNguoiNhanPhieuChucVu()))
 						//word.put("[chuc_vu_nguoi_nhan]", "......");
 					//else

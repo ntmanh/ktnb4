@@ -1,6 +1,6 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ include file="/top_bar.jsp"%> 
-<h3 class="Header">Phiếu yêu cầu cung cấp báo cáo hồ sơ, tài liệu - 13/KNTC</h3>
+<h3 class="Header">Phiếu yêu cầu cung cấp báo cáo hồ sơ, tài liệu - 09/KN</h3>
 <html:form action="/kntc_xm_phieu_yc.do?method=show">
 	<html:hidden property="maHoSo" styleId="maHoSo" />
 	<html:hidden property="ma" styleId="ma" />
