@@ -446,7 +446,8 @@ public class PhieuHdNKnAction extends BaseDispatchAction {
 		{
 			if("4".equals(Constants.APP_DEP_VERSION))
 				inv4(map, form, request, response);
-			else inv3(map, form, request, response);
+			else 
+				inv3(map, form, request, response);
 		}
 		return null;
 		
@@ -1326,7 +1327,14 @@ public class PhieuHdNKnAction extends BaseDispatchAction {
 						if(dx.getLanGui()==null)
 							word.put("[lan_giai_quyet_kn]", "...");
 						else 
-							word.put("[lan_giai_quyet_kn]", dx.getLanGui().toString());
+						{
+							if("1".equals(dx.getLanGui().toString())) 
+								word.put("[lan_giai_quyet_kn]", "l\u1EA7n \u0111\u1EA7u");
+							else if("2".equals(dx.getLanGui().toString()))
+								word.put("[lan_giai_quyet_kn]", "l\u1EA7n hai");
+							else
+								word.put("[lan_giai_quyet_kn]", dx.getLanGui().toString());
+						}
 						//word.put("[nguoi_co_quan_don_vi_khieu_nai]", dx.getNguoiKNTC());
 						word.put("[ngay_cong_van_den]", Formater.getDateForPrintUpper(Formater.date2str(hdr.getCongVanDenNgayVT())));
 						word.put("[so_cong_van_van_thu]", hdr.getCongVanDenMa());

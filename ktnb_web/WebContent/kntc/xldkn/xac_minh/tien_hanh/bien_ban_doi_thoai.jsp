@@ -18,10 +18,10 @@
 		<thead>
 			<tr>
 				<th>Mã biên bản</th>
-				<th>Địa điểm</th>
-				<th>Thời gian bắt đầu</th>
-				<th>Thời gian kết thúc</th>
-				<th>File đính kèm</th>
+				<th>Dia Diem</th>
+				<th>Thoi gian bat dau</th>
+				<th>Thoi gian ket thuc</th>
+				<th>File dinh kem</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -47,17 +47,17 @@
 	<TABLE width="100%">
 		<TBODY>
 			<tr>
-				<td style="text-align: right;">Địa điểm</td>
+				<td style="text-align: right;">Dia diem</td>
 				<td><html:text property="bbDoiThoai.diaDiem" style="width:100%" /></td>
 				<td style="text-align: right;"></td>
 				<td></td>
 			</tr>
 			<tr>
-				<td width="15%" style="text-align: right;">Thời gian bắt đầu</td>
+				<td width="15%" style="text-align: right;">Thời gian bat dau</td>
 				<td width="35%"><html:text styleId="thoiGianBatDauStr"
 					property="bbDoiThoai.thoiGianBatDauStr" style="width:100%"
 					onblur="isTime(this)" onkeypress="return formatTime(event, this)" /></td>
-				<td width="15%" style="text-align: right;">Thời gian kết thúc</td>
+				<td width="15%" style="text-align: left;">Thoi gian ket thuc</td>
 				<td width="35%"><html:text styleId="thoiGianBatDauStr"
 					property="bbDoiThoai.thoiGianKetThucStr" style="width:100%"
 					onblur="isTime(this)" onkeypress="return formatTime(event, this)" /></td>

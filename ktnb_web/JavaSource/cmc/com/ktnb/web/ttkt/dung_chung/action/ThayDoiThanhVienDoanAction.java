@@ -237,6 +237,8 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 	 * Des : ktnb v3
 	 * */
 	private void inThayDoiThanhVienv3(HttpServletRequest request, HttpServletResponse reponse, ThayDoiThanhVienDoanForm thayDoiThanhVienDoanForm, ApplicationContext appConText) throws Exception {
+		System.out.println("This is ktnb v3");
+		
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;
@@ -675,6 +677,9 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 				word.put("[nguoi_de_nghi]", thayDoiThanhVienDoanForm.getChucVuNguoiDeNghi());
 				//word.put("[ttkt]", sb.toString());
 				word.put("[so_qdinh]", cbQd.getSoQuyetDinh());
+				
+				word.put("[ngay_ra_qd_cu]", "ng\u00E0y " + arrngayraqd1[0] + " th\u00E1ng " + arrngayraqd1[1] + " n\u0103m " + arrngayraqd1[2]);
+				
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
 				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());

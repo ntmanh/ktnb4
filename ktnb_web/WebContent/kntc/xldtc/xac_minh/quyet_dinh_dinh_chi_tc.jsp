@@ -163,7 +163,7 @@ var oTable;
 		
 	    var maHS = id; 
 	    if(maHS!=null && maHS!='' && maHS!='null')
-			openWindow("UploadAction.do?parentId="+id+"&nv=KNTC/XM/QDDCTC&view="+view);
+			openWindow("UploadAction.do?parentId="+id+"&nv=KNTC/XM/QDDC&view="+view);
 		else
 			alert("Chưa có thông tin về hồ sơ!");	
 	}

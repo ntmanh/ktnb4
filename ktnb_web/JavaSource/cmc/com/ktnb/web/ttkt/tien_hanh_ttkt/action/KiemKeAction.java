@@ -797,6 +797,8 @@ public class KiemKeAction extends BaseDispatchAction {
 				word.put("[ngay_kiem_ke]", Formater.getDateForPrint(kiemkeForm.getNgayRaQd()));
 				//word.put("[ttkt]", sb.toString());
 				word.put("[so_qd]", cbQd.getSoQuyetDinh());
+				
+				word.put("[qd_ngay]", Formater.date2str(cbQd.getNgayRaQuyetDnh()));
 				word.put("[thu_truong_qd]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
 				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());

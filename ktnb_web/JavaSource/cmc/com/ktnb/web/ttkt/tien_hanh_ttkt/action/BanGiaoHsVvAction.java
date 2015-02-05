@@ -434,10 +434,10 @@ public class BanGiaoHsVvAction extends BaseDispatchAction {
 				else
 					word.put("[so_qdinh]", cbQd.getSoQuyetDinh());
 				if (form.getDiaDiemNopHs().equals("") || form.getThoiGian().equals("")) {
-//					word.put("[noi_lap]", ".....");
+					word.put("[noi_lap]", ".....");
 					word.put("[ngay_lap]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
 				} else {
-//					word.put("[noi_lap]", form.getDiaDiemNopHs());
+					word.put("[noi_lap]", form.getDiaDiemNopHs());
 					word.put("[ngay_lap]", KtnbUtil.getDay(form.getThoiGian()));
 				}
 				word.put("[ten_co_quan_dieu_tra_co_tham_quyen]", form.getTenCqDieuTra());

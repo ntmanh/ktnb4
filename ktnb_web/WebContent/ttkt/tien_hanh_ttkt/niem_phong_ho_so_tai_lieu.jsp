@@ -1,6 +1,6 @@
  
 <%@ include file="/top_bar.jsp"%>      
-<h3 class="Header">Ni&#234;m phong h&#7891; s&#417; t&#224;i li&#7879;u</h3>
+<h3 class="Header">Ni&#234;m phong h&#7891; s&#417; t&#224;i li&#7879;u</h3>    
 <script type="text/javascript" src="<html:rewrite page='/include/js/ttkt/ttkt.js'/>"></script>
 <%@page import="cmc.com.ktnb.util.Constants"%>     
 <%@page import="cmc.com.ktnb.util.ApplicationContext"%>                   

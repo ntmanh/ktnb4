@@ -28,7 +28,7 @@ public class KntcTbKhongThuLyGqTiep extends cmc.com.ktnb.pl.hb.entity.Persistent
 	private String nguoiGqTheoThamQuyen;
 	
 	private Long soBanIn;
-	
+	private String ttVanBan;
 	private String ngayLapStr;
 	
 	// Constructors
@@ -137,6 +137,14 @@ public class KntcTbKhongThuLyGqTiep extends cmc.com.ktnb.pl.hb.entity.Persistent
 
 	public void setSoThongBao(String soThongBao) {
 		this.soThongBao = soThongBao;
+	}
+
+	public String getTtVanBan() {
+		return ttVanBan;
+	}
+
+	public void setTtVanBan(String ttVanBan) {
+		this.ttVanBan = ttVanBan;
 	}
 	
 	// Property accessors
