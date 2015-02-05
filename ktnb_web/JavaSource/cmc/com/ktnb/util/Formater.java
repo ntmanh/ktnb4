@@ -373,7 +373,7 @@ public class Formater {
 		String ret = "ng\u00E0y " + sd[0] + " th\u00E1ng " + sd[1] + " n\u0103m " + sd[2];
 		return ret;
 	}
-
+	//Viet hoa chu "Ngay" dau dong
 	public static String dateTimeToDate(String dateTime) {
 		try {
 			String[] dt = dateTime.split(" ");

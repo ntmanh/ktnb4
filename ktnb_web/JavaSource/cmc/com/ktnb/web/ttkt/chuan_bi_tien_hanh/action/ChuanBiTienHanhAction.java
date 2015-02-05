@@ -1223,10 +1223,10 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 		String fileTemplate = null;
 		String defaultNull1 = "................................................................................................................................";
 		if ("bcks".equals(request.getParameter("type"))) {
-			fileIn = request.getRealPath("/docin") + "\\TTNB03.doc";
-			fileOut = request.getRealPath("/docout") + "\\TTNB03_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+			fileIn = request.getRealPath("/docin/v4") + "\\KTNB03.doc";
+			fileOut = request.getRealPath("/docout") + "\\KTNB03_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
-			fileTemplate = "ttnb03";
+			fileTemplate = "ktnb03";
 			// -------------hinh thuc thanh tra kiem tra-------------//
 			String idCuocTtkt = cbForm.getIdCuocTtkt();
 			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appConText, idCuocTtkt);
@@ -1245,16 +1245,16 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				word.put("[tu_ngay]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
 				word.put("[den_ngay]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
 				word.put("[ten_phong]", appConText.getTenPhong());
-				word.put("[ttkt]", hinhThuc);
+//				word.put("[ttkt]", hinhThuc);
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
-				word.put("[ttkt]", hinhThuc);
-				word.put("[ttkt]", hinhThuc);
-				word.put("[ttkt]", hinhThuc); 
-				word.put("[ttkt]", hinhThuc);
-				word.put("[ttkt]", hinhThuc);
+//				word.put("[ttkt]", hinhThuc);
+//				word.put("[ttkt]", hinhThuc);
+//				word.put("[ttkt]", hinhThuc); 
+//				word.put("[ttkt]", hinhThuc);
+//				word.put("[ttkt]", hinhThuc);
 				word.put("[truong_bo_phan_ttkt]", appConText.getTenTruongPhong());
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau TTNB03", ".doc", reponse);
+				word.downloadFile(fileOut, "Mau KTNB03", ".doc", reponse);
 			} catch (Exception ex) {
 				// ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());

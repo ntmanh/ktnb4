@@ -14,7 +14,7 @@
 			<td><a href="#" onclick="openBm2('kntc_xm_phieu_yc.do?method=tcgd&action=ycgd&id=');">Lập phiếu yêu cầu, trưng cầu giám định - Mẫu 13/KN</a></td>
 		</tr>
 		<tr>
-			<td><a href="#" onclick="openBm2('kntc_xm_phieu_yc.do?method=show&action=phieuYcHsTlKN&id=');">Phiếu yêu cầu cung cấp báo cáo hồ sơ, tài liệu - Mẫu 13/KNTC</a></td>
+			<td><a href="#" onclick="openBm2('kntc_xm_phieu_yc.do?method=show&action=phieuYcHsTlKN&id=');">Phiếu yêu cầu cung cấp báo cáo hồ sơ, tài liệu - Mẫu 09/KN</a></td>
 			<td><a href="#" onclick="openBm2('kntc_xm_gia_han.do?method=giahan&action=giahanKN&id=');">Quyết định gia hạn thời gian xác minh - Mẫu 14/KN</a></td>
 		</tr>
 		
