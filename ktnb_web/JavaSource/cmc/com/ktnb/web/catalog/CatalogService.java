@@ -199,7 +199,6 @@ public class CatalogService implements ICatalogService {
 		ResultSet rs = null;
 		Collection retval = new ArrayList();
 		String sql = "select ma,ten from ktnb_dm where parent_id =? and ngay_het_hl is null order by ten";
-//		System.out.println("Ma cha : "+maCha);
 		try {
 			conn = DataSourceConfiguration.getConnection();
 			ps = conn.prepareStatement(sql);
@@ -207,7 +206,6 @@ public class CatalogService implements ICatalogService {
 			rs = ps.executeQuery();
 			while (rs.next()) {
 				CategoryVO vo = new CategoryVO(rs.getString(1), rs.getString(2));
-//				System.out.println("TEST : "+rs.getString(2));
 				retval.add(vo);
 			}
 		} catch (Exception ex) {

@@ -23,14 +23,6 @@ public class XlyPhuToCaoForm extends BaseActionForm {
 	KntcGiaoNvXmTc giaoNvXmTc=new KntcGiaoNvXmTc();
 	KntcDeXuatXly deXuatXly=new KntcDeXuatXly(); 
 	PhieuHdNknForm phieuHdNkn=new PhieuHdNknForm();
-	DeXuatXuLyKNForm xuLyKN =new DeXuatXuLyKNForm();
-	public DeXuatXuLyKNForm getXuLyKN() {
-		return xuLyKN;
-	}
-
-	public void setXuLyKN(DeXuatXuLyKNForm xuLyKN) {
-		this.xuLyKN = xuLyKN;
-	}
 
 	// Property accessors
 	public KntcNoiDungTCTT getTctt() {
