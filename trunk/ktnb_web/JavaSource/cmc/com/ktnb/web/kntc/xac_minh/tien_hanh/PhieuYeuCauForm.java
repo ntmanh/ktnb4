@@ -50,19 +50,6 @@ public class PhieuYeuCauForm extends BaseActionForm {
 	private String layYkienVeViec;
 	
 	private String ma;
-	
-	private String quyetDinhHcKl;
-	
-	
-	
-
-	public String getQuyetDinhHcKl() {
-		return quyetDinhHcKl;
-	}
-
-	public void setQuyetDinhHcKl(String quyetDinhHcKl) {
-		this.quyetDinhHcKl = quyetDinhHcKl;
-	}
 
 	public String getMa() {
 		return ma;
@@ -103,7 +90,6 @@ public class PhieuYeuCauForm extends BaseActionForm {
 		pYc.setMaPhieu(this.maPhieu);
 		pYc.setMa(this.ma);
 		pYc.setLayYkienVeViec(this.layYkienVeViec);
-		pYc.setQuyetDinhHcKl(this.quyetDinhHcKl);
 		return pYc;
 	}
 
@@ -129,7 +115,6 @@ public class PhieuYeuCauForm extends BaseActionForm {
 		this.maPhieu = p.getMaPhieu();
 		this.layYkienVeViec=p.getLayYkienVeViec();
 		this.ma = p.getMa();
-		this.quyetDinhHcKl = p.getQuyetDinhHcKl();
 	}
 	
 	public KntcQdxmPhieuYc toEntity(String loaiPhieu) throws Exception {
@@ -150,7 +135,6 @@ public class PhieuYeuCauForm extends BaseActionForm {
 		pYc.setMaPhieu(this.maPhieu);
 		pYc.setMa(this.ma);
 		pYc.setLayYkienVeViec(this.layYkienVeViec);
-		pYc.setQuyetDinhHcKl(this.quyetDinhHcKl);
 		return pYc;
 	}
 

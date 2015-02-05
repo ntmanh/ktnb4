@@ -103,7 +103,7 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 
 	}
 
-	private void loadDataToForm(HttpServletRequest request, ApplicationContext app, TrungCauGiamDinhForm tcGiamDinhForm, TtktThTrungCauGiamDinh trungCauGiamDinh) throws Exception {
+	private void loadDataToForm(HttpServletRequest request, ApplicationContext app, TrungCauGiamDinhForm tcGiamDinhForm, TtktThTrungCauGiamDinh trungCauGiamDinh) {
 		tcGiamDinhForm.setId(trungCauGiamDinh.getId());
 		tcGiamDinhForm.setIdCuocTtKt(trungCauGiamDinh.getIdCuocTtkt());
 		tcGiamDinhForm.setIdCqtGd(trungCauGiamDinh.getIdCqtGiamDinh());
@@ -114,8 +114,7 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 		tcGiamDinhForm.setNoiDung(trungCauGiamDinh.getNoiDung());
 		tcGiamDinhForm.setTenCqtGd(trungCauGiamDinh.getTenCqtGiamDinh());
 		tcGiamDinhForm.setTenCqtTc(trungCauGiamDinh.getTenCqtTrungCau());
-		//tcGiamDinhForm.setSoQd(trungCauGiamDinh.getSoQuyetDinh());
-		tcGiamDinhForm.setSoQd(KtnbUtil.getMaNvu(app, "TCG\u0110"));
+		tcGiamDinhForm.setSoQd(trungCauGiamDinh.getSoQuyetDinh());
 	}
 
 	private void addNew(HttpServletRequest request, ApplicationContext app, TrungCauGiamDinhForm tcGiamDinhForm, String cuocTtktId) {
@@ -136,7 +135,6 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 			form.setTenCqtGd(trungCauGiamDinh.getTenCqtGiamDinh());
 			form.setTenCqtTc(trungCauGiamDinh.getTenCqtTrungCau());
 			form.setSoQd(trungCauGiamDinh.getSoQuyetDinh());
-			//form.setSoQd(KtnbUtil.getMaNvu(app, "/TCG\u0110"));
 		} else
 			form.setNgayCcKq(Formater.date2str(new Date()));
 		form.setNgayLap(Formater.date2str(new Date()));

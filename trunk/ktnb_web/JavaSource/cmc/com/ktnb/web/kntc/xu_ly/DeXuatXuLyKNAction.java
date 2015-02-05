@@ -32,8 +32,6 @@ import org.hibernate.Session;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.ibm.ws.webservices.xml.wassysapp.systemApp;
-
 import cmc.com.ktnb.exception.KtnbException;
 import cmc.com.ktnb.pl.hb.entity.KntcDeXuatXly;
 import cmc.com.ktnb.pl.hb.entity.KntcDmRls;
@@ -181,7 +179,6 @@ public class DeXuatXuLyKNAction extends BaseDispatchAction {
 					if (listBm == null) {
 						listBm = new ArrayList();
 						Collection c = CatalogService.getDmBieuMauByPId(dxxl.getThuLy());
-						System.out.println("Thu li "+ dxxl.getThuLy());
 						for (Iterator iter = c.iterator(); iter.hasNext();) {
 							CategoryVO dmVO = (CategoryVO) iter.next();
 							// dmVO.setUrl(dmVO.getUrl() + "&id=" +
@@ -287,11 +284,9 @@ public class DeXuatXuLyKNAction extends BaseDispatchAction {
 			String[] strIdBieuMau = inputForm.getStrListIdBieuMau().split(",");
 			for (int i = 0; i < strIdBieuMau.length; i++) {
 				int idBm = Integer.parseInt(strIdBieuMau[i]);
-				System.out.print("tham quyen: "+inputForm.getThamQuyen().toString() );
 				//Trường hợp 1 phần thuộc thẩm quyền => Không check mẫu phụ cho phần đơn không thuộc thẩm quyền
 				if("15020103".equals(inputForm.getThamQuyen().toString()) || "1502020303".equals(inputForm.getThuLy().toString())){
 					//Không check mẫu 05,06,20
-					
 					if(9905!=idBm && 9906!=idBm && 9922!=idBm){
 						if (!service.checkMauPhu(idBm, inputForm.getMaHoSo())) {
 							request.removeAttribute("ghiThanhcong");
