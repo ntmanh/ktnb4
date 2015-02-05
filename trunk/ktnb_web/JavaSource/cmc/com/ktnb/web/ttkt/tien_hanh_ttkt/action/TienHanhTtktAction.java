@@ -530,7 +530,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 					//word.put("[ttkt]", hinhThuc);
 				//word.put("[ttkt]", hinhThuc.toUpperCase());
 				//word.put("[ttkt]", hinhThuc.toUpperCase());
-				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
+				//word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
 				word.saveAndClose();
 				word.downloadFile(fileOut, "Mau TTNB33", ".doc", response);
 			} catch (Exception ex) {

@@ -12,7 +12,7 @@
 			<tr>
 				<td align="right" width="49%">Download bi&#7875;u m&#7851;u</td>
 				<td style="width: 2%; min-width: 5px;"></td>
-				<td align="left" width="49%"><A href="#" onclick="downLoadBieuMau()"> <font color=blue>M&#7851;u s&#7889; 03/KTNB</font> </A></td>
+				<td align="left" width="49%"><A href="#" onclick="downLoadBieuMau()"> <font color=blue>M&#7851;u s&#7889; 03/TTNB</font> </A></td>
 			</tr>
 			<tr id='fileBaoCaoKhaoSatCu'>
 				<td align="right" width="49%">File &#x111;&#xED;nh k&#xE8;m</td>

@@ -188,7 +188,6 @@ public class SoTiepDanService {
 	public void saveSoTiepDan(ApplicationContext appContext, KntcSoTiepDan hoSo, boolean isInTrans) throws Exception {
 		UserTransaction tx = null;
 		Session session = null;
-		System.out.println("So Tiep Dan thong tin nguoi dai dien : "+hoSo.getHdr().getDaiDienBsNoiDung());
 		try {
 			KntcHoSoHdr hdr = hoSo.getHdr();
 			// KntcNdungDon hdr = hoSo.getNoiDungDon();
@@ -677,6 +676,22 @@ public class SoTiepDanService {
 		sc.addSearchItem("maPh", maPhieu);
 		return (KntcPhieuHen) services.retriveObject(appContext, sc);
 	}
+	
+	/**
+	 * Lấy thông tin bien ban doi thoai
+	 * 
+	 * @param appContext
+	 * @param maHoSo
+	 * @return
+	 * @throws Exception
+	 */
+	public KntcBbDoiThoai getBienBanDoiThoai(ApplicationContext appContext, String maHoSo) throws Exception {
+		CatalogService services = new CatalogService();
+		SearchCriteria sc = new SearchCriteria(KntcBbDoiThoai.class);
+		sc.addSearchItem("soQD", maHoSo);
+		return (KntcBbDoiThoai) services.retriveObject(appContext, sc);
+	}
+
 	/**
 	 * Lưu thông tin về lớp tập huấn
 	 * 

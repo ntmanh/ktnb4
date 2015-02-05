@@ -58,7 +58,7 @@
 <script language="javascript">
 var y = document.getElementById('tenNguoiMoNp').value; 
 function selectTenNguoiMoNp(cbDsCanbo){
-	document.getElementsByName('tenNguoiMoNp')[0].value = cbDsCanbo[cbDsCanbo.selectedIndex].text;
+	document.getElementsByName('tenNguoiMoNp')[0].value = cbDsCanbo[cbDsCanbo.selectedIndex].text;	
 }
 function validateQdMoNp(){
 	if(isEmpty(document.getElementsByName('idBbNiemPhong')[0].value)){

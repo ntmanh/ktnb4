@@ -373,7 +373,14 @@ public class Formater {
 		String ret = "ng\u00E0y " + sd[0] + " th\u00E1ng " + sd[1] + " n\u0103m " + sd[2];
 		return ret;
 	}
-	//Viet hoa chu "Ngay" dau dong
+
+	public static String getDateForPrint1(String date) {
+		if (Formater.isNull(date))
+			return "Ng\u00E0y.....th\u00E1ng.....n\u0103m.....";
+		String[] sd = date.split(date_separator);
+		String ret = "Ng\u00E0y " + sd[0] + " th\u00E1ng " + sd[1] + " n\u0103m " + sd[2];
+		return ret;
+	}
 	public static String dateTimeToDate(String dateTime) {
 		try {
 			String[] dt = dateTime.split(" ");

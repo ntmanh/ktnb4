@@ -35,21 +35,26 @@ public class QuyetDinhDinhChiKNAction extends PrintAction {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		QuyetDinhDinhChiKNForm cbForm = (QuyetDinhDinhChiKNForm) form;
 		String soHoSo = request.getParameter("id");
-		if ("view".equals(request.getParameter("action")))
-		{
-			if (!Formater.isNull(soHoSo)) {
-				loadDefauldForm(appContext, cbForm, soHoSo);
-			}
-		}
-		else if ("save".equals(request.getParameter("action"))) {
+		
+		if ("view".equals(request.getParameter("action"))){
+			loadDefauldForm(appContext, cbForm, soHoSo);
+		} else if ("save".equals(request.getParameter("action"))) {
 			saveQdDinhChiKn(map, request, response, form);
-		}
-		else if("exportDoc".equals(request.getParameter("action")))
-		{
+		} else if("exportDoc".equals(request.getParameter("action"))){
 			exportDoc(map, form, request, response);
+			
 		}
-		return map.findForward("success");
+		
+		if("Qddckn".equals(request.getParameter("type"))){
+			return map.findForward("success");
+		}
+		else  if("Qddctc".equals(request.getParameter("type"))){
+			return map.findForward("tc");		
+		}
+		return null;
 	}
+
+
 
 	// Load defauld form
 	public void loadDefauldForm(ApplicationContext appContext, QuyetDinhDinhChiKNForm cbForm, String soHoSo) throws Exception {
@@ -120,6 +125,7 @@ public class QuyetDinhDinhChiKNAction extends PrintAction {
 		SoTiepDanService service = new SoTiepDanService();
 		QuyetDinhDinhChiKNForm cmForm= (QuyetDinhDinhChiKNForm) form;
 		String maHs=request.getParameter("id");
+		
 		try {
 			KntcQdDinhChiKN qd=cmForm.getQdDinhChiKN();
 			qd.setSoHoSo(maHs);
@@ -131,7 +137,17 @@ public class QuyetDinhDinhChiKNAction extends PrintAction {
 			e.printStackTrace();
 			throw new Exception(e);
 		}
-		return map.findForward("success");
+		
+		if("Qddckn".equals(request.getParameter("type"))){
+			
+			return map.findForward("success");
+		}
+		else  if("Qddctc".equals(request.getParameter("type"))){
+			
+			return map.findForward("tc");		
+		}
+		return null;
+	
 	}
 	// Xem bien ban
 	public ActionForward xemBienBan(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -147,7 +163,13 @@ public class QuyetDinhDinhChiKNAction extends PrintAction {
 		} else {
 
 		}
-		return map.findForward("success");
+		if("Qddckn".equals(request.getParameter("type"))){
+			return map.findForward("success");
+		}
+		else  if("Qddctc".equals(request.getParameter("type"))){
+			return map.findForward("tc");		
+		}
+		return null;
 	}
 
 	// Tao moi bien ban doi thoai 
@@ -162,7 +184,13 @@ public class QuyetDinhDinhChiKNAction extends PrintAction {
 				throw new KtnbException("Bi&#7875;u m&#7851;u n&#224;y kh&#244;ng c&#243; s&#7889; li&#7879;u!!!", "", "");
 			}
 		bbForm.setQdDinhChiKN(new KntcQdDinhChiKN());
-		return map.findForward("success");
+		if("Qddckn".equals(request.getParameter("type"))){
+			return map.findForward("success");
+		}
+		else  if("Qddctc".equals(request.getParameter("type"))){
+			return map.findForward("tc");		
+		}
+		return null;
 	}
 	
 	// Xoa bien ban doi thoai
@@ -185,17 +213,45 @@ public class QuyetDinhDinhChiKNAction extends PrintAction {
 			throw new Exception(e);
 		}
 		
-		return map.findForward("success");
+		if("Qddckn".equals(request.getParameter("type"))){
+			return map.findForward("success");
+		}
+		else  if("Qddctc".equals(request.getParameter("type"))){
+			return map.findForward("tc");		
+		}
+		return null;
 	}
+	
+	
+	
+	
 	// Export file doc
 	protected String getDocInName(HttpServletRequest request) {
-		// TODO Auto-generated method stub
-		return request.getRealPath("/docin") + "\\TTNB_qd_dinh_chi_gq_kn.doc";
+		
+		System.out.print(request.getParameter("type"));
+		if("Qddckn".equals(request.getParameter("type")))
+		{
+			return request.getRealPath("/docin") + "\\TTNB_qd_dinh_chi_gq_kn.doc";
+		}
+		else if("Qddctc".equals(request.getParameter("type")))
+		{
+			return request.getRealPath("/docin") + "\\TTNB_qd_dinh_chi_gq_tc.doc";
+		}
+		return null;
 	}
 
 	protected String getDocOutName(HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		return request.getRealPath("/docout") + "\\TTNB_qd_dinh_chi_gq_kn.doc_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+		
+		if("Qddckn".equals(request.getParameter("type")))
+		{
+			return request.getRealPath("/docout") + "\\TTNB_qd_dinh_chi_gq_kn.doc_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+		}
+		else if("Qddctc".equals(request.getParameter("type")))
+		{
+			return request.getRealPath("/docout") + "\\TTNB_qd_dinh_chi_gq_tc.doc_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+		}
+		return null;
 	}
 
 	protected String getFileOutName(HttpServletRequest request) {

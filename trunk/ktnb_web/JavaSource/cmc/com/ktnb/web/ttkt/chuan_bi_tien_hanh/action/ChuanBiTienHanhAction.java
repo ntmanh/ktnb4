@@ -60,7 +60,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception, Exception {
 		ChuanBiTienHanhForm cbForm = (ChuanBiTienHanhForm) form;
-		ApplicationContext appConText = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT); 
+		ApplicationContext appConText = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		String method = request.getParameter("method");
 		if (Formater.isNull(method) || "view".equals(method)) {
 			String cuocTtktId = request.getParameter("cuocTtktId");
@@ -1223,10 +1223,10 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 		String fileTemplate = null;
 		String defaultNull1 = "................................................................................................................................";
 		if ("bcks".equals(request.getParameter("type"))) {
-			fileIn = request.getRealPath("/docin/v4") + "\\KTNB03.doc";
-			fileOut = request.getRealPath("/docout") + "\\KTNB03_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+			fileIn = request.getRealPath("/docin") + "\\TTNB03.doc";
+			fileOut = request.getRealPath("/docout") + "\\TTNB03_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
-			fileTemplate = "ktnb03";
+			fileTemplate = "ttnb03";
 			// -------------hinh thuc thanh tra kiem tra-------------//
 			String idCuocTtkt = cbForm.getIdCuocTtkt();
 			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtktWithoutNoiDung(appConText, idCuocTtkt);
@@ -1245,16 +1245,16 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				word.put("[tu_ngay]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
 				word.put("[den_ngay]", "ng\u00E0y.....th\u00E1ng.....n\u0103m.....");
 				word.put("[ten_phong]", appConText.getTenPhong());
-//				word.put("[ttkt]", hinhThuc);
+				word.put("[ttkt]", hinhThuc);
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
-//				word.put("[ttkt]", hinhThuc);
-//				word.put("[ttkt]", hinhThuc);
-//				word.put("[ttkt]", hinhThuc); 
-//				word.put("[ttkt]", hinhThuc);
-//				word.put("[ttkt]", hinhThuc);
+				word.put("[ttkt]", hinhThuc);
+				word.put("[ttkt]", hinhThuc);
+				word.put("[ttkt]", hinhThuc); 
+				word.put("[ttkt]", hinhThuc);
+				word.put("[ttkt]", hinhThuc);
 				word.put("[truong_bo_phan_ttkt]", appConText.getTenTruongPhong());
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau KTNB03", ".doc", reponse);
+				word.downloadFile(fileOut, "Mau TTNB03", ".doc", reponse);
 			} catch (Exception ex) {
 				// ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
@@ -1280,6 +1280,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 
 			try {
 				word = new MsWordUtils(fileIn, fileOut);
+				TtktCbDsTvDoan dsTvDoan = TtktService.getDsTvd(idCuocTtkt, appConText);
 				// ----------------------------------//
 				word.put("[ten_cqt]", appConText.getTenCqt().toUpperCase());
 				word.put("[ten_phong]", appConText.getTenPhong().toUpperCase());
@@ -1291,9 +1292,9 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				word.put("[nam]", getNamTienHanh(cuocTtkt.getMa()));
 				if (CatalogService.getTenDanhMucById(cbForm.getVanBanQuyDinhCnangNvuQdTvd()).equals("N/A")) {
 					word.put("[can_cu]", KtnbUtil.inFieldNull(108) + ";");
-				} else {
-					word.put("[can_cu]", CatalogService.getTenDanhMucById(cbForm.getVanBanQuyDinhCnangNvuQdTvd()));
 				}
+				else
+					word.put("[can_cu]", CatalogService.getTenDanhMucById(cbForm.getVanBanQuyDinhCnangNvuQdTvd()));
 				word.put("[ten_phong]", appConText.getTenPhong());
 				word.put("[thu_truong]", tenTt);
 				word.put("[ttkt]", sb.toString());
@@ -1303,8 +1304,6 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				// ----------------------------danh sach thanh vien doan---------------------------------//
 				Dispatch table = word.openTable(2);
 				//Collection dsThanhVienDoan = TtktService.getDanhSachThanhVienDoan(idCuocTtkt);
-				
-				TtktCbDsTvDoan dsTvDoan = TtktService.getDsTvd(idCuocTtkt, appConText);
 				if(dsTvDoan==null){
 					dsTvDoan = TtktService.getDsTvdInQd(idCuocTtkt, appConText);
 				}				

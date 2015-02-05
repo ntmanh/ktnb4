@@ -17,7 +17,7 @@
 </br>
 <div id="tab" style="margin: 5px 5px 5px 5px">
 <ul>
-	<li><a href="#tabBCKS"><b>Báo cáo thu thập và phân tích thông tin</b></a></li>
+	<li><a href="#tabBCKS"><b>Báo cáo khảo sát</b></a></li>
 	<li><a href="#tabTVDoan"><b>Thành viên đoàn</b></a></li>
 	<li><a href="#tabQuyetDinh"><b>Quyết định</b></a></li>           
 	<li><a href="#tabKH"><b>Kế hoạch</b></a></li>
