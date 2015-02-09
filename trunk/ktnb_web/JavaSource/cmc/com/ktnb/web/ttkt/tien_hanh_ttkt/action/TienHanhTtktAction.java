@@ -1364,6 +1364,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		String gio = gioPhutLap.split(":")[0];
 		word.put("[thoi_diem_bat_dau]", gio + " gi\u1EDD " + phut + " ph\u00FAt, ng\u00E0y " + ngay + " th\u00E1ng " + thang + " n\u0103m " + nam);
 		//
+		word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
 		word.put("[dia_diem]", tienHanhTtktForm.getDiaDiem());
 		sb = new StringBuffer(hinhThuc);
 		//word.put("[ttkt]", sb.toString());
