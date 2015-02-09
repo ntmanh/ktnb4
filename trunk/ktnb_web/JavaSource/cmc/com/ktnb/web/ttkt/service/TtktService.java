@@ -3466,13 +3466,24 @@ public class TtktService {
 		CatalogService cs = new CatalogService();
 		SearchCriteria criteria = new SearchCriteria(TtktCbDsTvDoan.class);
 		criteria.addSearchItem("idCuocTtkt", cuocTtktId);
-		criteria.addSearchItem("idDsTvdCu", null, SearchCriteria.LG_IS_NULL);
+		//criteria.addSearchItem("idDsTvdCu", null, SearchCriteria.LG_IS_NULL);
 		Collection listTemp = cs.retrive(appConText, criteria);
+		String idDsTvdMoi="";
 		if (Formater.isNull(listTemp))
 			return null;
+		if(listTemp.size()>1)
+		{
+			criteria.addSearchItem("isNew", Boolean.TRUE);
+			TtktCbDsTvDoan dsTvdMoi = (TtktCbDsTvDoan) ((ArrayList) cs.retrive(appConText, criteria)).get(0);
+			idDsTvdMoi=dsTvdMoi.getId();
+		}
+		else { }
 		TtktCbDsTvDoan dsTvd = (TtktCbDsTvDoan) ((ArrayList) listTemp).get(0);
 		// Chi tien ds thanh vien doan
 		criteria = new SearchCriteria(TtktCbChiTietDsTvDoan.class);
+		if(!Formater.isNull(idDsTvdMoi))
+			criteria.addSearchItem(TtktCbChiTietDsTvDoan.IdDsTvd, idDsTvdMoi);
+		else
 		criteria.addSearchItem(TtktCbChiTietDsTvDoan.IdDsTvd, dsTvd.getId());
 
 		Collection chitietDsThanhVienDoan = dao.retrieveObjects(appConText, criteria);
