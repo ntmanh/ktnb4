@@ -2,9 +2,14 @@
 <%@ include file="/top_bar.jsp"%> 
 <h3 class="Header">Phiếu yêu cầu giải trình - 11A/KN</h3>
 <html:form action="/kntc_xm_phieu_yc.do?method=ycgt">
-	<html:hidden property="maHoSo" />
+	<!--<html:hidden property="maHoSo" />-->
 	<html:hidden property="ma" styleId="ma" />
-	<div style="text-align: center; width: 100%"><font style="font-size: 14px; color: red"> Số Quyết định</font> <html:text property="kntcQdinhXm" styleId="soQD" styleClass="text" style="width:250px" readonly="true" /></div>
+	<div style="text-align: center; width: 100%; display : none;"><font style="font-size: 14px; color: red"> Số Hồ Sơ</font> <html:text property="kntcQdinhXm" styleId="soQD" styleClass="text" style="width:250px" readonly="true" /></div>
+	<!-- <div style="text-align: center; width: 100%; "><font style="font-size: 14px; color: red"> Số Hồ Sơ</font> <html:text property="maHoSo" styleId="soQD" styleClass="text" style="width:250px" readonly="true" /></div>
+	-->
+	
+	<div style="text-align: center; width: 100%; "><font style="font-size: 14px; color: red"> Số Hồ Sơ</font> <html:text property="maHoSo" styleId="soQD" styleClass="text" style="width:250px" readonly="true" /></div>
+	
 	<br>
 	<fieldset><legend>Danh sách các phiếu đã lập</legend>
 	<table cellpadding="0" cellspacing="0" border="0" class="display" id="tbl_listPhieuHen">

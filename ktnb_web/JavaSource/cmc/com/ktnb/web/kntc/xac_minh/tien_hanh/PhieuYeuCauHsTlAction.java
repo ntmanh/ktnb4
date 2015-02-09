@@ -267,11 +267,13 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			throw new KtnbException("Ch&#x1B0;a c&#xF3; Quy&#x1EBF;t &#x111;&#x1ECB;nh x&#xE1;c minh, ho&#x1EB7;c Q&#x110;XM ch&#x1B0;a &#x111;&#x1B0;&#x1EE3;c duy&#x1EC7;t!", "",
 					"C&#7847;n ho&#224;n thi&#7879;n Quy&#7871;t &#273;&#7883;nh x&#225;c minh tr&#432;&#7899;c khi l&#224;m c&#225;c bi&#7875;u m&#7851;u ti&#7871;p theo!");
 		}
-		String maQd = qd.getMaQd();
-		if (!Formater.isNull(maQd)) {
-			ycgtForm.setKntcQdinhXm(maQd);
-			ycgtForm.setMaHoSo(qd.getMaHs());
-		}
+		//String maQd = qd.getMaQd();
+		//if (!Formater.isNull(maQd)) {
+			//ycgtForm.setKntcQdinhXm(maQd);
+			//ycgtForm.setMaHoSo(qd.getMaHs());
+		//}
+		ycgtForm.setMaHoSo(maHs);
+		ycgtForm.setMaPhieu(KtnbUtil.getMaNvu(appContext, "YCGT"));
 		ycgtForm.setDiaDiem(appContext.getDiaBan());
 		ycgtForm.setThoiDiemYcgt(Formater.date2strDateTimeForNV(new Date()));
 		ycgtForm.setNgayLap(Formater.date2strDateTimeForNV(new Date()));
@@ -290,6 +292,10 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			System.out.println(request.getParameter("pId").toString());
 			PhieuYeuCauForm ycgtForm = (PhieuYeuCauForm) form;
 			ycgtForm.fromPyc(pyc);
+			
+			ycgtForm.setNgayLap(Formater.dateTimeToDate(ycgtForm.getNgayLap()));
+			ycgtForm.setThoiDiemYcgt(Formater.dateTimeToDate(ycgtForm.getThoiDiemYcgt()));
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception(e);
@@ -317,14 +323,16 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		String maHs = request.getParameter("id");
 		XacMinhService s = new XacMinhService();
-		KntcQdinhXm qdXm = s.getKntcQdinhXmByHoSo(appContext, maHs);
-		String maQd = qdXm.getMaQd();
+		//KntcQdinhXm qdXm = s.getKntcQdinhXmByHoSo(appContext, maHs);
+		//String maQd = qdXm.getMaQd();
 		PhieuYeuCauForm ycgtForm = (PhieuYeuCauForm) form;
-		if (!Formater.isNull(maQd)) {
-			ycgtForm.setKntcQdinhXm(maQd);
-			ycgtForm.setMaHoSo(qdXm.getMaHs());
-		}
+		//if (!Formater.isNull(maQd)) {
+			//ycgtForm.setKntcQdinhXm(maQd);
+			//ycgtForm.setMaHoSo(qdXm.getMaHs());
+		//}
 		// ycgtForm.setMaPhieu(KtnbUtil.getMaNvu(appContext, "PYC/NKNGT"));
+		ycgtForm.setMaHoSo(maHs);
+		ycgtForm.setMaPhieu(KtnbUtil.getMaNvu(appContext, "YCGT"));
 		ycgtForm.setDiaDiem(appContext.getDiaBan());
 		ycgtForm.setThoiDiemYcgt(Formater.date2strDateTimeForNV(new Date()));
 		ycgtForm.setNgayLap(Formater.date2strDateTimeForNV(new Date()));
@@ -492,7 +500,9 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		ycgtForm.setDonViYkien("");
 		ycgtForm.setYeuCauYcgt("");
 		ycgtForm.setMa(null);
-
+		
+		ycgtForm.setDiaDiemYcgt(appContext.getDiaBan());
+		
 		return map.findForward("yktv");
 	}
 
@@ -549,6 +559,10 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			// System.out.println(request.getParameter("pId").toString());
 			PhieuYeuCauForm ycgtForm = (PhieuYeuCauForm) form;
 			ycgtForm.fromPyc(pyc);
+			
+			ycgtForm.setNgayLap(Formater.dateTimeToDate(ycgtForm.getNgayLap()));
+			
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			throw new Exception(e);
@@ -568,6 +582,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 			ycgtForm.setKntcQdinhXm(maQd);
 			ycgtForm.setMaHoSo(qdXm.getMaHs());
 		}
+		ycgtForm.setNgayLap(Formater.date2str(new Date()));
 		ycgtForm.setDiaDiem(appContext.getDiaBan());
 		ycgtForm.setMaPhieu(KtnbUtil.getMaNvu(appContext, "TCGD"));
 		ycgtForm.setDiaDiemYcgt(appContext.getDiaBan());
