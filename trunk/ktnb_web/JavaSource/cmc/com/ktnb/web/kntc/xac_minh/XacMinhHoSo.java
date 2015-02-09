@@ -1403,28 +1403,28 @@ public class XacMinhHoSo extends BaseDispatchAction {
 					//word.put("[Dai_dien]", thanhPhanStr);
 				//}
 				
-				word.put("[nguoi_xm]", "Nguoi xac minh");
-				word.put("[nguoi_lam_viec_nguoi_xm]", "Nguoi lam viec voi nguoi xac minh");
+				//word.put("[nguoi_xm]", "Nguoi xac minh");
+				//word.put("[nguoi_lam_viec_nguoi_xm]", "Nguoi lam viec voi nguoi xac minh");
 				
 
-				if (Formater.isNull(xmForm.getNoiDung())) {
-					word.put("[noi_dung]", "...");
-				} else {
-					String noiDungLamViec = "\t" + xmForm.getNoiDung().replaceAll("\n", "\n\t");
-					word.put("[noi_dung]", noiDungLamViec);
-				}
+				//if (Formater.isNull(xmForm.getNoiDung())) {
+					//word.put("[noi_dung]", "...");
+				//} else {
+					//String noiDungLamViec = "\t" + xmForm.getNoiDung().replaceAll("\n", "\n\t");
+					//word.put("[noi_dung]", noiDungLamViec);
+				//}
 				
-				word.put("[ket_qua]", "Ket qua");
-				word.put("[noi_dung_lien_quan]", "Noi dung lien quan");
+				//word.put("[ket_qua]", "Ket qua");
+				//word.put("[noi_dung_lien_quan]", "Noi dung lien quan");
 				word.put("[thoi_gian_ket_thuc]", xmForm.getThoiDiemHoanThanh());
 
-				if (Formater.isNull(xmForm.getSoBanIn()))
-					word.put("[So_ban_in_ra]", "...");
-				else
-					word.put("[So_ban_in_ra]", xmForm.getSoBanIn());
+				//if (Formater.isNull(xmForm.getSoBanIn()))
+					//word.put("[So_ban_in_ra]", "...");
+				//else
+					//word.put("[So_ban_in_ra]", xmForm.getSoBanIn());
 				
-				word.put("[nguoi_lam_viec_nguoi_xm]", "Nguoi lam viec voi nguoi xac minh");
-				word.put("[nguoi_xm]", "Nguoi xac minh");
+				//word.put("[nguoi_lam_viec_nguoi_xm]", "Nguoi lam viec voi nguoi xac minh");
+				//word.put("[nguoi_xm]", "Nguoi xac minh");
 
 				word.saveAndClose();
 				word.downloadFile(fileOut, "Mau KN08", ".doc", response);
@@ -2450,6 +2450,7 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		tdForm.setDiaDiem(appContext.getDiaBan());
 		tdForm.setThoiDiem(Formater.date2strDateTimeForNV(new Date()));
 		tdForm.setSoBanIn("2");
+		//tdForm.setThoiDiemHoanThanh(Formater.date2strDateTimeForNV(new Date()));
 		// Collection listCb = s.getListCanBoXmByHs(appContext,
 		// tdForm.getMaHoSo());
 		// StringBuffer sb = new StringBuffer("1. \u0110\u1EA1i \u0111i\u1EC7n
@@ -2628,11 +2629,11 @@ public class XacMinhHoSo extends BaseDispatchAction {
 			bb.setThoiDiemHoanThanh(Formater.str2dateForNV(tdForm.getThoiDiemHoanThanh()));
 			System.out.println("bat dau: "+ bb.getThoiDiem());
 			System.out.println("ket thuc: "+bb.getThoiDiemHoanThanh());
-			bb.setSoBanIn(new Long(tdForm.getSoBanIn()));
+			//bb.setSoBanIn(new Long(tdForm.getSoBanIn()));
 			// bb.setSoBenLviec(new Long(tdForm.getSoBen()));
 			// System.out.println(tdForm.getNoiDung().length());
-			bb.setNoiDung(tdForm.getNoiDung());
-			bb.setThanhPhan(tdForm.getThanhPhan());
+			//bb.setNoiDung(tdForm.getNoiDung());
+			//bb.setThanhPhan(tdForm.getThanhPhan());
 			// Luu xuong DB
 			XacMinhService services = new XacMinhService();
 			String loaiBienBan = "";
