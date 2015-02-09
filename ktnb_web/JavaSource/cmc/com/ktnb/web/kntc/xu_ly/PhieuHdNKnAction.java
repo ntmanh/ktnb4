@@ -1083,7 +1083,7 @@ public class PhieuHdNKnAction extends BaseDispatchAction {
 					// cnForm.getCqtGqTen());
 					if (hdr.getLoaiKntc().intValue() == 1) {
 						su = "kn03";
-						fileIn = request.getRealPath("/docin") + "\\KN03.doc";
+						fileIn = request.getRealPath("/docin/v4/kntc") + "\\KN03.doc";
 						fileOut = request.getRealPath("/docout") + "\\KN03_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 						word = new MsWordUtils(fileIn, fileOut);
 

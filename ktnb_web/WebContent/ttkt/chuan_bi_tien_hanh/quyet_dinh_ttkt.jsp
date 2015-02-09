@@ -30,9 +30,9 @@
 			<td align="right" width="19%">Ngày ra quyết định</td>
 			<td style="width: 1%; min-width: 5px"></td>
 			<td align="left" width="30%"><html:text onkeypress="return formatDate(event, this)" onblur="if(!isDate(this)) return;validateDateRequired(this);"  styleClass="text" property="ngayRaQuyetDnh"></html:text></td>
-			<td align="right" width="19%">Căn cứ luật số</td>
+			<td width="19%" align="right">Căn cứ luật số</td>
 			<td style="width: 1%; min-width: 5px"></td>
-			<td align="left" width="29%"><html:textarea property="canCuLuatSo" styleClass="text"></html:textarea></td>
+			<td align="left" width="30%"><html:textarea property="canCuLuatSo" styleClass="text"></html:textarea></td>
 		</tr>
 		<tr> 
 			<td align="right" width="24%">Căn cứ quyết định</td>

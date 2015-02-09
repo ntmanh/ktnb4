@@ -526,6 +526,7 @@ public class YeuCauCungCapHstlAction extends BaseDispatchAction {
 	
 	// this is KTNBv3
 	private void inYcbsTlv3(HttpServletRequest request, HttpServletResponse reponse, YeuCauCungCapHstlForm hstlForm, ApplicationContext appConText, String idCuocTtkt) throws Exception {
+		System.out.print("ver4");
 		String fileIn = null;
 		String fileOut = null;
 		MsWordUtils word = null;

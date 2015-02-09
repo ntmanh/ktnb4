@@ -1246,7 +1246,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		}else if (type.equals("14/KTNB")) {
 			if (!Formater.isNull(maQd)) {
 				su = "kn11a";
-				fileIn = request.getRealPath("/docin/v4") + "\\KN11A.doc";
+				fileIn = request.getRealPath("/docin/v4/kntc") + "\\KN11A.doc";
 				fileOut = request.getRealPath("/docout") + "\\KN11A_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
 				try {
@@ -1447,7 +1447,7 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		} else if (type.equals("15B/KTNB")) {
 			if (!Formater.isNull(maQd)) {
 				su = "kn13";
-				fileIn = request.getRealPath("/docin/v4") + "\\KN13.doc";
+				fileIn = request.getRealPath("/docin/v4/kntc") + "\\KN13.doc";
 				fileOut = request.getRealPath("/docout") + "\\KN13_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
 				try {

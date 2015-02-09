@@ -11,10 +11,11 @@
 	<table cellpadding="0" cellspacing="0" border="0" class="display" id="tblDanhSachPhieu">
 		<thead>
 			<tr>
-				<th>Mã phiếu</th>
+				<th>Mã Phiếu</th>
 				<th>Địa điểm</th>
-				<th>Ngày lập</th>
-				<th>Số bản in</th>
+				<th>Thời gian bắt đầu</th>
+				<th>Thời gian kết thúc</th>
+				<th>File lưu trữ</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -35,11 +36,21 @@
 	<table width="100%">
 		<tr>
 			<td width="15%" style="text-align: right;">Địa điểm họp<font style="color: red">*</font></td>
-			<td width="289"><html:text property="diaDiem" style="width:100%" /></td>
-			<td width="15%" style="text-align: right;">Thời gian làm việc<font style="color: red">*</font></td>
-			<td width="312"><html:text property="thoiDiem" style="width: 100%" onblur="isTime(this)" onkeypress="return formatTime(event, this)" /></td>
+			<td width="300"><html:text property="diaDiem" style="width:100%" /></td>
+			<td></td>
+			<td></td>
+		</tr>	
+		<tr>
+			<td width="15%" style="text-align: right;">Thời gian bắt đầu<font style="color: red">*</font></td>
+			<td width="300"><html:text property="thoiDiem" style="width: 100%" onblur="isTime(this)" onkeypress="return formatTime(event, this)" /></td>
+			<td width="15%" style="text-align: right;">Thời gian kết thúc<font style="color: red">*</font></td>
+			<td width="300"><html:text property="thoiDiemHoanThanh" style="width: 100%" onblur="isTime(this)" onkeypress="return formatTime(event, this)" /></td>
 		</tr>
 		<tr>
+			<td width="15%" style="text-align: right;">File lưu trữ</td>
+			<td colspan="3"><A href="#" onclick="openUploadFile();"><font color=blue>Biên bản làm việc mẫu số 12KN</font></A></td>
+		</tr>
+		<!--<tr>
 			<td style="text-align: right;">Các bên liên quan<font style="color: red">*</font></td>
 			<td colspan="3"><html:textarea property="thanhPhan" onkeypress="imposeMaxLength(this);" style="width:100%;height: 50px;"></html:textarea></td>
 		</tr>
@@ -51,7 +62,7 @@
 			<td style="text-align: right;">Số bản in</td>
 			<td><html:text property="soBanIn" value="2" style="width:100%" /></td>
 			<td colspan="2"><A href="#" onclick="openUploadFile();">File Biên bản làm việc đính kèm</A></td>
-		</tr>
+		</tr>-->
 	</table>
 	</fieldset>
 	<jsp:include page="../../../button_bar_kntc_mau_phu.jsp" /></div>

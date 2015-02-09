@@ -2178,6 +2178,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 		qdTtkt.setIdNguoiCapNat(appConText.getMaCanbo());
 		qdTtkt.setTenNguoiCapNhat(appConText.getTenCanbo());
 		qdTtkt.setNgayCapNhat(new Date());
+		qdTtkt.setCanCuLuatSo(cbForm.getCanCuLuatSo());
 		return qdTtkt;
 	}
 
