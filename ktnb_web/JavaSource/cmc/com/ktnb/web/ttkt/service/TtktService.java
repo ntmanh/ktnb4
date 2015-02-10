@@ -179,6 +179,8 @@ public class TtktService {
 	 * @return
 	 */
 	public static boolean isNewStatus(String idCuocTtkt, ApplicationContext appContext, String tenTrangThai) {
+		System.out.println("Ten Trang thai: "+ tenTrangThai);
+		System.out.println("id cuoc kt: "+ idCuocTtkt);
 		if (getIndexOfTrangThai(tenTrangThai) > getIndexOfTrangThai(appContext.getTrangThaiCuocTtkt(idCuocTtkt)))
 			return true;
 		else
@@ -1803,22 +1805,28 @@ public class TtktService {
 
 			// Luu file moi
 			FormFile formFile = cbForm.getFileBCKS();
+//			if(Formater.isNull(formFile.getFileName()))
+//				formFile.setFileName("...");
 			UploadAction.saveFile(formFile, id);
 
 			// Cap nhat database
 			conn = DataSourceConfiguration.getConnection();
 			Statement statement = conn.createStatement();
 			String fileName = formFile.getFileName();
+//			if(!Formater.isNull(fileName)){
+//				fileName="...";
+//			}
 			String contentType = formFile.getContentType();
 			if (isInsert) {
 				// Cap nhat trang thai cuoc Ttkt
 				if (isNewStatus(cbForm.getIdCuocTtkt(), appConText, Constants.TT_TTKT_BCKS))
 					statement.addBatch(buidSqlUpdateTrangThaiCuocTtkt(cbForm.getIdCuocTtkt(), Constants.TT_TTKT_BCKS));
-				String tenNsd = appConText.getTenNsd();
-				String sqlInsertFile = "insert into ktnb_file (MA_FILE,MA_DON,TEN_FILE,LOAI_FILE,NGUOI_CAP_NHAT,NOI_DUNG, SO_TRANG, NGHIEP_VU_PATH) values ('" + id + "','" + cbForm.getIdCuocTtkt()
-						+ "','" + fileName + "','" + contentType + "','" + tenNsd + "',BFILENAME('KTNB_FILE_DIR','" + id + "'),'1','" + Constants.TTKT_NV_BCKS + "')";
-
-				statement.addBatch(sqlInsertFile);
+				
+					
+					String tenNsd = appConText.getTenNsd();
+					String sqlInsertFile = "insert into ktnb_file (MA_FILE,MA_DON,TEN_FILE,LOAI_FILE,NGUOI_CAP_NHAT,NOI_DUNG, SO_TRANG, NGHIEP_VU_PATH) values ('" + id + "','" + cbForm.getIdCuocTtkt()
+					+ "','" + fileName + "','" + contentType + "','" + tenNsd + "',BFILENAME('KTNB_FILE_DIR','" + id + "'),'1','" + Constants.TTKT_NV_BCKS + "')";
+					statement.addBatch(sqlInsertFile);
 				statement.executeBatch();
 				conn.commit();
 			} else {
