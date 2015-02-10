@@ -19,6 +19,7 @@ public class KtnbTlieuKemTheo extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 	private String nguoiCapNhat;
 	private String tinhTrang;
 	private String chungCu;
+	private String loaiThongTin; 
 
 	// Constructors
 
@@ -27,7 +28,7 @@ public class KtnbTlieuKemTheo extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 	}
 
 	/** full constructor */
-	public KtnbTlieuKemTheo(String maTlieu, String tenTlieu, Date ngayCapNhat, String nguoiCapNhat, String loaiTlieu, String maHoSo, Short soTrang) {
+	public KtnbTlieuKemTheo(String maTlieu, String tenTlieu, Date ngayCapNhat, String nguoiCapNhat, String loaiTlieu, String maHoSo, Short soTrang, String loaiThongTin) {
 		this.maTlieu = maTlieu;
 		this.tenTlieu = tenTlieu;
 		this.ngayCapNhat = ngayCapNhat;
@@ -35,9 +36,12 @@ public class KtnbTlieuKemTheo extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 		this.loaiTlieu = loaiTlieu;
 		this.maHoSo = maHoSo;
 		this.soTrang = soTrang;
+		this.loaiThongTin = loaiThongTin;
 	}
 
 	// Property accessors
+	
+	
 
 	public String getMaTlieu() {
 		return this.maTlieu;
@@ -121,6 +125,14 @@ public class KtnbTlieuKemTheo extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 	 */
 	public void setTinhTrang(String string) {
 		tinhTrang = string;
+	}
+
+	public String getLoaiThongTin() {
+		return loaiThongTin;
+	}
+
+	public void setLoaiThongTin(String loaiThongTin) {
+		this.loaiThongTin = loaiThongTin;
 	}
 
 }

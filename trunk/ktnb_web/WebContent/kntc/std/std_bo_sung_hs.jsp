@@ -11,13 +11,15 @@
 		<thead>
 			<tr>
 				<th>Tên tài liệu</th>
+				<th>Loại thông tin</th>
+				<th>Vật mang tin</th>
 				<th>Số trang</th>
 				<th>Tình trạng</th>
 			</tr>
 		</thead>
 		<tbody>
-			<tr>
-				<td>Loading data.....</td>
+			<tr align="center">
+				<td colspan="4" class="dataTables_empty">Loading data from server...</td>
 			</tr>
 		</tbody>
 	</table>
@@ -28,13 +30,20 @@
 		<thead>
 			<tr>
 				<th>Tên tài liệu</th>
+				<th>Loại thông tin</th>
+				<th>Vật mang tin</th>
 				<th>Số trang</th>
 				<th>Tình trạng</th>
 			</tr>
 		</thead>
 		<tbody>
 			<tr>
-				<td width="60%"><input type="text" id="tenTL1" style="width: 100%" /></td>
+				<td width="30%"><input type="text" id="tenTL1" style="width: 100%" /></td>
+				<td width="10%"><select id="loai1">
+					<option value="Thông tin">Thông tin</option>
+					<option value="Tài liệu">Tài liệu</option>
+					<option value="Bằng chứng">Bằng chứng</option>
+				<td width="20%"><input type="text" id="vatMT1" style="width: 100%" /></td>
 				<td width="20%"><input type="text" id="soTrangTL1" style="width: 100%" maxlength="3" onblur="isNumber(this,'i');" /></td>
 				<td width="20%"><select id="tinhTrang1">
 					<option value="Bản chính">Bản chính</option>
@@ -132,9 +141,17 @@ $.fn.dataTableExt.oApi.fnAddTr = function ( oSettings, nTr, bRedraw ) {
 //P: Them row moi cho table
 function fnClickAddRow() {
 	giCount++;
-	   var row= '<tr><td width="60%"><input type="text" id="tenTL'
-	   			+giCount+'" style="width: 100%"></td><td width="20%"><input type="text" id="soTrangTL'
-				+giCount+'" style="width: 100%" maxlength="3" onblur="isNumber(this,"i");" /></td><td width="20%">'
+	    var row= '<tr><td width="30%"><input type="text" id="tenTL'+giCount+'" style="width: 100%"></td>'
+	    		+'<td width="10%">'
+				+'<select id="loai'+giCount+'">'
+						+'<option value="Thông tin">Thông tin</option>'
+						+'<option value="Tài liệu">Tài liệu</option>'
+						+'<option value="Bằng chứng">Bằng chứng</option>'
+				  +'</select>'
+				+'</td>' 
+	    		+'<td width="20%"><input type="text" id="vatMT'+giCount+'" style="width: 100%" maxlength="3" onblur="isNumber(this,"i");" /></td>'
+	   			+'<td width="20%"><input type="text" id="soTrangTL'+giCount+'" style="width: 100%" maxlength="3" onblur="isNumber(this,"i");" /></td>'
+				+'<td width="20%">'
 				+'<select id="tinhTrang'+giCount+'">'
 						+'<option value="Bản chính">Bản chính</option>'
 						+'<option value="Bản sao">Bản sao</option>'
@@ -151,6 +168,8 @@ function ghi(){
 			if(!isEmpty(document.getElementById('tenTL'+i).value))
 			{
 				arrTl += document.getElementById('tenTL'+i).value+',';
+				arrTl += document.getElementById('loai'+i).value+',';
+				arrTl += document.getElementById('vatMT'+i).value+',';
 				arrTl += document.getElementById('soTrangTL'+i).value+',';
 				arrTl += document.getElementById('tinhTrang'+i).value+'';				
 				arrTl += '@@';			
@@ -178,11 +197,13 @@ var arrTl='';
 		if(!isEmpty(document.getElementById('tenTL'+i).value))
 		{
 			arrTl += document.getElementById('tenTL'+i).value+'%%';
+			arrTl += document.getElementById('loai'+i).value+'%%';
+			arrTl += document.getElementById('vatMT'+i).value+'%%';
 			arrTl += document.getElementById('soTrangTL'+i).value+'%%';
 			arrTl += document.getElementById('tinhTrang'+i).value+'%%';				
 			arrTl += '@@';			
 		}		
-	}	
+	}	 
 	//alert(arrTl);
 	if(arrTl.length==0 && (document.forms[0].checkKetThuc.checked==false)){
 		alert('Không có dữ liệu để cập nhật!');

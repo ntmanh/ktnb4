@@ -583,10 +583,11 @@ public class SoTiepDanService {
 		// sc);
 		// std.setNoiDungDon(don);
 		if (!isSimple) // Load full thong tin
-		{
+		{ 
 			sc = new SearchCriteria(KtnbTlieuKemTheo.class);
 			sc.addSearchItem("maHoSo", maHoSo);
 			sc.addSearchItem("loaiTlieu", KtnbTlieuKemTheo.TLKT_SO_TIEP_DAN);
+			//sc.addSearchItem("loaiThongTin", KtnbTlieuKemTheo.getLoaiThongTin);
 			Collection a = services.retrive(appContext, sc);
 			for (Iterator iter = a.iterator(); iter.hasNext();) {
 				KtnbTlieuKemTheo element = (KtnbTlieuKemTheo) iter.next();
