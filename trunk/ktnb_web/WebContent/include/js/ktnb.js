@@ -267,6 +267,15 @@ function isRequired(ctrName,msg)
 	  }
   	return true;
 }
+function isRequiredNotMsg(ctrName)
+{
+	  var ctr=eval(ctrName);
+	  var val=ctr.value;
+	  if (trim(val).length<1) { 
+	     return false;
+	  }
+  	return true;
+}
 function isRequiredId(ctrName,msg)
 {
 	if(isExist(ctrName)){

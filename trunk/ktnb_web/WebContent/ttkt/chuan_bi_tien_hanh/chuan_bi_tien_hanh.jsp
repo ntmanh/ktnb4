@@ -1,91 +1,113 @@
-<%@page pageEncoding="UTF-8"%>                    
-<%@ include file="/top_bar.jsp"%>      
-<script type="text/javascript" src="<html:rewrite page='/include/js/ttkt/ttkt.js'/>"></script>
+<%@page pageEncoding="UTF-8"%>
+<%@ include file="/top_bar.jsp"%>
+<script type="text/javascript"
+	src="<html:rewrite page='/include/js/ttkt/ttkt.js'/>"></script>
 <%@page import="cmc.com.ktnb.util.Constants"%>
-<%@page import="cmc.com.ktnb.util.ApplicationContext"%> 
+<%@page import="cmc.com.ktnb.util.ApplicationContext"%>
 <script language="javascript">                  
 	var tenCqt = "<%=((ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT)).getTenCqt()%>";
 	var maCqt = '<%=((ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT)).getMaCqt()%>';                 
-</script> 
-<h3 class="Header">Chuẩn bị tiến hành - Mã cuộc <bean:write name="ChuanBiTienHanhForm" property="maCuocTtkt"/> </h3>
-<html:form action="chuan_bi_tien_hanh.do" method="POST" styleId="cbthForm">
+</script>
+<h3 class="Header">Chuẩn bị tiến hành - Mã cuộc <bean:write
+	name="ChuanBiTienHanhForm" property="maCuocTtkt" /></h3>
+<html:form action="chuan_bi_tien_hanh.do" method="POST"
+	styleId="cbthForm">
 	<html:hidden property="idCuocTtkt" />
-	<html:hidden property="diaDiem" />  
+	<html:hidden property="diaDiem" />
 </html:form>
-<DIV id="chua_co_lich_trinh_du_kien"><B><a href="#" onclick="xemThongTinChung();">Thông tin chung</a></B></DIV>
-<DIV id="da_co_lich_trinh_du_kien"><B><a href="#" onclick="xemThongTinChung();">Thông tin chung</a><label>&nbsp;|</label></B> <B><a href="#" onclick="xemLichTrinhDuKien();">Lịch trình dự kiến</a></B></DIV>
+<DIV id="chua_co_lich_trinh_du_kien"><B><a href="#"
+	onclick="xemThongTinChung();">Thông tin chung</a></B></DIV>
+<DIV id="da_co_lich_trinh_du_kien"><B><a href="#"
+	onclick="xemThongTinChung();">Thông tin chung</a><label>&nbsp;|</label></B>
+<B><a href="#" onclick="xemLichTrinhDuKien();">Lịch trình dự
+kiến</a></B></DIV>
 </br>
 <div id="tab" style="margin: 5px 5px 5px 5px">
 <ul>
-	<li><a href="#tabBCKS"><b>Báo cáo thu thập và phân tích thông tin</b></a></li>
+	<li><a href="#tabBCKS"><b>Báo cáo thu thập và phân tích
+	thông tin</b></a></li>
 	<li><a href="#tabTVDoan"><b>Thành viên đoàn</b></a></li>
-	<li><a href="#tabQuyetDinh"><b>Quyết định</b></a></li>           
+	<li><a href="#tabQuyetDinh"><b>Quyết định</b></a></li>
 	<li><a href="#tabKH"><b>Kế hoạch</b></a></li>
-	<li><a href="#tabDeCuong"><b>Đề cương</b></a></li>    
-	<li><a href="#tabHopDoanTrienKhai"><b>Họp đoàn triển khai</b></a></li>   
+	<li><a href="#tabDeCuong"><b>Đề cương</b></a></li>
+	<li><a href="#tabHopDoanTrienKhai"><b>Họp đoàn triển khai</b></a></li>
 </ul>
-<DIV id="tabBCKS">    
-<fieldset style="width: 100%"><%@ include file="/ttkt/chuan_bi_tien_hanh/bao_cao_ks.jsp"%></fieldset>   
-</DIV>     
-<DIV id="tabTVDoan">     
-<fieldset style="width: 100%"><%@ include file="/ttkt/chuan_bi_tien_hanh/chi_dinh_thanh_vien.jsp"%></fieldset>    
+<DIV id="tabBCKS">
+<fieldset style="width: 100%"><%@ include
+	file="/ttkt/chuan_bi_tien_hanh/bao_cao_ks.jsp"%></fieldset>
+</DIV>
+<DIV id="tabTVDoan">
+<fieldset style="width: 100%"><%@ include
+	file="/ttkt/chuan_bi_tien_hanh/chi_dinh_thanh_vien.jsp"%></fieldset>
 </DIV>
 <DIV id="tabQuyetDinh">
-<fieldset style="width: 100%"><%@ include file="/ttkt/chuan_bi_tien_hanh/quyet_dinh_ttkt.jsp"%></fieldset>
+<fieldset style="width: 100%"><%@ include
+	file="/ttkt/chuan_bi_tien_hanh/quyet_dinh_ttkt.jsp"%></fieldset>
 </DIV>
 <DIV id="tabKH">
-<fieldset style="width: 100%"><%@ include file="/ttkt/chuan_bi_tien_hanh/ke_hoach_ttkt.jsp"%></fieldset>
+<fieldset style="width: 100%"><%@ include
+	file="/ttkt/chuan_bi_tien_hanh/ke_hoach_ttkt.jsp"%></fieldset>
 </DIV>
 <DIV id="tabDeCuong">
-<fieldset style="width: 100%"><%@ include file="/ttkt/chuan_bi_tien_hanh/de_cuong_ttkt.jsp"%></fieldset>
+<fieldset style="width: 100%"><%@ include
+	file="/ttkt/chuan_bi_tien_hanh/de_cuong_ttkt.jsp"%></fieldset>
 </DIV>
 <DIV id="tabHopDoanTrienKhai">
-<fieldset style="width: 100%"><%@ include file="/ttkt/chuan_bi_tien_hanh/hop_doan_trien_khai.jsp"%></fieldset>
+<fieldset style="width: 100%"><%@ include
+	file="/ttkt/chuan_bi_tien_hanh/hop_doan_trien_khai.jsp"%></fieldset>
 </DIV>
-<logic:present name="readOnly">    
+<logic:present name="readOnly">
 	<script language="javascript">     
 		var lastLabelId = '';       
 	</script>
 	<DIV><logic:present name="hoan">
 		<!-- <a href="#" onclick="hoan();" class="linkCnPhu"><font color=blue>Hoãn Thanh tra Kiểm tra</font></a><label id="hoan">&nbsp;|</label> -->
-		<a href="#" onclick="hoan();" class="linkCnPhu"><font color=blue>Hoãn Kiểm tra</font></a>
+		<a href="#" onclick="hoan();" class="linkCnPhu"><font color=blue>Hoãn
+		Kiểm tra</font></a>
 		<label id="hoan">&nbsp;|</label>
 		<script language="javascript">   
 				lastLabelId = 'hoan';
-			</script>    
+			</script>
 	</logic:present> <logic:present name="gia han">
 		<!-- <a href="#" onclick="giaHan();" class="linkCnPhu"><font color=blue>Gia hạn Thanh tra Kiểm tra</font></a><label id="gia_han">&nbsp;|</label> -->
-		<a href="#" onclick="giaHan();" class="linkCnPhu"><font color=blue>Gia hạn Kiểm tra</font></a>
+		<a href="#" onclick="giaHan();" class="linkCnPhu"><font color=blue>Gia
+		hạn Kiểm tra</font></a>
 		<label id="gia_han">&nbsp;|</label>
 		<script language="javascript">
 				lastLabelId = 'gia_han';  
-			</script> 
+			</script>
 	</logic:present> <logic:present name="thay doi thanh vien doan">
-		<a href="#" onclick="thayDoiThanhVien();" class="linkCnPhu"><font color=blue>Thay đổi thành viên đoàn</font></a>
+		<a href="#" onclick="thayDoiThanhVien();" class="linkCnPhu"><font
+			color=blue>Thay đổi thành viên đoàn</font></a>
 		<label id="thay_doi_thanh_vien_doan">&nbsp;|</label>
 		<script language="javascript">
 				lastLabelId = 'thay_doi_thanh_vien_doan';
 			</script>
-	</logic:present></DIV>  
+	</logic:present></DIV>
 	<script language="javascript">
 		if(lastLabelId != '')
 			document.getElementById(lastLabelId).innerHTML = '';
-	</script>    
+	</script>
 </logic:present> <logic:notPresent name="readOnly">
 	<logic:present name="da_co_lich_trinh_du_kien">
 		<DIV id="divThongTinPhu" style="display: inline;"><!-- <a href="#" onclick="huy();" class="linkCnPhu"><font color=blue>Hủy Thanh tra Kiểm tra</font></a> |
 			<a href="#" onclick="hoan();" class="linkCnPhu"><font color=blue>Hoãn Thanh tra Kiểm tra</font></a> |
 			<a href="#" onclick="giaHan();" class="linkCnPhu"><font color=blue>Gia hạn Thanh tra Kiểm tra</font></a> |
-			<a href="#" onclick="thayDoiThanhVien();" class="linkCnPhu"><font color=blue>Thay đổi thành viên đoàn</font></a> --> <a href="#" onclick="huy();" class="linkCnPhu"><font color=blue>Hủy Kiểm tra</font></a> | <a href="#" onclick="hoan();" class="linkCnPhu"><font
-			color=blue>Hoãn Kiểm tra</font></a> | <a href="#" onclick="giaHan();" class="linkCnPhu"><font color=blue>Gia hạn Kiểm tra</font></a> | <a href="#" onclick="thayDoiThanhVien();" class="linkCnPhu"><font color=blue>Thay đổi thành viên đoàn</font></a>
-		</DIV>
-	</logic:present>     
+			<a href="#" onclick="thayDoiThanhVien();" class="linkCnPhu"><font color=blue>Thay đổi thành viên đoàn</font></a> -->
+		<a href="#" onclick="huy();" class="linkCnPhu"><font color=blue>Hủy
+		Kiểm tra</font></a> | <a href="#" onclick="hoan();" class="linkCnPhu"><font
+			color=blue>Hoãn Kiểm tra</font></a> | <a href="#" onclick="giaHan();"
+			class="linkCnPhu"><font color=blue>Gia hạn Kiểm tra</font></a> | <a
+			href="#" onclick="thayDoiThanhVien();" class="linkCnPhu"><font
+			color=blue>Thay đổi thành viên đoàn</font></a></DIV>
+	</logic:present>
 </logic:notPresent></div>
-<br/>
-<div style="width: 100%; margin: 0"><%@ include file="/ttkt/dung_chung/action_bar.jsp"%></div>
+<br />
+<div style="width: 100%; margin: 0"><%@ include
+	file="/ttkt/dung_chung/action_bar.jsp"%></div>
 <%@ include file="/bottom.jsp"%>
 
-<INPUT type="hidden" name="truongGiuNgayTam">    
+<INPUT type="hidden" name="truongGiuNgayTam">
 <script language="javascript">     
 function selfClose(){
 	if(window.opener != null)
@@ -175,9 +197,11 @@ function saveActiveTab(){
 	var saveResultDivName;
 	if(activeTab == 0){
 		saveResultDivName = "getReturnBcks";
-		if(!validateBaoCaoKhaoSat())       
-			return; 
-		url = 'chuan_bi_tien_hanh.do?method=save&type=bcks';  
+<!--		if(!validateBaoCaoKhaoSat())   -->
+<!--			url = 'chuan_bi_tien_hanh.do?method=save&type=bcks';-->
+<!--		else-->
+			url = 'chuan_bi_tien_hanh.do?method=save&type=bcks';
+<!--		alert(url);-->
 	}else if(activeTab == 1){ 
 		if(!validateThanhVienDoan())     
 			return; 
@@ -207,20 +231,22 @@ function saveActiveTab(){
 		if(checkRequired())
 		return;    
 		url = 'chuan_bi_tien_hanh.do?method=save&type=hdtk';            
-	}else throw "Err1";      
+	}else throw "Err1";   
 	if(contextRoot.length > 0){
 		url = '/' + contextRoot + '/' + url; 
 	}
+	
 	if(url.indexOf('type=dc') >=0  || url.indexOf('type=bcks') >=0 || url.indexOf('type=kh') >=0){    
-		urlWithAllParam = url + '&' + getThongTinChung();	
-		smbForm = findForm(url);    
+		urlWithAllParam = url + '&' + getThongTinChung();
+		smbForm = findForm(url);
 		if(smbForm == null)        
-			smbForm = findForm(urlWithAllParam);					
+			smbForm = findForm(urlWithAllParam);
 		if(url.indexOf('type=dc') >=0 || url.indexOf('type=kh') >=0){
 			xmlhttpPost(urlWithAllParam); 	
 		}
 		else{
-			formObj = new DHTMLSuite.form({ formRef:smbForm,action:urlWithAllParam, responseEl:saveResultDivName});		
+<!--			alert('formRef: '+smbForm+'; action: '+ urlWithAllParam+'; responseEl: '+ saveResultDivName);-->
+			formObj = new DHTMLSuite.form({ formRef:smbForm,action:urlWithAllParam, responseEl:saveResultDivName});
 			formObj.submit();
 		}
 	}else

@@ -71,7 +71,7 @@ function downLoadBieuMau(){
 	printfForm.action = '/' + contextRoot + '/chuan_bi_tien_hanh.do?method=save&type=bcks';      
 }    
 function validateBaoCaoKhaoSat(){
-	if(!isRequired(document.getElementsByName('fileBCKS')[0]))
+	if(!isRequiredNotMsg(document.getElementsByName('fileBCKS')[0]))
 		return false;
 	return true;
 }
