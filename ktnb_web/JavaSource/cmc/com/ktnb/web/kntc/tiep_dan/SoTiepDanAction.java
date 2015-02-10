@@ -1,4 +1,4 @@
-package cmc.com.ktnb.web.kntc.tiep_dan;
+﻿package cmc.com.ktnb.web.kntc.tiep_dan;
 
 import java.io.InputStream;
 import java.io.PrintWriter;
@@ -203,6 +203,8 @@ public class SoTiepDanAction extends BaseDispatchAction {
 					KtnbTlieuKemTheo element = (KtnbTlieuKemTheo) iter.next();
 					ja = new JSONArray();
 					ja.put(element.getTenTlieu());
+					ja.put(element.getLoaiThongTin());
+					ja.put(element.getChungCu());
 					ja.put(element.getSoTrang());
 					ja.put(element.getTinhTrang());
 					// ja.put(element.getChungCu());
@@ -265,12 +267,14 @@ public class SoTiepDanAction extends BaseDispatchAction {
 							KtnbTlieuKemTheo aCb = new KtnbTlieuKemTheo();
 							aCb.setMaHoSo(tdForm.maHoSo);
 							aCb.setLoaiTlieu(KtnbTlieuKemTheo.TLKT_SO_TIEP_DAN);
-							if (!Formater.isNull(item[1]))
-								aCb.setSoTrang(new Short(item[1]));
+							if (!Formater.isNull(item[3]))
+								aCb.setSoTrang(new Short(item[3]));
 							else
 								aCb.setSoTrang(new Short("0"));
 							aCb.setTenTlieu(item[0]);
-							aCb.setTinhTrang(item[2]);
+							aCb.setLoaiThongTin(item[1]);
+							aCb.setChungCu(item[2]);
+							aCb.setTinhTrang(item[4]);
 							// aCb.setChungCu(item[3]);
 							aCb.setNguoiCapNhat(appContext.getTenNsd());
 							aCb.setNgayCapNhat(appContext.getSystemDate());
@@ -604,7 +608,7 @@ public class SoTiepDanAction extends BaseDispatchAction {
 				// hs.getNoiDungDon().setNoiDung(dx.getDx().getNoiDung());
 				KntcHoSoHdr hdr = hs.getHdr();
 
-				StringBuffer sb = new StringBuffer();
+				StringBuffer sb = new StringBuffer(); 
 				if (Formater.isNull(maHs)) // In tu man hinh tiep dan
 				{
 					if (!Formater.isNull(cbForm.getArrTenTl())) {
@@ -615,9 +619,11 @@ public class SoTiepDanAction extends BaseDispatchAction {
 								if (item != null && item.length > 0) {
 									if (!Formater.isNull(item[0])) {
 										sb.append(" + " + item[0] + "; ");
-										if (!item[1].equals("") && !item[1].equals("0"))
-											sb.append("s\u1ED1 trang: " + item[1] + "; ");
-										sb.append("t\u00ECnh tr\u1EA1ng: " + item[2] + ".\n");
+										if (!item[3].equals("") && !item[3].equals("0"))
+											sb.append("lo\u1EA1i: " + item[1] + "; ");
+											sb.append("v\u1EADt mang tin: " + item[2] + "; ");
+											sb.append("s\u1ED1 trang: " + item[3] + "; ");
+										sb.append("t\u00ECnh tr\u1EA1ng: " + item[4] + ".\n");
 									}
 								}
 							}
@@ -674,9 +680,11 @@ public class SoTiepDanAction extends BaseDispatchAction {
 								if (item != null && item.length > 0) {
 									if (!Formater.isNull(item[0])) {
 										sb.append(" + " + item[0] + "; ");
-										if (!item[1].equals("") && !item[1].equals("0"))
-											sb.append("s\u1ED1 trang: " + item[1] + "; ");
-										sb.append("t\u00ECnh tr\u1EA1ng: " + item[2] + ".\n");
+										if (!item[3].equals("") && !item[3].equals("0"))
+											sb.append("lo\u1EA1i: " + item[1] + "; ");
+											sb.append("v\u1EADt mang tin: " + item[2] + "; ");
+											sb.append("s\u1ED1 trang: " + item[3] + "; ");
+										sb.append("t\u00ECnh tr\u1EA1ng: " + item[4] + ".\n");
 									}
 								}
 							}

@@ -1,7 +1,7 @@
 <%@ page pageEncoding="UTF-8"%>
 <%@ include file="/top_bar.jsp"%> 
 <html:form action="/kntc_xac_minh.do">
-<h3 class="Header">Xác minh hồ sơ khiếu nại</h3>
+<h3 class="Header">Xác minh hồ sơ khiếu nại</h3> 
 	<div style="text-align: center;"><font style="font-size: 14px; color: red">Số hồ sơ</font> <html:text property="maHoSo" name="xacMinhForm" styleClass="text" style="width:250px" readonly="true" /></div>
 	<div id="super-tabs">
 	<ul>

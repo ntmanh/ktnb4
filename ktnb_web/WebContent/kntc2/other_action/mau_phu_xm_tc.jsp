@@ -21,6 +21,10 @@
 			<td><a href="#" onclick="openBm2('kntc_khxm.do?method=bb&action=bbYeuCauBoSungHSTLTC&id=');">Biên bản làm việc yêu cầu bổ sung hồ sơ, tài liệu - Mẫu 12/KNTC </a></td>
 			<td><a href="#" onclick="openBm2('kntc_qd_dinh_chi_kn.do?method=show&action=view&type=Qddctc&id=');">Quyết định đình chỉ tố cáo</td>
 		</tr>
+		<tr>
+			<td><a href="#" onclick="openBm2('kntc_bo_sung_hs.do?method=showTlkt&action=bshs&maHs=');">Giấy biên nhận - Mẫu 11/TC</a></td>
+			<td></td>
+		</tr>
 	</table> 
 </fieldset>
 <script type="text/javascript" charset="utf-8">
