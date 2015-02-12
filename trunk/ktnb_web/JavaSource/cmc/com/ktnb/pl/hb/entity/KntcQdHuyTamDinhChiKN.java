@@ -36,8 +36,16 @@ public class KntcQdHuyTamDinhChiKN extends cmc.com.ktnb.pl.hb.entity.PersistentO
 
 	private String donViLienQuan;
 	private String ngayBanHanhstr;
-
+	private String SoQdTamDinhChi;
 	// Constructors
+
+	public String getSoQdTamDinhChi() {
+		return SoQdTamDinhChi;
+	}
+
+	public void setSoQdTamDinhChi(String soQdTamDinhChi) {
+		SoQdTamDinhChi = soQdTamDinhChi;
+	}
 
 	/** default constructor */
 	public KntcQdHuyTamDinhChiKN() {
