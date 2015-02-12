@@ -440,7 +440,7 @@ public class BienBanLamViecAction extends Action {
 				word
 						.put("[doc_bien_ban]",
 								"Bi\u00EAn b\u1EA3n \u0111\u00E3 \u0111\u01B0\u1EE3c \u0111\u1ECDc l\u1EA1i cho nh\u1EEFng ng\u01B0\u1EDDi c\u00F3 t\u00EAn n\u00EAu tr\u00EAn nghe v\u00E0 k\u00FD x\u00E1c nh\u1EADn./.");
-				word.put("[ttkt]", hinhThuc.toUpperCase());
+				//word.put("[ttkt]", hinhThuc.toUpperCase());
 				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
 				word.saveAndClose();
 				word.downloadFile(fileOut, "Mau TTNB29", ".doc", reponse);
