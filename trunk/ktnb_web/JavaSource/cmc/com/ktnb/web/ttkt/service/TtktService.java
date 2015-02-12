@@ -338,10 +338,24 @@ public class TtktService {
 	}
 
 	/**
+	 * Lay danh ten co quan thue 
+	 * @param ma 
+	 * @throws Exception 
+	 * */
+	public static String getTenCQT(ApplicationContext appContext, String ma) throws Exception
+	{
+		CatalogService cs=new CatalogService();
+		SearchCriteria sc= new SearchCriteria(KtnbDmCqt.class);
+		sc.addSearchItem("ma", ma);
+		KtnbDmCqt cqt=(KtnbDmCqt) cs.retriveObject(appContext, sc);
+		return cqt.getTen();
+	}
+	
+	/**
 	 * L?y danh sách thành viên ?oàn theo id
 	 * 
 	 * @param id
-	 *            Id danh sách thành viên ?oàn
+	 *            Id danh sách thành viên ?oàn  
 	 * @param appConText
 	 * @return
 	 * @throws Exception

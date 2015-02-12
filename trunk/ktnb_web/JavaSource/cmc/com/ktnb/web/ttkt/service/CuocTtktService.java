@@ -527,7 +527,21 @@ public class CuocTtktService {
 			DataSourceConfiguration.releaseSqlResources(null, statement, conn);
 		}
 	}
-
+	
+	/**
+	 * @param id_cuoc_ttkt_cha
+	 * @throws Exception 
+	 * */
+	public static Collection getCuocTtktWithMaCha(ApplicationContext appContext, String idCuocTtktCha) throws Exception
+	{
+		CatalogService cs=new CatalogService();
+		SearchCriteria criteria= new SearchCriteria(TtktKhCuocTtkt.class);
+		criteria.addSearchItem("idCuocTtktCha", idCuocTtktCha);
+		Collection listTemp = cs.retrive(appContext, criteria);
+		if (Formater.isNull(listTemp))
+			return null;
+		return listTemp;
+	}
 	/**
 	 * @param appContext
 	 * @return
