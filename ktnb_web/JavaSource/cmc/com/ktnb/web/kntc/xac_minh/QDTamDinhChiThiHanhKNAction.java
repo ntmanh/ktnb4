@@ -5,6 +5,9 @@ import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 
 import javax.naming.InitialContext;
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +17,7 @@ import javax.transaction.UserTransaction;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
 import org.apache.struts.action.ActionMapping;
+import org.hibernate.Query;
 import org.hibernate.Session;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -30,11 +34,16 @@ import cmc.com.ktnb.util.Constants;
 import cmc.com.ktnb.util.DataSourceConfiguration;
 import cmc.com.ktnb.util.Formater;
 import cmc.com.ktnb.util.HibernateSessionFactory;
+import cmc.com.ktnb.util.HtmlTable;
 import cmc.com.ktnb.util.KeyManagement;
+import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
+import cmc.com.ktnb.util.QueryDetails;
 import cmc.com.ktnb.util.SearchCriteria;
 import cmc.com.ktnb.web.BaseDispatchAction;
+import cmc.com.ktnb.web.catalog.CanboForm;
 import cmc.com.ktnb.web.catalog.CatalogService;
+import cmc.com.ktnb.web.catalog.vo.CanboLovVO;
 import cmc.com.ktnb.web.kntc.xac_minh.tien_hanh.BienBanDoiThoaiForm;
 import cmc.com.ktnb.web.kntc.xu_ly.PrintAction;
 
@@ -359,5 +368,74 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 		// TODO Auto-generated method stub
 		
 	}
+	
+	//Load So quyet dinh tam dinh chi
+	public ActionForward lov(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		QDTamDinhChiThiHanhKNForm cForm = (QDTamDinhChiThiHanhKNForm) form;
+		StringBuffer sql = new StringBuffer("select t.id, t.so_quyet_dinh,t.ngay_ban_hanh from KNTC_QD_DINH_CHI_KN t");
+		sql.append(" where 1=1");
+		//Auto search and return
+		if (!Formater.isNull(cForm.tamDinhChiKn.getSoQd()))
+			sql.append(" AND t.so_quyet_dinh like '%" + cForm.tamDinhChiKn.getSoQd().trim() + "%'");
+		if (!Formater.isNull(cForm.tamDinhChiKn.getSoHs()))
+			sql.append(" AND t.ma_canbo like '%" + cForm.tamDinhChiKn.getSoHs() + "%'");		
+		String r = request.getParameter("r");
+		sql.append(" ORDER By t.so_quyet_dinh");
+		Session session = HibernateSessionFactory.openNewSession();
+		Collection objects = new ArrayList();
+		HtmlTable table = new HtmlTable();
+		if (session != null) {
+			QueryDetails queryDetails = new QueryDetails();
+			try {
+				session.beginTransaction();
+//				BaseHibernateDAO dao = new BaseHibernateDAO();
+				String sPageNumber = request.getParameter("pageNumber");
+				try {
+					queryDetails.setPageNumber(new Integer(sPageNumber));
+					request.setAttribute("pnumber", sPageNumber);
+					queryDetails.setPageSize(Constants.PAGE_SIZE_DEFAULT);
+				} catch (Exception e) {
+					queryDetails.setPageNumber(new Integer("1"));
+					queryDetails.setPageSize(new Integer("10"));
+					request.setAttribute("pnumber", new Integer("1"));
+				}
+				System.out.println("SQL Lov: " +sql.toString());
+				Query q = session.createSQLQuery(sql.toString()).setFirstResult(queryDetails.getBeginIndex()).setMaxResults(queryDetails.getLastIndex());
+				objects = q.list();
+				int total = 0;
+				if (objects != null && objects.size() > 0) {
+					total = objects.size();
+					if (total == 1) // Co 1 ban ghi
+						{
+						CanboLovVO vo = new CanboLovVO((Object[]) objects.iterator().next());
+						request.setAttribute("datas", vo.getData());
+					} else {
+						//set data to display
+						Collection ret = new ArrayList();
+						table.setPageNumber(Integer.toString(queryDetails.getPageNumber().intValue()));
+						table.setPageSize(queryDetails.getPageSize().longValue());
+						table.setTotalRecord(total);
+						for (Iterator iter = objects.iterator(); iter.hasNext();) {
+							CanboLovVO vo = new CanboLovVO((Object[]) iter.next());
+							ret.add(vo);
+						}
+						table.setData(ret);
+						table.setGoToPageUrl(this.getUrl(request, "lov"));
+						table.setSearchForm("canboForm");
+						request.setAttribute("dtnts", table);
+					}
+				}
+			} catch (Exception e) {
+				e.printStackTrace();
+				HibernateSessionFactory.rollbackQuiet();
+				throw new Exception(e);
+			} finally {
+				HibernateSessionFactory.closeSessionQuiet();
+			}
+		}
+		request.setAttribute("total", new Long(table.getCurrentTotalRecord()));
+		return map.findForward("success");
+	}	
 	
 }

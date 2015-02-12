@@ -20,7 +20,7 @@
 		<!--
 			<li><a href="#tab_bcxm" class="tabTitle">Báo cáo kết quả giải quyết KN - Mẫu 18/KNTC</a></li>
 		-->
-		<li><a href="#tab_qdgq" class="tabTitle">Quyết định giải quyết KN - Mẫu 19/KNTC</a></li>
+		<li><a href="#tab_qdgq" class="tabTitle">Quyết định giải quyết KN - Mẫu 16/KN</a></li>
 		<li><a href="#tab_bckq" class="tabTitle">Báo cáo kết quả thực hiện khiếu nại</a></li>
 	</ul>
 	
