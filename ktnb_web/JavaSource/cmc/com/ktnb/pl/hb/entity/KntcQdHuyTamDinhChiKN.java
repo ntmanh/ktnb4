@@ -36,15 +36,15 @@ public class KntcQdHuyTamDinhChiKN extends cmc.com.ktnb.pl.hb.entity.PersistentO
 
 	private String donViLienQuan;
 	private String ngayBanHanhstr;
-	private String SoQdTamDinhChi;
+	private String soQdBiHuy;
 	// Constructors
 
-	public String getSoQdTamDinhChi() {
-		return SoQdTamDinhChi;
+	public String getsoQdBiHuy() {
+		return soQdBiHuy;
 	}
 
-	public void setSoQdTamDinhChi(String soQdTamDinhChi) {
-		SoQdTamDinhChi = soQdTamDinhChi;
+	public void setsoQdBiHuy(String soQdBiHuy) {
+		this.soQdBiHuy = soQdBiHuy;
 	}
 
 	/** default constructor */
@@ -58,7 +58,7 @@ public class KntcQdHuyTamDinhChiKN extends cmc.com.ktnb.pl.hb.entity.PersistentO
 
 	/** full constructor */
 	public KntcQdHuyTamDinhChiKN(String id, String soHoSo, String soQd, Date ngayBanHanh, String diaDiem, String vanBanCanCu, String nguoiDeNghi, String nguoiBhHuyTen, String nguoiBhChucVu,
-			String tenQdHuy, String lyDoHuy, String nguoiBhQdHcTen, String nguoiBhQdHcCvu, String donViThiHanh, String donViLienQuan) {
+			String tenQdHuy, String lyDoHuy, String nguoiBhQdHcTen, String nguoiBhQdHcCvu, String donViThiHanh, String donViLienQuan, String soQdBiHuy) {
 		this.id = id;
 		this.soHoSo = soHoSo;
 		this.soQd = soQd;
@@ -74,6 +74,7 @@ public class KntcQdHuyTamDinhChiKN extends cmc.com.ktnb.pl.hb.entity.PersistentO
 		this.nguoiBhQdHcCvu = nguoiBhQdHcCvu;
 		this.donViThiHanh = donViThiHanh;
 		this.donViLienQuan = donViLienQuan;
+		this.soQdBiHuy=soQdBiHuy;
 	}
 
 	// Property accessors

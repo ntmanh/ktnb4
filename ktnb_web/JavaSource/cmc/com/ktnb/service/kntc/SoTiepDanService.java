@@ -25,6 +25,7 @@ import cmc.com.ktnb.pl.hb.entity.KntcHoSoHdr;
 import cmc.com.ktnb.pl.hb.entity.KntcPhieuGiaoHs;
 import cmc.com.ktnb.pl.hb.entity.KntcPhieuHen;
 import cmc.com.ktnb.pl.hb.entity.KntcQdDinhChiKN;
+import cmc.com.ktnb.pl.hb.entity.KntcQdHuyTamDinhChiKN;
 import cmc.com.ktnb.pl.hb.entity.KntcQdTamDinhChiKn;
 import cmc.com.ktnb.pl.hb.entity.KtnbDmCanbo;
 import cmc.com.ktnb.pl.hb.entity.KtnbDmCqt;
@@ -478,7 +479,14 @@ public class SoTiepDanService {
 		sc.addSearchItem("id", maPhieu);
 		return (KntcQdTamDinhChiKn)service.retriveObject(appContext, sc);
 	}
-	
+	public KntcQdHuyTamDinhChiKN getQdHuyTamDinhChi(ApplicationContext appContext, String maHs, String maPhieu) throws Exception
+	{
+		CatalogService service = new CatalogService();
+		SearchCriteria sc= new SearchCriteria(KntcQdHuyTamDinhChiKN.class);
+		sc.addSearchItem("soHoSo", maHs);
+		sc.addSearchItem("id", maPhieu);
+		return (KntcQdHuyTamDinhChiKN)service.retriveObject(appContext, sc);
+	}
 	public void saveQdTamDinhChiKn(ApplicationContext appContext, KntcQdTamDinhChiKn qdTamDinhChiKn) throws Exception
 	{
 		try {

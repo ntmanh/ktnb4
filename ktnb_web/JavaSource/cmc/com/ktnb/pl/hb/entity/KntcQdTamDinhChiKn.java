@@ -35,7 +35,7 @@ public class KntcQdTamDinhChiKn extends cmc.com.ktnb.pl.hb.entity.PersistentObje
 
 	/** full constructor */
 	public KntcQdTamDinhChiKn(String id, String soHs, String soQd, Date ngayBanHanh, String diaDiem, String canCuVanBan, String nguoiDeNghi, String nguoiBhQdTen, String nguoiBhQdChucVu,
-			String qdDinhChiTen, String lyDo, String donViBhQd, String donViThiHanh, String donViLienQuan) {
+			String qdDinhChiTen, String lyDo, String donViBhQd, String donViThiHanh, String donViLienQuan, String ngayBanHanhStr) {
 		this.id = id;
 		this.soHs = soHs;
 		this.soQd = soQd;
@@ -50,9 +50,23 @@ public class KntcQdTamDinhChiKn extends cmc.com.ktnb.pl.hb.entity.PersistentObje
 		this.donViBhQd = donViBhQd;
 		this.donViThiHanh = donViThiHanh;
 		this.donViLienQuan=donViLienQuan;
+		this.ngayBanHanhstr=ngayBanHanhStr;
 	}
 	// Property accessors
-
+	public KntcQdTamDinhChiKn(Object[] ele) {
+		this.id = (String) ele[0];
+		try {
+			this.soQd = (String) ele[1];
+			this.ngayBanHanhstr = Formater.date2str((Date)ele[2]);
+		} catch (RuntimeException e) {
+			//e.printStackTrace();
+		}
+	}
+	public String getData() {
+		String retVal = "";
+		retVal = this.id + "@@" + this.soHs + "@@" + this.soQd + "@@" + this.ngayBanHanhstr;
+		return retVal.replaceAll("'", "\\\\'");
+	}
 	public String getCanCuVanBan() {
 		return canCuVanBan;
 	}
@@ -104,7 +118,6 @@ public class KntcQdTamDinhChiKn extends cmc.com.ktnb.pl.hb.entity.PersistentObje
 	public Date getNgayBanHanh() {
 		return ngayBanHanh;
 	}
-
 	public void setNgayBanHanh(Date ngayBanHanh) {
 		this.ngayBanHanh = ngayBanHanh;
 		this.ngayBanHanhstr=Formater.date2str(this.ngayBanHanh);

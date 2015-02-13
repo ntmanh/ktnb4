@@ -189,13 +189,14 @@ public class XuLyPhuKhieuNaiToCaoService {
 	{
 		UserTransaction tx = null;
 		Session session = null;
+		
 		try {
-			try {
-				tx = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
-				tx.begin();
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
+//			try {
+//				tx = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
+//				tx.begin();
+//			} catch (Exception e1) {
+//				e1.printStackTrace();
+//			}
 			BaseHibernateDAO dao = new BaseHibernateDAO();
 			session = HibernateSessionFactory.currentSession();
 			if(Formater.isNull(huyTamDinhChiKn.getId()))
@@ -204,13 +205,12 @@ public class XuLyPhuKhieuNaiToCaoService {
 				dao.saveOrUpdateObject(appContext, huyTamDinhChiKn);
 			}
 			else {
-				dao.updateObject(appContext,huyTamDinhChiKn,Boolean.TRUE);
-				session.flush();
-				tx.commit();
+				dao.updateObject(appContext,huyTamDinhChiKn,Boolean.FALSE);
 			}
+			request.setAttribute("ghiThanhcong", "1");
 		}
 		catch (Exception e) {
-			tx.rollback();
+			request.setAttribute("ghiThanhcong", "0");
 			e.printStackTrace();
 			throw e;
 		}
