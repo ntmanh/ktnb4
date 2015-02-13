@@ -54,10 +54,10 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 	public ActionForward show(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
 		ApplicationContext appContext=(ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		String soHoSo=request.getParameter("id");
 		QDTamDinhChiThiHanhKNForm cbForm=(QDTamDinhChiThiHanhKNForm) form;
 		if("view".equals(request.getParameter("action")))
 		{
-			String soHoSo=request.getParameter("id");
 			if(!Formater.isNull(soHoSo))
 			{
 				if("tam".equals(request.getParameter("type")))
@@ -75,6 +75,7 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 			else if("huytam".equals(request.getParameter("type")))
 			{
 				qdHuyTamDinhChiKn=cbForm.huyDinhChiKn;
+				qdHuyTamDinhChiKn.setSoHoSo(soHoSo);
 				services.saveHuyTamDinhChiKn(request, appContext, qdHuyTamDinhChiKn);
 			}
 			request.setAttribute("save", "okk");
@@ -86,6 +87,7 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 		return returnMappingForm(map,form,request,response);
 	}
 	public ActionForward returnMappingForm(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println(">>>>>>>type: " +request.getParameter("type"));
 		if("tam".equals(request.getParameter("type")))
 		{
 			return map.findForward("tam");
@@ -155,7 +157,11 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 		JSONObject jsonResult = new JSONObject();
 		try {
 			conn = DataSourceConfiguration.getConnection();
-			StringBuffer sb = new StringBuffer("select id,so_qd,ngay_ban_hanh from kntc_qd_tam_dinh_chi_kn where so_hs= ? order by ngay_ban_hanh desc");
+			StringBuffer sb;
+			if("huyTamDC".equals(request.getParameter("type")))
+				sb= new StringBuffer("select id,so_qd,ngay_ban_hanh from KNTC_QD_HUY_TAM_DINH_CHI_KN where so_ho_so= ? order by ngay_ban_hanh desc");
+			else
+				sb= new StringBuffer("select id,so_qd,ngay_ban_hanh from kntc_qd_tam_dinh_chi_kn where so_hs= ? order by ngay_ban_hanh desc");
 			ps = conn.prepareStatement(sb.toString());
 			ps.setString(1, maHs);
 			System.out.println(sb.toString());
@@ -217,7 +223,21 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 		}
 		return map.findForward("success");
 	}
-
+	public ActionForward xemBienBanHuy(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		String maHs = request.getParameter("id");
+		String maPh = request.getParameter("pId");
+		System.out.println(maHs + maPh);
+		QDTamDinhChiThiHanhKNForm bbForm = (QDTamDinhChiThiHanhKNForm) form;
+		SoTiepDanService service = new SoTiepDanService();
+		if (!Formater.isNull(maHs)) {
+			KntcQdHuyTamDinhChiKN bb = service.getQdHuyTamDinhChi(appContext, maHs, maPh);
+			if (bb != null)
+				bbForm.setHuyDinhChiKn(bb);
+		} 
+		return map.findForward("huytam");
+	}
+	
 	// Tao moi bien ban doi thoai 
 	public ActionForward taoBienBan(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
@@ -232,7 +252,19 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 		bbForm.setTamDinhChiKn(new KntcQdTamDinhChiKn());
 		return map.findForward("success");
 	}
-	
+	public ActionForward taoBienBanHuyDC(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		QDTamDinhChiThiHanhKNForm bbForm=(QDTamDinhChiThiHanhKNForm) form;
+		String maHs=request.getParameter("id");
+		String readOnly = request.getParameter("r");
+		if (readOnly != null)
+			if (readOnly.equals("rol")) {
+				throw new KtnbException("Bi&#7875;u m&#7851;u n&#224;y kh&#244;ng c&#243; s&#7889; li&#7879;u!!!", "", "");
+			}
+//		bbForm.setTamDinhChiKn(new KntcQdTamDinhChiKn());
+		bbForm.setHuyDinhChiKn(new KntcQdHuyTamDinhChiKN());
+		return map.findForward("huytam");
+	}
 	// Xoa bien ban doi thoai
 	public ActionForward xoaBienBan(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
@@ -371,17 +403,24 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 	
 	//Load So quyet dinh tam dinh chi
 	public ActionForward lov(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-		QDTamDinhChiThiHanhKNForm cForm = (QDTamDinhChiThiHanhKNForm) form;
-		StringBuffer sql = new StringBuffer("select t.id, t.so_quyet_dinh,t.ngay_ban_hanh from KNTC_QD_DINH_CHI_KN t");
+//		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+//		QDTamDinhChiThiHanhKNForm cForm = (QDTamDinhChiThiHanhKNForm) form;
+//		KntcQdTamDinhChiKn cf=cForm.getTamDinhChiKn();
+		String  maHs=request.getParameter("id");
+		String  soQd=request.getParameter("soQd");
+		String  maPhieu=request.getParameter("maPhieu");
+		String  ngayBanHanh=request.getParameter("ngayBanHanh");
+		System.out.println("So HS la: "+ maHs);
+		StringBuffer sql = new StringBuffer("select t.id, t.so_qd, t.ngay_ban_hanh from KNTC_QD_TAM_DINH_CHI_KN t");
 		sql.append(" where 1=1");
 		//Auto search and return
-		if (!Formater.isNull(cForm.tamDinhChiKn.getSoQd()))
-			sql.append(" AND t.so_quyet_dinh like '%" + cForm.tamDinhChiKn.getSoQd().trim() + "%'");
-		if (!Formater.isNull(cForm.tamDinhChiKn.getSoHs()))
-			sql.append(" AND t.ma_canbo like '%" + cForm.tamDinhChiKn.getSoHs() + "%'");		
-		String r = request.getParameter("r");
-		sql.append(" ORDER By t.so_quyet_dinh");
+		if (!Formater.isNull(soQd))
+			sql.append(" AND t.so_qd like '%" + soQd + "%'");
+		if (!Formater.isNull(maPhieu))
+			sql.append(" AND t.so_hs like '%" + maPhieu + "%'");
+		if (!Formater.isNull(ngayBanHanh))
+			sql.append(" AND t.so_hs like '%" + ngayBanHanh + "%'");
+		sql.append(" AND t.so_hs='"+ maHs + "' ORDER By t.so_qd");
 		Session session = HibernateSessionFactory.openNewSession();
 		Collection objects = new ArrayList();
 		HtmlTable table = new HtmlTable();
@@ -408,7 +447,7 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 					total = objects.size();
 					if (total == 1) // Co 1 ban ghi
 						{
-						CanboLovVO vo = new CanboLovVO((Object[]) objects.iterator().next());
+						KntcQdTamDinhChiKn vo = new KntcQdTamDinhChiKn((Object[]) objects.iterator().next());
 						request.setAttribute("datas", vo.getData());
 					} else {
 						//set data to display
@@ -417,12 +456,13 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 						table.setPageSize(queryDetails.getPageSize().longValue());
 						table.setTotalRecord(total);
 						for (Iterator iter = objects.iterator(); iter.hasNext();) {
-							CanboLovVO vo = new CanboLovVO((Object[]) iter.next());
+							KntcQdTamDinhChiKn vo = new KntcQdTamDinhChiKn((Object[]) iter.next());
+							System.out.println("Ngay bh: "+ vo.getNgayBanHanhstr());
 							ret.add(vo);
 						}
 						table.setData(ret);
 						table.setGoToPageUrl(this.getUrl(request, "lov"));
-						table.setSearchForm("canboForm");
+						table.setSearchForm("SoQdForm");
 						request.setAttribute("dtnts", table);
 					}
 				}
@@ -435,7 +475,7 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 			}
 		}
 		request.setAttribute("total", new Long(table.getCurrentTotalRecord()));
-		return map.findForward("success");
+		return map.findForward("lovSoQd");
 	}	
 	
 }
