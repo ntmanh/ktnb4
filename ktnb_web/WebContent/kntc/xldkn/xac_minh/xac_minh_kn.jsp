@@ -19,7 +19,7 @@
 	</ul>
 	<div id="tab_qdxm"><jsp:include page="xm_quyet_dinh.jsp"></jsp:include></div> 
 	<div id="tab_khxm"><jsp:include page="ke_hoach.jsp"></jsp:include></div>
-	<div id="tab_kqxm"><jsp:include page="bao_cao_kqxm.jsp"></jsp:include></div>	
+	<div id="tab_kqxm"><jsp:include page="bao_cao_kqxm.jsp"></jsp:include></div>
 	<jsp:include page="/kntc2/other_action/mau_phu_xm_kn.jsp"></jsp:include>
 	</div>
 <div id="super-tab2"></div>
