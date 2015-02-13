@@ -31,7 +31,7 @@
 		</tr>
 		<tr>
 			<td style="text-align: right;">File lưu trữ</td>
-			<td colspan="3"><A href="#" onclick="openUploadFile_24();"><font color=blue>Kết luận nội dung Tố cáo mẫu 24/KNTC</font></A></td>
+			<td colspan="3"><A href="#" onclick="openUploadFile_24();"><font color=blue>Kết luận nội dung Tố cáo mẫu 18/TC</font></A></td>
 		</tr>
 	</table>
 	</fieldset>	

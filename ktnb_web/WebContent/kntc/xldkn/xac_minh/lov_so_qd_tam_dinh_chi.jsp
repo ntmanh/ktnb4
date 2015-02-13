@@ -105,28 +105,7 @@
 <script language="javascript">
 var id = '<%=request.getParameter("id")%>'; //id o day la ma ho so
 function filter(){
-/*
-	obj =document.forms[0].selectCqt;	
-	var s="";
-    if (isArray(obj))
-    {
-      for(i=0;i<obj.length;i++)
-      {
-        if (obj[i].checked)  s=s+','+obj[i].value;
-      }
-    }
-    else
-    {
-      if (obj.checked)      s=s+','+obj.value;
-    }   
- 
-	document.forms[0].arrCqt.value=s.substring(1);
-	*/
-<!--	var right  = '<%=request.getAttribute("r") %>';-->
-<!--	if(right!=null && right!="null" && right!='')-->
-<!--		document.forms[0].action = document.forms[0].action+"&r=y&cqt="+document.forms[0].arrCqt.value;	-->
-<!--	else-->
-	document.forms[0].action = document.forms[0].action+"&soQd="+$('#soQuyetDinh').val()+"&maPhieu="+$('#maPhieu')+"&ngayBanHanh="+$('#ngayQuyetDinh');	
+	document.forms[0].action = document.forms[0].action+"&id="+ id +"&soQd="+$('#soQuyetDinh').val()+"&maPhieu="+$('#maPhieu').val()+"&ngayBanHanh="+$('#ngayQuyetDinh').val();	
 	document.forms[0].submit();
 }
 window.onload = function()
