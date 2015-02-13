@@ -22,7 +22,7 @@
 		<tr>
 			<td style="text-align: right;">File lưu trữ</td>
 			<td><A href="#" onclick="openUploadFile_26();"><font
-				color=blue>Thông báo kết quả giải quyết tố cáo 26/KNTC</font></A></td>
+				color=blue>Thông báo kết quả giải quyết tố cáo 21/TC</font></A></td>
 			<!-- <td align="right">Kết thúc TB giải quyết</td>
 			<td><html:checkbox property="ketThuc" value="1"/></td>  -->
 			<td></td>

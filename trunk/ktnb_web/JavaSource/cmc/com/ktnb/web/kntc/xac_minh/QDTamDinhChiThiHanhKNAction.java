@@ -411,15 +411,18 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 		String  maPhieu=request.getParameter("maPhieu");
 		String  ngayBanHanh=request.getParameter("ngayBanHanh");
 		System.out.println("So HS la: "+ maHs);
+		System.out.println("So Qd la: "+ soQd);
+		System.out.println("Ma phieu la: "+ maPhieu);
+		System.out.println("ngayBanHanh: "+ ngayBanHanh);
 		StringBuffer sql = new StringBuffer("select t.id, t.so_qd, t.ngay_ban_hanh from KNTC_QD_TAM_DINH_CHI_KN t");
 		sql.append(" where 1=1");
 		//Auto search and return
 		if (!Formater.isNull(soQd))
 			sql.append(" AND t.so_qd like '%" + soQd + "%'");
 		if (!Formater.isNull(maPhieu))
-			sql.append(" AND t.so_hs like '%" + maPhieu + "%'");
+			sql.append(" AND t.id like '%" + maPhieu + "%'");
 		if (!Formater.isNull(ngayBanHanh))
-			sql.append(" AND t.so_hs like '%" + ngayBanHanh + "%'");
+			sql.append(" AND t.ngay_ban_hanh like '%" + ngayBanHanh + "%'");
 		sql.append(" AND t.so_hs='"+ maHs + "' ORDER By t.so_qd");
 		Session session = HibernateSessionFactory.openNewSession();
 		Collection objects = new ArrayList();
