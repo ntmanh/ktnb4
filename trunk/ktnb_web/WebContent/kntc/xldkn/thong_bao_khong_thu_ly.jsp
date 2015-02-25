@@ -44,11 +44,26 @@ $(document).ready(function() {
 });
 
 function ghi(){
+	if(!validateForm())
+		return;
 	document.forms[0].action="kntc_dxxl.do?method=save";
 	document.forms[0].submit();
 }
+
+function validateForm()
+{
+	if(!isRequired(document.forms[0].maPhieu, 'Ch\u01B0a nh\u1EADp m\u00E3 phi\u1EBFu')) { 
+		document.forms[0].maPhieu.select();
+		return false;
+		}
+	if(!isRequired(document.forms[0].lyDo, 'Ch\u01B0a nh\u1EADp l\u00FD do')) { 
+		document.forms[0].lyDo.select();
+		return false;
+		}
+	return true;
+}
 function print(){		
-		document.forms[0].action="kntc_dxxl.do?method=in";
+		document.forms[0].action="kntc_dxxl.do?method=in"; 
 		document.forms[0].submit();
 	}
 </script>

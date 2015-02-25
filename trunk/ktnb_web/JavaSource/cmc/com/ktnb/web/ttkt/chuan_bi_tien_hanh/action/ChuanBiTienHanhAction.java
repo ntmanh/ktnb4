@@ -1385,56 +1385,49 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 			String thucHienTai= "";
 			String strKtnb="Ki\u1EC3m tra n\u1ED9i b\u1ED9 t\u1EA1i: ";
 			// Truong hop la tong cuc thue di kiem tra cap duoi
-			if(KtnbUtil.isTongCuc(idDvThucHien)) 
-			{  
-				if(listIdCon!=null)
-				{
+			if(KtnbUtil.isTongCuc(idDvThucHien)) {  
+				if(listIdCon!=null){
 					for (int i = 0; i < listIdCon.size(); i++) {
-						if(listIdCon.get(i).equals(idDvBiThucHien)) // Truong hop kiem tra mot cap
-						{
+						if(listIdCon.get(i).equals(idDvBiThucHien)){
 							//thucHienTai+=strKtnb+TtktService.getTenCQT(appConText,listIdCon.get(i).toString())+"\n";
 							thucHienTai+=strKtnb+KtnbUtil.getTenCqtByMa(listIdCon.get(i).toString())+"\n";
 						}
-						else // Nhieu 2 cap
-						{
+						else{
 							thucHienTai+=strKtnb+KtnbUtil.getTenCqtByMa(listIdCon.get(i).toString())+","+KtnbUtil.getTenCqtByMa(idDvBiThucHien)+"\n";
 						}
 					}
 					thucHienTai=thucHienTai.substring(0,thucHienTai.length()-1);
 				}
-				else 
+				/*else 
 				{
 					thucHienTai=strKtnb+KtnbUtil.getTenCqtByMa(idDvBiThucHien);
-				}
+				}*/
 			}
-			else 
-			{
+			else {
 				if(listIdCon!=null)
 				{
-					/**
-					for (int i = 0; i < listIdCon.size(); i++) {
-						if(listIdCon.get(i).equals(idDvBiThucHien))//Cuc/ chi cuc kiem tra thang con cua no. 1 cap
-						{
-							thucHienTai+=strKtnb+KtnbUtil.getTenCqtByMa(listIdCon.get(i).toString())+","+TtktService.getTenCQT(appConText,idDvThucHien)+"\n";
-						}
-						else // Cuc kiem tra phong thuoc chi cuc nao do, 2 cap
-						{ 
-							thucHienTai+=strKtnb+KtnbUtil.getTenCqtByMa(idDvThucHien)+";"+TtktService.getTenCQT(appConText,idDvBiThucHien)+"\n";
-						}
-					}
-					*/
 					if(idDvBiThucHien.equals(idDvThucHien)) // in ra 1 cap
-						thucHienTai+=strKtnb+KtnbUtil.getTenCqtByMa(idDvThucHien);
+					{
+						for (int i = 0; i < listIdCon.size(); i++) {
+							if(listIdCon.get(i).equals(idDvBiThucHien))//Cuc/ chi cuc kiem tra thang con cua no. 1 cap
+								thucHienTai+=strKtnb+KtnbUtil.getTenCqtByMa(idDvThucHien)+"\n";
+							else // Cuc kiem tra phong thuoc chi cuc nao do, 2 cap							
+								thucHienTai+=strKtnb+KtnbUtil.getTenCqtByMa(listIdCon.get(i).toString())+","+TtktService.getTenCQT(appConText,idDvThucHien)+"\n";
+						}
+						thucHienTai=thucHienTai.substring(0,thucHienTai.length()-1);
+					} 
+						
 					else // in cap tren ; cap duoi
-						thucHienTai+=strKtnb+KtnbUtil.getTenCqtByMa(idDvThucHien)+";"+TtktService.getTenCQT(appConText,idDvBiThucHien)+"\n";
+						thucHienTai+=strKtnb+KtnbUtil.getTenCqtByMa(idDvThucHien)+";"+TtktService.getTenCQT(appConText,idDvBiThucHien);
 				}
-				else 
+				/**else 
 				{
 					if(idDvBiThucHien.equals(idDvThucHien)) // in 1 cap
 						thucHienTai=strKtnb+KtnbUtil.getTenCqtByMa(idDvBiThucHien);
 					else // in cap duoi, cap tren
 						thucHienTai=strKtnb+KtnbUtil.getTenCqtByMa(idDvBiThucHien)+","+KtnbUtil.getTenCqtByMa(idDvThucHien);
 				}
+				*/
 			}
 			System.out.println(thucHienTai);  
 			// --------------------------------------//
