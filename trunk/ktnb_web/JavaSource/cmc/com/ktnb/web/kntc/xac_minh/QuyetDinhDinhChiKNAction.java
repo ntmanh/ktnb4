@@ -22,6 +22,7 @@ import cmc.com.ktnb.util.ApplicationContext;
 import cmc.com.ktnb.util.Constants;
 import cmc.com.ktnb.util.DataSourceConfiguration;
 import cmc.com.ktnb.util.Formater;
+import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
 import cmc.com.ktnb.web.kntc.xac_minh.tien_hanh.BienBanDoiThoaiForm;
 import cmc.com.ktnb.web.kntc.xu_ly.PrintAction;
@@ -155,11 +156,13 @@ public class QuyetDinhDinhChiKNAction extends PrintAction {
 		String maHs = request.getParameter("id");
 		String maPh = request.getParameter("pId");
 		QuyetDinhDinhChiKNForm bbForm = (QuyetDinhDinhChiKNForm) form;
+		//bbForm.qdDinhChiKN.setSoQuyetDinh(KtnbUtil.getMaNvu(appContext, "\u0110CKN"));
 		SoTiepDanService service = new SoTiepDanService();
 		if (!Formater.isNull(maHs)) {
 			KntcQdDinhChiKN bb = service.getQuyetDinhByMaPh(appContext, maHs, maPh);
 			if (bb != null)
 				bbForm.setQdDinhChiKN(bb);
+				bbForm.qdDinhChiKN.setSoQuyetDinh(KtnbUtil.getMaNvu(appContext, "\u0110CKN"));
 		} else {
 
 		}
@@ -177,6 +180,7 @@ public class QuyetDinhDinhChiKNAction extends PrintAction {
 	{
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		QuyetDinhDinhChiKNForm bbForm=(QuyetDinhDinhChiKNForm) form;
+		bbForm.qdDinhChiKN.setSoQuyetDinh(KtnbUtil.getMaNvu(appContext, "\u0110CKN"));
 		String maHs=request.getParameter("id");
 		String readOnly = request.getParameter("r");
 		if (readOnly != null)

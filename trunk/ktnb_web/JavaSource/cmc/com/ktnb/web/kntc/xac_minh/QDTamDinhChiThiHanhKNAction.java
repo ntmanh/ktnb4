@@ -250,10 +250,12 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 				throw new KtnbException("Bi&#7875;u m&#7851;u n&#224;y kh&#244;ng c&#243; s&#7889; li&#7879;u!!!", "", "");
 			}
 		bbForm.setTamDinhChiKn(new KntcQdTamDinhChiKn());
+		bbForm.tamDinhChiKn.setSoQd(KtnbUtil.getMaNvu(appContext, "T\u0110C"));
 		return map.findForward("success");
 	}
 	public ActionForward taoBienBanHuyDC(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
 	{
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		QDTamDinhChiThiHanhKNForm bbForm=(QDTamDinhChiThiHanhKNForm) form;
 		String maHs=request.getParameter("id");
 		String readOnly = request.getParameter("r");
@@ -263,6 +265,7 @@ public class QDTamDinhChiThiHanhKNAction extends PrintAction{
 			}
 //		bbForm.setTamDinhChiKn(new KntcQdTamDinhChiKn());
 		bbForm.setHuyDinhChiKn(new KntcQdHuyTamDinhChiKN());
+		bbForm.huyDinhChiKn.setSoQd(KtnbUtil.getMaNvu(appContext, "HT\u0110C"));
 		return map.findForward("huytam");
 	}
 	// Xoa bien ban doi thoai

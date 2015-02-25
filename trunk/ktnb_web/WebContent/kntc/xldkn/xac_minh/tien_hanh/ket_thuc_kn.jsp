@@ -20,9 +20,12 @@
 		<!--
 			<li><a href="#tab_bcxm" class="tabTitle">Báo cáo kết quả giải quyết KN - Mẫu 18/KNTC</a></li>
 		-->
+		<li><a href="#tab_kqxm" class="tabTitle">Kết quả xác minh - Mẫu 15/KN</a></li>
 		<li><a href="#tab_qdgq" class="tabTitle">Quyết định giải quyết KN - Mẫu 16/KN</a></li>
 		<li><a href="#tab_bckq" class="tabTitle">Báo cáo kết quả thực hiện khiếu nại</a></li>
 	</ul>
+	
+	<div id="tab_kqxm"><jsp:include page="bao_cao_kqxm.jsp"></jsp:include></div>
 	
 	<div id="tab_qdgq"><jsp:include page="quyet_dinh_gq_kn.jsp"></jsp:include></div>
 	<div id="tab_bckq"><jsp:include page="bao_cao_ket_qua_thuc_hien_khieu_nai.jsp"></jsp:include></div>

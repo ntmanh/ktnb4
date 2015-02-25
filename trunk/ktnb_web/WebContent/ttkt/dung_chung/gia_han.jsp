@@ -57,9 +57,6 @@
 				<td align="right" style="width: 19%">Số quyết định</td>
 				<td style="width: 1%"></td>
 				<td align="left" style="width: 30%"><html:text property="soQd" styleClass="text"></html:text></td>
-				<td align="right" style="width: 19%">Căn cứ Luật số</td>
-				<td style="width: 1%"></td>
-				<td align="left" style="width: 30%"><html:textarea property="canCuLuat" styleClass="text" /></td> 
 			</tr>
 			<tr>
 				<td align="right" style="width: 19%">Nơi ra quyết định</td>
@@ -70,6 +67,11 @@
 				<td style="width: 1%"></td>
 				<td align="left" style="width: 30%"><html:text property="ngayRaQd" onkeypress="return formatDate(event, this)" onblur="if(!isDate(this)) return;validateDateRequired(this);"  styleClass="text">
 				</html:text></td>
+			</tr>
+			<tr>
+				<td align="right" style="width: 19%">Căn cứ Luật số</td>
+				<td style="width: 1%"></td>
+				<td align="left" style="width: 30%"><html:textarea property="canCuLuat" styleClass="text" /></td> 
 			</tr>
 			<tr>
 				<td width="19%" align="right">Căn cứ quyết định</td>

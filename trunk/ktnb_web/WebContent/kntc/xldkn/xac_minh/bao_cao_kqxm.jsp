@@ -15,7 +15,7 @@
 		</tr>
 		<tr>
 			<td align="right">File mẫu</td>
-			<td colspan="3"><A href="filemau/KN15.doc"> <font color=blue>Download File</font> </A></td>
+			<td colspan="3"><A href="../filemau/KN15.doc"> <font color=blue>Download File</font> </A></td>
 		</tr>
 		<tr>
 			<td align="right">File lưu trữ</td>
