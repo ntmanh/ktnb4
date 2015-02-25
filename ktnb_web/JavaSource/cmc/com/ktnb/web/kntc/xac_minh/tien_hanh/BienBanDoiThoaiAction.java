@@ -106,6 +106,7 @@ public class BienBanDoiThoaiAction extends PrintAction {
 	}
 	public void loadDefauldForm(ApplicationContext appContext, BienBanDoiThoaiForm cbForm, String soHoSo) throws Exception {
 		bbDoiThoai = khieuNaiToCaoService.findBbDoiThoai(appContext, soHoSo);
+		
 		if (bbDoiThoai == null) {
 			// Khoi tao lai bb doi thoai, set so ho so cho cbForm
 			bbDoiThoai = new KntcBbDoiThoai();
