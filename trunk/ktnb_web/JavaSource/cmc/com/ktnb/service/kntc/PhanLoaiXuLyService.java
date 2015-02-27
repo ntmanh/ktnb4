@@ -19,6 +19,7 @@ import com.ibm.security.krb5.internal.APOptions;
 
 import cmc.com.ktnb.exception.KtnbException;
 import cmc.com.ktnb.pl.hb.entity.KntcCanBoRls;
+import cmc.com.ktnb.pl.hb.entity.KntcChuyenCqDieuTra;
 import cmc.com.ktnb.pl.hb.entity.KntcDeXuatXly;
 import cmc.com.ktnb.pl.hb.entity.KntcDmRls;
 import cmc.com.ktnb.pl.hb.entity.KntcHoSoHdr;
@@ -325,7 +326,31 @@ public class PhanLoaiXuLyService {
 			HibernateSessionFactory.closeSession(session);
 		}
 	}
-
+	
+	/**
+	 * Xem, lưu, sửa, xóa phiếu chuyển cơ quan điều tra
+	 * @param appContext
+	 * @param phiếu chuyển :
+	 *  	Phiếu chuyển cơ quan điều tra
+	 *  @throws Exception
+	 * */
+	public KntcChuyenCqDieuTra getPhieuChuyenCqByMaPhieu(ApplicationContext appContext, String maPhieu) throws Exception {
+		CatalogService services = new CatalogService();
+		SearchCriteria sc = new SearchCriteria(KntcChuyenCqDieuTra.class);
+		sc.addSearchItem("maPhieu", maPhieu);
+		return (KntcChuyenCqDieuTra) services.retriveObject(appContext, sc);
+	}
+	
+	public void savePhieuChuyenCq(ApplicationContext appContext, KntcChuyenCqDieuTra chuyenCq) throws Exception
+	{
+		if(Formater.isNull(chuyenCq.getMaPhieu()))
+		{
+			chuyenCq.setMaPhieu(KeyManagement.getGUID());
+			dao.saveObject(appContext, chuyenCq);
+		}
+		else 
+			dao.updateObject(appContext, chuyenCq);
+	}
 	/**
 	 * Lưu phiếu chuyển đơn, phiếu trả đơn
 	 * 
