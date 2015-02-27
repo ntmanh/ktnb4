@@ -162,7 +162,7 @@ public class QuyetDinhDinhChiKNAction extends PrintAction {
 			KntcQdDinhChiKN bb = service.getQuyetDinhByMaPh(appContext, maHs, maPh);
 			if (bb != null)
 				bbForm.setQdDinhChiKN(bb);
-				bbForm.qdDinhChiKN.setSoQuyetDinh(KtnbUtil.getMaNvu(appContext, "\u0110CKN"));
+				//bbForm.qdDinhChiKN.setSoQuyetDinh(KtnbUtil.getMaNvu(appContext, "\u0110CKN"));
 		} else {
 
 		}
@@ -188,6 +188,7 @@ public class QuyetDinhDinhChiKNAction extends PrintAction {
 				throw new KtnbException("Bi&#7875;u m&#7851;u n&#224;y kh&#244;ng c&#243; s&#7889; li&#7879;u!!!", "", "");
 			}
 		bbForm.setQdDinhChiKN(new KntcQdDinhChiKN());
+		bbForm.qdDinhChiKN.setSoQuyetDinh(KtnbUtil.getMaNvu(appContext, "\u0110CKN"));
 		if("Qddckn".equals(request.getParameter("type"))){
 			return map.findForward("success");
 		}
