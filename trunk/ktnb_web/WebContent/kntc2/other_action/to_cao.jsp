@@ -11,7 +11,9 @@
 		</tr>
 		<tr>
 			<td><a href="#" onclick="openBm2('kntc_bb.do?method=bb25B&action=25B&id=');">Biên bản bàn giao hồ sơ vụ việc 25B/KNTC</a></td>
+			<td><a href="#" onclick="openBm2('chuyen_co_quan_dieu_tra.do?method=show&id=');">Chuyển cơ quan điều tra</a></td>
 			<td><!-- <a href="#" onclick="openBm2('kntc_qdgq.do?method=rutdon&id=');">Rút / Đóng đơn</a> --></td>
+			
 			
 		</tr>
 		<tr>

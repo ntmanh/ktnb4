@@ -32,12 +32,7 @@
 		<form-bean name="thongBaoKQGQToCaoForm" type="cmc.com.ktnb.web.kntc.xu_ly.ThongBaoKQGQToCaoForm"></form-bean>
 		<form-bean name="baoCaoKqXmForm" type="cmc.com.ktnb.web.kntc.xac_minh.BaoCaoKqXmForm"></form-bean>
 		<form-bean name="baoCaoKqThucHienForm" type="cmc.com.ktnb.web.kntc.ket_qua.BaoCaoKetQuaThucHienForm"></form-bean>
-		
-		
-		<form-bean name="TestForm" type="cmc.com.ktnb.web.kntc.TestForm"></form-bean>
-		<form-bean name="TestPhieuHenForm" type="test.action.TestPhieuHenForm"></form-bean>
-		
-		
+		<form-bean name="chuyenCoQuanForm" type="cmc.com.ktnb.web.kntc.xu_ly.ChuyenCqDieuTraForm"></form-bean>
 	</form-beans>
 	<action-mappings>
 		<action name="tiepDanForm" path="/kntc_tiep_dan" type="cmc.com.ktnb.web.kntc.tiep_dan.SoTiepDanAction" parameter="method" scope="request">
@@ -102,6 +97,10 @@
 		</action>
 		<action name="phanCongCanBoForm" path="/phan_cong_can_bo_history" type="cmc.com.ktnb.web.kntc.xu_ly.HistoryPCCBAction" parameter="method" scope="request">
 			<forward name="success" path="kntc/lichsu/phan_cong_can_bo_history.jsp" />
+		</action>
+		<action name="chuyenCoQuanForm" path="/chuyen_co_quan_dieu_tra" type="cmc.com.ktnb.web.kntc.xu_ly.ChuyenCqDieuTraAction" parameter="method" scope="request">
+			<forward name="success" path="kntc/xldkn/chuyen_co_quan_dieu_tra.jsp"></forward>
+		
 		</action>
 		<action name="xmPhieuYeuCauForm" path="/kntc_xm_phieu_yc" type="cmc.com.ktnb.web.kntc.xac_minh.tien_hanh.PhieuYeuCauHsTlAction" parameter="method" scope="request">
 			<forward name="success" path="kntc/xldkn/xac_minh/tien_hanh/phieu_yeu_cau_hs_tl.jsp" />

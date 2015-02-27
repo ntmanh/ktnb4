@@ -9,6 +9,10 @@
 			<td><a href="#" onclick="openBm2('kntc_qdgq.do?method=rutdon&id=');">Rút / Đóng đơn</a></td>			
 			<td><a href="#" onclick="openBm2('kntc_qd_dinh_chi_kn.do?method=show&action=view&type=Qddckn&id=');">Quyết định đình chỉ khiếu nại - Mẫu 18/KN</td>
 		</tr>
+		<tr>
+			<td><a href="#" onclick="openBm2('chuyen_co_quan_dieu_tra.do?method=show&id=');">Chuyển cơ quan điều tra</a></td>			
+			<td></td>
+		</tr>
 	</table>
 </fieldset>
 <script language="javascript">
