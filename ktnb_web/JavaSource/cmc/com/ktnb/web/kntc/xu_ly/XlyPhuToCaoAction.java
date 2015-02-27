@@ -129,6 +129,7 @@ public class XlyPhuToCaoAction extends PrintAction {
 		if (giaoNvXmTc == null) {
 			giaoNvXmTc = new KntcGiaoNvXmTc();
 			cbForm.giaoNvXmTc.setSoHoSo(soHoSo);
+			cbForm.giaoNvXmTc.setSoQuyetDinh(KtnbUtil.getMaNvu(appContext, "GNVXM"));
 		} else {
 			cbForm.giaoNvXmTc = giaoNvXmTc;
 		}
