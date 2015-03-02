@@ -44,6 +44,7 @@ public class GiaHanAction extends BaseDispatchAction {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		GiaHanForm giaHanForm = (GiaHanForm) form;
 		giaHanForm.setCanCuQd("C\u0103n c\u1EE9 Quy\u1EBFt \u0111\u1ECBnh s\u1ED1 1722/Q\u0110-TCT ng\u00E0y 08 th\u00E1ng 10 n\u0103m 2014");
+		//giaHanForm.setSoQd(KtnbUtil.getMaNvu(appContext, "Q\u0110"));
 		if ("save".equals(request.getParameter("method"))) {
 			saveGiaHan(giaHanForm, appContext);
 			request.setAttribute("saveStatus", "ok");
@@ -131,6 +132,7 @@ public class GiaHanAction extends BaseDispatchAction {
 		giaHanForm.setRaHanTuNgay(Formater.date2str(giaHan.getGiaHanTuNgay()));
 		giaHanForm.setSoNgayRaHan(String.valueOf(giaHan.getSoNgayGiaHan()));
 		giaHanForm.setSoQd(giaHan.getSoQd());
+		//giaHanForm.setSoQd(KtnbUtil.getMaNvu(appContext, "Q\u0110"));
 		giaHanForm.setVbQdCnNv(giaHan.getVbQdinhCnangNvu());
 		giaHanForm.setCanCuQd(giaHan.getCanCuQd());
 		giaHanForm.setCanCuLuat(giaHan.getCanCuLuat());
@@ -290,7 +292,12 @@ public class GiaHanAction extends BaseDispatchAction {
 		TtktCbQd cbQd = TtktService.getQuyetDinh(idCuocTtkt, appConText);
 		String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
 		StringBuffer sb = new StringBuffer(hinhThuc);
-
+		//giaHanForm.setSoQd(KtnbUtil.getMaNvu(appConText, "Q\u0110"));
+		//if (Formater.isNull(giaHanForm.getSoQd())) {
+			//sb.append("....../Q\u0110-.......");
+		//} else {
+			//sb.append(giaHanForm.getSoQd() + KtnbUtil.getMaNvu(appConText, "Q\u0110") );
+		//}
 		MsWordUtils word = new MsWordUtils(fileIn, fileOut);
 		try {
 			word.put("[ten_cqt]", KtnbUtil.getTenCqtCapTrenTt(appConText).toUpperCase());
@@ -298,8 +305,10 @@ public class GiaHanAction extends BaseDispatchAction {
 			if (Formater.isNull(giaHanForm.getSoQd())) {
 				word.put("[so_qd]", "....../Q\u0110-.......");
 			} else {
-				word.put("[so_qd]", giaHanForm.getSoQd().toString());
+				word.put("[so_qd]", giaHanForm.getSoQd().toString()+KtnbUtil.getMaNvu1(appConText, "Q\u0110") );
+				
 			}
+			//word.put("[so_qd]", sb.toString().toUpperCase());
 			String ngaylap = giaHanForm.getNgayRaQd();
 			String[] arrngaylap = ngaylap.split("/");
 			if (giaHanForm.getNoiRaQd().equals("") && giaHanForm.getNgayRaQd().equals("")) {
@@ -520,12 +529,17 @@ public class GiaHanAction extends BaseDispatchAction {
 
 		TtktCbQd cbQd = TtktService.getQuyetDinh(idCuocTtkt, appConText);
 		String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
-		StringBuffer sb = new StringBuffer(hinhThuc);
-
+		String hinhthuc_in = (cuocTtkt.getHinhThuc().booleanValue()) ? "KI\u1EC2M TRA" : "THANH TRA";
+		String hinhthuc_inT = (cuocTtkt.getHinhThuc().booleanValue()) ? "KT" : "TT";
+		//StringBuffer sb = new StringBuffer("\u0110OA\u0300N");
+		//sb.append(hinhthuc);
 		MsWordUtils word = new MsWordUtils(fileIn, fileOut);
 		try {
 			word.put("[ten_cqt]", KtnbUtil.getTenCqtCapTrenTt(appConText).toUpperCase());
 			// hinh thuc thanh tra kiem tra
+			StringBuffer sb = new StringBuffer("\u0110OA\u0300N ");
+			sb.append(hinhthuc_inT);
+			
 			if (Formater.isNull(giaHanForm.getSoQd())) {
 				sb.append(" Q\u0110 S\u1ED0......");
 			} else {
@@ -582,7 +596,7 @@ public class GiaHanAction extends BaseDispatchAction {
 			word.put("[y_kien_phe_duyet]", giaHanForm.getKienPheDuyet());
 			word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
 			//word.put("[chuc_danh_thu_truong]", "ABC");
-			word.put("[chuc_danh_thu_truong]", KtnbUtil.getChucVuThuTruongByMaCqt(appConText.getMaCqt()).toUpperCase());
+			//word.put("[chuc_danh_thu_truong]", KtnbUtil.getChucVuThuTruongByMaCqt(appConText.getMaCqt()).toUpperCase());
 			// if (Formater.isNull(appConText.getTenThuTruong())) {
 			// word.put("[ten_thu_truong]", "");
 			// } else {
@@ -602,7 +616,7 @@ public class GiaHanAction extends BaseDispatchAction {
 		}
 	}
 
-	private void loadDefaulForm(GiaHanForm form, ApplicationContext app, HttpServletRequest request, String cuocTtktId, String id) throws Exception {
+	private void loadDefaulForm(GiaHanForm form, ApplicationContext app, HttpServletRequest request, String cuocTtktId, String id, ApplicationContext appContext) throws Exception {
 		TtktThGiaHan giaHan = TtktCnPhuService.getGiaHanTtKtByIdCuocTtkt(app, cuocTtktId);
 		form.setIdCuocTtKt(cuocTtktId);
 		if (giaHan != null) {
@@ -614,6 +628,7 @@ public class GiaHanAction extends BaseDispatchAction {
 			form.setNgayPheDuyet(Formater.date2str(giaHan.getNgayPheDuyet()));
 			form.setKienPheDuyet(giaHan.getYKienPheDuyet());
 			form.setSoQd(giaHan.getSoQd());
+			//form.setSoQd(KtnbUtil.getMaNvu(appContext, "Q\u0110"));
 			form.setNoiRaQd(giaHan.getNoiRaQd());
 			form.setNgayRaQd(Formater.date2str(giaHan.getNgayRqQd()));
 			form.setSoNgayRaHan(giaHan.getSoNgayGiaHan().toString());

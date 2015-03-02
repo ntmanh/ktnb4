@@ -383,6 +383,12 @@ public class KtnbUtil {
 		retVal += nghiepVu + "-" + appContext.getTenCqtTat();
 		return retVal;
 	}
+	
+	public static String getMaNvu1(ApplicationContext appContext, String nghiepVu) throws Exception {
+		String retVal = "/";
+		retVal += nghiepVu + "-" + appContext.getTenCqtTat();
+		return retVal;
+	}
 
 	public static DetailInformation[] increateArray(DetailInformation[] arrInput, DetailInformation addItem) {
 		DetailInformation[] arrOutput = new DetailInformation[arrInput.length + 1];
