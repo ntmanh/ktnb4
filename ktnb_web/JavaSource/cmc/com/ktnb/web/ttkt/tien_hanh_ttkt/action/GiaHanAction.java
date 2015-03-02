@@ -43,6 +43,7 @@ public class GiaHanAction extends BaseDispatchAction {
 	public ActionForward execute(ActionMapping mapping, ActionForm form, HttpServletRequest request, HttpServletResponse reponse) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		GiaHanForm giaHanForm = (GiaHanForm) form;
+		giaHanForm.setCanCuQd("C\u0103n c\u1EE9 Quy\u1EBFt \u0111\u1ECBnh s\u1ED1 1722/Q\u0110-TCT ng\u00E0y 08 th\u00E1ng 10 n\u0103m 2014");
 		if ("save".equals(request.getParameter("method"))) {
 			saveGiaHan(giaHanForm, appContext);
 			request.setAttribute("saveStatus", "ok");
