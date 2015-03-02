@@ -1604,8 +1604,8 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 
 		} // Bieu mau in Ke Hoach TTKT //
 		else if ("kh".equals(request.getParameter("type")) || "bmkh".equals(request.getParameter("type"))) {
-			fileIn = request.getRealPath("/docin/v4") + "\\TTNB12.doc";
-			fileOut = request.getRealPath("/docout") + "\\TTNB12_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
+			fileIn = request.getRealPath("/docin/v4") + "\\KTNB12.doc";
+			fileOut = request.getRealPath("/docout") + "\\KTNB12_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 
 			fileTemplate = "ttnb12";
 			//
@@ -1676,38 +1676,41 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				} else {
 					word.put("[phuong_phap_tien_hanh]", "- " + cbForm.getPhuongPhapTienHanh());
 				}
-				/**
-				 * // --------------- tien do thuc hien -------------------// if
-				 * (Formater.isNull(cbForm.getToChucThucHien())) {
-				 * word.put("[tien_do_thuc_hien]", "- Ti\u1EBFn \u0111\u1ED9
-				 * th\u1EF1c hi\u1EC7n"); } else { sb = new StringBuffer("-
-				 * Ti\u1EBFn \u0111\u1ED9 th\u1EF1c hi\u1EC7n: ");
-				 * sb.append(cbForm.getToChucThucHien());
-				 * word.put("[tien_do_thuc_hien]", sb.toString()); }
-				 *  // ----------------che do thong tin bao
-				 * cao------------------ // if
-				 * (Formater.isNull(cbForm.getCheDoThongTinBaoCao())) {
-				 * word.put("[che_do_tt_bao_cao]", "- Ch\u1EBF \u0111\u1ED9
-				 * th\u00F4ng tin b\u00E1o c\u00E1o"); } else { sb = new
-				 * StringBuffer("- Ch\u1EBF \u0111\u1ED9 th\u00F4ng tin b\u00E1o
-				 * c\u00E1o: "); sb.append(cbForm.getCheDoThongTinBaoCao());
-				 * word.put("[che_do_tt_bao_cao]", sb.toString()); } //
-				 * ---------------dieu kien vat chat -------------------// if
-				 * (Formater.isNull(cbForm.getDieuKienVatChatDamBao())) {
-				 * word.put("[dieu_kien_vat_chat]", "- \u0110i\u1EC1u ki\u1EC7n
-				 * v\u1EADt ch\u1EA5t \u0111\u1EA3m b\u1EA3o "); } else { sb =
-				 * new StringBuffer("- \u0110i\u1EC1u ki\u1EC7n v\u1EADt
-				 * ch\u1EA5t \u0111\u1EA3m b\u1EA3o: ");
-				 * sb.append(cbForm.getDieuKienVatChatDamBao());
-				 * word.put("[dieu_kien_vat_chat]", sb.toString()); } //
-				 * ---------------nhung dieu kien khac ----------------------//
-				 * if (Formater.isNull(cbForm.getNhungDieuKienKhac())) {
-				 * word.put("[van_de_khac]", "- Nh\u1EEFng \u0111i\u1EC1u
-				 * ki\u1EC7n kh\u00E1c (n\u1EBFu c\u00F3) "); } else { sb = new
-				 * StringBuffer("- Nh\u1EEFng \u0111i\u1EC1u ki\u1EC7n
-				 * kh\u00E1c: "); sb.append(cbForm.getNhungDieuKienKhac());
-				 * word.put("[van_de_khac]", sb.toString()); }
-				 */
+				
+//				 --------------- tien do thuc hien -------------------//
+				if (Formater.isNull(cbForm.getToChucThucHien())) {
+					word.put("[tien_do_thuc_hien]", "- Ti\u1EBFn \u0111\u1ED9 th\u1EF1c hi\u1EC7n");
+				} else {
+					sb = new StringBuffer("- Ti\u1EBFn \u0111\u1ED9 th\u1EF1c hi\u1EC7n: ");
+					sb.append(cbForm.getToChucThucHien());
+					word.put("[tien_do_thuc_hien]", sb.toString());
+				}
+
+				// ----------------che do thong tin bao cao------------------ //
+				if (Formater.isNull(cbForm.getCheDoThongTinBaoCao())) {
+					word.put("[che_do_tt_bao_cao]", "- Ch\u1EBF \u0111\u1ED9 th\u00F4ng tin b\u00E1o c\u00E1o");
+				} else {
+					sb = new StringBuffer("- Ch\u1EBF \u0111\u1ED9 th\u00F4ng tin b\u00E1o c\u00E1o: ");
+					sb.append(cbForm.getCheDoThongTinBaoCao());
+					word.put("[che_do_tt_bao_cao]", sb.toString());
+				}
+				// ---------------dieu kien vat chat -------------------//
+				if (Formater.isNull(cbForm.getDieuKienVatChatDamBao())) {
+					word.put("[dieu_kien_vat_chat]", "- \u0110i\u1EC1u ki\u1EC7n v\u1EADt ch\u1EA5t \u0111\u1EA3m b\u1EA3o ");
+				} else {
+					sb = new StringBuffer("- \u0110i\u1EC1u ki\u1EC7n v\u1EADt ch\u1EA5t \u0111\u1EA3m b\u1EA3o: ");
+					sb.append(cbForm.getDieuKienVatChatDamBao());
+					word.put("[dieu_kien_vat_chat]", sb.toString());
+				}
+				// ---------------nhung dieu kien khac ----------------------//
+				if (Formater.isNull(cbForm.getNhungDieuKienKhac())) {
+					word.put("[van_de_khac]", "- Nh\u1EEFng \u0111i\u1EC1u ki\u1EC7n kh\u00E1c (n\u1EBFu c\u00F3) ");
+				} else {
+					sb = new StringBuffer("- Nh\u1EEFng \u0111i\u1EC1u ki\u1EC7n kh\u00E1c: ");
+					sb.append(cbForm.getNhungDieuKienKhac());
+					word.put("[van_de_khac]", sb.toString());
+				}
+				 
 				// Thu truong cqt trinh duyet
 				word.put("[tt_cq_thue_trinh_duyet]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
 				// ngay duyet
@@ -1735,7 +1738,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				// word.put("[ten_thu_truong]", appConText.getTenThuTruong());
 
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau TTNB12", ".doc", reponse);
+				word.downloadFile(fileOut, "Mau KTNB12", ".doc", reponse);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
@@ -1896,7 +1899,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
 				word.saveAndClose();
 
-				word.downloadFile(fileOut, "Mau TTNB13", ".doc", reponse);
+				word.downloadFile(fileOut, "Mau KTNB13", ".doc", reponse);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
@@ -1984,7 +1987,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				// KtnbUtil.getChucVuThuTruongByMaCqt(appConText.getMaCqt()).toUpperCase());
 				// word.put("[ten_thu_truong]", appConText.getTenThuTruong());
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau TTNB14", ".doc", reponse);
+				word.downloadFile(fileOut, "Mau KTNB14", ".doc", reponse);
 			} catch (Exception ex) {
 				ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());

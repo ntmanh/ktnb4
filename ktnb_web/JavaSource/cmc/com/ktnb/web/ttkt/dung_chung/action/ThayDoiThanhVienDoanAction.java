@@ -49,6 +49,7 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		String method = request.getParameter("method");
 		String cuocTtktId = "";
+		thayDoiThanhVienDoanForm.setCanCuQdinh("C\u0103n c\u1EE9 Quy\u1EBFt \u0111\u1ECBnh s\u1ED1 1722/Q\u0110-TCT ng\u00E0y 08 th\u00E1ng 10 n\u0103m 2014");
 		if ("save".equals(method)) {
 			TtktCmThayDoiTvd thayDoiTvd = createThayDoiTvd(appContext, request, thayDoiThanhVienDoanForm);
 			TtktService.saveThayDoiTvd(appContext, thayDoiTvd);
@@ -898,7 +899,7 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 				//word.put("[ttkt]", sb.toString());
 				//word.put("[ttkt]", sb.toString());
 				word.put("[so_qdinh]", cbQd.getSoQuyetDinh());
-				word.put("[ngay_ra_qd1]", "Chua co");
+				
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
 				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());
@@ -976,7 +977,7 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 				// word.put("ngay_qdinh", "ng\u00E0y " + arrngqd[0] + " th\u00E1ng " + arrngqd[1] + " n\u0103m " + arrngqd[2]);
 
 				word.saveAndClose();
-				word.downloadFile(fileOut, "Mau 08/KTNB", ".doc", reponse);
+				word.downloadFile(fileOut, "Mau KTNB08", ".doc", reponse);
 			} catch (Exception ex) {
 				// ex.printStackTrace();
 				System.out.println("Download Error: " + ex.getMessage());
