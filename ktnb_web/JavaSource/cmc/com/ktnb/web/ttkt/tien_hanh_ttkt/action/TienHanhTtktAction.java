@@ -544,7 +544,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 				}
 			}
 		}else if ("congBoQd".equals(type)) { // In cong bo (ngon, chuan)
-			fileTemplate = "ttnb16";
+			fileTemplate = "Ktnb16";
 			TtktCmThanhPhanThamDu[] arrdaidiencoquanthue = tienHanhTtktForm.getArrDaiDienCqtBanHanhQD();
 			TtktCmThanhPhanThamDu[] arrdaidiencoquancaptren = tienHanhTtktForm.getArrDaiDienCqqlCapTren();
 			if(arrdaidiencoquanthue !=null&&arrdaidiencoquancaptren!=null){
@@ -595,7 +595,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		} else if ("nhatKy".equals(type)) { // In nhat ky
 			fileIn = request.getRealPath("/docin/v4") + "\\TTNB15.doc";
 			fileOut = request.getRealPath("/docout") + "\\TTNB15_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
-			fileTemplate = "ttnb15";
+			fileTemplate = "Ktnb15";
 			String idCuocTtkt = request.getParameter("idCuocTtkt");
 			TtktKhCuocTtkt cuocTtkt = CuocTtktService.getCuocTtkt(appContext, idCuocTtkt);
 			String hinhThuc = (cuocTtkt.getHinhThuc().booleanValue()) ? "ki\u1EC3m tra" : "thanh tra";
