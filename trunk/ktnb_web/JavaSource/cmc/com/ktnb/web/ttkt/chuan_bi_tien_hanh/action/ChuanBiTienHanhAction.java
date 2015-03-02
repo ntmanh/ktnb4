@@ -65,6 +65,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 		String method = request.getParameter("method");
 		System.out.println(">>>>>Method1:" + request.getParameter("method"));
 		System.out.println(">>>>>Type1:" + request.getParameter("type"));
+		cbForm.setCanCuQd("C\u0103n c\u1EE9 Quy\u1EBFt \u0111\u1ECBnh s\u1ED1 1722/Q\u0110-TCT ng\u00E0y 08 th\u00E1ng 10 n\u0103m 2014");
 		if (Formater.isNull(method) || "view".equals(method)) {
 			String cuocTtktId = request.getParameter("cuocTtktId");
 
