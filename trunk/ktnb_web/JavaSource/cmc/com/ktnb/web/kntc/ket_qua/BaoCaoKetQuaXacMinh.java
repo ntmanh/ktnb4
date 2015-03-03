@@ -50,7 +50,7 @@ import cmc.com.ktnb.web.kntc.xu_ly.LichTrinhDuKienAction;
  */
 public class BaoCaoKetQuaXacMinh extends BaseDispatchAction {
 	/**
-	 * Hiển thị mẫu 18/KNTC
+	 * Hiển thị mẫu 18/KNTC 
 	 * 
 	 * @param map
 	 * @param form

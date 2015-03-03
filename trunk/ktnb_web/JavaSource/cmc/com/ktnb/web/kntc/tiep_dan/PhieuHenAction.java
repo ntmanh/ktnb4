@@ -348,7 +348,7 @@ public class PhieuHenAction extends BaseDispatchAction {
 		return null;
 	}
 	public ActionForward inPhieuHenV4(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String fileIn = request.getRealPath("/docin") + "\\TCD02.doc";
+		String fileIn = request.getRealPath("/docin/v4") + "\\TCD02.doc";
 		String fileOut = request.getRealPath("/docout") + "\\TCD02_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 
