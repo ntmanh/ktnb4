@@ -15,6 +15,17 @@ public class Constants {
 	public final static String KNTC_KET_THUC_LUU_DON = "6";//Lưu đơn cho trường hợp hồ sơ gốc đã kết thúc
 	public final static String KNTC_KET_THUC_XOA_HS = "7";//Hồ sơ xóa
 
+	// Các mẫu biểu 
+	public static final String PHIEU_HUONG_DAN_NKN = "05/KNTC";
+	public static final String PHIEU_CHUYEN_DON = "06/KNTC";
+	public static final String PHIEU_CHUYEN_DON_TO_CAO = "20/KNTC"; 
+	public static final String PHIEU_THONG_BAO_KHONG_THU_LY = "07/KNTC";
+	public static final String PHIEU_TRA_DON_KN = "08/KNTC"; 
+	public static final String PHIEU_THONG_BAO_THU_LY = "09/KNTC";
+	public static final String PHIEU_THONG_BAO_THU_LY_TO_CAO = "06/TC"; 
+	public static final String TC_PHIEU_CHUYEN_CQ_DIEU_TRA = "25A/KNTC";
+	public static final String PHIEU_THANH_LAP_DOAN_XAC_MINH = "07/TC";
+	
 	// Loại liên kết hồ sơ
 	public static final String LIEN_KET_CHA = "0"; // (Tách đơn thành 2 đơn KH-TC)
 	public static final String LIEN_KET_GOP = "1"; // (Gộp 2 đơn cùng 1 vụ việc) dùng cho gộp đơn, lưu đơn

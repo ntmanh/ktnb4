@@ -590,7 +590,7 @@ public class SoTiepDanService {
 		// KntcNdungDon don = (KntcNdungDon) services.retriveObject(appContext,
 		// sc);
 		// std.setNoiDungDon(don);
-		if (!isSimple) // Load full thong tin
+		if (!isSimple) // Load full thong tin  
 		{ 
 			sc = new SearchCriteria(KtnbTlieuKemTheo.class);
 			sc.addSearchItem("maHoSo", maHoSo);

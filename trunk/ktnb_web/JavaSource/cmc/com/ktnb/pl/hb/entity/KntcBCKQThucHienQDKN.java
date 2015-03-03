@@ -44,6 +44,16 @@ public class KntcBCKQThucHienQDKN extends cmc.com.ktnb.pl.hb.entity.PersistentOb
 	private Long soNguoiChuyenCqDtra;
 
 	private Long loaiKntc;
+	
+	private Long kienNghiPhaiThu;
+	
+	private Long kienNghiDaThu;
+
+	private Long traLaiPhaiThu;
+
+	private Long traLaiDaThu;
+	
+	private Long kienNghiSnguoiXly;
 
 	public KntcBCKQThucHienQDKN() {
 		// TODO Auto-generated constructor stub
@@ -191,6 +201,46 @@ public class KntcBCKQThucHienQDKN extends cmc.com.ktnb.pl.hb.entity.PersistentOb
 
 	public void setTaiSanKhacTraCdan(Long taiSanKhacTraCdan) {
 		this.taiSanKhacTraCdan = taiSanKhacTraCdan;
+	}
+
+	public Long getKienNghiDaThu() {
+		return kienNghiDaThu;
+	}
+
+	public void setKienNghiDaThu(Long kienNghiDaThu) {
+		this.kienNghiDaThu = kienNghiDaThu;
+	}
+
+	public Long getKienNghiPhaiThu() {
+		return kienNghiPhaiThu;
+	}
+
+	public void setKienNghiPhaiThu(Long kienNghiPhaiThu) {
+		this.kienNghiPhaiThu = kienNghiPhaiThu;
+	}
+
+	public Long getKienNghiSnguoiXly() {
+		return kienNghiSnguoiXly;
+	}
+
+	public void setKienNghiSnguoiXly(Long kienNghiSnguoiXly) {
+		this.kienNghiSnguoiXly = kienNghiSnguoiXly;
+	}
+
+	public Long getTraLaiDaThu() {
+		return traLaiDaThu;
+	}
+
+	public void setTraLaiDaThu(Long traLaiDaThu) {
+		this.traLaiDaThu = traLaiDaThu;
+	}
+
+	public Long getTraLaiPhaiThu() {
+		return traLaiPhaiThu;
+	}
+
+	public void setTraLaiPhaiThu(Long traLaiPhaiThu) {
+		this.traLaiPhaiThu = traLaiPhaiThu;
 	}	
 	
 }
