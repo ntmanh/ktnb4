@@ -438,7 +438,7 @@ public class XlyPhuToCaoAction extends PrintAction {
 			if (Formater.isNull(cbForm.tbKoThuLyGq.getNgayLapStr()))
 				word.put("[don_vi_chuyen_to_cao]", "");
 			else
-				word.put("[don_vi_chuyen_to_cao]","T\u1ED1 c\u00E1o do \"" + cbForm.tbKoThuLyGq.getDonViChuyenBc()+"\" chuy\u1EC3n \u0111\u1EBFn.");
+				word.put("[don_vi_chuyen_to_cao]","(T\u1ED1 c\u00E1o do \"" + cbForm.tbKoThuLyGq.getDonViChuyenBc()+"\" chuy\u1EC3n \u0111\u1EBFn).");
 			
 			word.put("[ly_do_khong_thu_ly]", cbForm.tbKoThuLyGq.getLyDoApDungKoThuLy());
 
@@ -506,7 +506,7 @@ public class XlyPhuToCaoAction extends PrintAction {
 			if (Formater.isNull(cbForm.tbKhongThuLyTiep.getNgayLapStr()))
 				word.put("[don_vi_chuyen_to_cao]", "");
 			else
-				word.put("[don_vi_chuyen_to_cao]","T\u1ED1 c\u00E1o do \"" + cbForm.tbKhongThuLyTiep.getDviChuyenTiepBc()+"\" chuy\u1EC3n \u0111\u1EBFn.");
+				word.put("[don_vi_chuyen_to_cao]","(T\u1ED1 c\u00E1o do \"" + cbForm.tbKhongThuLyTiep.getDviChuyenTiepBc()+"\" chuy\u1EC3n \u0111\u1EBFn).");
 			
 			word.put("[nguoi_da_gq_tc_theo_tham_quyen]", cbForm.tbKhongThuLyTiep.getDviBanHanh());
 			word.put("[thong_tin_van_ban_da_giai_quyet]", cbForm.tbKhongThuLyTiep.getTtVanBan());
