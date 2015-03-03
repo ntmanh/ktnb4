@@ -23,6 +23,12 @@
 			<td width="35%"><html:text property="taiSanKhacKnghiThuHoi" style="width: 150px" onblur="isNumber(this,'i');"/>(nghìn đồng)</td>
 		</tr>
 		<tr>
+			<td width="15%" style="text-align: right">Phải thu</td>
+			<td width="35%"><html:text property="kienNghiPhaiThu" style="width: 150px" onblur="isNumber(this,'i');"/>(nghìn đồng)</td>
+			<td width="15%" style="text-align: right">Đã thu</td>
+			<td width="35%"><html:text property="kienNghiDaThu" style="width: 150px" onblur="isNumber(this,'i');"/>(nghìn đồng)</td>
+		</tr>
+		<tr>
 			<td colspan="4"><b>Trả lại cho công dân</b></td>
 		</tr>
 		<tr>
@@ -30,6 +36,12 @@
 			<td width="35%"><html:text property="soTienTraCdan" style="width: 150px" onblur="isNumber(this,'i');"/>(nghìn đồng)</td>
 			<td width="15%" style="text-align: right">Tài sản khác</td>
 			<td width="35%"><html:text property="taiSanKhacTraCdan" style="width: 150px" onblur="isNumber(this,'i');"/>(nghìn đồng)</td>
+		</tr>
+		<tr>
+			<td width="15%" style="text-align: right">Phải thu</td>
+			<td width="35%"><html:text property="traLaiPhaiThu" style="width: 150px" onblur="isNumber(this,'i');"/>(nghìn đồng)</td>
+			<td width="15%" style="text-align: right">Đã thu</td>
+			<td width="35%"><html:text property="kienNghiSnguoiXly" style="width: 150px" onblur="isNumber(this,'i');"/>(nghìn đồng)</td>
 		</tr>
 		<tr>
 			<td colspan="4"><b>Thông tin khác</b></td>
@@ -45,6 +57,12 @@
 			<td width="35%"><html:text property="soNguoiXlhc" style="width: 150px" onblur="isNumber(this,'i');"/>(người)</td>
 			<td width="15%" style="text-align: right">Số người chuyển CQĐT</td>
 			<td width="35%"><html:text property="soNguoiChuyenCqDtra" style="width: 150px" onblur="isNumber(this,'i');"/>(người)</td>			
+		</tr>
+		<tr>
+			<td width="15%">Số người đã bị xử lý hành chính</td>
+			<td width="35%"><html:text property="kienNghiSnguoiXly" style="width: 150px" onblur="isNumber(this,'i');"/>(người)</td>
+			<td width="15%" style="text-align: right"></td>
+			<td width="35%"></td>			
 		</tr>
 	</table>
 	</fieldset>
