@@ -44,7 +44,17 @@ public class BaoCaoKetQuaThucHienForm extends BaseActionForm {
 	private String soNguoiChuyenCqDtra;
 
 	private String loaiKntc;
-
+	
+	private String kienNghiPhaiThu;
+	
+	private String kienNghiDaThu;
+	
+	private String traLaiPhaiThu;
+	
+	private String traLaiDaThu;
+	
+	private String kienNghiSnguoiXly;
+	
 	public BaoCaoKetQuaThucHienForm() {
 		// TODO Auto-generated constructor stub
 	}
@@ -193,6 +203,46 @@ public class BaoCaoKetQuaThucHienForm extends BaseActionForm {
 		this.taiSanKhacTraCdan = taiSanKhacTraCdan;
 	}
 
+	public String getKienNghiDaThu() {
+		return kienNghiDaThu;
+	}
+
+	public void setKienNghiDaThu(String kienNghiDaThu) {
+		this.kienNghiDaThu = kienNghiDaThu;
+	}
+
+	public String getKienNghiPhaiThu() {
+		return kienNghiPhaiThu;
+	}
+
+	public void setKienNghiPhaiThu(String kienNghiPhaiThu) {
+		this.kienNghiPhaiThu = kienNghiPhaiThu;
+	}
+
+	public String getKienNghiSnguoiXly() {
+		return kienNghiSnguoiXly;
+	}
+
+	public void setKienNghiSnguoiXly(String kienNghiSnguoiXly) {
+		this.kienNghiSnguoiXly = kienNghiSnguoiXly;
+	}
+
+	public String getTraLaiDaThu() {
+		return traLaiDaThu;
+	}
+
+	public void setTraLaiDaThu(String traLaiDaThu) {
+		this.traLaiDaThu = traLaiDaThu;
+	}
+
+	public String getTraLaiPhaiThu() {
+		return traLaiPhaiThu;
+	}
+
+	public void setTraLaiPhaiThu(String traLaiPhaiThu) {
+		this.traLaiPhaiThu = traLaiPhaiThu;
+	}
+
 	public void fromEntity(KntcBCKQThucHienQDKN entity) {
 		this.ma = entity.getMa();
 		this.maHs = entity.getMaHs();
@@ -213,6 +263,11 @@ public class BaoCaoKetQuaThucHienForm extends BaseActionForm {
 		this.soMinhOan = entity.getSoMinhOan().toString();
 		this.soNguoiChuyenCqDtra = entity.getSoNguoiChuyenCqDtra().toString();
 		this.loaiKntc = entity.getLoaiKntc().toString();
+		this.kienNghiPhaiThu= entity.getKienNghiPhaiThu().toString();
+		this.kienNghiDaThu= entity.getKienNghiDaThu().toString();
+		this.kienNghiSnguoiXly = entity.getKienNghiSnguoiXly().toString();
+		this.traLaiPhaiThu= entity.getTraLaiPhaiThu().toString();
+		this.traLaiDaThu = entity.getTraLaiDaThu().toString();
 	}
 
 	public KntcBCKQThucHienQDKN toEntity(ApplicationContext context) throws Exception {
@@ -235,6 +290,11 @@ public class BaoCaoKetQuaThucHienForm extends BaseActionForm {
 		entity.setSoMinhOan(Formater.toLong(this.soMinhOan));
 		entity.setSoNguoiChuyenCqDtra(Formater.toLong(this.soNguoiChuyenCqDtra));
 		entity.setLoaiKntc(Formater.toLong(this.loaiKntc));
+		entity.setKienNghiPhaiThu(Formater.toLong(this.kienNghiPhaiThu));
+		entity.setKienNghiDaThu(Formater.toLong(this.kienNghiDaThu));
+		entity.setKienNghiSnguoiXly(Formater.toLong(this.kienNghiSnguoiXly));
+		entity.setTraLaiPhaiThu(Formater.toLong(this.traLaiPhaiThu));
+		entity.setTraLaiDaThu(Formater.toLong(this.traLaiDaThu));
 		return entity;
 	}
 }

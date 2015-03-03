@@ -15,7 +15,9 @@ import org.json.JSONObject;
 
 import cmc.com.ktnb.exception.KtnbException;
 import cmc.com.ktnb.pl.hb.entity.KntcBbDoiThoai;
+import cmc.com.ktnb.pl.hb.entity.KntcHoSoHdr;
 import cmc.com.ktnb.pl.hb.entity.KntcQdDinhChiKN;
+import cmc.com.ktnb.service.kntc.KntcSoTiepDan;
 import cmc.com.ktnb.service.kntc.SoTiepDanService;
 import cmc.com.ktnb.service.kntc.XuLyPhuKhieuNaiToCaoService;
 import cmc.com.ktnb.util.ApplicationContext;
@@ -126,11 +128,16 @@ public class QuyetDinhDinhChiKNAction extends PrintAction {
 		SoTiepDanService service = new SoTiepDanService();
 		QuyetDinhDinhChiKNForm cmForm= (QuyetDinhDinhChiKNForm) form;
 		String maHs=request.getParameter("id");
-		
 		try {
 			KntcQdDinhChiKN qd=cmForm.getQdDinhChiKN();
 			qd.setSoHoSo(maHs);
 			service.saveQuyetDinhDinhChi(appContext, qd);
+			// chuyen sang trang thai ket thuc
+			KntcSoTiepDan std= service.getSoTiepDan(appContext, maHs, true);
+			KntcHoSoHdr hdr= std.getHdr();
+			hdr.setTrangThai(Constants.TT_KNTC_KET_THUC);
+			hdr.setLoaiKetThuc(Constants.KNTC_KET_THUC_THUONG);
+			service.saveSoTiepDan(appContext, std, false);
 			request.setAttribute("ghiThanhcong", "1");
 		} catch (Exception e) {
 			// TODO: handle exception

@@ -672,6 +672,7 @@ public class XacMinhService {
 	/**
 	 * Lấy thông tin quyết định xác minh theo mã hồ sơ
 	 * 
+	 * Lấy thông tin quyết định xác minh theo  ma ho so doan xac minh
 	 * @param appContext
 	 * @param maHs
 	 * @return
@@ -680,6 +681,15 @@ public class XacMinhService {
 	public KntcQdinhXm getKntcQdinhXmByHoSo(ApplicationContext appContext, String maHs) throws Exception {
 		CatalogService services = new CatalogService();
 		SearchCriteria sc = new SearchCriteria(KntcQdinhXm.class);
+		sc.addSearchItem("maHsDoanXm", null, SearchCriteria.LG_IS_NULL);
+		sc.addSearchItem("maHs", maHs);
+		return (KntcQdinhXm) services.retriveObject(appContext, sc);
+	}
+	
+	public KntcQdinhXm getKntcQdinhXmByHoSoDoanXm(ApplicationContext appContext, String maHs) throws Exception {
+		CatalogService services = new CatalogService();
+		SearchCriteria sc = new SearchCriteria(KntcQdinhXm.class);
+		sc.addSearchItem("maHsDoanXm", maHs);
 		sc.addSearchItem("maHs", maHs);
 		return (KntcQdinhXm) services.retriveObject(appContext, sc);
 	}

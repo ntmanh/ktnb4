@@ -70,6 +70,8 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 	private String deNghiTruongBoPhan;
 	
 	private String chucDanhCanBoTqXm;
+	
+	private String maHsDoanXm;
 
 	// Constructors
 
@@ -92,7 +94,7 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 			String phuongTien, Long trangThai, String soVanBan, Long soNgayXm,
 			String noiDungXm, String benLienQuanTt, String nguoiBiTcMa,
 			String nguoiBiTcTen, String nguoiBiTcHanhVi, Date tuNgayXm,
-			Date denNgayXm, String canCuNvu, String deNghiTruongBoPhan, String chucDanhCanBoTqXm) {
+			Date denNgayXm, String canCuNvu, String deNghiTruongBoPhan, String chucDanhCanBoTqXm, String maHsDoanXm) {
 		this.maQd = maQd;
 		this.diaDiem = diaDiem;
 		this.canCuPly = canCuPly;
@@ -122,6 +124,7 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 		this.denNgayXm = denNgayXm;
 		this.canCuNvu = canCuNvu;
 		this.deNghiTruongBoPhan = deNghiTruongBoPhan;
+		this.maHsDoanXm= maHsDoanXm;
 	}
 
 	// Property accessors
@@ -372,6 +375,14 @@ public class KntcQdinhXm extends cmc.com.ktnb.pl.hb.entity.PersistentObject
 
 	public void setChucDanhCanBoTqXm(String chucDanhCanBoTqXm) {
 		this.chucDanhCanBoTqXm = chucDanhCanBoTqXm;
+	}
+
+	public String getMaHsDoanXm() {
+		return maHsDoanXm;
+	}
+
+	public void setMaHsDoanXm(String maHsDoanXm) {
+		this.maHsDoanXm = maHsDoanXm;
 	}
 	
 	

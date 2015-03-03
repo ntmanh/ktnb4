@@ -67,6 +67,7 @@ public class XacMinhForm extends XacNhanForm {
 	private String arrCanBo;
 	
 	private String countCanBo;
+	private String maHsDoanXm;
 
 	public XacMinhForm() {
 		super();
@@ -96,6 +97,7 @@ public class XacMinhForm extends XacNhanForm {
 		this.setNgayDuyet(Formater.date2str(kq.getNgayDuyet()));
 		this.setNgayTrinhKy(Formater.date2str(kq.getNgayTrinhKy()));
 		this.setNgayKy(Formater.date2str(kq.getNgayKy()));
+		this.setMaHsDoanXm(kq.getMaHsDoanXm());
 	}
 
 	public KntcXmBaoCaoKq toKquaGquyet(ApplicationContext c) throws Exception {
@@ -468,4 +470,11 @@ public class XacMinhForm extends XacNhanForm {
 	public void setCountCanBo(String countCanBo) {
 		this.countCanBo = countCanBo;
 	}
+	public String getMaHsDoanXm() {
+		return maHsDoanXm;
+	}
+	public void setMaHsDoanXm(String maHsDoanXm) {
+		this.maHsDoanXm = maHsDoanXm;
+	}
+	
 }

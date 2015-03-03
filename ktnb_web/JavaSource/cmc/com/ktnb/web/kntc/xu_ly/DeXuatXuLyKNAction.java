@@ -25,6 +25,7 @@ import javax.transaction.UserTransaction;
 
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
+import org.apache.struts.action.ActionForwards;
 import org.apache.struts.action.ActionMapping;
 import org.apache.struts.util.LabelValueBean;
 import org.hibernate.Query;
@@ -73,7 +74,7 @@ public class DeXuatXuLyKNAction extends BaseDispatchAction {
 	 * @param request
 	 * @param response
 	 * @return
-	 * @throws Exception
+	 * @throws Exception 
 	 */
 	public ActionForward show(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		loadDefaultValue(map, form, request, response);
@@ -94,7 +95,7 @@ public class DeXuatXuLyKNAction extends BaseDispatchAction {
 		DeXuatXuLyKNForm inputForm = (DeXuatXuLyKNForm) form;
 		CatalogService cService = new CatalogService();
 		String maHs = request.getParameter("id");
-		SoTiepDanService s = new SoTiepDanService();
+		SoTiepDanService s = new SoTiepDanService(); 
 		KntcSoTiepDan hs = s.getSoTiepDan(appContext, maHs, true);
 		KntcHoSoHdr hdr = hs.getHdr();
 		int loaiKntc = hdr.getLoaiKntc().intValue();

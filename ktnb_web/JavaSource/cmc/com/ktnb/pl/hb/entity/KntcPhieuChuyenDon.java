@@ -15,8 +15,9 @@ public class KntcPhieuChuyenDon extends PersistentObject implements java.io.Seri
 	public static final String PHIEU_THONG_BAO_KHONG_THU_LY = "07/KNTC";
 	public static final String PHIEU_TRA_DON_KN = "08/KNTC"; 
 	public static final String PHIEU_THONG_BAO_THU_LY = "09/KNTC";
-	public static final String PHIEU_THONG_BAO_THU_LY_TO_CAO = "21/KNTC"; 
-	public static final String TC_PHIEU_CHUYEN_CQ_DIEU_TRA = "25A/KNTC"; 
+	public static final String PHIEU_THONG_BAO_THU_LY_TO_CAO = "06/TC"; 
+	public static final String TC_PHIEU_CHUYEN_CQ_DIEU_TRA = "25A/KNTC";
+	public static final String PHIEU_THANH_LAP_DOAN_XAC_MINH = "07/TC";
 	
 	// Fields    
 	private String ma;

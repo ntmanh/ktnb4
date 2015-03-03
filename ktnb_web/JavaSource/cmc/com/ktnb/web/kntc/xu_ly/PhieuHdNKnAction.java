@@ -394,21 +394,21 @@ public class PhieuHdNKnAction extends BaseDispatchAction {
 		String su = "";
 		PhieuHdNknForm cnForm = (PhieuHdNknForm) form;
 		try {
-			if (cnForm.getLoaiPhieu().equals(KntcPhieuChuyenDon.PHIEU_CHUYEN_DON))
+			if (cnForm.getLoaiPhieu().equals(Constants.PHIEU_CHUYEN_DON))
 				su = "phieuCd";
-			else if (cnForm.getLoaiPhieu().equals(KntcPhieuChuyenDon.PHIEU_CHUYEN_DON_TO_CAO))
+			else if (cnForm.getLoaiPhieu().equals(Constants.PHIEU_CHUYEN_DON_TO_CAO))
 				su = "phieuCdTc";
-			else if (cnForm.getLoaiPhieu().equals(KntcPhieuChuyenDon.PHIEU_HUONG_DAN_NKN))
+			else if (cnForm.getLoaiPhieu().equals(Constants.PHIEU_HUONG_DAN_NKN))
 				su = "phieuHdNkn";
-			else if (cnForm.getLoaiPhieu().equals(KntcPhieuChuyenDon.PHIEU_THONG_BAO_THU_LY))
+			else if (cnForm.getLoaiPhieu().equals(Constants.PHIEU_THONG_BAO_THU_LY))
 				su = "thongBaoThuLy";
-			else if (cnForm.getLoaiPhieu().equals(KntcPhieuChuyenDon.PHIEU_THONG_BAO_THU_LY_TO_CAO))
+			else if (cnForm.getLoaiPhieu().equals(Constants.PHIEU_THONG_BAO_THU_LY_TO_CAO))
 				su = "thongBaoThuLy";// Dùng chung JSP
-			else if (cnForm.getLoaiPhieu().equals(KntcPhieuChuyenDon.PHIEU_THONG_BAO_KHONG_THU_LY))
+			else if (cnForm.getLoaiPhieu().equals(Constants.PHIEU_THONG_BAO_KHONG_THU_LY))
 				su = "thongBaoKThuLy";
-			else if (cnForm.getLoaiPhieu().equals(KntcPhieuChuyenDon.PHIEU_TRA_DON_KN))
+			else if (cnForm.getLoaiPhieu().equals(Constants.PHIEU_TRA_DON_KN))
 				su = "phieuTd";
-			else if (cnForm.getLoaiPhieu().equals(KntcPhieuChuyenDon.TC_PHIEU_CHUYEN_CQ_DIEU_TRA))
+			else if (cnForm.getLoaiPhieu().equals(Constants.TC_PHIEU_CHUYEN_CQ_DIEU_TRA))
 				su = "chuyenDieuTra";
 			PhanLoaiXuLyService s = new PhanLoaiXuLyService();
 			s.savePhieuChuyenDon(appContext, cnForm.toEntity(appContext));

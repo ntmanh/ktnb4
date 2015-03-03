@@ -34,6 +34,7 @@ import cmc.com.ktnb.pl.hb.entity.KntcCanBoRls;
 import cmc.com.ktnb.pl.hb.entity.KntcCanBoRlsId;
 import cmc.com.ktnb.pl.hb.entity.KntcDeXuatXly;
 import cmc.com.ktnb.pl.hb.entity.KntcHoSoHdr;
+import cmc.com.ktnb.pl.hb.entity.KntcPhieuChuyenDon;
 import cmc.com.ktnb.pl.hb.entity.KntcQdinhXm;
 import cmc.com.ktnb.pl.hb.entity.KntcXmBaoCaoKq;
 import cmc.com.ktnb.pl.hb.entity.KntcXmGiaHan;
@@ -146,13 +147,75 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		// saveToken(request);
 		return map.findForward(ret);
 	}
+	public ActionForward showQdXmMauPhu(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception
+	{
+		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
+		FormBeanConfig fbc = map.getModuleConfig().findFormBeanConfig("xacMinhForm");
+		Class clazz = Class.forName(fbc.getType());
+		XacMinhForm xmForm = (XacMinhForm) clazz.newInstance();
+		String maHs = request.getParameter("id");
+		String ret = "success"; 
+		boolean isKN = SoTiepDanService.isKN(appContext, maHs);
+		if (!Formater.isNull(maHs)) {
+			xmForm.setMaHoSo(maHs);
+			SoTiepDanService s = new SoTiepDanService();
+			KntcSoTiepDan hs = s.getSoTiepDan(appContext, maHs, true);
+			KntcHoSoHdr hdr = hs.getHdr();
+			ret = isKN ? "success" : "qdtc";
+			XacMinhService xmService = new XacMinhService();
+			KntcQdinhXm qd = xmService.getKntcQdinhXmByHoSoDoanXm(appContext, maHs);
+			if (qd == null) // Tao moi
+			{
+				String readOnly = request.getParameter("r");
+				if (readOnly != null)
+					if (readOnly.equals("rol")) {
+						throw new KtnbException("Bi&#7875;u m&#7851;u n&#224;y kh&#244;ng c&#243; s&#7889; li&#7879;u!!!", "", "");
+					}
+				if (hdr.getLoaiKntc().intValue() == 1) // KN
+				{
+					xmForm.setDeNghiTruongBoPhan(appContext.getTenTruongPhong());
+				} else if (hdr.getLoaiKntc().intValue() == 2) // TC
+				{
+					xmForm.setNguoiBiTcTen(hdr.getNguoiBiKntcTen());
+					xmForm.setNguoiBiTcHanhVi(hdr.getNoiDung());
+					xmForm.setNoiDung(hdr.getNoiDung());
+					
+				}
+				xmForm.setSoQd(KtnbUtil.getMaNvu(appContext, "Q\u0110"));
+				//xmForm.setThoiDiem(Formater.date2str(new Date()));
+				xmForm.setDiaDiem(appContext.getDiaBan());
+				// Save can bo default
+				KntcCanBoRls cbRls = new KntcCanBoRls();
+				KntcCanBoRlsId cbId = new KntcCanBoRlsId();
+				cbId.setMaCanbo(appContext.getMaCanbo());
+				cbRls.setId(cbId);
+				cbRls.setTenCb(appContext.getTenCanbo());
+				cbRls.setChucVu(appContext.getTenChucvu());
+				cbRls.setDonVi(appContext.getTenPhong());
+				cbRls.setVaiTro("Th\u00E0nh vi\u00EAn \u0111o\u00E0n");
+				xmService.addCanBoXMDefault(maHs, cbRls);
+			} else // Update
+			{
+//				String maHsStd=request.getParameter("id");
+//				SoTiepDanService sv=new SoTiepDanService();
+//				KntcSoTiepDan std=sv.getSoTiepDan(appContext, maHsStd, true);
+//				System.out.println("Noi dung so tiep dan : "+std.getHdr().getNoiDung());
+				xmForm.fromEntity(qd);
+//				xmForm.setNoiDung(hdr.getNoiDung());
+			}
+		}
+		KtnbUtil.setVanBan(appContext, request);
+		KtnbUtil.cacheListHolidayDayForClient(request, Formater.date2str(new Date()).substring(6), Formater.date2str(new Date()).substring(6));
+		request.setAttribute("xacMinhForm", xmForm);
+		return map.findForward("viewQdMauPhu"); 
+	}
 	public ActionForward show(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		FormBeanConfig fbc = map.getModuleConfig().findFormBeanConfig("xacMinhForm");
 		Class clazz = Class.forName(fbc.getType());
 		XacMinhForm xmForm = (XacMinhForm) clazz.newInstance();
 		String maHs = request.getParameter("id");
-		String ret = "success";
+		String ret = "success"; 
 		boolean isKN = SoTiepDanService.isKN(appContext, maHs);
 		if (!Formater.isNull(maHs)) {
 			xmForm.setMaHoSo(maHs);
@@ -640,6 +703,21 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		try {
 			KntcQdinhXm qd = new KntcQdinhXm();
 			qd.setMa(xmForm.getMaHidden());
+			if("dxm".equals(request.getParameter("type")))
+			{
+				PhanLoaiXuLyService s = new PhanLoaiXuLyService();
+				KntcPhieuChuyenDon phieuChuyen=s.getPhieuChuyenDon(appContext, xmForm.getMaHoSo(), KntcPhieuChuyenDon.PHIEU_THANH_LAP_DOAN_XAC_MINH);
+				if(phieuChuyen == null) 
+				{
+					phieuChuyen= new KntcPhieuChuyenDon();
+					phieuChuyen.setLoaiThongBao(Constants.PHIEU_THANH_LAP_DOAN_XAC_MINH);
+					phieuChuyen.setMaHs(xmForm.getMaHoSo());
+					phieuChuyen.setMaPhieu(xmForm.getMaHidden());
+					phieuChuyen.setThoiDiem(Formater.str2date(xmForm.getThoiDiem()));
+				}
+				s.savePhieuChuyenDon(appContext, phieuChuyen);
+				qd.setMaHsDoanXm(xmForm.getMaHoSo());
+			}
 			qd.setMaHs(xmForm.getMaHoSo());
 			qd.setBenLienQuan(xmForm.getBenLienQuan());
 			qd.setBenLienQuanTt(xmForm.getBenLienQuanThuTruong());
@@ -703,12 +781,16 @@ public class XacMinhHoSo extends BaseDispatchAction {
 			throw new Exception(e);
 		}
 
-		if (isKN) {
-			HttpUtil.doForward("kntc_xac_minh.do?method=xacMinh&action=xacMinhKhieuNai&id=" + xmForm.getMaHoSo(), request, response);
-		} else {
-			HttpUtil.doForward("kntc_xac_minh.do?method=xacMinh&action=xacMinhToCao&id=" + xmForm.getMaHoSo(), request, response);
+		if(!"dxm".equals(request.getParameter("type")))
+		{
+			if (isKN) 
+				HttpUtil.doForward("kntc_xac_minh.do?method=xacMinh&action=xacMinhKhieuNai&id=" + xmForm.getMaHoSo(), request, response);
+			 else 
+				HttpUtil.doForward("kntc_xac_minh.do?method=xacMinh&action=xacMinhToCao&id=" + xmForm.getMaHoSo(), request, response);
 		}
-
+		else 
+			HttpUtil.doForward("kntc_xac_minh.do?method=showQdXmMauPhu&id=" + xmForm.getMaHoSo(), request, response);
+			
 		return null;
 	}
 
