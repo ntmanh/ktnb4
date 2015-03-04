@@ -95,6 +95,7 @@ public class TimKiemStdAction extends BaseDispatchAction {
 						list.add(new LabelValueBean(vo.getName(), vo.getId()));
 				}
 				listKntc = addListKntc();
+				request.setAttribute("vanthu", "1");
 			}
 			// Xu ly ho so tu van Thu
 			else if ("chonXLHS1Lan".equals(action)) {

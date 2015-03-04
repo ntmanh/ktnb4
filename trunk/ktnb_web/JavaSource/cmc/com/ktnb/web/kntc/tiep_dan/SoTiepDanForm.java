@@ -55,7 +55,7 @@ public class SoTiepDanForm extends BaseSoTiepDanForm {
 	private String luotTiep;
 	private String trangThaiText;
 	private String thamQuyenDon;
-	
+	private String vuViec;
 	
 	public void reset(ActionMapping mapping, HttpServletRequest request) {
 	}
@@ -148,6 +148,8 @@ public class SoTiepDanForm extends BaseSoTiepDanForm {
 		hdr.setNguoiBiKntcNoiCt(this.canBoBiKNTCNoiCongTac);
 		hdr.setNoiDung(this.noiDungDon);
 		hdr.setGhiChu(this.getGhiChu());
+		// Bo sung thong tin vu viec 
+		hdr.setVuViec(this.vuViec);
 		KntcSoTiepDan hoso = new KntcSoTiepDan(hdr);
 		if (!Formater.isNull(this.arrTenTl)) {
 			String[] arrCb = this.arrTenTl.split("@@");
@@ -268,6 +270,8 @@ public class SoTiepDanForm extends BaseSoTiepDanForm {
 		this.maHoSoTachKN = s.getMaHoSoByMaCha(hdr.getMaHs(), SoTiepDanService.HO_SO_TACH_KN);
 		this.maHoSoTachTC = s.getMaHoSoByMaCha(hdr.getMaHs(), SoTiepDanService.HO_SO_TACH_TC);
 		this.trangThaiText = hdr.getTrangThaiText();
+		// Thong tin vu viec
+		this.vuViec = hdr.getVuViec();
 	}
 
 	public String getLoaiDon() {
@@ -662,6 +666,14 @@ public class SoTiepDanForm extends BaseSoTiepDanForm {
 
 	public void setThamQuyenDon(String thamQuyenDon) {
 		this.thamQuyenDon = thamQuyenDon;
+	}
+
+	public String getVuViec() {
+		return vuViec;
+	}
+
+	public void setVuViec(String vuViec) {
+		this.vuViec = vuViec;
 	}
 	
 }
