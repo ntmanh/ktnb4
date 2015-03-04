@@ -1121,7 +1121,10 @@ public class PhieuHdNKnAction extends BaseDispatchAction {
 							word.put("[dia_chi_nguoi_co_quan_don_vi_khieu_nai]", dx.getDcNguoiKNTC());
 						}
 						word.put("[noi_dung_tom_tat_don]", cnForm.getNoiDungDon());
-						word.put("[can_cu]", "Điều 7");
+						if (Formater.isNull(cnForm.getCanCuQuyetDinh()))
+							word.put("[can_cu]", "...");
+						else
+							word.put("[can_cu]", cnForm.getCanCuQuyetDinh());
 						word.put("[co_quan_thue_ra_van_ban]", appContext.getTenCqt());
 						word.put("[nguoi_co_quan_don_vi_khieu_nai]", dx.getNguoiKNTC());
 						if (Formater.isNull(cnForm.getCqtGqTen()))

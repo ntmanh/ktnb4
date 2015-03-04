@@ -62,6 +62,10 @@
 			<td><html:text property="diaChiCqDvKn" style="width: 100%" readonly="true" /></td>
 		</tr>
 		<tr>
+			<td style="text-align: right;">C&#259;n c&#7913;</td>
+			<td colspan="3"><html:text property="canCuQuyetDinh" style="width: 100%" /></td>
+		</tr>
+		<tr>
 			<td style="text-align: right">Tóm tắt nội dung đơn</td>
 			<td colspan="3"><html:textarea property="noiDungDon" rows="5" onkeypress="imposeMaxLength(this);" style="width: 100%" /></td>
 		</tr>
