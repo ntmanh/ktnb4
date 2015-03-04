@@ -102,6 +102,11 @@
 				</tr>
 				<tr>
 					<td></td>
+					<td colspan="2">Đơn nhiều người đứng tên <html:checkbox property="coNhieuDungTen" value="1" onclick="changeBsNguoiDungTen();" /></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td></td>
 					<td colspan="2"><A href="#" onclick="openDsHoSo();"><font color="red"> Kiểm tra hồ sơ liên quan </font></A></td>
 					<td></td>
 				</tr>
@@ -128,6 +133,13 @@
 					<td></td>
 					<td style="text-align: right">Ngày cấp CMND/Hộ chiếu</td>
 					<td><html:text property="congdanCMTNgayCap" onkeypress="return formatDate(event, this)" onblur="isDate(this)" style="width: 90%" /></td>
+				</tr>
+			</table>
+			</fieldset>
+			<fieldset id="fsDungTen"><legend>Thông tin người đứng tên</legend>
+			<table width="100%">
+				<tr>
+					<td><html:textarea property="thongTinDungTen" onkeypress="imposeMaxLength(this);" style="width: 100%;height:100px" /></td>
 				</tr>
 			</table>
 			</fieldset>
@@ -249,6 +261,7 @@ $(document).ready(function() {
 		$("#super-tabs").tabs("option", "disabled", [0,1,2]);	
 		//hide("super-tabs");
 	}
+	changeBsNguoiDungTen();
 });
 function fnGetSelected( oTableLocal )
 {
@@ -260,6 +273,13 @@ function fnGetSelected( oTableLocal )
 		}
 	}
 	return aReturn;
+}
+function changeBsNguoiDungTen()
+{
+	if(document.forms[0].coNhieuDungTen.checked)
+		show("fsDungTen");	 
+	else
+		hide("fsDungTen"); 
 }
 function fnClickAddRow() {
 	giCount = oTable.fnGetData().length;

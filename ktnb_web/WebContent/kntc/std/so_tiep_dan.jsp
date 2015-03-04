@@ -69,6 +69,15 @@
 		<td width="35%"></td>
 	</tr>
 	<tr>
+		<td width="15%" style="text-align: right;">Vụ việc</td>
+		<td width="35%"><html:select property="vuViec" style="width:100%" styleId="vuViec" >
+			<html:option value="1">Mới phát sinh</html:option>
+			<html:option value="2">Vụ việc cũ</html:option>
+		</html:select></td>
+		<td width="15%" style="text-align: right;"></td>
+		<td width="35%"></td>
+	</tr>
+	<tr>
 		<td></td>
 		<td>
 		<div id="idKNType"><html:checkbox property="isKNTCTrucTiep" value="1" onclick="changeKNTCTrucTiep();" /> Không phải Khiếu nại trực tiếp</div>
