@@ -1,6 +1,6 @@
-<%@ include file="/top_bar.jsp"%> 
+<%@ include file="/top_bar.jsp"%>
 <%@ page pageEncoding="UTF-8"%>
-<%@ page import="cmc.com.ktnb.util.KtnbUtil" %> 
+<%@ page import="cmc.com.ktnb.util.KtnbUtil"%>
 <h3 class="Header">Tra cứu hồ sơ</h3>
 <fieldset><html:form action="/kntc_tim_kiem.do?method=show">
 	<html:hidden property="arrCqt" />
@@ -12,151 +12,202 @@
 			<table width="100%">
 				<tr>
 					<td style="text-align: right;" width="20%">Mã hồ sơ</td>
-					<td width="20%" colspan="3"><html:text styleId="ma" property="maHoSo" style="width: 100%" onkeypress="searchKeyPress(event);" onchange="changeIDisplayStart();" /></td>
+					<td width="20%" colspan="3"><html:text styleId="ma"
+						property="maHoSo" style="width: 100%"
+						onkeypress="searchKeyPress(event);"
+						onchange="changeIDisplayStart();" /></td>
 				</tr>
 				<tr>
 					<td style="text-align: right;" width="20%">Cán bộ xử lý</td>
-					<td width="20%" colspan="3"><html:text styleId="canBoXL" property="canBoXL" style="width: 100%" onkeypress="searchKeyPress(event);" onchange="changeIDisplayStart();" /></td>
+					<td width="20%" colspan="3"><html:text styleId="canBoXL"
+						property="canBoXL" style="width: 100%"
+						onkeypress="searchKeyPress(event);"
+						onchange="changeIDisplayStart();" /></td>
 				</tr>
 				<tr>
 					<td style="text-align: right;">Tiếp dân từ ngày</td>
-					<td><input type="text" id="tdTuNgay" name="tdTuNgay" style="width: 100%" onblur="isDate(this);validDateRange()" onchange="changeIDisplayStart();" maxlength="10" onkeypress="return formatDate(event, this)"></td>
+					<td><input type="text" id="tdTuNgay" name="tdTuNgay"
+						style="width: 100%" onblur="isDate(this);validDateRange()"
+						onchange="changeIDisplayStart();" maxlength="10"
+						onkeypress="return formatDate(event, this)"></td>
 					<td style="text-align: right;">Đến ngày</td>
-					<td><input type="text" id="tdDenNgay" name="tdDenNgay" style="width: 100%" onblur="isDate(this);validDateRange()" onchange="changeIDisplayStart();" maxlength="10" onkeypress="return formatDate(event, this)"></td>
+					<td><input type="text" id="tdDenNgay" name="tdDenNgay"
+						style="width: 100%" onblur="isDate(this);validDateRange()"
+						onchange="changeIDisplayStart();" maxlength="10"
+						onkeypress="return formatDate(event, this)"></td>
 				</tr>
 				<tr>
 					<td style="text-align: right;">Người nộp đơn</td>
-					<td><html:text styleId="nguoiNopDon" property="nguoiNopDon" style="width: 100%" onkeypress="searchKeyPress(event);" onchange="changeIDisplayStart();" /></td>
+					<td><html:text styleId="nguoiNopDon" property="nguoiNopDon"
+						style="width: 100%" onkeypress="searchKeyPress(event);"
+						onchange="changeIDisplayStart();" /></td>
 					<td style="text-align: right;">Người ủy quyền</td>
-					<td><html:text styleId="nguoiUyQuyen" property="nguoiUyQuyen" style="width: 100%" onkeypress="searchKeyPress(event);" onchange="changeIDisplayStart();" /></td>
+					<td><html:text styleId="nguoiUyQuyen" property="nguoiUyQuyen"
+						style="width: 100%" onkeypress="searchKeyPress(event);"
+						onchange="changeIDisplayStart();" /></td>
 				</tr>
-				<tr>
-				<td style="text-align: right;">Hình thức</td>
-					<td><html:select property="doanKNTC" style="width:100%" styleId="doanKNTC" onkeypress="searchKeyPress(event);" onchange="changeIDisplayStart();">
-			<html:option value="">--- Chọn hình thức ---</html:option>
-			<html:option value="1">Một người</html:option>
-			<html:option value="2">Nhiều người có cử đại diện</html:option>
-			<html:option value="3">Nhiều người không cử đại diện</html:option>
-		</html:select></td>
+				<tr style="display:none" id="idDivHinhThuc">
+					<td style="text-align: right;">Hình thức</td>
+					<td><html:select property="doanKNTC" style="width:100%"
+						styleId="doanKNTC" onkeypress="searchKeyPress(event);"
+						onchange="changeIDisplayStart();">
+						<html:option value="">--- Chọn hình thức ---</html:option>
+						<html:option value="1">Một người</html:option>
+						<html:option value="2">Nhiều người có cử đại diện</html:option>
+						<html:option value="3">Nhiều người không cử đại diện</html:option>
+					</html:select></td>
 				</tr>
 				<tr>
 					<td style="text-align: right;">Loại hồ sơ</td>
-					<td><html:select property="loaiHoSo" styleId="loai" style="width: 100%" onchange="changeLoaiHs(this.value)">
-						<html:options collection="dmkntc" property="value" labelProperty="label" />
+					<td><html:select property="loaiHoSo" styleId="loai"
+						style="width: 100%" onchange="changeLoaiHs(this.value)">
+						<html:options collection="dmkntc" property="value"
+							labelProperty="label" />
 					</html:select></td>
 					<td style="text-align: right;" width="20%">Trạng thái</td>
-					<td width="30%"><html:select property="trangThai" styleId="tt" style="width: 100%" onchange="changeIDisplayStart();changeTrangThai();">
-						<html:options collection="dmtt" property="value" labelProperty="label" />
+					<td width="30%"><html:select property="trangThai" styleId="tt"
+						style="width: 100%"
+						onchange="changeIDisplayStart();changeTrangThai();">
+						<html:options collection="dmtt" property="value"
+							labelProperty="label" />
 					</html:select></td>
 				</tr>
 				<tr>
 					<td style="text-align: right;">Nộp đơn từ ngày</td>
-					<td><input type="text" id="sDate" name="sDate" style="width: 100%" onblur="isDate(this);validDateRange()" onchange="changeIDisplayStart();" maxlength="10" onkeypress="return formatDate(event, this)"></td>
+					<td><input type="text" id="sDate" name="sDate"
+						style="width: 100%" onblur="isDate(this);validDateRange()"
+						onchange="changeIDisplayStart();" maxlength="10"
+						onkeypress="return formatDate(event, this)"></td>
 					<td style="text-align: right;">Đến ngày</td>
-					<td><input type="text" id="fDate" name="fDate" style="width: 100%" onblur="isDate(this);validDateRange()" onchange="changeIDisplayStart();" maxlength="10" onkeypress="return formatDate(event, this)"></td>
+					<td><input type="text" id="fDate" name="fDate"
+						style="width: 100%" onblur="isDate(this);validDateRange()"
+						onchange="changeIDisplayStart();" maxlength="10"
+						onkeypress="return formatDate(event, this)"></td>
 				</tr>
 				<tr>
 					<td style="text-align: right;">CV đến từ ngày</td>
-					<td><input type="text" id="cvsDate" name="cvsDate" style="width: 100%" onblur="isDate(this);validDateRange()" onchange="changeIDisplayStart();" maxlength="10" onkeypress="return formatDate(event, this)"></td>
+					<td><input type="text" id="cvsDate" name="cvsDate"
+						style="width: 100%" onblur="isDate(this);validDateRange()"
+						onchange="changeIDisplayStart();" maxlength="10"
+						onkeypress="return formatDate(event, this)"></td>
 					<td style="text-align: right;">Đến ngày</td>
-					<td><input type="text" id="cvfDate" name="cvfDate" style="width: 100%" onblur="isDate(this);validDateRange()" onchange="changeIDisplayStart();" maxlength="10" onkeypress="return formatDate(event, this)"></td>
+					<td><input type="text" id="cvfDate" name="cvfDate"
+						style="width: 100%" onblur="isDate(this);validDateRange()"
+						onchange="changeIDisplayStart();" maxlength="10"
+						onkeypress="return formatDate(event, this)"></td>
 				</tr>
 				<tr>
 					<td style="text-align: right;">Đơn trùng</td>
-					<td><html:checkbox styleId="trungDon" property="trungDon"/></td>
+					<td><html:checkbox styleId="trungDon" property="trungDon" /></td>
 					<td style="text-align: right;">Đơn lưu</td>
-					<td><html:checkbox styleId="luuDon" property="luuDon"/></td>
-				</tr>												
+					<td><html:checkbox styleId="luuDon" property="luuDon" /></td>
+				</tr>
 			</table>
 			</td>
 			<!-- Tìm theo cơ quan thuế -->
 			<td width="40%">
-				<% if(KtnbUtil.isTongCuc(ac)) { %>
-				<table width="100%" border="0">
-				   <tr>
-						<td width="30%" align="right">Chọn cơ quan Thuế</td>
-						<td width="70%">
-							<html:select property="capCqt" styleId="loai" style="width: 100%" onchange="search();">
-								<html:options collection="dmCqt" property="value" labelProperty="label" />
-							</html:select>
-						</td>
-					</tr>
-				</table>	
-				<%}%>	
-				<fieldset><legend>Danh sách CQT</legend>	
-				<% if(KtnbUtil.isTongCuc(ac)) { %>		
-					<div style="width:auto;height:120px;display:block;overflow:auto;border:1px solid #f1f1f1;padding:1px">
-				<%} else %>
-					<div style="width:auto;height:145px;display:block;overflow:auto;border:1px solid #f1f1f1;padding:1px">	
-				<!--CO QUAN THUE--> 
-					<%@ include file="../include/cqt1.jsp" %> 
-				</div>				
-				</fieldset>
-				<input type="button" value="Hiện tìm kiếm nâng cao" id="btnShowAdvanceSeach" onclick="show_advance_search();"/>
-				<input type="button" value="Ẩn tìm kiếm nâng cao" id="btnHideAdvanceSeach" onclick="hide_advance_search();" style="display: none;"/>
-			</td>  
-		</tr>		
+			<%
+			if (KtnbUtil.isTongCuc(ac)) {
+			%>
+			<table width="100%" border="0">
+				<tr>
+					<td width="30%" align="right">Chọn cơ quan Thuế</td>
+					<td width="70%"><html:select property="capCqt" styleId="loai"
+						style="width: 100%" onchange="search();">
+						<html:options collection="dmCqt" property="value"
+							labelProperty="label" />
+					</html:select></td>
+				</tr>
+			</table>
+			<%
+			}
+			%>
+			<fieldset><legend>Danh sách CQT</legend> <%
+ if (KtnbUtil.isTongCuc(ac)) {
+ %>
+			<div
+				style="width:auto;height:120px;display:block;overflow:auto;border:1px solid #f1f1f1;padding:1px">
+			<%
+			} else
+			%>
+			<div
+				style="width:auto;height:145px;display:block;overflow:auto;border:1px solid #f1f1f1;padding:1px">
+			<!--CO QUAN THUE--> <%@ include file="../include/cqt1.jsp"%>
+			</div>
+			</fieldset>
+			<input type="button" value="Hiện tìm kiếm nâng cao"
+				id="btnShowAdvanceSeach" onclick="show_advance_search();" /> <input
+				type="button" value="Ẩn tìm kiếm nâng cao" id="btnHideAdvanceSeach"
+				onclick="hide_advance_search();" style="display: none;" /></td>
+		</tr>
 	</table>
 	<div id="advance-search" style="display: none">
-		<fieldset><legend>Tìm kiếm nâng cao</legend>
-		<table width="100%">
-				<tr>
-					<td width="15%" align="right">Chọn thẩm quyền</td>
-					<td width="35%"><html:select property="thamQuyen" style="width:100%;" styleId="thamQuyen" onchange="changeThamQuyen(this.value);">
-						<html:option value="0">Chọn thẩm quyền</html:option>
-						<html:optionsCollection property="thamQuyenList" label="label" value="value" />
-					</html:select></td>
-					<td width="15%" style="text-align: right;">Loại kết thúc</td>
-					<td width="35%">
-						<html:select property="loaiKetThuc" styleId="loaiKetThuc" style="width:100%;" onchange="filter();">
-							<html:option value="-1">Chọn loại kết thúc</html:option>
-							<html:option value="0">Kết thúc thường</html:option>
-							<html:option value="1">Kết thúc gộp đơn</html:option>
-							<html:option value="2">Kết thúc rút đơn</html:option>
-							<html:option value="3">Kết thúc trả đơn	</html:option>
-							<html:option value="4">Kết thúc chuyển đơn</html:option>
-							<html:option value="5">Kết thúc tách đơn</html:option>
-							<html:option value="6">Kết thúc lưu đơn</html:option>
-							<html:option value="7">Kết thúc xóa đơn</html:option>
-						</html:select>
-					</td>
-				</tr>
-				<tr>
-					<td align="right">Trường hợp cụ thể</td>
-					<td ><html:select property="thuLy" styleId="thuLy" style="width:100%;" onchange="filter();">
-						<html:option value="0">Chọn trường hợp cụ thể</html:option>
-						<html:optionsCollection property="thuLyList" label="label" value="value"/>
-					</html:select></td>
-					<td style="text-align: right;">Loại quan hệ</td>
-					<td >
-						<html:select property="loaiQuanHe" styleId="loaiQuanHe" style="width:100%;" onchange="filter();">
-							<html:option value="-1">Chọn loại quan hệ</html:option>
-							<html:option value="0">Liên kết cha con</html:option>
-							<html:option value="1">Liên kết gộp</html:option>
-							<html:option value="2">Liên kết chuyển</html:option>
-						</html:select>
-					</td>
-				</tr>
-				<tr>
-					<td style="text-align: right;">Từ khóa</td>
-					<td><html:text styleId="textSearch" property="textSearch" style="width: 100%" onkeypress="searchKeyPress(event);" onchange="changeIDisplayStart();" /></td>
-					<td></td>
-					<td></td>
-				</tr>
-		</table>
-		</fieldset>
-	</div>
+	<fieldset><legend>Tìm kiếm nâng cao</legend>
+	<table width="100%">
+		<tr>
+			<td width="15%" align="right">Chọn thẩm quyền</td>
+			<td width="35%"><html:select property="thamQuyen"
+				style="width:100%;" styleId="thamQuyen"
+				onchange="changeThamQuyen(this.value);">
+				<html:option value="0">Chọn thẩm quyền</html:option>
+				<html:optionsCollection property="thamQuyenList" label="label"
+					value="value" />
+			</html:select></td>
+			<td width="15%" style="text-align: right;">Loại kết thúc</td>
+			<td width="35%"><html:select property="loaiKetThuc"
+				styleId="loaiKetThuc" style="width:100%;" onchange="filter();">
+				<html:option value="-1">Chọn loại kết thúc</html:option>
+				<html:option value="0">Kết thúc thường</html:option>
+				<html:option value="1">Kết thúc gộp đơn</html:option>
+				<html:option value="2">Kết thúc rút đơn</html:option>
+				<html:option value="3">Kết thúc trả đơn	</html:option>
+				<html:option value="4">Kết thúc chuyển đơn</html:option>
+				<html:option value="5">Kết thúc tách đơn</html:option>
+				<html:option value="6">Kết thúc lưu đơn</html:option>
+				<html:option value="7">Kết thúc xóa đơn</html:option>
+			</html:select></td>
+		</tr>
+		<tr>
+			<td align="right">Trường hợp cụ thể</td>
+			<td><html:select property="thuLy" styleId="thuLy"
+				style="width:100%;" onchange="filter();">
+				<html:option value="0">Chọn trường hợp cụ thể</html:option>
+				<html:optionsCollection property="thuLyList" label="label"
+					value="value" />
+			</html:select></td>
+			<td style="text-align: right;">Loại quan hệ</td>
+			<td><html:select property="loaiQuanHe" styleId="loaiQuanHe"
+				style="width:100%;" onchange="filter();">
+				<html:option value="-1">Chọn loại quan hệ</html:option>
+				<html:option value="0">Liên kết cha con</html:option>
+				<html:option value="1">Liên kết gộp</html:option>
+				<html:option value="2">Liên kết chuyển</html:option>
+			</html:select></td>
+		</tr>
+		<tr>
+			<td style="text-align: right;">Từ khóa</td>
+			<td><html:text styleId="textSearch" property="textSearch"
+				style="width: 100%" onkeypress="searchKeyPress(event);"
+				onchange="changeIDisplayStart();" /></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
 	</fieldset>
+	</div></fieldset>
 <table width="100%">
 	<tr>
-		<td align="center" width="10%"><input id="btnSearch" type="button" class="button" value='Tìm kiếm' name="B2" onclick="filter();"></td>
+		<td align="center" width="10%"><input id="btnSearch"
+			type="button" class="button" value='Tìm kiếm' name="B2"
+			onclick="filter();"></td>
 	</tr>
 </table>
 <fieldset><legend>
 <div id="divTotal"></div>
 </legend>
 <div style="margin: 1px; border: solid 1px #CCC;">
-<table cellpadding="0" cellspacing="0" class="display" id="hs_table" width="100%">
+<table cellpadding="0" cellspacing="0" class="display" id="hs_table"
+	width="100%">
 	<thead>
 		<tr class="TdHeaderList" align="center">
 			<th class="hideextra-x">
@@ -194,7 +245,8 @@
 	</thead>
 	<tbody style="font-size: 10px;">
 		<tr>
-			<td colspan="10" class="dataTables_empty">Loading data from server...</td>
+			<td colspan="10" class="dataTables_empty">Loading data from
+			server...</td>
 		</tr>
 	</tbody>
 </table>
@@ -202,198 +254,292 @@
 </fieldset>
 <table width="100%">
 	<tr>
-		<td align="center">
-			<input type="button" class="button" value='Xem hồ sơ' id="btnView" onclick="view();">
-			<logic:present name="action">	
+		<td align="center"><input type="button" class="button"
+			value='Xem hồ sơ' id="btnView" onclick="view();"> <logic:present
+			name="action">
 			<logic:equal name="action" value="tktiepdan">
-				<input type="button" class="button" value='Xóa' id="btnDelete" onclick="xoa();">
+				<input type="button" class="button" value='Xóa' id="btnDelete"
+					onclick="xoa();">
 			</logic:equal>
 			<logic:equal name="action" value="tkxuly">
-				<input type="button" class="button" value='Xóa' id="btnDelete" onclick="xoa();">
+				<input type="button" class="button" value='Xóa' id="btnDelete"
+					onclick="xoa();">
 			</logic:equal>
-					
+
 			<logic:equal name="action" value="suaHSTD">
-				<input type="button" class="button" value='Sửa' id="btnEdit" onclick="edit();">
-				<input type="button" class="button" value='Xóa' id="btnDelete" onclick="xoa();">
+				<input type="button" class="button" value='Sửa' id="btnEdit"
+					onclick="edit();">
+				<input type="button" class="button" value='Xóa' id="btnDelete"
+					onclick="xoa();">
 			</logic:equal>
 			<logic:equal name="action" value="suaHSVT">
-				<input type="button" class="button" value='Sửa' id="btnEditXly" onclick="edittkxl();">
-				<input type="button" class="button" value='Xóa' id="btnDeleteVT" onclick="xoavt();">
+				<input type="button" class="button" value='Sửa' id="btnEditXly"
+					onclick="edittkxl();">
+				<input type="button" class="button" value='Xóa' id="btnDeleteVT"
+					onclick="xoavt();">
 			</logic:equal>
 			<logic:equal name="action" value="bbDoiThoaiKN">
-				<input type="button" class="button" value='Lập biên bản đối thoại' name="B2" onclick="executeAction('bbDoiThoaiKN')">
+				<input type="button" class="button" value='Lập biên bản đối thoại'
+					name="B2" onclick="executeAction('bbDoiThoaiKN')">
 			</logic:equal>
 			<logic:equal name="action" value="phancongHS">
-				<input type="button" class="button" value='Thay cán bộ xử lý ' id="phancongHs" onclick="executeAction('pchs')">
+				<input type="button" class="button" value='Thay cán bộ xử lý '
+					id="phancongHs" onclick="executeAction('pchs')">
 			</logic:equal>
 			<logic:equal name="action" value="chonXLHS1Lan">
-				<input type="button" class="button" value='Chọn xử lý' id="phancongHs" onclick="executeAction('chonXLHS1Lan')">
+				<input type="button" class="button" value='Chọn xử lý'
+					id="phancongHs" onclick="executeAction('chonXLHS1Lan')">
 			</logic:equal>
 			<logic:equal name="action" value="bbThongBaoDuThaoTC">
-				<input type="button" class="button" value='Lập biên bản làm việc' name="B2" onclick="executeAction('bbThongBaoDuThaoTC')">
+				<input type="button" class="button" value='Lập biên bản làm việc'
+					name="B2" onclick="executeAction('bbThongBaoDuThaoTC')">
 			</logic:equal>
 			<logic:equal name="action" value="bosungHS">
-				<input type="button" class="button" value='Bổ sung hồ sơ' id="bosungHS" onclick="executeAction('bshs')">
+				<input type="button" class="button" value='Bổ sung hồ sơ'
+					id="bosungHS" onclick="executeAction('bshs')">
 			</logic:equal>
 			<logic:equal name="action" value="bckqxmKN">
-				<input type="button" class="button" value='Báo cáo kết quả giải quyết KN' id="bckqxmKN" onclick="executeAction('bckqxmKN')">
+				<input type="button" class="button"
+					value='Báo cáo kết quả giải quyết KN' id="bckqxmKN"
+					onclick="executeAction('bckqxmKN')">
 			</logic:equal>
 			<logic:equal name="action" value="chuyenHS">
-				<input type="button" class="button" value='Chuyển hồ sơ' id="chuyenHoSo" onclick="executeAction('chs')">
+				<input type="button" class="button" value='Chuyển hồ sơ'
+					id="chuyenHoSo" onclick="executeAction('chs')">
 			</logic:equal>
 			<logic:equal name="action" value="phanloaiHSKN">
-				<input type="button" class="button" value='Phân loại, lập đề xuất xử lý' id="phanloaiHoSo" onclick="executeAction('phanloaiHSKN')">
+				<input type="button" class="button"
+					value='Phân loại, lập đề xuất xử lý' id="phanloaiHoSo"
+					onclick="executeAction('phanloaiHSKN')">
 			</logic:equal>
 			<logic:equal name="action" value="phanloaiHSTC">
-				<input type="button" class="button" value='Phân loại, lập đề xuất xử lý' id="phanloaiHoSo" onclick="executeAction('phanloaiHSTC')">
+				<input type="button" class="button"
+					value='Phân loại, lập đề xuất xử lý' id="phanloaiHoSo"
+					onclick="executeAction('phanloaiHSTC')">
 			</logic:equal>
 			<logic:equal name="action" value="lichTrinhDKKN">
-				<input type="button" class="button" value='Xem lịch trình' name="B2" onclick="executeAction('lichTrinhDKKN');">
+				<input type="button" class="button" value='Xem lịch trình' name="B2"
+					onclick="executeAction('lichTrinhDKKN');">
 			</logic:equal>
 			<logic:equal name="action" value="lichTrinhDKTC">
-				<input type="button" class="button" value='Xem lịch trình' name="B2" onclick="executeAction('lichTrinhDKTC');">
+				<input type="button" class="button" value='Xem lịch trình' name="B2"
+					onclick="executeAction('lichTrinhDKTC');">
 			</logic:equal>
 			<logic:equal name="action" value="tachDon">
-				<input type="button" class="button" value='Tách nội dung KNTC' name="B2" onclick="executeAction('tachDon');">
+				<input type="button" class="button" value='Tách nội dung KNTC'
+					name="B2" onclick="executeAction('tachDon');">
 			</logic:equal>
 			<logic:equal name="action" value="qdgq">
-				<input type="button" class="button" value='Quyết định giải quyết' name="B2" onclick="executeAction('qdgq')">
+				<input type="button" class="button" value='Quyết định giải quyết'
+					name="B2" onclick="executeAction('qdgq')">
 			</logic:equal>
 			<logic:equal name="action" value="rutdon">
-				<input type="button" class="button" value='Rút đơn' name="B2" onclick="executeAction('rutdon')">
+				<input type="button" class="button" value='Rút đơn' name="B2"
+					onclick="executeAction('rutdon')">
 			</logic:equal>
 			<logic:equal name="action" value="theodoiKN">
-				<input type="button" class="button" value='Theo dõi thi hành' name="B2" onclick="executeAction('theodoiKN')">
+				<input type="button" class="button" value='Theo dõi thi hành'
+					name="B2" onclick="executeAction('theodoiKN')">
 			</logic:equal>
 			<logic:equal name="action" value="theodoiTC">
-				<input type="button" class="button" value='Theo dõi thi hành' name="B2" onclick="executeAction('theodoiTC')">
+				<input type="button" class="button" value='Theo dõi thi hành'
+					name="B2" onclick="executeAction('theodoiTC')">
 			</logic:equal>
 			<logic:equal name="action" value="qdxmkn">
-				<input type="button" class="button" value='Quyết định xác minh' name="B2" onclick="executeAction('qdxmkn')">
+				<input type="button" class="button" value='Quyết định xác minh'
+					name="B2" onclick="executeAction('qdxmkn')">
 			</logic:equal>
 			<logic:equal name="action" value="qdxmtc">
-				<input type="button" class="button" value='Quyết định thụ lý và thành lập đoàn xác minh' name="B2" onclick="executeAction('qdxmtc')">
+				<input type="button" class="button"
+					value='Quyết định thụ lý và thành lập đoàn xác minh' name="B2"
+					onclick="executeAction('qdxmtc')">
 			</logic:equal>
 			<logic:equal name="action" value="bbLamViecNguoiTC0">
-				<input type="button" class="button" value='Lập biên bản làm việc' name="B2" onclick="executeAction('bbLamViecNguoiTC0')">
+				<input type="button" class="button" value='Lập biên bản làm việc'
+					name="B2" onclick="executeAction('bbLamViecNguoiTC0')">
 			</logic:equal>
 			<logic:equal name="action" value="khxmkn">
-				<input type="button" class="button" value='Kế hoạch xác minh' name="B2" onclick="executeAction('khxmkn')">
+				<input type="button" class="button" value='Kế hoạch xác minh'
+					name="B2" onclick="executeAction('khxmkn')">
 			</logic:equal>
 			<logic:equal name="action" value="khxmtc">
-				<input type="button" class="button" value='Kế hoạch xác minh' name="B2" onclick="executeAction('khxmtc')">
+				<input type="button" class="button" value='Kế hoạch xác minh'
+					name="B2" onclick="executeAction('khxmtc')">
 			</logic:equal>
 			<logic:equal name="action" value="bbxmkn">
-				<input type="button" class="button" value='Biên bản công bố QĐXM' name="B2" onclick="executeAction('bbxmkn')">
+				<input type="button" class="button" value='Biên bản công bố QĐXM'
+					name="B2" onclick="executeAction('bbxmkn')">
 			</logic:equal>
 			<logic:equal name="action" value="bbxmtc">
-				<input type="button" class="button" value='Biên bản công bố QĐXM' name="B2" onclick="executeAction('bbxmtc')">
+				<input type="button" class="button" value='Biên bản công bố QĐXM'
+					name="B2" onclick="executeAction('bbxmtc')">
 			</logic:equal>
 			<logic:equal name="action" value="25A">
-				<input type="button" class="button" value='Phiếu chuyển sang cơ quan điều tra' name="B2" onclick="executeAction('25A')">
+				<input type="button" class="button"
+					value='Phiếu chuyển sang cơ quan điều tra' name="B2"
+					onclick="executeAction('25A')">
 			</logic:equal>
 			<logic:equal name="action" value="25B">
-				<input type="button" class="button" value='Biên bản bàn giao hồ sơ vụ việc' name="B2" onclick="executeAction('25B')">
+				<input type="button" class="button"
+					value='Biên bản bàn giao hồ sơ vụ việc' name="B2"
+					onclick="executeAction('25B')">
 			</logic:equal>
 			<logic:equal name="action" value="tbkqgqtc">
-				<input type="button" class="button" value='Thông báo KQGQ' name="B2" onclick="executeAction('tbkqgqtc')">
+				<input type="button" class="button" value='Thông báo KQGQ' name="B2"
+					onclick="executeAction('tbkqgqtc')">
 			</logic:equal>
 			<logic:equal name="action" value="ketLuanTC">
-				<input type="button" class="button" value='Kết luận nội dung TC' id="ketLuanTC" onclick="executeAction('ketLuanTC')">
+				<input type="button" class="button" value='Kết luận nội dung TC'
+					id="ketLuanTC" onclick="executeAction('ketLuanTC')">
 			</logic:equal>
 			<logic:equal name="action" value="phieuYcHsTlKN">
-				<input type="button" class="button" value='Lập phiếu yêu cầu cung cấp HS,TL' id="phieuYcHsTlKN" onclick="executeAction('phieuYcHsTlKN')">
+				<input type="button" class="button"
+					value='Lập phiếu yêu cầu cung cấp HS,TL' id="phieuYcHsTlKN"
+					onclick="executeAction('phieuYcHsTlKN')">
 			</logic:equal>
 			<logic:equal name="action" value="phieuYcHsTlTC">
-				<input type="button" class="button" value='Lập phiếu yêu cầu cung cấp HS,TL' id="phieuYcHsTlTC" onclick="executeAction('phieuYcHsTlTC')">
+				<input type="button" class="button"
+					value='Lập phiếu yêu cầu cung cấp HS,TL' id="phieuYcHsTlTC"
+					onclick="executeAction('phieuYcHsTlTC')">
 			</logic:equal>
 			<logic:equal name="action" value="bbYeuCauBoSungHSTLTC">
-				<input type="button" class="button" value='Lập biên bản làm việc' name="B2" onclick="executeAction('bbYeuCauBoSungHSTLTC')">
+				<input type="button" class="button" value='Lập biên bản làm việc'
+					name="B2" onclick="executeAction('bbYeuCauBoSungHSTLTC')">
 			</logic:equal>
 			<logic:equal name="action" value="bbLamViecNguoiBiTC">
-				<input type="button" class="button" value='Lập biên bản làm việc' name="B2" onclick="executeAction('bbLamViecNguoiBiTC')">
+				<input type="button" class="button" value='Lập biên bản làm việc'
+					name="B2" onclick="executeAction('bbLamViecNguoiBiTC')">
 			</logic:equal>
 			<logic:equal name="action" value="bbLamViecNguoiTC">
-				<input type="button" class="button" value='Lập biên bản làm việc' name="B2" onclick="executeAction('bbLamViecNguoiTC')">
+				<input type="button" class="button" value='Lập biên bản làm việc'
+					name="B2" onclick="executeAction('bbLamViecNguoiTC')">
 			</logic:equal>
 			<logic:equal name="action" value="phieuYcGtKN">
-				<input type="button" class="button" value='Lập phiếu yêu cầu giải trình' id="phieuYcGtKN" onclick="executeAction('phieuYcGtKN')">
+				<input type="button" class="button"
+					value='Lập phiếu yêu cầu giải trình' id="phieuYcGtKN"
+					onclick="executeAction('phieuYcGtKN')">
 			</logic:equal>
 			<logic:equal name="action" value="phieuYcGtTC">
-				<input type="button" class="button" value='Lập phiếu yêu cầu giải trình' id="phieuYcGtTC" onclick="executeAction('phieuYcGtTC')">
+				<input type="button" class="button"
+					value='Lập phiếu yêu cầu giải trình' id="phieuYcGtTC"
+					onclick="executeAction('phieuYcGtTC')">
 			</logic:equal>
 			<logic:equal name="action" value="bbLamViecNguoiKN0">
-				<input type="button" class="button" value='Lập biên bản làm việc' name="B2" onclick="executeAction('bbLamViecNguoiKN0')">
+				<input type="button" class="button" value='Lập biên bản làm việc'
+					name="B2" onclick="executeAction('bbLamViecNguoiKN0')">
 			</logic:equal>
 			<logic:equal name="action" value="bbLamViecNguoiKN">
-				<input type="button" class="button" value='Lập biên bản làm việc' name="B2" onclick="executeAction('bbLamViecNguoiKN')">
+				<input type="button" class="button" value='Lập biên bản làm việc'
+					name="B2" onclick="executeAction('bbLamViecNguoiKN')">
 			</logic:equal>
 			<logic:equal name="action" value="bbLamViecNguoiBiKN">
-				<input type="button" class="button" value='Lập biên bản làm việc' name="B2" onclick="executeAction('bbLamViecNguoiBiKN')">
+				<input type="button" class="button" value='Lập biên bản làm việc'
+					name="B2" onclick="executeAction('bbLamViecNguoiBiKN')">
 			</logic:equal>
 			<logic:equal name="action" value="baoCaoGtKN">
-				<input type="button" class="button" value='Lập Báo cáo Giải trình' id="baoCaoGtKN" onclick="executeAction('baoCaoGtKN')">
+				<input type="button" class="button" value='Lập Báo cáo Giải trình'
+					id="baoCaoGtKN" onclick="executeAction('baoCaoGtKN')">
 			</logic:equal>
 			<logic:equal name="action" value="baoCaoGtTC">
-				<input type="button" class="button" value='Lập Báo cáo Giải trình' id="baoCaoGtTC" onclick="executeAction('baoCaoGtTC')">
+				<input type="button" class="button" value='Lập Báo cáo Giải trình'
+					id="baoCaoGtTC" onclick="executeAction('baoCaoGtTC')">
 			</logic:equal>
 			<logic:equal name="action" value="yktvKN">
-				<input type="button" class="button" value='Lập phiếu lấy ý kiến tư vấn' id="yktvKN" onclick="executeAction('yktvKN')">
+				<input type="button" class="button"
+					value='Lập phiếu lấy ý kiến tư vấn' id="yktvKN"
+					onclick="executeAction('yktvKN')">
 			</logic:equal>
 			<logic:equal name="action" value="yktvTC">
-				<input type="button" class="button" value='Lập phiếu lấy ý kiến tư vấn' id="yktvTC" onclick="executeAction('yktvTC')">
+				<input type="button" class="button"
+					value='Lập phiếu lấy ý kiến tư vấn' id="yktvTC"
+					onclick="executeAction('yktvTC')">
 			</logic:equal>
 			<logic:equal name="action" value="ycgdKN">
-				<input type="button" class="button" value='Lập phiếu giám định' id="ykgdKN" onclick="executeAction('ycgdKN')">
+				<input type="button" class="button" value='Lập phiếu giám định'
+					id="ykgdKN" onclick="executeAction('ycgdKN')">
 			</logic:equal>
 			<logic:equal name="action" value="ycgdTC">
-				<input type="button" class="button" value='Lập phiếu giám định' id="ykgdTC" onclick="executeAction('ycgdTC')">
+				<input type="button" class="button" value='Lập phiếu giám định'
+					id="ykgdTC" onclick="executeAction('ycgdTC')">
 			</logic:equal>
 			<logic:equal name="action" value="giahanKN">
-				<input type="button" class="button" value='Gia hạn thời gian xác minh' id="giahanKN" onclick="executeAction('giahanKN')">
+				<input type="button" class="button"
+					value='Gia hạn thời gian xác minh' id="giahanKN"
+					onclick="executeAction('giahanKN')">
 			</logic:equal>
 			<logic:equal name="action" value="giahanTC">
-				<input type="button" class="button" value='Gia hạn thời gian xác minh' id="giahanTC" onclick="executeAction('giahanTC')">
+				<input type="button" class="button"
+					value='Gia hạn thời gian xác minh' id="giahanTC"
+					onclick="executeAction('giahanTC')">
 			</logic:equal>
 			<logic:equal name="action" value="kqxmKN">
-				<input type="button" class="button" value='Báo cáo kết quả xác minh nội dung' id="kqxmKN" onclick="executeAction('kqxmKN')">
+				<input type="button" class="button"
+					value='Báo cáo kết quả xác minh nội dung' id="kqxmKN"
+					onclick="executeAction('kqxmKN')">
 			</logic:equal>
 			<logic:equal name="action" value="bckqxmTC">
-				<input type="button" class="button" value='Báo cáo kết quả xác minh nội dung' id="bckqxmTC" onclick="executeAction('bckqxmTC')">
+				<input type="button" class="button"
+					value='Báo cáo kết quả xác minh nội dung' id="bckqxmTC"
+					onclick="executeAction('bckqxmTC')">
 			</logic:equal>
 			<logic:equal name="action" value="xacMinhKhieuNai">
-				<input type="button" class="button" value='Xác minh khiếu nại' id="xacMinhKhieuNai" onclick="executeAction('xacMinhKhieuNai')">
+				<input type="button" class="button" value='Xác minh khiếu nại'
+					id="xacMinhKhieuNai" onclick="executeAction('xacMinhKhieuNai')">
 			</logic:equal>
 			<logic:equal name="action" value="ketThucKhieuNai">
-				<input type="button" class="button" value='Kết thúc giải quyết khiếu nại' id="ketThucKhieuNai" onclick="executeAction('ketThucKhieuNai')">
+				<input type="button" class="button"
+					value='Kết thúc giải quyết khiếu nại' id="ketThucKhieuNai"
+					onclick="executeAction('ketThucKhieuNai')">
 			</logic:equal>
 			<logic:equal name="action" value="ketThucToCao">
-				<input type="button" class="button" value='Kết thúc giải quyết tố cáo' id="ketThucToCao" onclick="executeAction('ketThucToCao')">
+				<input type="button" class="button"
+					value='Kết thúc giải quyết tố cáo' id="ketThucToCao"
+					onclick="executeAction('ketThucToCao')">
 			</logic:equal>
 			<logic:equal name="action" value="xacMinhToCao">
-				<input type="button" class="button" value='Xác minh tố cáo' id="xacMinhToCao" onclick="executeAction('xacMinhToCao')">
+				<input type="button" class="button" value='Xác minh tố cáo'
+					id="xacMinhToCao" onclick="executeAction('xacMinhToCao')">
 			</logic:equal>
 			<logic:equal name="action" value="copyHs">
-				<input type="button" class="button" value='Xử lý hồ sơ' id="copyHs" onclick="executeAction('copyHs')">
+				<input type="button" class="button" value='Xử lý hồ sơ' id="copyHs"
+					onclick="executeAction('copyHs')">
 			</logic:equal>
 			<logic:equal name="action" value="gopHs">
-				<input type="button" class="button" value='Xử lý hồ sơ' id="gopHs" onclick="executeAction('gopHs')">
+				<input type="button" class="button" value='Xử lý hồ sơ' id="gopHs"
+					onclick="executeAction('gopHs')">
 			</logic:equal>
-			
+
 			<logic:equal name="action" value="xuLyKhieuNai">
-				<input type="button" class="button" value='Xử lý khiếu nại' id="xuLyKhieuNai" onclick="executeAction('xuLyKhieuNai')">
+				<input type="button" class="button" value='Xử lý khiếu nại'
+					id="xuLyKhieuNai" onclick="executeAction('xuLyKhieuNai')">
 			</logic:equal>
 			<logic:equal name="action" value="xuLyToCao">
-				<input type="button" class="button" value='Xử lý tố cáo' id="xuLyToCao" onclick="executeAction('xuLyToCao')">
+				<input type="button" class="button" value='Xử lý tố cáo'
+					id="xuLyToCao" onclick="executeAction('xuLyToCao')">
 			</logic:equal>
-		</logic:present> <input type="button" class="button" value='Đóng' name="B3" onclick="goHomeKntc();"></td>
+		</logic:present> <input type="button" class="button" value='Đóng' name="B3"
+			onclick="goHomeKntc();"></td>
 	</tr>
 </table>
 </html:form>
 <script type="text/javascript" charset="utf-8"> 
 var oTable;
 var showAdvanceSearch = 'false';
-$(function(){			
+$(function(){	
+
+	var hoSoVanThu = "";
+	 <logic:present name="vanthu">
+	     	hoSoVanThu = '<%=request.getAttribute("vanthu")%>';
+	 </logic:present>
+	 if(hoSoVanThu=='1'){
+		$("#idDivHinhThuc").css('display','none');
+	 }
+	 else{
+		$("#idDivHinhThuc").css('display','inline');  
+	 } 
+    <%request.removeAttribute("vanthu");%>
+   
+	      		
 	var act = '<%=request.getParameter("action")%>';
  	if(act=='bosungHS' || act=='chuyenHS' || act=='tktiepdan' || act=='suaHSTD'){
  		document.getElementById("txtNgayTiep").innerHTML = 'Ngày tiếp';
