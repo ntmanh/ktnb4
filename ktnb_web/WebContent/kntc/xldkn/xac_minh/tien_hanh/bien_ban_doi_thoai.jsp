@@ -141,7 +141,6 @@ var oTable;
 	);
 	function ghi(){
 		if(validForm()){
-			alert("id  : "+id);
 			document.forms[0].action="kntc_xm_bb_doi_thoai.do?method=show&action=save&id="+id+"&r="+r;
 			document.forms[0].submit();
 		}

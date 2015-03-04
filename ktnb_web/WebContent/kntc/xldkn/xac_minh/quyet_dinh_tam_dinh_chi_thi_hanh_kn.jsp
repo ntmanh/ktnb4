@@ -47,7 +47,7 @@
 		<TBODY>
 			<tr>
 				<td width="15%" style="text-align: right;">Số quyết định</td>
-				<td width="35%"><html:text styleId="thoiGianBatDauStr"
+				<td width="35%"><html:text 
 					property="tamDinhChiKn.soQd" style="width:100%" /></td>
 				<td width="15%" style="text-align: left;">Ngày ban hành</td>
 				<td width="35%"><html:text styleId="tamDinhChiKn.ngayBanHanhstr"
@@ -63,8 +63,9 @@
 	</fieldset>
 	<table width="100%">
 		<tr align="center">
-			<td align="center"><input type="button" class="button"
-				id="btnKetXuat" value='Kết xuất' name="export" onclick="print();">
+			<td align="center">
+<!--			<input type="button" class="button"-->
+<!--				id="btnKetXuat" value='Kết xuất' name="export" onclick="print();">-->
 			<input type="button" id="btnSave" class="button" value='Lưu'
 				name="save" onclick="ghi();"> <input type="button"
 				id="btnClose" class="button" value='Đóng' name="exit"

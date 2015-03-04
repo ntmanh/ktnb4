@@ -110,6 +110,7 @@ public class BienBanDoiThoaiAction extends PrintAction {
 		if (bbDoiThoai == null) {
 			// Khoi tao lai bb doi thoai, set so ho so cho cbForm
 			bbDoiThoai = new KntcBbDoiThoai();
+			cbForm.bbDoiThoai.setSoQD(soHoSo);
 		} else
 			cbForm.bbDoiThoai = bbDoiThoai;
 	}
@@ -161,7 +162,9 @@ public class BienBanDoiThoaiAction extends PrintAction {
 			if (readOnly.equals("rol")) {
 				throw new KtnbException("Bi&#7875;u m&#7851;u n&#224;y kh&#244;ng c&#243; s&#7889; li&#7879;u!!!", "", "");
 			}
-		bbForm.setBbDoiThoai(new KntcBbDoiThoai());
+		bbDoiThoai = new KntcBbDoiThoai();
+		bbDoiThoai.setSoQD(maHs);
+		bbForm.setBbDoiThoai(bbDoiThoai);
 		return map.findForward("success");
 	}
 	
