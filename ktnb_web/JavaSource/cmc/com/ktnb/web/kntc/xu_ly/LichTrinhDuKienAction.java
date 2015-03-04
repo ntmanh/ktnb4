@@ -124,7 +124,7 @@ public class LichTrinhDuKienAction extends BaseDispatchAction {
 			StringBuffer sb = new StringBuffer("select a.ma,a.ten,b.thoigian from ktnb_dm a,ktnb_dm_time b where a.parent_id like ? and a.ma=b.pid(+) order by a.ma");
 			ps = conn.prepareStatement(sb.toString());
 			ps.setString(1, pId + "%");
-			// System.out.println(sb.toString());
+			System.out.println(sb.toString());
 			JSONArray jsonArray = new JSONArray();
 			JSONArray ja;
 			int rc = 0;

@@ -157,6 +157,12 @@ public class KntcHoSoHdr extends cmc.com.ktnb.pl.hb.entity.PersistentObject impl
 	private String daiDienBsNoiDung;
 	
 	private String thamQuyenDon;  
+	
+	private String coNhieuDungTen;
+	
+	private String thongTinDungTen;
+	
+	private String vuViec;
 
 	// Constructors
 
@@ -886,6 +892,30 @@ public class KntcHoSoHdr extends cmc.com.ktnb.pl.hb.entity.PersistentObject impl
 
 	public void setThamQuyenDon(String thamQuyenDon) {
 		this.thamQuyenDon = thamQuyenDon;
+	}
+	
+	public String getCoNhieuDungTen() {
+		return coNhieuDungTen;
+	}
+
+	public void setCoNhieuDungTen(String coNhieuDungTen) {
+		this.coNhieuDungTen = coNhieuDungTen;
+	}
+
+	public String getThongTinDungTen() {
+		return thongTinDungTen;
+	}
+
+	public void setThongTinDungTen(String thongTinDungTen) {
+		this.thongTinDungTen = thongTinDungTen;
+	}
+
+	public String getVuViec() {
+		return vuViec;
+	}
+
+	public void setVuViec(String vuViec) {
+		this.vuViec = vuViec;
 	}
 
 	public String getTrangThaiText() {

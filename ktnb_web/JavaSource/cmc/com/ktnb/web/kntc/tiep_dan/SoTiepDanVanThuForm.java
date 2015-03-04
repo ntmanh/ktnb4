@@ -39,8 +39,13 @@ public class SoTiepDanVanThuForm extends BaseSoTiepDanForm {
 
 	private String uyQuyen;
 
-	private String loaiHoSo, kenhNhanTin; // Qua van thu, qua duong day nong		
+	private String loaiHoSo, kenhNhanTin; // Qua van thu, qua duong day nong
+	
 	private String trangThaiText;
+	
+	private String coNhieuDungTen;
+	
+	private String thongTinDungTen;
 	
 	// private String trangThai;
 	public KntcSoTiepDan toSoTiepDan(ApplicationContext appContext) throws Exception {
@@ -100,6 +105,9 @@ public class SoTiepDanVanThuForm extends BaseSoTiepDanForm {
 		hdr.setNguoiBiKntcNoiCt(this.canBoBiKNTCNoiCongTac);
 		hdr.setNoiDung(this.noiDungDon);
 		hdr.setSoDon(this.soDon);
+		// Thong tin nguoi dung ten
+		hdr.setCoNhieuDungTen(this.coNhieuDungTen);
+		hdr.setThongTinDungTen(this.thongTinDungTen);
 		// hdr.setThamQuyen(this.loaiDonKNTC);
 		// hdr.setThuLy(this.loaiThuLy);
 		if (this.boSungTaiLieu != null)
@@ -193,6 +201,10 @@ public class SoTiepDanVanThuForm extends BaseSoTiepDanForm {
 		this.maHoSoChuyen = s.getMaHoSoByMaCha(hdr.getMaHs(), SoTiepDanService.HO_SO_CHUYEN);
 		this.maHoSoTachKN = s.getMaHoSoByMaCha(hdr.getMaHs(), SoTiepDanService.HO_SO_TACH_KN);
 		this.maHoSoTachTC = s.getMaHoSoByMaCha(hdr.getMaHs(), SoTiepDanService.HO_SO_TACH_TC);
+		
+		// Thong tin nguoi dung ten
+		this.coNhieuDungTen= hdr.getCoNhieuDungTen();
+		this.thongTinDungTen = hdr.getThongTinDungTen();
 	}
 
 	/**
@@ -329,6 +341,22 @@ public class SoTiepDanVanThuForm extends BaseSoTiepDanForm {
 
 	public void setTrangThaiText(String trangThai) {
 		this.trangThaiText = trangThai;
+	}
+
+	public String getCoNhieuDungTen() {
+		return coNhieuDungTen;
+	}
+
+	public void setCoNhieuDungTen(String coNhieuDungTen) {
+		this.coNhieuDungTen = coNhieuDungTen;
+	}
+
+	public String getThongTinDungTen() {
+		return thongTinDungTen;
+	}
+
+	public void setThongTinDungTen(String thongTinDungTen) {
+		this.thongTinDungTen = thongTinDungTen;
 	}
 
 }
