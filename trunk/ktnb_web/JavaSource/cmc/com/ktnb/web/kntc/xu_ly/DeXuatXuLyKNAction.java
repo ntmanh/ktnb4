@@ -288,9 +288,11 @@ public class DeXuatXuLyKNAction extends BaseDispatchAction {
 			String[] strIdBieuMau = inputForm.getStrListIdBieuMau().split(",");
 			for (int i = 0; i < strIdBieuMau.length; i++) {
 				int idBm = Integer.parseInt(strIdBieuMau[i]);
-				System.out.print("tham quyen: "+inputForm.getThamQuyen().toString() );
+				System.out.println("tham quyen: "+inputForm.getThamQuyen().toString() );
+				System.out.println("Thu ly: "+inputForm.getThuLy().toString() );
+				System.out.println("idBm: "+idBm );
 				//Trường hợp 1 phần thuộc thẩm quyền => Không check mẫu phụ cho phần đơn không thuộc thẩm quyền
-				if("15020103".equals(inputForm.getThamQuyen().toString()) || "1502020303".equals(inputForm.getThuLy().toString())){
+				if(Constants.TC_MOT_PHAN_THUOC_THAM_QUYEN.equals(inputForm.getThamQuyen().toString()) || Constants.TC_THUOC_TQ_CUA_CQ_KHAC_VA_CQ_NHAN_DON.equals(inputForm.getThuLy().toString())){
 					//Không check mẫu 05,06,20
 					
 					if(9905!=idBm && 9906!=idBm && 9922!=idBm){
@@ -300,6 +302,29 @@ public class DeXuatXuLyKNAction extends BaseDispatchAction {
 									"C&#x1EA7;n ho&#xE0;n thi&#x1EC7;n bi&#x1EC3;u m&#x1EAB;u ph&#x1EE5; cho ph&#x1EA7;n n&#x1ED9;i dung thu&#x1ED9;c th&#x1EA9;m quy&#x1EC1;n, nh&#x1EAD;p &#x111;&#x1EA7;y &#x111;&#x1EE7; s&#x1ED1; quy&#x1EBF;t &#x111;&#x1ECB;nh v&#xE0; ng&#xE0;y ban h&#xE0;nh tr&#x1B0;&#x1EDB;c khi l&#x1B0;u &#x111;&#x1EC1; xu&#x1EA5;t c&#xF3; k&#xFD; duy&#x1EC7;t",
 									"Ki&#x1EC3;m tra m&#x1EAB;u ph&#x1EE5; " + Constants.getMauPhu(idBm));
 						}
+					}
+				}
+				//Trường hợp thuộc thẩm quyền
+				//Không check 2 TH
+				//Thuộc thẩm quyền của CQT cấp dưới nhưng quá thời hạn quy định mà không được giải quyết 
+				//Đã được CQT cấp dưới giải quyết nhưng có căn cứ cho rằng việc giải quyết không đúng pháp luật 
+				else if(Constants.TC_THUOC_THAM_QUYEN.equals(inputForm.getThamQuyen().toString()))
+				{
+					if(!Constants.TC_CQ_DUOI_GQ_NHUNG_SAI_PL.equals(inputForm.getThuLy().toString())&&!Constants.TC_QUA_HAN_GQ_CUA_CQ_DUOI.equals(inputForm.getThuLy().toString()))
+					{
+//						idBm=Integer.parseInt(service.IdMauPhu(inputForm.getMaHoSo(),appContext));
+//						System.out.println("idBm TC: "+idBm );
+						//khong du dieu kien giai quyet
+						if(!Constants.TC_KO_DU_DK.equals(inputForm.getThuLy().toString())&&!Constants.TC_CAP_DUOI_GQ_KO_CO_TT_MOI.equals(inputForm.getThuLy().toString()))
+						{
+							if (!service.checkMauPhuTC(idBm, inputForm.getMaHoSo())) {
+								request.removeAttribute("ghiThanhcong");
+								throw new KtnbException(
+										"C&#x1EA7;n ho&#xE0;n thi&#x1EC7;n bi&#x1EC3;u m&#x1EAB;u ph&#x1EE5; cho ph&#x1EA7;n n&#x1ED9;i dung thu&#x1ED9;c th&#x1EA9;m quy&#x1EC1;n, nh&#x1EAD;p &#x111;&#x1EA7;y &#x111;&#x1EE7; s&#x1ED1; quy&#x1EBF;t &#x111;&#x1ECB;nh v&#xE0; ng&#xE0;y ban h&#xE0;nh tr&#x1B0;&#x1EDB;c khi l&#x1B0;u &#x111;&#x1EC1; xu&#x1EA5;t c&#xF3; k&#xFD; duy&#x1EC7;t",
+										"Ki&#x1EC3;m tra m&#x1EAB;u ph&#x1EE5; " + Constants.getMauPhu(idBm));
+							}
+						}
+						
 					}
 				}
 				//Trường hợp khác

@@ -36,6 +36,7 @@ import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.SearchCriteria;
 import cmc.com.ktnb.util.StringUtil;
 import cmc.com.ktnb.web.catalog.CatalogService;
+import cmc.com.ktnb.web.dung_chung.DungChungService;
 
 /**
  * @author ntthu - cmcsoft
@@ -102,7 +103,7 @@ public class PhanLoaiXuLyService {
 	 *            Đề xuất xử lý
 	 * @throws Exception
 	 */
-	public void saveDeXuatXyLyKN(ApplicationContext appContext, KntcDeXuatXuLy dxxl,Date ngayKetThucDuKien) throws Exception {
+	public void saveDeXuatXyLyKN(ApplicationContext appContext, KntcDeXuatXuLy dxxl, Date ngayKetThucDuKien) throws Exception {
 		UserTransaction tx = null;
 		Session session = null;
 		KntcDeXuatXly dx = dxxl.getDx();
@@ -184,10 +185,8 @@ public class PhanLoaiXuLyService {
 						// if("1502020305".equals(dx.getThuLy()) ||
 						// "1502010401".equals(dx.getThuLy())){ }
 						// Trường hợp chuyển đơn
-						if (dx.getThuLy().equals("1502010202") 
-								|| dx.getThuLy().equals("1502020201") 
-								|| dx.getThuLy().equals("1502020101") 
-								//|| dx.getThuLy().equals("1502010302")
+						if (dx.getThuLy().equals("1502010202") || dx.getThuLy().equals("1502020201") || dx.getThuLy().equals("1502020101")
+						// || dx.getThuLy().equals("1502010302")
 								|| dx.getThuLy().equals("1502020303")) {
 							loaiketthuc = Constants.KNTC_KET_THUC_CHUYEN_DON;
 							SoTiepDanService s = new SoTiepDanService();
@@ -198,13 +197,22 @@ public class PhanLoaiXuLyService {
 							XacMinhService xmS = new XacMinhService();
 							Collection listPcd = xmS.getListPhieuChuyenDon(appContext, dx.getMaHs());
 							if (Formater.isNull(listPcd)) {
-								if (!hdrParent.getLoaiKntc().equals(new Long(2)))// Khong bat buoc voi To Cao
+								if (!hdrParent.getLoaiKntc().equals(new Long(2)))// Khong
+									// bat
+									// buoc
+									// voi
+									// To
+									// Cao
 									throw new KtnbException("Kh&#244;ng l&#432;u &#273;&#432;&#7907;c phi&#7871;u &#273;&#7873; xu&#7845;t 04/KNTC", "",
 											"Ph&#7843;i l&#7853;p phi&#7871;u chuy&#7875;n &#273;&#417;n tr&#432;&#7899;c khi nh&#7853;p th&#244;ng tin k&#253; duy&#7879;t m&#7851;u &#273;&#7873; xu&#7845;t 04/KNTC!");
 							} else {
 								for (Iterator p = listPcd.iterator(); p.hasNext();) {
 									KntcPhieuChuyenDon pcd = (KntcPhieuChuyenDon) p.next();
-									if (s.getMaHoSoByMaCha(dx.getMaHs(), SoTiepDanService.HO_SO_CHUYEN) == null) { // Trường hợp đã tạo bộ
+									if (s.getMaHoSoByMaCha(dx.getMaHs(), SoTiepDanService.HO_SO_CHUYEN) == null) { // Trường
+										// hợp
+										// đã
+										// tạo
+										// bộ
 										// hồ sơ xuống chi cục rồi thì bỏ qua.
 										String maCqt = pcd.getCqtGqMa();
 										if (maCqt != null) {
@@ -240,12 +248,12 @@ public class PhanLoaiXuLyService {
 						}
 					}
 					// Kết thúc lưu đơn
-					if("1502010401".equals(dx.getThuLy().toString())||"1502020305".equals(dx.getThuLy().toString())){
+					if ("1502010401".equals(dx.getThuLy().toString()) || "1502020305".equals(dx.getThuLy().toString())) {
 						tt = Constants.TT_KNTC_KET_THUC;
 						loaiketthuc = Constants.KNTC_KET_THUC_LUU_DON;
 					}
 					// Update trạng thái cho hồ sơ hiện tại
-					// Nếu kết thúc										
+					// Nếu kết thúc
 					if (Constants.TT_KNTC_KET_THUC.equals(tt)) {
 						String sql = "Update KNTC_HO_SO_HDR set TRANG_THAI=?,LOAI_KET_THUC=?,NGAY_KET_THUC=?,NGAY_KET_THUC_DU_KIEN=? where MA_HS=?";
 						Query q = session.createSQLQuery(sql);
@@ -255,7 +263,7 @@ public class PhanLoaiXuLyService {
 						q.setParameter(3, ngayKetThucDuKien);
 						q.setParameter(4, dx.getMaHs());
 						q.executeUpdate();
-					// Nếu xác minh hoặc giải quyết ngay
+						// Nếu xác minh hoặc giải quyết ngay
 					} else {
 						String sql = "Update KNTC_HO_SO_HDR set TRANG_THAI=?,NGAY_KET_THUC_DU_KIEN=? where MA_HS=?";
 						Query q = session.createSQLQuery(sql);
@@ -263,7 +271,7 @@ public class PhanLoaiXuLyService {
 						q.setParameter(1, ngayKetThucDuKien);
 						q.setParameter(2, dx.getMaHs());
 						q.executeUpdate();
-					}					
+					}
 				}
 
 				// Update noi dung tom tat don
@@ -314,7 +322,7 @@ public class PhanLoaiXuLyService {
 					}
 				}
 				// Update Phan loai xu ly
-				dao.updateObject(appContext, dx, Boolean.TRUE);				
+				dao.updateObject(appContext, dx, Boolean.TRUE);
 			}
 			session.flush();
 			tx.commit();
@@ -326,31 +334,30 @@ public class PhanLoaiXuLyService {
 			HibernateSessionFactory.closeSession(session);
 		}
 	}
-	
+
 	/**
 	 * Xem, lưu, sửa, xóa phiếu chuyển cơ quan điều tra
+	 * 
 	 * @param appContext
-	 * @param phiếu chuyển :
-	 *  	Phiếu chuyển cơ quan điều tra
-	 *  @throws Exception
-	 * */
+	 * @param phiếu
+	 *            chuyển : Phiếu chuyển cơ quan điều tra
+	 * @throws Exception
+	 */
 	public KntcChuyenCqDieuTra getPhieuChuyenCqByMaPhieu(ApplicationContext appContext, String maPhieu) throws Exception {
 		CatalogService services = new CatalogService();
 		SearchCriteria sc = new SearchCriteria(KntcChuyenCqDieuTra.class);
 		sc.addSearchItem("maPhieu", maPhieu);
 		return (KntcChuyenCqDieuTra) services.retriveObject(appContext, sc);
 	}
-	
-	public void savePhieuChuyenCq(ApplicationContext appContext, KntcChuyenCqDieuTra chuyenCq) throws Exception
-	{
-		if(Formater.isNull(chuyenCq.getMaPhieu()))
-		{
+
+	public void savePhieuChuyenCq(ApplicationContext appContext, KntcChuyenCqDieuTra chuyenCq) throws Exception {
+		if (Formater.isNull(chuyenCq.getMaPhieu())) {
 			chuyenCq.setMaPhieu(KeyManagement.getGUID());
 			dao.saveObject(appContext, chuyenCq);
-		}
-		else 
+		} else
 			dao.updateObject(appContext, chuyenCq);
 	}
+
 	/**
 	 * Lưu phiếu chuyển đơn, phiếu trả đơn
 	 * 
@@ -365,7 +372,7 @@ public class PhanLoaiXuLyService {
 			// 1. Save phieu
 			if (Formater.isNull(qd.getMa())) // Save
 			{
-				KntcPhieuChuyenDon pcD = this.getPhieuChuyenDonByCqtNhan(appContext, qd.getCqtGqMa(), qd.getMaHs(), qd.getLoaiThongBao());
+				KntcPhieuChuyenDon pcD = this.getPhieuChuyenDonByCqtNhan(appContext,qd.getMaPhieu(), qd.getCqtGqMa(), qd.getMaHs(), qd.getLoaiThongBao());
 				if (pcD != null)
 					throw new KtnbException("",
 							"&#272;&#227; l&#7853;p phi&#7871;u chuy&#7875;n &#273;&#417;n cho &#273;&#417;n v&#7883; n&#224;y, y&#234;u c&#7847;u chuy&#7875;n &#273;&#417;n cho &#273;&#417;n v&#7883; kh&#225;c!");
@@ -375,44 +382,29 @@ public class PhanLoaiXuLyService {
 				// Update
 				dao.updateObject(appContext, qd);
 			// Trả đơn
-		} /*else if (qd.getLoaiThongBao().equals(KntcPhieuChuyenDon.PHIEU_TRA_DON_KN)) {
-			Session session = null;
-			UserTransaction tx = null;
-			try {
-				try {
-					tx = (UserTransaction) new InitialContext().lookup("java:comp/UserTransaction");
-					tx.begin();
-				} catch (Exception e1) {
-					e1.printStackTrace();
-				}
-				session = HibernateSessionFactory.currentSession();
-				// 1. Ket thuc bo ho so cu
-				String sql = "Update KNTC_HO_SO_HDR set TRANG_THAI=?,LOAI_KET_THUC=? where MA_HS=?";
-				Query q = session.createSQLQuery(sql);
-				q.setParameter(0, new Long(Constants.TT_KNTC_KET_THUC));
-				q.setParameter(1, Constants.KNTC_KET_THUC_TACH_DON);
-				q.setParameter(2, qd.getMaHs());
-				q.executeUpdate();
-				// 3. Save phieu
-				if (Formater.isNull(qd.getMa())) // Save
-				{
-					qd.setMa(KeyManagement.getGUID());
-					dao.saveObject(appContext, qd, Boolean.TRUE);
-				} else // Update
-				{
-					dao.updateObject(appContext, qd, Boolean.FALSE);
-				}
-				session.flush();
-				tx.commit();
-			} catch (Exception e) {
-				tx.rollback();
-				e.printStackTrace();
-				throw new Exception(e);
-			} finally {
-				HibernateSessionFactory.closeSession(session);
-			}
-			// Các trường hợp khác
-		}*/ else {
+		} /*
+			 * else if
+			 * (qd.getLoaiThongBao().equals(KntcPhieuChuyenDon.PHIEU_TRA_DON_KN)) {
+			 * Session session = null; UserTransaction tx = null; try { try { tx =
+			 * (UserTransaction) new
+			 * InitialContext().lookup("java:comp/UserTransaction"); tx.begin(); }
+			 * catch (Exception e1) { e1.printStackTrace(); } session =
+			 * HibernateSessionFactory.currentSession(); // 1. Ket thuc bo ho so
+			 * cu String sql = "Update KNTC_HO_SO_HDR set
+			 * TRANG_THAI=?,LOAI_KET_THUC=? where MA_HS=?"; Query q =
+			 * session.createSQLQuery(sql); q.setParameter(0, new
+			 * Long(Constants.TT_KNTC_KET_THUC)); q.setParameter(1,
+			 * Constants.KNTC_KET_THUC_TACH_DON); q.setParameter(2,
+			 * qd.getMaHs()); q.executeUpdate(); // 3. Save phieu if
+			 * (Formater.isNull(qd.getMa())) // Save {
+			 * qd.setMa(KeyManagement.getGUID()); dao.saveObject(appContext, qd,
+			 * Boolean.TRUE); } else // Update { dao.updateObject(appContext,
+			 * qd, Boolean.FALSE); } session.flush(); tx.commit(); } catch
+			 * (Exception e) { tx.rollback(); e.printStackTrace(); throw new
+			 * Exception(e); } finally {
+			 * HibernateSessionFactory.closeSession(session); } // Các trường
+			 * hợp khác }
+			 */else {
 			if (Formater.isNull(qd.getMa())) // Save
 			{
 				qd.setMa(KeyManagement.getGUID());
@@ -441,9 +433,10 @@ public class PhanLoaiXuLyService {
 		return (KntcPhieuChuyenDon) services.retriveObject(appContext, sc);
 	}
 
-	public KntcPhieuChuyenDon getPhieuChuyenDonByCqtNhan(ApplicationContext appContext, String maCqt, String maHoSo, String loaiPhieu) throws Exception {
+	public KntcPhieuChuyenDon getPhieuChuyenDonByCqtNhan(ApplicationContext appContext,String maPhieu, String maCqt, String maHoSo, String loaiPhieu) throws Exception {
 		CatalogService services = new CatalogService();
 		SearchCriteria sc = new SearchCriteria(KntcPhieuChuyenDon.class);
+		sc.addSearchItem("maPhieu", maPhieu);
 		sc.addSearchItem("maHs", maHoSo);
 		sc.addSearchItem("loaiThongBao", loaiPhieu);
 		sc.addSearchItem("cqtGqMa", maCqt);
@@ -519,7 +512,8 @@ public class PhanLoaiXuLyService {
 	/**
 	 * Xóa dữ liệu trên bảng theo mã hồ sơ
 	 * 
-	 * @param tableName : Tên bảng cần xóa dữ liệu
+	 * @param tableName :
+	 *            Tên bảng cần xóa dữ liệu
 	 * @param maHoSo
 	 * @throws Exception
 	 */
@@ -590,9 +584,9 @@ public class PhanLoaiXuLyService {
 						return false;
 					if (StringUtil.isBlankOrNull(rs.getString(2)))
 						return false;
-					//String temp = rs.getString(1).substring(0, 3);
-					//if ("...".equals(temp))
-						//return false;
+					// String temp = rs.getString(1).substring(0, 3);
+					// if ("...".equals(temp))
+					// return false;
 				} while (rs.next());
 			} else {
 				// Không có mẫu phụ
@@ -605,4 +599,89 @@ public class PhanLoaiXuLyService {
 		}
 		return true;
 	}
+
+	public boolean checkMauPhuTC(int idMauPhu, String maHoSo) throws Exception {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String dmRls = "";
+		String sql = "select MA_PHIEU,THOI_DIEM from KNTC_PHIEU_CHUYEN_DON where LOAI_THONG_BAO=? and MA_HS =?";
+		try {
+			conn = DataSourceConfiguration.getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, Constants.getMauPhu(idMauPhu));
+			dmRls=Constants.getMauPhu(idMauPhu);
+			ps.setString(2, maHoSo);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				// Đã có mẫu phụ
+				do {
+					if (!StringUtil.isBlankOrNull(rs.getString(1)))
+						return true;
+					if (!StringUtil.isBlankOrNull(rs.getString(2)))
+						return true;
+				} while (rs.next());
+			} else {
+				ps.setString(1, Constants.getMauPhuTC(idMauPhu));
+				dmRls=Constants.getMauPhuTC(idMauPhu);
+				ps.setString(2, maHoSo);
+				rs = ps.executeQuery();
+				if (rs.next()) {
+					// Đã có mẫu phụ
+					do {
+						if (StringUtil.isBlankOrNull(rs.getString(1)))
+							return false;
+						if (StringUtil.isBlankOrNull(rs.getString(2)))
+							return false;
+						System.out.println("Ma phieu: "+rs.getString(1) );
+						System.out.println("Ma phieu: "+rs.getString(2) );
+					} while (rs.next());
+				}
+				else
+					return false;
+				System.out.println("id Mau Phu: "+dmRls );
+				
+			}
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		} finally {
+			DataSourceConfiguration.releaseSqlResources(rs, ps, conn);
+		}
+		return true;
+	}
+	public boolean checkKoDuDK(int idMauPhu, String maHoSo) throws Exception {
+		Connection conn = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String dmRls = "";
+		String sql = "select MA_PHIEU,THOI_DIEM from KNTC_PHIEU_CHUYEN_DON where LOAI_THONG_BAO=? and MA_HS =?";
+		try {
+			conn = DataSourceConfiguration.getConnection();
+			ps = conn.prepareStatement(sql);
+			ps.setString(1, Constants.getMauPhu(idMauPhu));
+			ps.setString(2, maHoSo);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				// Đã có mẫu phụ
+				do {
+					if (StringUtil.isBlankOrNull(rs.getString(1)))
+						return false;
+					if (StringUtil.isBlankOrNull(rs.getString(2)))
+						return false;
+					// String temp = rs.getString(1).substring(0, 3);
+					// if ("...".equals(temp))
+					// return false;
+				} while (rs.next());
+			} else {
+				// Không có mẫu phụ
+				return false;
+			}
+		} catch (Exception ex) {
+			throw new Exception(ex);
+		} finally {
+			DataSourceConfiguration.releaseSqlResources(rs, ps, conn);
+		}
+		return true;
+	}
+
 }

@@ -19,7 +19,7 @@
 	<table width="100%" border="0">
 		<tr>
 			<td style="text-align: right;">Số quyết định</td>
-			<td><html:text property="soQd" style="width: 100%" /></td>
+			<td><html:text property="soQd" style="width: 100%" name="xacMinhForm"/></td>
 			<td width="15%" style="text-align: right;">Ngày ban hành</td>
 			<td width="35%"><html:text property="thoiDiem"
 				name="xacMinhForm" maxlength="10" style="width: 100%"

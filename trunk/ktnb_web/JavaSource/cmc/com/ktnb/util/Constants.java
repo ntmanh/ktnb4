@@ -485,7 +485,24 @@ public class Constants {
 
 	public final static String TH_KHIEU_NAI_GQ_NGAY = "170103";
 	public final static String TH_KHIEU_NAI_XAC_MINH = "170101";
-
+	
+	// Phan loai ho so to cao
+	public final static String TC_THUOC_THAM_QUYEN = "15020202";
+	public final static String TC_MOT_PHAN_THUOC_THAM_QUYEN = "15020103";	
+	public final static String TC_THUOC_TQ_CUA_CQ_KHAC_VA_CQ_NHAN_DON = "1502020303";
+	public final static String TC_QUA_HAN_GQ_CUA_CQ_DUOI = "1502020203";
+	public final static String TC_KO_THUOC_TQ_THUOC_TQ_CQ_KHAC = "1502020201";
+	public final static String TC_CQ_DUOI_GQ_NHUNG_SAI_PL = "1502020202";
+	public final static String TC_DU_DIEU_KIEN = "1502020204";
+	public final static String TC_KO_DU_DK = "1502020205";
+	public final static String TC_CAP_DUOI_GQ_KO_CO_TT_MOI = "1502020206";
+	public final static String TC_CQ_DUOI_GQ_NHUNG_TC_TIEP = "1502020207";
+	public final static String KN_IdBm_TC03 = "1923";
+	public final static String KN_IdBm_TC04 = "1924";
+	public final static String KN_IdBm_TC05 = "1925";
+	public final static String KN_IdBm_TC06 = "1926";
+	public final static String KN_IdBm_TC07 = "1927";
+	
 	public final static String TH_TO_CAO = "1703";
 	public final static String XM_TVD_TRUONG_DOAN = "1703";
 
@@ -611,6 +628,8 @@ public class Constants {
 	/*MAP Mẫu phụ*/
 	public static String getMauPhu(int idMauPhu){
 		switch (idMauPhu) {
+		case 1923:
+			return "03/TC";
 		case 1924:
 			return "04/TC";
 		case 1925:
@@ -633,6 +652,36 @@ public class Constants {
 			return "20/KNTC";	
 		case 9923:
 			return "21/KNTC";
+		default:
+			return null;
+		}
+	}
+	public static String getMauPhuTC(int idMauPhu){
+		switch (idMauPhu) {
+		case 1923:
+			return "03/TC";
+		case 1924:
+			return "04/TC";
+		case 1925:
+			return "05/TC";
+		case 1926:
+			return "06/TC";
+		case 1927:
+			return "07/TC";
+		case 9905:
+			return "05/KNTC";
+		case 9906:
+			return "06/KNTC";
+		case 9907:
+			return "07/KNTC";
+		case 9908:
+			return "08/KNTC";
+		case 9909:
+			return "09/KNTC";
+		case 9922:
+			return "03/TC";	
+		case 9923:
+			return "06/TC";
 		default:
 			return null;
 		}
