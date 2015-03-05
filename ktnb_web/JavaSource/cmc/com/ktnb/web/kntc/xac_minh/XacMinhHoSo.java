@@ -711,9 +711,12 @@ public class XacMinhHoSo extends BaseDispatchAction {
 				{
 					phieuChuyen= new KntcPhieuChuyenDon();
 					phieuChuyen.setLoaiThongBao(Constants.PHIEU_THANH_LAP_DOAN_XAC_MINH);
+					phieuChuyen.setMaPhieu(xmForm.getSoQd());
 					phieuChuyen.setMaHs(xmForm.getMaHoSo());
 					phieuChuyen.setMaPhieu(xmForm.getMaHidden());
 					phieuChuyen.setThoiDiem(Formater.str2date(xmForm.getThoiDiem()));
+					phieuChuyen.setMaPhieu(xmForm.getSoQd());
+					
 				}
 				s.savePhieuChuyenDon(appContext, phieuChuyen);
 				qd.setMaHsDoanXm(xmForm.getMaHoSo());
