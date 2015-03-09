@@ -37,7 +37,6 @@ import cmc.com.ktnb.util.Formater;
 import cmc.com.ktnb.util.HttpUtil;
 import cmc.com.ktnb.util.KtnbUtil;
 import cmc.com.ktnb.util.MsWordUtils;
-import cmc.com.ktnb.util.StringUtil;
 import cmc.com.ktnb.web.BaseDispatchAction;
 import cmc.com.ktnb.web.kntc.xu_ly.LichTrinhDuKienAction;
 
@@ -663,7 +662,6 @@ public class BaoCaoKetQuaXacMinh extends BaseDispatchAction {
 		PhanLoaiXuLyService plService=new PhanLoaiXuLyService();
 		KntcDeXuatXly dxxl=plService.getDeXuatXly(appContext, maHs);
 		qdgqForm.setLanGiaiQuyet(dxxl.getLanGui());
-		System.out.println("Lan gui la  : "+qdgqForm.getLanGiaiQuyet());
 		if (!Formater.isNull(maHs)) {
 			qdgqForm.setMaHoSo(maHs);
 			XuLyKNTCService s = new XuLyKNTCService();

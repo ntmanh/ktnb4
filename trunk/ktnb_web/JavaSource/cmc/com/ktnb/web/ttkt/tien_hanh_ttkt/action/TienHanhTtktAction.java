@@ -833,6 +833,10 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 	 */
 	private void saveTienHanhTtkt(HttpServletRequest request, HttpServletResponse reponse, ApplicationContext appContext, TienHanhTtktForm tienHanhTtktForm) throws Exception {
 		String type = request.getParameter("type");
+		if(type.indexOf("thongBaoKetThuc")!=-1)
+		{
+			TtktService.thongBaoKetThuc(appContext, tienHanhTtktForm);
+		}
 		if (type.indexOf("congBoQd")!=-1) {
 			TtktThCongBoQd congBoQd = createCongBoQd(appContext, tienHanhTtktForm);
 			TtktService.saveCongBoQd(appContext, congBoQd);
@@ -1071,6 +1075,11 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		request.setAttribute("dsChucVuTrongDoan", dsChucVuTrongDoan.substring(0, dsChucVuTrongDoan.length() - 1));		
 	}
 
+	private void loadThongBaoKetThuc(HttpServletRequest request, TienHanhTtktForm tienHanhTtktForm, ApplicationContext appContext, TtktKhCuocTtkt cuocTtkt) throws Exception {
+		tienHanhTtktForm.setNoiRaThongBaoKetThuc(cuocTtkt.getNoiRaThongBaoKetThuc());
+		tienHanhTtktForm.setNgayKetThuc(Formater.date2str(cuocTtkt.getNgayKetThuc()));
+		tienHanhTtktForm.setNgayRaThongBaoKetThuc(Formater.date2str(cuocTtkt.getNgayRaThongBaoKetThuc()));
+	}
 	private void loadCongBoQuyetDinh(HttpServletRequest request, TienHanhTtktForm tienHanhTtktForm, ApplicationContext appContext, String cuocTtktId) throws Exception {
 		TtktThCongBoQd congBoQd = TtktService.getCongBoQd(appContext, cuocTtktId);
 		if (congBoQd != null) {
@@ -1274,6 +1283,9 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 
 		}
 
+		// Thong bao ket thuc
+		loadThongBaoKetThuc(request, tienHanhTtktForm, appContext, cuocTtkt);
+		
 		// Cong bo quyet dinh
 		loadCongBoQuyetDinh(request, tienHanhTtktForm, appContext, cuocTtktId);
 
