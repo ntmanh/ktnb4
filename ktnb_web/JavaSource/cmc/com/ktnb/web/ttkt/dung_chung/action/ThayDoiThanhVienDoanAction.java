@@ -50,12 +50,13 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 		String method = request.getParameter("method");
 		String cuocTtktId = "";
 		thayDoiThanhVienDoanForm.setCanCuQdinh("C\u0103n c\u1EE9 Quy\u1EBFt \u0111\u1ECBnh s\u1ED1 1722/Q\u0110-TCT ng\u00E0y 08 th\u00E1ng 10 n\u0103m 2014");
-		thayDoiThanhVienDoanForm.setSoQd(KtnbUtil.getMaNvu(appContext, "Q\u0110"));
+		//thayDoiThanhVienDoanForm.setSoQd(KtnbUtil.getMaNvu(appContext, "Q\u0110"));
 		if ("save".equals(method)) {
 			TtktCmThayDoiTvd thayDoiTvd = createThayDoiTvd(appContext, request, thayDoiThanhVienDoanForm);
 			TtktService.saveThayDoiTvd(appContext, thayDoiTvd);
 			request.setAttribute("saveStatus", "true");
 			cuocTtktId = thayDoiThanhVienDoanForm.getIdCuocTtkt();
+			
 
 		} else if ("in".equals(method)) {
 			inThayDoiThanhVien(request, appContext, thayDoiThanhVienDoanForm, reponse);
@@ -639,7 +640,7 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 				if (Formater.isNull(thayDoiThanhVienDoanForm.getSoQd())) {
 					word.put("[so_qd]", "....../Q\u0110-.......");
 				} else {
-					word.put("[so_qd]", thayDoiThanhVienDoanForm.getSoQd());
+					word.put("[so_qd]", thayDoiThanhVienDoanForm.getSoQd().toString()+KtnbUtil.getMaNvu1(appConText, "Q\u0110") );
 				}
 				//
 				String ngaylap = thayDoiThanhVienDoanForm.getNgayRaQd();
@@ -751,7 +752,7 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 				if (Formater.isNull(thayDoiThanhVienDoanForm.getSoQd())) {
 					word.put("[so_qd]", "....../Q\u0110-.......");
 				} else {
-					word.put("[so_qd]", " " + thayDoiThanhVienDoanForm.getSoQd());
+					word.put("[so_qd]", " " + thayDoiThanhVienDoanForm.getSoQd().toString()+KtnbUtil.getMaNvu1(appConText, "Q\u0110") );
 				}
 				// ngay ra qd thay truong doan
 				String ngayraqd = thayDoiThanhVienDoanForm.getNgayRaQd();
@@ -856,7 +857,7 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 				if (Formater.isNull(thayDoiThanhVienDoanForm.getSoQd())) {
 					word.put("[so_qd]", "....../Q\u0110-.......");
 				} else {
-					word.put("[so_qd]", " " + thayDoiThanhVienDoanForm.getSoQd());
+					word.put("[so_qd]", " " + thayDoiThanhVienDoanForm.getSoQd().toString()+KtnbUtil.getMaNvu1(appConText, "Q\u0110") );
 				}
 				// ngay ra qd
 				String raqd = thayDoiThanhVienDoanForm.getNgayRaQd();
@@ -900,7 +901,7 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 				//word.put("[ttkt]", sb.toString());
 				//word.put("[ttkt]", sb.toString());
 				word.put("[so_qdinh]", cbQd.getSoQuyetDinh());
-				
+				word.put("[ngay_ra_qd_cu]", "ng\u00E0y " + arrngayraqd1[0] + " th\u00E1ng " + arrngayraqd1[1] + " n\u0103m " + arrngayraqd1[2]);
 				word.put("[thu_truong_cqt]", KtnbUtil.getTenThuTruongCqtForMauin(appConText));
 				//word.put("[ttkt]", sb.toString());
 				word.put("[dv_dc_ttkt]", cuocTtkt.getTenDonViBi());

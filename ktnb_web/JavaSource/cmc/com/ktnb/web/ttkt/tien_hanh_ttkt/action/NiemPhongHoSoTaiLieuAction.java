@@ -49,6 +49,7 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 		ApplicationContext app = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		NiemPhongHoSoTaiLieuForm niemphonghosotailieuForm = (NiemPhongHoSoTaiLieuForm) form;
 		String method = request.getParameter("method");
+		niemphonghosotailieuForm.setCanCuQd("C\u0103n c\u1EE9 Quy\u1EBFt \u0111\u1ECBnh s\u1ED1 1722/Q\u0110-TCT ng\u00E0y 08 th\u00E1ng 10 n\u0103m 2014");
 		if ("save".equals(method)) {
 			String type = request.getParameter("type");
 			if (type.equals("qdNiemPhong")) {

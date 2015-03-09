@@ -1981,7 +1981,7 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 				if (tptd.toString().length() == 0)
 					word.put("[ds_thanh_vien]", "");
 				else
-					word.put("[ds_thanh_vien]", tptd.toString().substring(0, tptd.toString().length() - 1));
+					word.put("[ds_thanh_vien]", tptd.toString().substring(0, tptd.toString().length()));
 				// word.put("[ttkt]", sb.toString().toUpperCase());
 				word.put("[ten_truong_doan]", cuocTtkt.getTenTruongDoan());
 				// word.put("[chuc_danh_thu_truong]",
