@@ -44,6 +44,7 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 		ApplicationContext app = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
 		TrungCauGiamDinhForm tcGiamDinhForm = (TrungCauGiamDinhForm) form;
 		String method = request.getParameter("method");
+		
 		if ("save".equals(method)) {
 			saveTrungCauGiamDinh(tcGiamDinhForm, app);
 			request.setAttribute("saveStatus", "true");
@@ -114,8 +115,8 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 		tcGiamDinhForm.setNoiDung(trungCauGiamDinh.getNoiDung());
 		tcGiamDinhForm.setTenCqtGd(trungCauGiamDinh.getTenCqtGiamDinh());
 		tcGiamDinhForm.setTenCqtTc(trungCauGiamDinh.getTenCqtTrungCau());
-		//tcGiamDinhForm.setSoQd(trungCauGiamDinh.getSoQuyetDinh());
-		tcGiamDinhForm.setSoQd(KtnbUtil.getMaNvu(app, "TCG\u0110"));
+		tcGiamDinhForm.setSoQd(trungCauGiamDinh.getSoQuyetDinh());
+		//tcGiamDinhForm.setSoQd(KtnbUtil.getMaNvu(app, "TCG\u0110"));
 	}
 
 	private void addNew(HttpServletRequest request, ApplicationContext app, TrungCauGiamDinhForm tcGiamDinhForm, String cuocTtktId) {
@@ -350,7 +351,7 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 		try {
 			word.put("[ten_cqt]", KtnbUtil.getTenCqtCapTrenTt(app).toUpperCase());
 			word.put("[cqt_ra_van_ban]", cuocTtkt.getTenDonViTh().toUpperCase());
-			word.put("[doan_ttkt_so]", form.getSoQd());
+			word.put("[doan_ttkt_so]", form.getSoQd().toString()+KtnbUtil.getMaNvu1(app, "TCG\u0110") );
 			//word.put("[doan_ttkt_so]", "........../TCG\u0110-......."); // dang
 			// thieu
 			// truong
