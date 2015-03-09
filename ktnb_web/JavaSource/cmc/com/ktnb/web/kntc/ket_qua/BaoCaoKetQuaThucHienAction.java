@@ -32,10 +32,12 @@ public class BaoCaoKetQuaThucHienAction extends BaseDispatchAction {
 			if(isKN){
 				XacMinhService sm = new XacMinhService();
 				KntcKqxmKluatKnghi qd18 = sm.getKqxmKluatKnghiByMaHs(appContext, cnForm.getMaHs());
+				/**  An qd 18. Se them lai phan nay neu can
 				if(qd18 == null){
 					throw new KtnbException("Ph&#7843;i nh&#7853;p th&#244;ng tin m&#7851;u s&#7889; 18/KNTC tr&#432;&#7899;c khi nh&#7853;p k&#7871;t th&#250;c thi h&#224;nh", "",
 					"Ph&#7843;i nh&#7853;p th&#244;ng tin m&#7851;u s&#7889; 18/KNTC tr&#432;&#7899;c khi nh&#7853;p k&#7871;t th&#250;c thi h&#224;nh");
 				}
+				*/
 				XuLyKNTCService sl = new XuLyKNTCService();
 				KntcQdinhGquyet qd19 = sl.getQdinhGquyet(appContext, cnForm.getMaHs());
 				if(qd19 == null){

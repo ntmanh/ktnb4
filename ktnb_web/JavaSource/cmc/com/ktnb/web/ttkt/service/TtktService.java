@@ -80,6 +80,7 @@ import cmc.com.ktnb.web.UploadAction;
 import cmc.com.ktnb.web.catalog.CatalogService;
 import cmc.com.ktnb.web.ttkt.chuan_bi_tien_hanh.form.ChuanBiTienHanhForm;
 import cmc.com.ktnb.web.ttkt.ket_thuc_ttkt.form.KetThucTtktForm;
+import cmc.com.ktnb.web.ttkt.tien_hanh_ttkt.form.TienHanhTtktForm;
 
 /**
  * @author Ntthu+Nguyen Tien Dung+vmduan
@@ -2461,6 +2462,7 @@ public class TtktService {
 	 * @param ketThucTtktForm
 	 *            Ch?a các thông tin thông báo k?t thuc
 	 */
+	/** Chuyen thong bao ket thuc tu "Ket thuc" sang "Tien hanh" theo nghiep vu
 	public static void thongBaoKetThuc(ApplicationContext appContext, KetThucTtktForm ketThucTtktForm) throws Exception {
 		Connection conn = null;
 		Statement ps = null;
@@ -2477,6 +2479,40 @@ public class TtktService {
 			ps.execute(strKetThucCuocTtkt);
 			if (TtktService.isNewStatus(ketThucTtktForm.getIdCuocTtkt(), appContext, Constants.TT_TTKT_TBKT))
 				appContext.setTrangThaiCuocTtkt(ketThucTtktForm.getIdCuocTtkt(), Constants.TT_TTKT_TBKT);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+
+		} finally {
+			DataSourceConfiguration.releaseSqlResources(null, ps, conn);
+		}
+
+	}
+	*/
+	/**
+	 * L?u thông báo k?t thúc
+	 * 
+	 * @param appContext
+	 * @param ketThucTtktForm
+	 *            Ch?a các thông tin thông báo k?t thuc
+	 */
+	public static void thongBaoKetThuc(ApplicationContext appContext, TienHanhTtktForm tienHanhTtktForm) throws Exception {
+		Connection conn = null;
+		Statement ps = null;
+		try {
+			conn = DataSourceConfiguration.getConnection();
+			ps = conn.createStatement();
+			String strKetThucCuocTtkt = "update ttkt_kh_cuoc_ttkt set NGAY_KET_THUC = ";
+			strKetThucCuocTtkt += "to_date('" + tienHanhTtktForm.getNgayKetThuc() + "','dd-mm-yyyy'),";
+			if (isNewStatus(tienHanhTtktForm.getIdCuocTtkt(), appContext, Constants.TT_TTKT_TBKT))
+				strKetThucCuocTtkt += "trang_thai = '" + Constants.TT_TTKT_TBKT + "', ";
+			strKetThucCuocTtkt += "NOI_RA_THONG_BAO_KET_THUC = '" + tienHanhTtktForm.getNoiRaThongBaoKetThuc() + "',";
+			strKetThucCuocTtkt += " NGAY_RA_THONG_BAO_KET_THUC = ";
+			strKetThucCuocTtkt += "to_date('" + tienHanhTtktForm.getNgayRaThongBaoKetThuc() + "','dd-mm-yyyy') where id = " + tienHanhTtktForm.getIdCuocTtkt();
+			ps.execute(strKetThucCuocTtkt);
+			if (TtktService.isNewStatus(tienHanhTtktForm.getIdCuocTtkt(), appContext, Constants.TT_TTKT_TBKT))
+				appContext.setTrangThaiCuocTtkt(tienHanhTtktForm.getIdCuocTtkt(), Constants.TT_TTKT_TBKT);
 
 		} catch (Exception e) {
 			e.printStackTrace();

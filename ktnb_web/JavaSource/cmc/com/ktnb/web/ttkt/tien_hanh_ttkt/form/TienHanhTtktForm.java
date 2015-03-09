@@ -31,8 +31,10 @@ public class TienHanhTtktForm extends BaseActionForm {
 	private String baoCao;
 	private String hoSoTaiLieu;
 	private String tenFile;
-	
-	
+	private String noiRaThongBaoKetThuc;
+	private String ngayRaThongBaoKetThuc;
+	private String ngayKetThuc;
+	private String hanKetThuc;
 	
 	private TtktCmThanhPhanThamDu[] arrDaiDienCqtBanHanhQD;
 	private TtktCmThanhPhanThamDu[] arrDaiDienCqqlCapTren;
@@ -480,9 +482,6 @@ public class TienHanhTtktForm extends BaseActionForm {
 	}
 	private String maCuocTtkt;
 
-
-
-
 	public String getMaCuocTtkt() {
 		return maCuocTtkt;
 	}
@@ -498,6 +497,37 @@ public class TienHanhTtktForm extends BaseActionForm {
 	public void setTenFile(String tenFile) {
 		this.tenFile = tenFile;
 	}
-	
 
+	public String getNgayKetThuc() {
+		return ngayKetThuc;
+	}
+
+	public void setNgayKetThuc(String ngayKetThuc) {
+		this.ngayKetThuc = ngayKetThuc;
+	}
+
+	public String getNgayRaThongBaoKetThuc() {
+		return ngayRaThongBaoKetThuc;
+	}
+
+	public void setNgayRaThongBaoKetThuc(String ngayRaThongBaoKetThuc) {
+		this.ngayRaThongBaoKetThuc = ngayRaThongBaoKetThuc;
+	}
+
+	public String getNoiRaThongBaoKetThuc() {
+		return noiRaThongBaoKetThuc;
+	}
+
+	public void setNoiRaThongBaoKetThuc(String noiRaThongBaoKetThuc) {
+		this.noiRaThongBaoKetThuc = noiRaThongBaoKetThuc;
+	}
+
+	public String getHanKetThuc() {
+		return hanKetThuc;
+	}
+
+	public void setHanKetThuc(String hanKetThuc) {
+		this.hanKetThuc = hanKetThuc;
+	}
+	
 }

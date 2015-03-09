@@ -12,6 +12,7 @@
 <DIV style="padding-bottom: 5px"><B><a href="#" onclick="xemThongTinChung();">Thông tin chung</a> |</B> <B><a href="#" onclick="xemLichTrinhDuKien();">Lịch trình dự kiến</a></B></DIV>
 <div id="level1Tab">
 <ul>   
+	<li><a href="#tabTBKetThuc">Thông báo kết thúc</a></li>
 	<li><a href="#tabCBQD">Công bố quyết định</a></li> 
 	<!-- <li><a href="#tabNhatKyTtkt">Nhật ký Thanh tra Kiểm 
 	tra</a></li> --> 
@@ -20,6 +21,10 @@
 	<li><a href="#tabBanGiaoHstlChoTd">Bàn giao HSTL cho trưởng đoàn</a></li>     
 	<li><a href="#level2Tab">Biên bản tổng hợp</a></li>       
 </ul>        
+<DIV id="tabTBKetThuc">
+<fieldset style="width: 100%"><%@ include
+	file="/ttkt/tien_hanh_ttkt/thong_bao_ket_thuc.jsp"%></fieldset>  
+</DIV>
 <DIV id="tabCBQD">
 <div style="width: 100%;"><%@ include file="/ttkt/tien_hanh_ttkt/cong_bo_quyet_dinh.jsp"%></div>   
 </DIV>   
@@ -240,33 +245,37 @@ function saveActiveTab(){
 	if(level1ActiveTab == 0){      
 		if(!validateCongBoQuyetDinh())        
 			return;
+		url = 'tien_hanh_ttkt.do?method=save&type=thongBaoKetThuc';
+	}else if(level1ActiveTab == 1){      
+		if(!validateCongBoQuyetDinh())        
+			return;
 		url = 'tien_hanh_ttkt.do?method=save&type=congBoQd';
-	}else if(level1ActiveTab == 1){ 
+	}else if(level1ActiveTab == 2){ 
 		if(!validateNhatKy())    
 			return;   
 		url = 'tien_hanh_ttkt.do?method=save&type=nhatKy';               
-	}else if(level1ActiveTab == 2){  
+	}else if(level1ActiveTab == 3){  
 		level1ActiveTab++;
 		var tempTab={selected:level1ActiveTab,select:function(event,level1Tab){jQuery.fn.createCookie(getTab2IndexInCookKie(),level1Tab.index); setLevel1ActiveTab(level1Tab.index)}};                
 		$("#level1Tab").tabs(tempTab);
 		return; 
 		
-	}else if(level1ActiveTab == 3){  
+	}else if(level1ActiveTab == 4){  
 		luuBbBanGiao()   
 		return; 
-	}else if(level1ActiveTab == 4){ 
+	}else if(level1ActiveTab == 5){ 
 		var saveResultDivName;
-		if(level2ActiveTab == 0) {
+		if(level2ActiveTab == 1) {
 			if(!validateDuThaoBbTongHop())      
 				return;   
 			url = 'tien_hanh_ttkt.do?method=save&type=duThaoBienBanTongHop';    
 			saveResultDivName = 'saveDuThaoBbTongHopKqResult'
-		}else if(level2ActiveTab == 1) {
+		}else if(level2ActiveTab == 2) {
 			if(!validateBbTongHopGuiDvDuocTtkt())      
 				return;       
 			url = 'tien_hanh_ttkt.do?method=save&type=bienBanTongHopKetQuaGuiDvDuocTtkt';    
 			saveResultDivName = 'saveBbTongHopKqGuiDvDuocTtktResult'
-		}else if(level2ActiveTab == 2) {
+		}else if(level2ActiveTab == 3) {
 			if(!validateBbTongHop())      
 				return; 
 			url = 'tien_hanh_ttkt.do?method=save&type=bienBanTongHop';    

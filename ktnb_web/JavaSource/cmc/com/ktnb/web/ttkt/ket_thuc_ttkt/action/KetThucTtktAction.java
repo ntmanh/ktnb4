@@ -868,7 +868,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 		String type = request.getParameter("type");
 		String maLoi = " ";
 		if ("thongBaoKetThuc".equals(type)) {
-			TtktService.thongBaoKetThuc(appContext, ketThucTtktForm);
+			//TtktService.thongBaoKetThuc(appContext, ketThucTtktForm);
 
 		} else if ("duThaoKetQua".equals(type)) {
 			// Chua nhap thong bao ket thuc
