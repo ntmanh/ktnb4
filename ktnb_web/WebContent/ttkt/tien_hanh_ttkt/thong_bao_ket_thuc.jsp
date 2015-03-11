@@ -52,10 +52,10 @@ function validateNgayKetThuc(){
 function inThongBaoKetThuc(){
 	if(!validateThongBaoKetThuc())
 		return;
-	var printfForm = findForm('/' + contextRoot + '/ket_thuc_ttkt.do?method=save&type=thongBaoKetThuc');	
-	printfForm.action = 'ket_thuc_ttkt.do?method=in&type=thongBaoKetThuc&idCuocTtkt=' + document.getElementsByName('idCuocTtkt')[0].value;
+	var printfForm = findForm('/' + contextRoot + '/tien_hanh_ttkt.do?method=save&type=thongBaoKetThuc');	
+	printfForm.action = 'tien_hanh_ttkt.do?method=in&type=thongBaoKetThuc&idCuocTtkt=' + document.getElementsByName('idCuocTtkt')[0].value;
 	printfForm.submit();
-	printfForm.action = '/' + contextRoot + '/ket_thuc_ttkt.do?method=save&type=thongBaoKetThuc';
+	printfForm.action = '/' + contextRoot + '/tien_hanh_ttkt.do?method=save&type=thongBaoKetThuc';
 }
 function toChucLamViecThongBaoKetThuc(){
 	window.open('to_chuc_lam_viec_thong_bap_ket_thuc.do?idCuocTtkt=' + document.getElementsByName('idCuocTtkt')[0].value+'&type=thongbaokethtuc');
