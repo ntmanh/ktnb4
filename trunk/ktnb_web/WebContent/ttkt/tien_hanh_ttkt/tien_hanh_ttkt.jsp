@@ -50,7 +50,7 @@
 	<script language="javascript"> 
 		var lastLabelId = '';
 	</script>
-	<DIV id='dvCnPhu'><logic:present name="bien ban lam viec">
+	<DIV id='dvCnPhu'><logic:present name="bien ban lam viec"> 
 		<a href="#" onclick="bienBanLamViec();" class="linkCnPhu"><font color="blue">Biên bản làm việc</font></a>
 		<label id="bien ban lam viec">&nbsp;|</label>
 		<script language="javascript">

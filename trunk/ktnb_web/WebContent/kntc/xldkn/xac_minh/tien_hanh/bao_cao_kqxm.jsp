@@ -51,7 +51,7 @@ function warningKt(){
 }
 function ghi_bc_kqxm(){
 	var maHS = document.getElementsByName("maHoSo")[0].value;
-	// alert('S');
+	//alert('S');
 	document.forms[2].action="kntc_bc_kq_xm.do?method=saveBbKqXm&id="+maHS;
 	document.forms[2].submit();
 }
