@@ -717,14 +717,14 @@ public class KetThucTtktAction extends BaseDispatchAction {
 			try {
 				word = new MsWordUtils(fileIn, fileOut);
 				word.put("[ten_cqt]", appContext.getTenCqt().toUpperCase());
-				word.put("[doan_ttkt_so]", sb.toString().toUpperCase());
-				word.put("[ten_bc]", "BI\u00CAN B\u1EA2N");
+				word.put("[so_ttkt]", sb.toString().toUpperCase());
+				//word.put("[ten_bc]", "BI\u00CAN B\u1EA2N");
 				//word.put("[ttkt]", hinhThuc.toUpperCase());
-				word.put("[thoi_diem_bat_dau]", KtnbUtil.getHour(ketThucTtktForm.getThoiDiemBatDauHopRutKinhNghiem()));
+				word.put("[thoi_gian_hop]", KtnbUtil.getHour(ketThucTtktForm.getThoiDiemBatDauHopRutKinhNghiem()));
 				word.put("[dia_diem]", ketThucTtktForm.getDiaDiemHopRutKinhNghiem());
 				//word.put("[ttkt]", hinhThuc);
 				//word.put("[ttkt]", hinhThuc);
-				word.put("[noi_dung_tom_tat]", ketThucTtktForm.getVeViecHopRutKinhNghiem());
+				word.put("[noi_dung_tt]", ketThucTtktForm.getVeViecHopRutKinhNghiem());
 				// thanh phan tham du
 				Dispatch table = word.openTable(2);
 				TtktCmThanhPhanThamDu[] arrthanhphantd = ketThucTtktForm.getThanhPhanThamDuHopRutKinhNghiem();
@@ -743,7 +743,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 							// duyet
 							j++;
 						}
-						String tenTv = (i + 1) + "." + " \u00D4ng(b\u00E0): " + arrthanhphantd[i].getHoTen();
+						String tenTv = (i + 1) + "." + " \u00D4ng (b\u00E0): " + arrthanhphantd[i].getHoTen();
 						String chucvu = "- Ch\u1EE9c v\u1EE5: " + arrthanhphantd[i].getChucVu();
 						word.addCellTable(table, i + 1, 1, (i + 1) + "." + " \u00D4ng(b\u00E0): " + arrthanhphantd[i].getHoTen());
 						word.addCellTable(table, i + 1, 2, "- Ch\u1EE9c v\u1EE5: " + arrthanhphantd[i].getChucVu());
@@ -754,7 +754,7 @@ public class KetThucTtktAction extends BaseDispatchAction {
 				}
 				//
 				word.put("[noi_dung]", ketThucTtktForm.getNoiDungHopRutKinhNghiem());
-				word.put("[thoi_gian_ket_thuc]", KtnbUtil.getHour(ketThucTtktForm.getThoiDiemKetThucHopRutKinhNghiem()));
+				word.put("[time_ket_thuc]", KtnbUtil.getHour(ketThucTtktForm.getThoiDiemKetThucHopRutKinhNghiem()));
 				//word.put("[ttkt]", hinhThuc.toUpperCase());
 				//word.put("[ttkt]", hinhThuc.toUpperCase());
 				if (tptd.toString().length() == 0)
