@@ -1,8 +1,13 @@
 package cmc.com.ktnb.util;
 
+import cmc.com.ktnb.web.ttkt.service.TtktService;
+
 public class Constants {
 	//Version APP =>>> dung de check mau in
 	public static final String APP_DEP_VERSION = "4";//=4 Don version 4, else Don version 3
+	
+	// Version don =>> dung luu version don, check don
+	public static final String DON_VERSION = "4"; //=4 Don version 4, else Don version 3
 	//Dùng BTC hay KTNB
 	public static final String USE_BTC = "0";//=1 Dùng BTC, =0 Dùng KTNB
 	// Loại kết thúc hồ sơ
@@ -151,8 +156,8 @@ public class Constants {
 	public final static String IS_CHI_CUC = "isChiCuc";
 
 	// Trang thai cuoc Ttkt
-	public final static String TT_TTKT_CREATE = "Ch\u01B0a th\u1EF1c hi\u1EC7n";
-
+	// public final static String TT_TTKT_CREATE = "Ch\u01B0a th\u1EF1c hi\u1EC7n";
+	public final static String TT_TTKT_CREATE = TtktService.getTenDm("1801");
 	/**
 	 * Het hieu luc
 	 */

@@ -675,7 +675,7 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 		System.out.println("Id cuoc ttkt : "+cuocTtktId );
 		if(!Formater.isNull(cuocTtktId))
 		{
-			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			if(Constants.DON_VERSION.equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
 			{
 				inNiemPhongHsTlv4(request, reponse, form, appConText, cuocTtktId);
 			}
@@ -683,7 +683,7 @@ public class NiemPhongHoSoTaiLieuAction extends BaseDispatchAction {
 		}
 		else 
 		{
-			if("4".equals(Constants.APP_DEP_VERSION))
+			if(Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inNiemPhongHsTlv4(request, reponse, form, appConText, cuocTtktId);
 			else inNiemPhongHsTlv3(request, reponse, form, appConText, cuocTtktId);
 		}

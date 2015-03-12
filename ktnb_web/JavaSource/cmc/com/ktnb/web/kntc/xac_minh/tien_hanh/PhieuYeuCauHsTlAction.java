@@ -782,13 +782,13 @@ public class PhieuYeuCauHsTlAction extends BaseDispatchAction {
 		String maHs = xmForm.getMaHoSo();
 		DungChungService service = new DungChungService();
 		if (!Formater.isNull(maHs)) {
-			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+			if (Constants.DON_VERSION.equals(service.getVersionDonKntc(appContext, maHs)))
 				inV4(map, form, request, response);
 			else
 				inv3(map, form, request, response);
 			System.out.println("Ver don : "+service.getVersionDonKntc(appContext, maHs));
 		} else {
-			if ("4".equals(Constants.APP_DEP_VERSION))
+			if (Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inV4(map, form, request, response);
 			else
 				inv3(map, form, request, response);

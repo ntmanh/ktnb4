@@ -256,13 +256,12 @@ public class BanGiaoHsVvAction extends BaseDispatchAction {
 		System.out.println("Id cuoc ttkt : " + cuocTtktId);
 
 		if (!Formater.isNull(cuocTtktId)) {
-			if ("4".equals(service.getDonVerionTtkt(app, cuocTtktId))) {
-				System.out.println(">>>>>>>>>>>>>>>>>>>v4");
+			if (Constants.DON_VERSION.equals(service.getDonVerionTtkt(app, cuocTtktId))) {
 				inBanGiaoHsVvv4(request, form, response, app);
 			} else
 				inBanGiaoHsVvv3(request, form, response, app);
 		} else {
-			if ("4".equals(Constants.APP_DEP_VERSION))
+			if (Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inBanGiaoHsVvv4(request, form, response, app);
 			else
 				inBanGiaoHsVvv3(request, form, response, app);

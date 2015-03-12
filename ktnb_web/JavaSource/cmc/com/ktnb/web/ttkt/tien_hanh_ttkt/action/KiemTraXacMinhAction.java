@@ -372,7 +372,7 @@ public class KiemTraXacMinhAction extends BaseDispatchAction {
 		System.out.println("Id cuoc ttkt : "+cuocTtktId );
 		if(!Formater.isNull(cuocTtktId))
 		{
-			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			if(Constants.DON_VERSION.equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
 			{
 				inKiemTraXacMinhv4(request, reponse, form, appConText, cuocTtktId);
 			}
@@ -380,7 +380,7 @@ public class KiemTraXacMinhAction extends BaseDispatchAction {
 		}
 		else 
 		{
-			if("4".equals(Constants.APP_DEP_VERSION))
+			if(Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inKiemTraXacMinhv4(request, reponse, form, appConText, cuocTtktId);
 			else inKiemTraXacMinhv3(request, reponse, form, appConText, cuocTtktId);
 		}

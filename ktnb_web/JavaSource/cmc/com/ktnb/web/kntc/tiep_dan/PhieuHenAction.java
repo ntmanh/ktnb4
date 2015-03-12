@@ -282,12 +282,12 @@ public class PhieuHenAction extends BaseDispatchAction {
 		String maHs = phForm.getMaHoSo();
 		if (!Formater.isNull(maHs)) {
 			DungChungService service = new DungChungService();
-			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+			if (Constants.DON_VERSION.equals(service.getVersionDonKntc(appContext, maHs)))
 				inPhieuHenV4(map, form, request, response);
 			else
 				inPhieuHenv3(map, form, request, response);
 		} else
-			if("4".equals(Constants.APP_DEP_VERSION))
+			if(Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inPhieuHenV4(map, form, request, response);
 			else 
 				inPhieuHenv3(map, form, request, response);
@@ -295,7 +295,6 @@ public class PhieuHenAction extends BaseDispatchAction {
 	}
 	
 	public ActionForward inPhieuHenv3(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		System.out.println("This is v3");
 		String fileIn = request.getRealPath("/docin") + "\\KNTC02.doc";
 		String fileOut = request.getRealPath("/docout") + "\\KNTC02_Out" + System.currentTimeMillis() + request.getSession().getId() + ".doc";
 		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);

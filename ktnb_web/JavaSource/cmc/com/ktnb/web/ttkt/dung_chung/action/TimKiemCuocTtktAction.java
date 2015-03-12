@@ -78,7 +78,7 @@ public class TimKiemCuocTtktAction extends BaseDispatchAction {
 			// Combo trang thai cuoc Ttkt
 			Collection listTrangThai = new ArrayList();
 			listTrangThai.add(Constants.TT_TTKT_CREATE);
-			listTrangThai.add(Constants.TT_TTKT_CDTD);
+			listTrangThai.add(Constants.TT_TTKT_CDTD); 
 			listTrangThai.add(Constants.TT_TTKT_CBTH);
 			listTrangThai.add(Constants.TT_TTKT_HUY);
 			listTrangThai.add(Constants.TT_TTKT_TH);

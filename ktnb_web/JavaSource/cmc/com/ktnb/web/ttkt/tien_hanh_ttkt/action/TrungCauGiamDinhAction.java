@@ -228,7 +228,7 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 		System.out.println("Id cuoc ttkt : "+cuocTtktId );
 		if(!Formater.isNull(cuocTtktId))
 		{
-			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			if(Constants.DON_VERSION.equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
 			{
 				inTrungCauGDv4(request, reponse, form, appConText, cuocTtktId);
 			}
@@ -236,7 +236,7 @@ public class TrungCauGiamDinhAction extends BaseDispatchAction {
 		}
 		else 
 		{
-			if("4".equals(Constants.APP_DEP_VERSION))
+			if(Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inTrungCauGDv4(request, reponse, form, appConText, cuocTtktId);
 			else inTrungCauGDv3(request, reponse, form, appConText, cuocTtktId);
 		}
