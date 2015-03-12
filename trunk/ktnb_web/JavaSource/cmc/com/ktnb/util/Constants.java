@@ -156,142 +156,210 @@ public class Constants {
 	public final static String IS_CHI_CUC = "isChiCuc";
 
 	// Trang thai cuoc Ttkt
-	// public final static String TT_TTKT_CREATE = "Ch\u01B0a th\u1EF1c hi\u1EC7n";
-	public final static String TT_TTKT_CREATE = TtktService.getTenDm("1801");
 	/**
 	 * Het hieu luc
 	 */
-	public final static String TT_TTKT_HET_HL = "H\u1EBFt hi\u1EC7u l\u1EF1c";
+//	public final static String TT_TTKT_CREATE_MA="1801";
+	// public final static String TT_TTKT_CREATE = "Ch\u01B0a th\u1EF1c hi\u1EC7n";
+	public final static String TT_TTKT_CREATE = TtktService.getTenDm("1801");
 
-	public final static String TT_TTKT_CDTD = "Ch\u1EC9 \u0111\u1ECBnh tr\u01B0\u1EDFng \u0111o\u00E0n";
+	/**
+	 * Het hieu luc
+	 */
+//	public final static String TT_TTKT_HET_HL_MA = "1813";
+//	public final static String TT_TTKT_HET_HL = "H\u1EBFt hi\u1EC7u l\u1EF1c";
+	public final static String TT_TTKT_HET_HL = TtktService.getTenDm("1813");
+
+	//Chi dinh doan truong
+//	public final static String TT_TTKT_CDTD_MA="1803";
+//	public final static String TT_TTKT_CDTD = "Ch\u1EC9 \u0111\u1ECBnh tr\u01B0\u1EDFng \u0111o\u00E0n";
+	public final static String TT_TTKT_CDTD = TtktService.getTenDm("1803");
 
 	/**
 	 * Bao cao khao sat
 	 */
-	public final static String TT_TTKT_BCKS = "B\u00E1o c\u00E1o kh\u1EA3o s\u00E1t";
+//	public final static String TT_TTKT_BCKS_MA="180501";
+//	public final static String TT_TTKT_BCKS = "B\u00E1o c\u00E1o kh\u1EA3o s\u00E1t";
+	public final static String TT_TTKT_BCKS = TtktService.getTenDm("180501");
 
 	/**
 	 * Chi dinh thanh vien doan
 	 */
-	public final static String TT_TTKT_CDTVD = "Ch\u1EC9 \u0111\u1ECBnh th\u00E0nh vi\u00EAn \u0111o\u00E0n";
+//	public final static String TT_TTKT_CDTVD_MA="180503";
+//	public final static String TT_TTKT_CDTVD = "Ch\u1EC9 \u0111\u1ECBnh th\u00E0nh vi\u00EAn \u0111o\u00E0n";
+	public final static String TT_TTKT_CDTVD = TtktService.getTenDm("180503");
 
 	/**
 	 * Quyet dinh
 	 */
-	public final static String TT_TTKT_QD = "Quy\u1EBFt \u0111\u1ECBnh";
+//	public final static String TT_TTKT_QD_MA="180505";
+//	public final static String TT_TTKT_QD = "Quy\u1EBFt \u0111\u1ECBnh";
+	public final static String TT_TTKT_QD = TtktService.getTenDm("180505");
 
 	/**
 	 * Lap ke hoach
 	 */
-	public final static String TT_TTKT_KH = "L\u1EADp k\u1EBF ho\u1EA1ch";
+//	public final static String TT_TTKT_KH_MA="180507";
+//	public final static String TT_TTKT_KH = "L\u1EADp k\u1EBF ho\u1EA1ch";
+	public final static String TT_TTKT_KH = TtktService.getTenDm("180507");
 
 	/**
 	 * Lap de cuong
 	 */
-	public final static String TT_TTKT_DC = "L\u1EADp \u0111\u1EC1 c\u01B0\u01A1ng";
+//	public final static String TT_TTKT_DC_MA="180509";
+//	public final static String TT_TTKT_DC = "L\u1EADp \u0111\u1EC1 c\u01B0\u01A1ng";
+	public final static String TT_TTKT_DC = TtktService.getTenDm("180509");
 
 	/**
 	 * Hop doan trien khai
 	 */
-	public final static String TT_TTKT_HOP = "H\u1ECDp \u0111o\u00E0n tri\u1EC3n khai";
+//	public final static String TT_TTKT_HOP_MA="180511";
+//	public final static String TT_TTKT_HOP = "H\u1ECDp \u0111o\u00E0n tri\u1EC3n khai";
+	public final static String TT_TTKT_HOP = TtktService.getTenDm("180511");
 
 	/**
 	 * Huy
 	 */
-	public final static String TT_TTKT_HUY = "H\u1EE7y";
+//	public final static String TT_TTKT_HUY_MA="1809";
+//	public final static String TT_TTKT_HUY = "H\u1EE7y";
+	public final static String TT_TTKT_HUY = TtktService.getTenDm("1809");
 
 	/**
 	 * Hoan
 	 */
-	public final static String TT_TTKT_HOAN = "Ho\u00E3n";
+//	public final static String TT_TTKT_HOAN_MA="1811";
+//	public final static String TT_TTKT_HOAN = "Ho\u00E3n";
+	public final static String TT_TTKT_HOAN = TtktService.getTenDm("1811");
 
 	/**
 	 * Chuan bi tien hanh
 	 */
-	public final static String TT_TTKT_CBTH = "Chu\u1EA9n b\u1ECB ti\u1EBFn h\u00E0nh";
+//	public final static String TT_TTKT_CBTH_MA="1805";
+//	public final static String TT_TTKT_CBTH = "Chu\u1EA9n b\u1ECB ti\u1EBFn h\u00E0nh";
+	public final static String TT_TTKT_CBTH = TtktService.getTenDm("1805");
 
 	/**
 	 * Cong bo quyet dinh
 	 */
-	public final static String TT_TTKT_CBQD = "C\u00F4ng b\u1ED1 quy\u1EBFt \u0111\u1ECBnh";
+//	public final static String TT_TTKT_CBQD_MA="180701";
+//	public final static String TT_TTKT_CBQD = "C\u00F4ng b\u1ED1 quy\u1EBFt \u0111\u1ECBnh";
+	public final static String TT_TTKT_CBQD = TtktService.getTenDm("180701");
 
-	public final static String TT_TTKT_NK = "L\u1EADp nh\u1EADt k\u00FD";
+	//Lap nhat ky
+//	public final static String TT_TTKT_NK_MA="180703";
+//	public final static String TT_TTKT_NK = "L\u1EADp nh\u1EADt k\u00FD";
+	public final static String TT_TTKT_NK = TtktService.getTenDm("180703");
 
 	/**
 	 * Bien ban chi tiet
 	 */
-	public final static String TT_TTKT_BBCT = "Bi\u00EAn b\u1EA3n chi ti\u1EBFt";
+//	public final static String TT_TTKT_BBCT_MA="180705";
+//	public final static String TT_TTKT_BBCT = "Bi\u00EAn b\u1EA3n chi ti\u1EBFt";
+	public final static String TT_TTKT_BBCT = TtktService.getTenDm("180705");
 
 	/**
 	 * Ban giao ho so luu tru
 	 */
-	public final static String TT_TTKT_BGHSLT = "B\u00E0n giao, l\u01B0u tr\u1EEF h\u1ED3 s\u01A1";
+//	public final static String TT_TTKT_BGHSLT_MA="181513";
+//	public final static String TT_TTKT_BGHSLT = "B\u00E0n giao, l\u01B0u tr\u1EEF h\u1ED3 s\u01A1";
+	public final static String TT_TTKT_BGHSLT = TtktService.getTenDm("181513");
 
 	/**
 	 * Chuyen du lieu sang bao cao
 	 */
-	public final static String TT_TTKT_CDLBC = "Chuy\u1EC3n d\u1EEF li\u1EC7u sang b\u00E1o c\u00E1o";
+//	public final static String TT_TTKT_CDLBC_MA="181515";
+//	public final static String TT_TTKT_CDLBC = "Chuy\u1EC3n d\u1EEF li\u1EC7u sang b\u00E1o c\u00E1o";
+	public final static String TT_TTKT_CDLBC = TtktService.getTenDm("181515");
 
 	/**
 	 * Ban giao ho so tai lieu cho truong doan
 	 */
-	public final static String TT_TTKT_BGHSTLCTD = "B\u00E0n giao hstl cho tr\u01B0\u1EDFng \u0111o\u00E0n";
+//	public final static String TT_TTKT_BGHSTLCTD_MA = "180707";
+//	public final static String TT_TTKT_BGHSTLCTD = "B\u00E0n giao hstl cho tr\u01B0\u1EDFng \u0111o\u00E0n";
+	public final static String TT_TTKT_BGHSTLCTD = TtktService.getTenDm("180707");
 
 	/**
 	 * Du thao bien ban tong hop
 	 */
-	public final static String TT_TTKT_DTBBTH = "D\u1EF1 th\u1EA3o bi\u00EAn b\u1EA3n t\u1ED5ng h\u1EE3p";
+//	public final static String TT_TTKT_DTBBTH_MA="180709";
+//	public final static String TT_TTKT_DTBBTH = "D\u1EF1 th\u1EA3o bi\u00EAn b\u1EA3n t\u1ED5ng h\u1EE3p";
+	public final static String TT_TTKT_DTBBTH = TtktService.getTenDm("180709");
 
 	/**
 	 * Bien ban tong hop gui don vi duoc Ttkt
 	 */
-	public final static String TT_TTKT_BBTHGDVTTKT = "Bb t\u1ED5ng h\u1EE3p g\u1EEDi dvi \u0111\u01B0\u1EE3c Ttkt";
+//	public final static String TT_TTKT_BBTHGDVTTKT_MA="180711";
+//	public final static String TT_TTKT_BBTHGDVTTKT = "Bb t\u1ED5ng h\u1EE3p g\u1EEDi dvi \u0111\u01B0\u1EE3c Ttkt";
+	public final static String TT_TTKT_BBTHGDVTTKT = TtktService.getTenDm("180711");
 
 	/**
 	 * Bien ban tong hop gui don vi duoc Ttkt - y kien dong gop cua don vi dc
 	 * ttkt
 	 */
+//	public final static String TT_TTKT_BBTHGDVTTKT_YK_MA="";
 	public final static String TT_TTKT_BBTHGDVTTKT_YK = "\u00DD ki\u1EBFn c\u1EE7a \u0111\u01A1n v\u1ECB \u0111\u01B0\u1EE3c ttkt";
 
 	/**
 	 * Lap bien ban tong hop
 	 */
-	public final static String TT_TTKT_BBTH = "L\u1EADp bi\u00EAn b\u1EA3n t\u1ED5ng h\u1EE3p";
+//	public final static String TT_TTKT_BBTH_MA="180713";
+//	public final static String TT_TTKT_BBTH = "L\u1EADp bi\u00EAn b\u1EA3n t\u1ED5ng h\u1EE3p";
+	public final static String TT_TTKT_BBTH = TtktService.getTenDm("180713");
 
 	/**
 	 * Tien hanh
 	 */
-	public final static String TT_TTKT_TH = "Ti\u1EBFn h\u00E0nh";
+//	public final static String TT_TTKT_TH_MA="1807";
+//	public final static String TT_TTKT_TH = "Ti\u1EBFn h\u00E0nh";
+	public final static String TT_TTKT_TH = TtktService.getTenDm("1807");
 
 	/**
 	 * Thong bao ket thuc
 	 */
-	public final static String TT_TTKT_TBKT = "Th\u00F4ng b\u00E1o k\u1EBFt th\u00FAc";
+//	public final static String TT_TTKT_TBKT_MA="181501";
+//	public final static String TT_TTKT_TBKT = "Th\u00F4ng b\u00E1o k\u1EBFt th\u00FAc";
+	public final static String TT_TTKT_TBKT = TtktService.getTenDm("181501");
 
 	/**
 	 * Du thao ket qua
 	 */
-	public final static String TT_TTKT_DTKQ = "D\u1EF1 th\u1EA3o k\u1EBFt qu\u1EA3";
+//	public final static String TT_TTKT_DTKQ_MA = "181503";
+//	public final static String TT_TTKT_DTKQ = "D\u1EF1 th\u1EA3o k\u1EBFt qu\u1EA3";
+	public final static String TT_TTKT_DTKQ = TtktService.getTenDm("181503");
 
 	/**
 	 * Du thao ket luan
 	 */
-	public final static String TT_TTKT_DTKL = "D\u1EF1 th\u1EA3o k\u1EBFt lu\u1EADn";
+//	public final static String TT_TTKT_DTKL_MA="181507";
+//	public final static String TT_TTKT_DTKL = "D\u1EF1 th\u1EA3o k\u1EBFt lu\u1EADn";
+	public final static String TT_TTKT_DTKL = TtktService.getTenDm("181507");
 
 	/**
 	 * Ket luan
 	 */
-	public final static String TT_TTKT_KL = "K\u1EBFt lu\u1EADn";
+//	public final static String TT_TTKT_KL_MA="181509";
+//	public final static String TT_TTKT_KL = "K\u1EBFt lu\u1EADn";
+	public final static String TT_TTKT_KL = TtktService.getTenDm("181509");
 
+//	public final static String TT_TTKT_BBGIAOTRA_YCBSTL_MA = "";
 	public final static String TT_TTKT_BBGIAOTRA_YCBSTL = "YCBSTL/GT";
 
 	public final static String TT_TTKT_BBGIAONHAN_YCBSTL = "YCBSTL/GN";
 
-	public final static String TT_TTKT_HOPRKN = "H\u1ECDp r\u00FAt kinh nghi\u1EC7m \u0111o\u00E0n";
+	//hop rut kinh nghiem doan
+//	public final static String TT_TTKT_HOPRKN_MA="181511";
+//	public final static String TT_TTKT_HOPRKN = "H\u1ECDp r\u00FAt kinh nghi\u1EC7m \u0111o\u00E0n";
+	public final static String TT_TTKT_HOPRKN = TtktService.getTenDm("181511");
 
-	public final static String TT_TTKT_KQ = "K\u1EBFt qu\u1EA3";
+	//ket qua
+//	public final static String TT_TTKT_KQ_MA="181505";
+//	public final static String TT_TTKT_KQ = "K\u1EBFt qu\u1EA3";
+	public final static String TT_TTKT_KQ = TtktService.getTenDm("181505");
 
-	public final static String TT_TTKT_KT = "K\u1EBFt th\u00FAc";
+	//ket thuc
+//	public final static String TT_TTKT_KT_MA="1815";
+//	public final static String TT_TTKT_KT = "K\u1EBFt th\u00FAc";
+	public final static String TT_TTKT_KT = TtktService.getTenDm("1815");
 
 	public final static String[] ARR_TRANG_THAI_CUOC_TTKT = new String[] { TT_TTKT_CREATE, 
 		TT_TTKT_CDTD, TT_TTKT_BCKS, TT_TTKT_CDTVD, 
