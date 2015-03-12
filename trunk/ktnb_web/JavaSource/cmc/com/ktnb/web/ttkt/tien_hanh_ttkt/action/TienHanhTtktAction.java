@@ -126,7 +126,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		System.out.println("Id cuoc ttkt : "+cuocTtktId );
 		if(!Formater.isNull(cuocTtktId))
 		{
-			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			if(Constants.DON_VERSION.equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
 			{
 				inTienHanhTtktv4(request, appConText, tienHanhTtktForm, reponse);
 			}
@@ -134,7 +134,7 @@ public class TienHanhTtktAction extends BaseDispatchAction {
 		}
 		else 
 		{
-			if("4".equals(Constants.APP_DEP_VERSION))
+			if(Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inTienHanhTtktv4(request, appConText, tienHanhTtktForm, reponse);
 			else inTienHanhTtktv3(request, appConText, tienHanhTtktForm, reponse);
 		}

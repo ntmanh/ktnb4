@@ -32,6 +32,7 @@ import net.sf.jasperreports.components.barcode4j.UPCAComponent;
 import org.apache.struts.upload.FormFile;
 import org.hibernate.Session;
 
+import cmc.com.ktnb.entity.KtnbDm;
 import cmc.com.ktnb.entity.KtnbTkCanBo;
 import cmc.com.ktnb.entity.TTKT.chuan_bi_tien_hanh.KtnbFile;
 import cmc.com.ktnb.entity.TTKT.chuan_bi_tien_hanh.TtktCbChiTietDsTvDoan;
@@ -3818,5 +3819,26 @@ public class TtktService {
 			HibernateSessionFactory.closeSessionQuiet();
 		}
 		return true;
+	}
+	
+	public static String getTenDm(String maDm) {
+		Connection conn = null;
+		ResultSet rs = null;
+		Statement statement = null;
+		String iReturn = "";
+		try {
+			conn = DataSourceConfiguration.getConnection();
+			statement = conn.createStatement();
+			String sql = "select ten from ktnb_dm where ma = '" + maDm + "'" + "and 1=1";
+			rs = statement.executeQuery(sql);
+			if (rs.next()) {
+				iReturn = rs.getString("ten");
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DataSourceConfiguration.releaseSqlResources(rs, statement, conn);
+		}
+		return iReturn;
 	}
 }

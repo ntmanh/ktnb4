@@ -858,13 +858,13 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		String maHs = cnForm.getMaHoSo();
 		if (!Formater.isNull(maHs)) {
 			DungChungService service = new DungChungService();
-			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+			if (Constants.DON_VERSION.equals(service.getVersionDonKntc(appContext, maHs)))
 				inv4(map, form, request, response);
 			else
 				inv3(map, form, request, response);
 			System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
 		} else
-			if("4".equals(Constants.APP_DEP_VERSION))
+			if(Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inv4(map, form, request, response);
 			else 
 				inv3(map, form, request, response);
@@ -1360,13 +1360,13 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		String maHs = cnForm.getMaHoSo();
 		if (!Formater.isNull(maHs)) {
 			DungChungService service = new DungChungService();
-			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+			if (Constants.DON_VERSION.equals(service.getVersionDonKntc(appContext, maHs)))
 				inBbQdxmv4(map, form, request, response);
 			else
 				inBbQdxmv3(map, form, request, response);
 			System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
 		} else
-			if("4".equals(Constants.APP_DEP_VERSION))
+			if(Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inBbQdxmv4(map, form, request, response);
 			else 
 				inBbQdxmv3(map, form, request, response);
@@ -1800,13 +1800,13 @@ public class XacMinhHoSo extends BaseDispatchAction {
 		System.out.println("Ma ho so  : "+maHs);
 		if (!Formater.isNull(maHs)) {
 			DungChungService service = new DungChungService();
-			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+			if (Constants.DON_VERSION.equals(service.getVersionDonKntc(appContext, maHs)))
 				inGhXmv4(map, form, request, response);
 			else
 				inGhXmv3(map, form, request, response);
 			System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
 		} else
-			if("4".equals(Constants.APP_DEP_VERSION))
+			if(Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inGhXmv4(map, form, request, response);
 			else 
 				inGhXmv3(map, form, request, response);
@@ -2592,19 +2592,6 @@ public class XacMinhHoSo extends BaseDispatchAction {
 
 	// Save Bien ban lam viec! Mau 12/KNTC
 	public ActionForward saveBblv(ActionMapping map, ActionForm form, HttpServletRequest request, HttpServletResponse response) throws Exception {
-//		ApplicationContext appContext = (ApplicationContext) request.getSession().getAttribute(Constants.APP_CONTEXT);
-//		String maHs = request.getParameter("id");
-//		if (!Formater.isNull(maHs)) {
-//			DungChungService service = new DungChungService();
-//			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
-//				return saveBblvV4(map, form, request, response);
-//			else
-//				return saveBblvV3(map, form, request, response);
-//		} else
-//			if("4".equals(Constants.APP_DEP_VERSION))
-//				return saveBblvV4(map, form, request, response);
-//			else 
-//				return saveBblvV3(map, form, request, response);
 		return saveBblvV4(map, form, request, response);
 	}
 	

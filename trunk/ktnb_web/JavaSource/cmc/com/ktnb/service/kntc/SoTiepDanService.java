@@ -210,7 +210,7 @@ public class SoTiepDanService {
 			if (Formater.isNull(hdr.getMa())) { // Insert
 				String ma = KeyManagement.getGUID();
 				hdr.setMa(ma);
-				hdr.setDonVer(Constants.APP_DEP_VERSION);
+				hdr.setDonVer(Constants.DON_VERSION);
 				if (Formater.isNull(hdr.getMaHs())) {
 					int loai = hdr.getLoaiKntc().intValue();
 					String loaiKNTC = "";

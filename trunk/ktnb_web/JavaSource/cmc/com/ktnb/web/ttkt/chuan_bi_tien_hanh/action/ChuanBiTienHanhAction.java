@@ -474,12 +474,12 @@ public class ChuanBiTienHanhAction extends BaseDispatchAction {
 		String cuocTtktId = cbForm.getIdCuocTtkt();
 		System.out.println("Id cuoc ttkt : " + cuocTtktId);
 		if (!Formater.isNull(cuocTtktId)) {
-			if ("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId))) {
+			if (Constants.DON_VERSION.equals(service.getDonVerionTtkt(appConText, cuocTtktId))) {
 				inCbthv4(request, appConText, cbForm, reponse);
 			} else
 				inCbthv3(request, appConText, cbForm, reponse);
 		} else {
-			if ("4".equals(Constants.APP_DEP_VERSION))
+			if (Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inCbthv4(request, appConText, cbForm, reponse);
 			else
 				inCbthv3(request, appConText, cbForm, reponse);

@@ -222,7 +222,7 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 		System.out.println("Id cuoc ttkt : "+cuocTtktId );
 		if(!Formater.isNull(cuocTtktId))
 		{
-			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			if(Constants.DON_VERSION.equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
 			{
 				inThayDoiThanhVienv4(request, reponse, thayDoiThanhVienDoanForm, appConText);
 			}
@@ -230,7 +230,7 @@ public class ThayDoiThanhVienDoanAction extends BaseDispatchAction {
 		}
 		else 
 		{
-			if("4".equals(Constants.APP_DEP_VERSION))
+			if(Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inThayDoiThanhVienv4(request, reponse, thayDoiThanhVienDoanForm, appConText);
 			else inThayDoiThanhVienv3(request, reponse, thayDoiThanhVienDoanForm, appConText);
 		}

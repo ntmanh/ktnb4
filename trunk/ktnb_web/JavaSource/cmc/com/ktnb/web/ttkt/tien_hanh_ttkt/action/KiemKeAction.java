@@ -453,7 +453,7 @@ public class KiemKeAction extends BaseDispatchAction {
 		System.out.println("Id cuoc ttkt : "+cuocTtktId );
 		if(!Formater.isNull(cuocTtktId))
 		{
-			if("4".equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
+			if(Constants.DON_VERSION.equals(service.getDonVerionTtkt(appConText, cuocTtktId)))
 			{
 				inKiemkev4(request, reponse, kiemKeForm, appConText);
 			}
@@ -461,7 +461,7 @@ public class KiemKeAction extends BaseDispatchAction {
 		}
 		else 
 		{
-			if("4".equals(Constants.APP_DEP_VERSION))
+			if(Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inKiemkev4(request, reponse, kiemKeForm, appConText);
 			else inKiemkev3(request, reponse, kiemKeForm, appConText);
 		}

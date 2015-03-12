@@ -423,13 +423,12 @@ public class SoTiepDanAction extends BaseDispatchAction {
 		String maHs = cnForm.getMaHoSo();
 		if (!Formater.isNull(maHs)) {
 			DungChungService service = new DungChungService();
-			if ("4".equals(service.getVersionDonKntc(appContext, maHs)))
+			if (Constants.DON_VERSION.equals(service.getVersionDonKntc(appContext, maHs)))
 				inGbnV4(map, form, request, response);
 			else
 				inGbnv3(map, form, request, response);
-			System.out.println("Ma HS : "+service.getVersionDonKntc(appContext, maHs));
 		} else
-			if("4".equals(Constants.APP_DEP_VERSION))
+			if(Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inGbnV4(map, form, request, response);
 			else 
 				inGbnv3(map, form, request, response);

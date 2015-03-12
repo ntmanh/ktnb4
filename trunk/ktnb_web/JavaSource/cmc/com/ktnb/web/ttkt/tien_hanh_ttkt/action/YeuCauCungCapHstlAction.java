@@ -504,7 +504,7 @@ public class YeuCauCungCapHstlAction extends BaseDispatchAction {
 		CuocTtktService service = new CuocTtktService();
 		if(!Formater.isNull(idCuocTtkt))
 		{
-			if("4".equals(service.getDonVerionTtkt(appConText, idCuocTtkt)))
+			if(Constants.DON_VERSION.equals(service.getDonVerionTtkt(appConText, idCuocTtkt)))
 			{
 				inYcbsTlv4(request, reponse, form, appConText, idCuocTtkt);
 			}
@@ -512,7 +512,7 @@ public class YeuCauCungCapHstlAction extends BaseDispatchAction {
 		}
 		else 
 		{
-			if("4".equals(Constants.APP_DEP_VERSION))
+			if(Constants.DON_VERSION.equals(Constants.APP_DEP_VERSION))
 				inYcbsTlv4(request, reponse, form, appConText, idCuocTtkt);
 			else inYcbsTlv3(request, reponse, form, appConText, idCuocTtkt);
 		}

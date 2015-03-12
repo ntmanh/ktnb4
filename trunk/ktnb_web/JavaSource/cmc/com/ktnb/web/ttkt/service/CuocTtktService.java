@@ -488,8 +488,8 @@ public class CuocTtktService {
 
 	public String getDonVerionTtkt(ApplicationContext appConText, String cuocTtktId) throws Exception {
 		TtktKhCuocTtkt cuocTtkt = (TtktKhCuocTtkt) dao.retrieveObject(appConText, TtktKhCuocTtkt.class, cuocTtktId);
-		if ("4".equals(cuocTtkt.getDonVer()))
-			return "4";
+		if (Constants.DON_VERSION.equals(cuocTtkt.getDonVer()))
+			return Constants.DON_VERSION;
 		else
 			return "3";
 	}
@@ -841,7 +841,7 @@ public class CuocTtktService {
 			}
 			session = HibernateSessionFactory.currentSession();
 			cuocTtkt.setId(KeyManagement.getGUID());
-			cuocTtkt.setDonVer("4");
+			cuocTtkt.setDonVer(Constants.DON_VERSION);
 			dao.saveObject(appContext, cuocTtkt, Boolean.TRUE);
 			Collection dsCqtTrucThuoc = cuocTtkt.getDsTtktCqtTrucThuoc();
 			for (Iterator iter = dsCqtTrucThuoc.iterator(); iter.hasNext();) {
